@@ -1,0 +1,26 @@
+package controller;
+
+import model.person.User;
+
+public class MainMenu {
+    private static User currentUser;
+
+
+    public static void enterMenu(String name) {
+
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    public static void setCurrentUser(User user) {
+
+    }
+
+    public static String menuName() {
+        return "Main Menu";
+
+    }
+
+}
