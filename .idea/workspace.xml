@@ -4,18 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
+    <list default="true" id="6ca75574-0f2a-4603-810f-dc92e97661fd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/YuGiOh.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Spell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/Spell.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1rIW4T2RqN7tAChdZq9RcyKqN0m" />
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1r7cCU1zId6KPK3Zhoac6Hq7xwU" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -26,34 +43,202 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="15" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\AP_ Project\project-team-16\src\main\java" />
+      <recent name="D:\AP_ Project\project-team-16" />
+      <recent name="D:\AP_ Project\project-team-16\Duel_Links\src\main\java" />
+      <recent name="D:\AP_ Project\project-team-16\src\main\java\model" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\AP_ Project\project-team-16\YuGiOh" />
+      <recent name="D:\AP_ Project\project-team-16\src" />
+      <recent name="D:\AP_ Project\project-team-16\src\main" />
+      <recent name="D:\AP_ Project\project-team-16" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="" />
-      <created>1618663893278</created>
+      <changelist id="6ca75574-0f2a-4603-810f-dc92e97661fd" name="Default Changelist" comment="" />
+      <created>1618330475519</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1618663893278</updated>
-      <workItem from="1618663894372" duration="427000" />
-      <workItem from="1618664331864" duration="3000" />
+      <updated>1618330475519</updated>
+      <workItem from="1618330495463" duration="119000" />
+      <workItem from="1618330866802" duration="5429000" />
+      <workItem from="1618336408782" duration="2476000" />
+      <workItem from="1618339440564" duration="1183000" />
+      <workItem from="1618457951582" duration="16000" />
+      <workItem from="1618468987812" duration="11511000" />
+      <workItem from="1618561678217" duration="19990000" />
+      <workItem from="1618651501029" duration="6783000" />
     </task>
-    <task id="LOCAL-00001" summary="again">
-      <created>1618664183087</created>
+    <task id="LOCAL-00001" summary="uml-code">
+      <created>1618339504128</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1618664183087</updated>
+      <updated>1618339504128</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="User,Player,Scoreboard -&gt; completed&#10;ImportExport was added">
+      <created>1618481388759</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1618481388759</updated>
+    </task>
+    <task id="LOCAL-00003" summary="making Card,Spell,Trap,Monster abstract and completing monster">
+      <created>1618482401241</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1618482401241</updated>
+    </task>
+    <task id="LOCAL-00004" summary="making Card,Spell,Trap,Monster abstract and completing monster and adding price">
+      <created>1618486391732</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1618486391732</updated>
+    </task>
+    <task id="LOCAL-00005" summary="making Card,Spell,Trap,Monster abstract and completing monster and adding price">
+      <created>1618498597207</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1618498597207</updated>
+    </task>
+    <task id="LOCAL-00006" summary="making some classes abstract, completing Monster class, adding price">
+      <created>1618498823111</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1618498823111</updated>
+    </task>
+    <task id="LOCAL-00007" summary="4 monsters + changes in Board and Game + adding UpdateStatus class in controller">
+      <created>1618570241873</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1618570241873</updated>
+    </task>
+    <task id="LOCAL-00008" summary="changes">
+      <created>1618584252661</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1618584252661</updated>
+    </task>
+    <task id="LOCAL-00009" summary="2 monsters + changes in Board &amp; Game">
+      <created>1618588313040</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1618588313040</updated>
+    </task>
+    <task id="LOCAL-00010" summary="2 monsters">
+      <created>1618595569571</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1618595569571</updated>
+    </task>
+    <task id="LOCAL-00011" summary="changes in GraveYardEffectMonster">
+      <created>1618598341468</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1618598341468</updated>
+    </task>
+    <task id="LOCAL-00012" summary="changes">
+      <created>1618657053368</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1618657053368</updated>
+    </task>
+    <task id="LOCAL-00013" summary="changes">
+      <created>1618657113479</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1618657113479</updated>
+    </task>
+    <task id="LOCAL-00014" summary="2 monsters">
+      <created>1618659861149</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1618659861149</updated>
+    </task>
+    <task id="LOCAL-00015" summary="2 monsters">
+      <created>1618660958647</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1618660958647</updated>
+    </task>
+    <task id="LOCAL-00016" summary="2 monsters">
+      <created>1618661005212</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1618661005212</updated>
+    </task>
+    <task id="LOCAL-00017" summary="2 monsters">
+      <created>1618661454070</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1618661454070</updated>
+    </task>
+    <task id="LOCAL-00018" summary="gitignore">
+      <created>1618663126637</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1618663126637</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="again" />
-    <option name="LAST_COMMIT_MESSAGE" value="again" />
+    <MESSAGE value="uml-code" />
+    <MESSAGE value="User,Player,Scoreboard -&gt; completed&#10;ImportExport was added" />
+    <MESSAGE value="making Card,Spell,Trap,Monster abstract and completing monster" />
+    <MESSAGE value="making Card,Spell,Trap,Monster abstract and completing monster and adding price" />
+    <MESSAGE value="making some classes abstract, completing Monster class, adding price" />
+    <MESSAGE value="4 monsters + changes in Board and Game + adding UpdateStatus class in controller" />
+    <MESSAGE value="2 monsters + changes in Board &amp; Game" />
+    <MESSAGE value="changes in GraveYardEffectMonster" />
+    <MESSAGE value="changes" />
+    <MESSAGE value="2 monsters" />
+    <MESSAGE value="gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="gitignore" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
