@@ -4,7 +4,7 @@ import model.Board;
 import model.Game;
 import model.card.monster.Monster;
 
-public class GateGuardian extends Monster {
+public class GateGuardian extends Monster implements specialSummonable {
     public GateGuardian() {
         super("Gate Guardian", "Cannot be Normal Summoned/Set. Must first be Special Summoned (from your " +
                         "hand) by Tributing 1 \"Sanga of the Thunder\", \"Kazejin\", and \"Suijin\".", 20000,
@@ -12,12 +12,8 @@ public class GateGuardian extends Monster {
     }
 
     public void specialSummon(int[] monsterZoneIndexes, int handZoneIndex, Game game) {
+        specialSummonable.tribute(monsterZoneIndexes, game);
         Board board = game.getCurrentPlayer().getBoard();
-        for (int monsterZoneIndex : monsterZoneIndexes) {
-            Monster monster = board.getMonsterZone()[monsterZoneIndex];
-            game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
-            game.removeCardFromZone(monster, Board.Zone.MONSTER, monsterZoneIndex, board);
-        }
         game.removeCardFromZone(this, Board.Zone.HAND, handZoneIndex, board);
         game.putCardInZone(this, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
     }

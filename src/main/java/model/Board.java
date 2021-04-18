@@ -50,6 +50,12 @@ public class Board {
         return -1;
     }
 
+    public int howManyMonsters() {
+        int numberOfMonsters = 0;
+        for (Monster monster : monsterZone) if (monster != null) numberOfMonsters++;
+        return numberOfMonsters;
+    }
+
     public ArrayList<Card> getDeck() {
         return deck;
     }

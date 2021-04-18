@@ -12,8 +12,6 @@ public class CommnadKnight extends Monster {
         for (Card card : Card.getCards()) {
             if (card instanceof Monster) ((Monster) card).ATK += 400;
         }
-
-
     }
 
     public void undoAction() {

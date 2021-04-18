@@ -25,9 +25,6 @@ public abstract class Card {
     public static void sort(ArrayList<Card> cards) {///////////
     }
 
-    public void action() {
-    }
-
     public static ArrayList<Card> getCards() {
         return cards;
 
