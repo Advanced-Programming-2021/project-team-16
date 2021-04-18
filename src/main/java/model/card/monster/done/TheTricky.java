@@ -6,8 +6,6 @@ import model.card.Card;
 import model.card.monster.Monster;
 
 public class TheTricky extends Monster {
-    public TheTricky() {
-    }
 
     public String action(int handIndex, Game game) {
         Board board = game.getCurrentPlayer().getBoard();

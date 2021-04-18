@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6ca75574-0f2a-4603-810f-dc92e97661fd" name="Default Changelist" comment="">
+    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/YuGiOh.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Spell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/Spell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/done/TheTricky.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/done/TheTricky.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +20,15 @@
       </list>
     </option>
   </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="origin/main" />
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
