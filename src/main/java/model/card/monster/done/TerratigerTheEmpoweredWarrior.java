@@ -7,7 +7,9 @@ import model.card.monster.Monster;
 
 public class TerratigerTheEmpoweredWarrior extends Monster {
     public TerratigerTheEmpoweredWarrior() {
-        super(name, description, price, monsterType, level, ATK, DEF);
+        super("Terratiger, the Empowered Warrior", "When this card is Normal Summoned: You can Special" +
+                        " Summon 1 Level 4 or lower Normal Monster from your hand in Defense Position.",
+                3200, MonsterType.WARRIOR, 4, 1800, 1200);
     }
 
     public String action(int handIndex, Game game) {

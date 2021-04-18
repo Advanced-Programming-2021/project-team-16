@@ -11,7 +11,7 @@ public class HeraldOfCreation extends Monster {
     public HeraldOfCreation() {
         super("Herald of Creation", "Once per turn: You can discard 1 card, then target 1 Level 7 or " +
                         "higher monster in your Graveyard; add that target to your hand.",
-                0, MonsterType.SPELL_CASTER, 4, 1800, 600);
+                2700, MonsterType.SPELL_CASTER, 4, 1800, 600);
     }
 
     public String action(int indexOfHandZone, String monsterName, Game game) {

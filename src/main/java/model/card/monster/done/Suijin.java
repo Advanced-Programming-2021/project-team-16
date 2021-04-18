@@ -11,7 +11,7 @@ public class Suijin extends Monster {
         super("Suijin", "During damage calculation in your opponent's turn, if this card is being attacked:" +
                         " You can target the attacking monster; make that target's ATK 0 during damage calculation only" +
                         " (this is a Quick Effect). This effect can only be used once while this card is face-up on the field.",
-                0, MonsterType.AQUA, 7, 2500, 2400);
+                8700, MonsterType.AQUA, 7, 2500, 2400);
     }
 
     public void action(Game game) {

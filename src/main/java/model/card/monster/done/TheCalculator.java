@@ -7,7 +7,7 @@ import model.card.monster.Monster;
 public class TheCalculator extends Monster {
     public TheCalculator() {
         super("The Calculator", "The ATK of this card is the combined Levels of all face-up monsters " +
-                "you control x 300.", 0, MonsterType.THUNDER, 2, 0, 0);
+                "you control x 300.", 8000, MonsterType.THUNDER, 2, 0, 0);
     }
 
     public void action(Game game) {
