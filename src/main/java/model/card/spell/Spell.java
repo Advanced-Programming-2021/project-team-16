@@ -28,5 +28,17 @@ public abstract class Spell extends Card {
         NORMAL
 
     }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public SpellType getSpellType() {
+        return spellType;
+    }
 }
 
