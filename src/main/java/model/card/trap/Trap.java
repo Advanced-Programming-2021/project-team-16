@@ -23,4 +23,6 @@ public abstract class Trap extends Card {
         COUNTER,
         CONTINUOUS
     }
+
+    public abstract boolean action();
 }
