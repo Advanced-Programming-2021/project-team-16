@@ -1,9 +1,8 @@
-package model.card.monster.done;
+package model.card.monster;
 
 import model.Board;
 import model.Game;
 import model.card.Card;
-import model.card.monster.Monster;
 
 public class TerratigerTheEmpoweredWarrior extends Monster {
     public TerratigerTheEmpoweredWarrior() {

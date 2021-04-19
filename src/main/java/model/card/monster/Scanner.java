@@ -1,8 +1,7 @@
-package model.card.monster.done;
+package model.card.monster;
 
 import model.Game;
 import model.card.Card;
-import model.card.monster.Monster;
 import model.person.Player;
 
 import java.util.ArrayList;

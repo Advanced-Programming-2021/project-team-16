@@ -1,9 +1,9 @@
 package controller;
 
 import model.card.Card;
+import model.card.monster.GraveYardEffectMonster;
 import model.card.monster.Monster;
-import model.card.monster.done.GraveYardEffectMonster;
-import model.card.monster.done.RitualMonster;
+import model.card.monster.RitualMonster;
 
 public class UpdateStatus {
     public static void makeAllCards() {
