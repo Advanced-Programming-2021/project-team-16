@@ -5,7 +5,9 @@ import model.card.Card;
 
 public class CommnadKnight extends Monster {
     public CommnadKnight() {
-        super("", "", 0, MonsterType.WARRIOR, 4, 1000, 1000);
+        super("Command Knight", "All Warrior-Type monsters you control gain 400 ATK. If you control another" +
+                        " monster, monsters your opponent controls cannot target this card for an attack.", 2100
+                , MonsterType.WARRIOR, 4, 1000, 1000);
     }
 
     public void action() {
