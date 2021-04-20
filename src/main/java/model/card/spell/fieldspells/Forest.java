@@ -1,6 +1,7 @@
-package model.card.spell;
+package model.card.spell.fieldspells;
 
 import model.Game;
+import model.card.spell.Spell;
 
 public class Forest extends Spell {
     public Forest() {

@@ -1,9 +1,10 @@
-package model.card.spell;
+package model.card.spell.done;
 
 import model.Board;
 import model.Game;
 import model.card.Card;
 import model.card.monster.Monster;
+import model.card.spell.Spell;
 
 import java.util.ArrayList;
 

@@ -145,7 +145,7 @@ public class Game {
     public void removeCardFromZone(Card card, Board.Zone zone, int zoneIndex, Board board) {
         if (zone == Board.Zone.MONSTER || zone == Board.Zone.FIELD_SPELL ||
                 zone == Board.Zone.SPELL_AND_TRAP || zone == Board.Zone.HAND)
-            putCardInZone(null, zone, null, board);
+            putCardInZone(null, zone, null, board);                        //repeated cards!?
         else {
             ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();
             for (int i = thisZone.size() - 1; i >= 0; i--)
@@ -171,4 +171,5 @@ public class Game {
         }
 
     }
+
 }
