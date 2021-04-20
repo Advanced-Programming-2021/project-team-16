@@ -22,6 +22,7 @@ public class TorrentialTribute extends Trap {
             Monster monster = monsterZone[i];
             game.removeCardFromZone(monster, Board.Zone.MONSTER, i, game.getRival().getBoard());
         }
-        return action();
+
+        return "remove monsters successfully";
     }
 }
