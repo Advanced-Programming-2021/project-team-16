@@ -30,8 +30,9 @@ public abstract class Card {
 
     }
 
+    @Override
     public String toString() {
-        return null;
+        return name + ":" + description;
     }
 
     public String getName() {

@@ -7,8 +7,9 @@ public class MindCrush extends Trap {
         super("MindCrush", "Trap", TrapType.NORMAL, "Declare 1 card name; if that card is in your opponent's hand, they must discard all copies of it, otherwise you discard 1 random card.", "Unlimited", 2000);
     }
 
-
-    public void action(Game game) {
-
+    @Override
+    public String action() {
+        Game game = Game.getInstance();
+        return action();
     }
 }

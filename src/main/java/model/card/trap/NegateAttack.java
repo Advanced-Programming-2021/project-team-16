@@ -1,5 +1,6 @@
 package model.card.trap;
 
+
 import model.Game;
 
 public class NegateAttack extends Trap {
@@ -8,7 +9,9 @@ public class NegateAttack extends Trap {
     }
 
 
-    public void action(Game game) {
-
+    @Override
+    public String action() {
+        Game game = Game.getInstance();
+        return action();
     }
 }

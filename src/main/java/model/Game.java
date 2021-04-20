@@ -2,6 +2,8 @@ package model;
 
 import model.card.Card;
 import model.card.monster.Monster;
+import model.card.trap.TimeSeal;
+import model.card.trap.TorrentialTribute;
 import model.person.Player;
 
 import java.util.ArrayList;
@@ -14,6 +16,12 @@ public class Game {
     private Player rival;
     private Phase currentPhase;
 
+    private static Game game = null;
+
+    public static Game getInstance() {
+        return game;
+    }
+
 
     public enum Phase {
         DRAW,
@@ -25,7 +33,7 @@ public class Game {
     }
 
     public Game(Player player1, Player player2, int round) {
-
+        Game.game = this;
     }
 
     public void selectCard(Board.Zone zone, int index) {
@@ -39,9 +47,17 @@ public class Game {
 
     }
 
-
-    private void drawCard() {
-
+    private String drawCard() {
+        Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
+        for (int i = 0; i < spellAndTrapZone.length; i++) {
+            Card card = spellAndTrapZone[i];
+            if (card.getClass() == TimeSeal.class) {
+                game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, i, game.rival.getBoard());
+                return "You can't draw card because enemy has Time seal.";
+            }
+        }
+        Card drewCard = null;
+        return "drew " + drewCard.getName();
     }
 
     private void endRound(Player surrounded) {
@@ -102,7 +118,24 @@ public class Game {
             case HAND -> board.getHand()[board.getFirstEmptyIndexOfZone(Board.Zone.HAND)] = card;
             case GRAVE -> board.getGrave().add(card);
             case DECK -> board.getDeck().add(card);
-            case MONSTER -> board.getMonsterZone()[board.getFirstEmptyIndexOfZone(Board.Zone.MONSTER)] = (Monster) card;
+            case MONSTER -> {
+                board.getMonsterZone()[board.getFirstEmptyIndexOfZone(Board.Zone.MONSTER)] = (Monster) card;
+                Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
+                for (Card c : spellAndTrapZone) {
+                    if (c instanceof TorrentialTribute) {
+                        if (rival.askPlayerToActive(c))
+                            ((TorrentialTribute) c).action();
+                        return;
+                    }
+                }
+                spellAndTrapZone = currentPlayer.getBoard().getSpellAndTrapZone();
+                for (Card c : spellAndTrapZone) {
+                    if (c instanceof TorrentialTribute) {
+                        ((TorrentialTribute) c).action();
+                        return;
+                    }
+                }
+            }
             case FIELD_SPELL -> board.setFieldSpell(card);
             case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[board.getFirstEmptyIndexOfZone(Board.Zone.SPELL_AND_TRAP)] = card;
         }
@@ -120,6 +153,7 @@ public class Game {
                     break;
                 }
         }
+
     }
 
 }

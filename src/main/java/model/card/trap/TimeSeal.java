@@ -7,7 +7,10 @@ public class TimeSeal extends Trap {
         super("TimeSeal", "Trap", TrapType.NORMAL, "Skip the Draw Phase of your opponent's next turn.", "Limited", 2000);
     }
 
-    public void action(Game game) {
 
+    @Override
+    public String action() {
+        Game game = Game.getInstance();
+        return action();
     }
 }

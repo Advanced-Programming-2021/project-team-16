@@ -1,16 +1,18 @@
 package model.person;
 
 import model.Board;
+import model.card.Card;
 
 public class Player {
     protected User user;
     protected int LP;
-    protected Board board = new Board(user.getActiveDeck().getMainDeck());
+    protected Board board;
 
 
     public Player(User user) {
         this.user = user;
         LP = 8000;
+        board = new Board(user.getActiveDeck().getMainDeck());
     }
 
     public void decreaseLP(int amount) {
@@ -28,4 +30,10 @@ public class Player {
     public User getUser() {
         return user;
     }
+
+    public boolean askPlayerToActive(Card c) {
+        System.out.println("Are U Want to Call " + c.getName());
+        return false;
+    }
+
 }

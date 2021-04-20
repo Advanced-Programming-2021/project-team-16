@@ -8,7 +8,10 @@ public class TrapHole extends Trap {
         );
     }
 
-    public void action(Game game) {
 
+    @Override
+    public String action() {
+        Game game = Game.getInstance();
+        return action();
     }
 }

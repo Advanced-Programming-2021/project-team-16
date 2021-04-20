@@ -1,8 +1,9 @@
 package model.card.trap;
 
+import model.card.ActionCard;
 import model.card.Card;
 
-public abstract class Trap extends Card {
+public abstract class Trap extends Card implements ActionCard {
     protected TrapType TrapType;
     public String icon;
     public String status;
@@ -18,11 +19,15 @@ public abstract class Trap extends Card {
     }
 
 
+    // @Override
+    // public abstract Trap();
+
+
     public enum TrapType {
         NORMAL,
         COUNTER,
         CONTINUOUS
     }
 
-    public abstract boolean action();
+
 }
