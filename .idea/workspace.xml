@@ -5,22 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="Trap class">
-      <change afterPath="$PROJECT_DIR$/src/main/java/model/card/ActionCard.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/CallOfTheHaunted.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/CallOfTheHaunted.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/MagicCylinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/MagicCylinder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/MagicJammer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/MagicJammer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/MindCrush.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/MindCrush.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/MirrorForce.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/MirrorForce.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/NegateAttack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/NegateAttack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/SolemnWarning.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/SolemnWarning.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/TimeSeal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/TimeSeal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/TorrentialTribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/TorrentialTribute.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/Trap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/Trap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/TrapHole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/TrapHole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/MonsterReborn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/MonsterReborn.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/person/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Show.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

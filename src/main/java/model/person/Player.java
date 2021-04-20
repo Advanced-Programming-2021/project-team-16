@@ -32,7 +32,7 @@ public class Player {
     }
 
     public boolean askPlayerToActive(Card c) {
-        System.out.println("Are U Want to Call " + c.getName());
+        System.out.println("Do U Want to Call " + c.getName());
         return false;
     }
 

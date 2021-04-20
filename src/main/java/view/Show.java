@@ -1,6 +1,7 @@
 package view;
 
 import model.Deck;
+import model.Game;
 import model.card.Card;
 import model.person.User;
 
@@ -23,11 +24,18 @@ public class Show {
         }
     }
 
-    //   public static void showGraveCards(){
-//        for(Card card : grave)
-//
-//
-//   }
+    public static void showGraveCards() {
+        Game game = Game.getInstance();
+        for (Card c : game.getCurrentPlayer().getBoard().getGrave()) {
+            System.out.println(c);
+        }
+        for (Card c : game.getRival().getBoard().getGrave()) {
+            System.out.println(c);
+        }
+
+
+    }
+
     public static void showDeck(Deck deck) {
     }
 
