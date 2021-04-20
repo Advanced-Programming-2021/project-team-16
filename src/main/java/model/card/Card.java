@@ -25,7 +25,7 @@ public abstract class Card {
 
     public static Card getCardByName(String name) {
         for (Card card : cards) {
-            if (card.name.equals(name)) {
+            if (card.name.equalsIgnoreCase(name)) {
                 return card;
             }
         }

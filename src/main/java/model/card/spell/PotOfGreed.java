@@ -8,7 +8,9 @@ public class PotOfGreed extends Spell {
                 "Draw 2 cards.", "Limited", 2500);
     }
 
-    public void action(Game game) {
+    public void action() {
+        Game game = Game.getInstance();
+        game.addNCardsToHand(2);
     }
 
 }

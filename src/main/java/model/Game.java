@@ -15,7 +15,7 @@ public class Game {
     private Player currentPlayer;
     private Player rival;
     private Phase currentPhase;
-
+    private Deck deck;
     private static Game game = null;
 
     public static Game getInstance() {
@@ -35,6 +35,7 @@ public class Game {
     public Game(Player player1, Player player2, int round) {
         Game.game = this;
     }
+
 
     public void selectCard(Board.Zone zone, int index) {
         this.selectedZone = zone;
@@ -57,7 +58,7 @@ public class Game {
             }
         }
         Card drewCard = null;
-        return "drew " + drewCard.getName();
+        return "drew " + drewCard.getName();          //Null pointer exception!!!!
     }
 
     private void endRound(Player surrounded) {
@@ -147,7 +148,7 @@ public class Game {
             putCardInZone(null, zone, null, board);
         else {
             ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();
-            for (int i = thisZone.size() - 1; i >= 0; i++)
+            for (int i = thisZone.size() - 1; i >= 0; i--)
                 if (thisZone.get(i) == card) {
                     thisZone.remove(i);
                     break;
@@ -156,4 +157,18 @@ public class Game {
 
     }
 
+    public void addCardToHand() {
+        Board board = getCurrentPlayer().getBoard();
+        Card card = deck.drawOneCard();
+        if (card == null)
+            return;
+        putCardInZone(card, Board.Zone.HAND, null, board);
+    }
+
+    public void addNCardsToHand(int n) {
+        for (int i = 0; i < n; i++) {
+            addCardToHand();
+        }
+
+    }
 }
