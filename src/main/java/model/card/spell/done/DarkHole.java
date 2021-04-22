@@ -11,8 +11,7 @@ public class DarkHole extends Spell {
                 , "Destroy all monsters on the field.", "Unlimited", 2500);
     }
 
-    public void action() {
-        Game game = Game.getInstance();
+    public void action(Game game) {
         Board board = game.getCurrentPlayer().getBoard();
         for (int index = 0; index < board.getMonsterZone().length; index++) {
             Monster monster = board.getMonsterZone()[index];

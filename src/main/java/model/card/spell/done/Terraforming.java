@@ -13,8 +13,8 @@ public class Terraforming extends Spell {
                 , "Add 1 Field Spell from your Deck to your hand.", "Limited", 2500);
     }
 
-    public String action(String spellname) {
-        Game game = Game.getInstance();
+    public String action(Game game, String spellname) {
+
         Card card = getCardByName(spellname);
         Board board = game.getCurrentPlayer().getBoard();
         ArrayList<Card> deck = board.getDeck();
