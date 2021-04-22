@@ -16,8 +16,8 @@ public class MonsterReborn extends Spell {
                 , "Target 1 monster in either GY; Special Summon it.", "Limited", 2500);
     }
 
-    public String action(String player, String monstername, Board.CardPosition position) {
-        Game game = Game.getInstance();
+    public String action(Game game, String player, String monstername, Board.CardPosition position) {
+
         Card monster = getCardByName(monstername);
         if ("current".equalsIgnoreCase(player)) {
             Board board = game.getCurrentPlayer().getBoard();

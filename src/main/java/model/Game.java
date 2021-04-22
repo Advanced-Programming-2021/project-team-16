@@ -2,11 +2,13 @@ package model;
 
 import model.card.Card;
 import model.card.monster.Monster;
-import model.card.trap.TimeSeal;
 import model.card.trap.TorrentialTribute;
 import model.person.Player;
+import view.CommandProcessor;
+import view.Show;
 
 import java.util.ArrayList;
+
 
 public class Game {
     private Card selectedCard;
@@ -15,25 +17,48 @@ public class Game {
     private Player currentPlayer;
     private Player rival;
     private Phase currentPhase;
-    private Deck deck;
-    private static Game game = null;
-
-    public static Game getInstance() {
-        return game;
-    }
 
 
     public enum Phase {
-        DRAW,
-        STANDBY,
-        MAIN_1,
-        BATTLE,
-        MAIN_2,
-        END
+        DRAW("draw phase"),
+        STANDBY("standby phase"),
+        MAIN_1("main phase 1"),
+        BATTLE("battle phase"),
+        MAIN_2("main phase 2"),
+        END("end phase");
+
+        Phase(String name) {
+        }
+
+        @Override
+        public String toString() {
+            return name();
+        }
     }
 
     public Game(Player player1, Player player2, int round) {
-        Game.game = this;
+        if (round == 1) {
+            run(player1, player2);
+        }
+    }
+
+    private void run(Player me, Player rival) {
+        //runCards
+        Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
+        this.currentPlayer = me;
+        this.rival = rival;
+        setCurrentPhase(Phase.DRAW);
+        Show.showGameMessage(drawCard());
+        setCurrentPhase(Phase.STANDBY);
+        //standbyCards
+        setCurrentPhase(Phase.MAIN_1);
+        CommandProcessor.game();
+        setCurrentPhase(Phase.BATTLE);
+        CommandProcessor.game();
+        setCurrentPhase(Phase.MAIN_2);
+        CommandProcessor.game();
+        setCurrentPhase(Phase.END);
+        run(rival, me);
     }
 
 
@@ -49,16 +74,7 @@ public class Game {
     }
 
     private String drawCard() {
-        Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
-        for (int i = 0; i < spellAndTrapZone.length; i++) {
-            Card card = spellAndTrapZone[i];
-            if (card.getClass() == TimeSeal.class) {
-                game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, i, game.rival.getBoard());
-                return "You can't draw card because enemy has Time seal.";
-            }
-        }
-        Card drewCard = null;
-        return "drew " + drewCard.getName();          //Null pointer exception!!!!
+        //Null pointer exception!!!!
     }
 
     private void endRound(Player surrounded) {
@@ -145,7 +161,7 @@ public class Game {
     public void removeCardFromZone(Card card, Board.Zone zone, int zoneIndex, Board board) {
         if (zone == Board.Zone.MONSTER || zone == Board.Zone.FIELD_SPELL ||
                 zone == Board.Zone.SPELL_AND_TRAP || zone == Board.Zone.HAND)
-            putCardInZone(null, zone, null, board);                        //repeated cards!?
+            putCardInZone(null, zone, null, board);                         //repeated cards!?
         else {
             ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();
             for (int i = thisZone.size() - 1; i >= 0; i--)
@@ -157,19 +173,23 @@ public class Game {
 
     }
 
-    public void addCardToHand() {
-        Board board = getCurrentPlayer().getBoard();
-        Card card = deck.drawOneCard();
-        if (card == null)
-            return;
-        putCardInZone(card, Board.Zone.HAND, null, board);
+
+    public void setCurrentPhase(Phase currentPhase) {
+        this.currentPhase = currentPhase;
+        Show.showPhase(currentPhase);
     }
 
-    public void addNCardsToHand(int n) {
-        for (int i = 0; i < n; i++) {
-            addCardToHand();
-        }
-
+    public void setSelectedCard(Card selectedCard) {
+        this.selectedCard = selectedCard;
     }
+
+    public void setSelectedZone(Board.Zone selectedZone) {
+        this.selectedZone = selectedZone;
+    }
+
+    public void setSelectedZoneIndex(int selectedZoneIndex) {
+        this.selectedZoneIndex = selectedZoneIndex;
+    }
+
 
 }

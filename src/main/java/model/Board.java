@@ -6,7 +6,7 @@ import model.card.monster.Monster;
 import java.util.ArrayList;
 
 public class Board {
-    private ArrayList<Card> deck;
+    private ArrayList<Card> deck = new ArrayList<>();
     private ArrayList<Card> grave = new ArrayList<>();
     private Monster[] monsterZone = new Monster[5];
     private Card[] spellAndTrapZone = new Card[5];

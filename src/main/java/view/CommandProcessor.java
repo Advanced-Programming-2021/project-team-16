@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class CommandProcessor {
     private static ArrayList getCommandMatcher(String command, String regex) {
-        return getCommandMatcher(command, regex);
     } //!!!!!!!!!!!
 
     private static void login() {
@@ -22,7 +21,7 @@ public class CommandProcessor {
     private static void profile() {
     }
 
-    private static void game() {
+    public static void game() {
     }
 
     private static void scan() {

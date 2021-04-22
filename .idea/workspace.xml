@@ -4,21 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="3 spells">
+    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/ChangeOfHeart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/ChangeOfHeart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/ClosedForest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/ClosedForest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/DarkHole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/DarkHole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Forest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/Forest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/HarpiesFeatherDuster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/HarpiesFeatherDuster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/MonsterReborn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/MonsterReborn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/PotOfGreed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/PotOfGreed.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Raigeki.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/Raigeki.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Terraforming.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/Terraforming.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Umiiruka.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/Umiiruka.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/UnitedWeStand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/UnitedWeStand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Yami.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/Yami.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/DarkHole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/DarkHole.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/HarpiesFeatherDuster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/HarpiesFeatherDuster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/MonsterReborn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/MonsterReborn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/PotOfGreed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/PotOfGreed.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/Raigeki.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/Raigeki.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/Terraforming.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/Terraforming.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,7 +37,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -121,6 +114,7 @@
       <workItem from="1618756425072" duration="9066000" />
       <workItem from="1618822793725" duration="4761000" />
       <workItem from="1618897823334" duration="3344000" />
+      <workItem from="1619090760749" duration="5181000" />
     </task>
     <task id="LOCAL-00001" summary="uml-code">
       <created>1618339504128</created>
@@ -290,21 +284,7 @@
       <option name="project" value="LOCAL" />
       <updated>1618825640542</updated>
     </task>
-    <task id="LOCAL-00025" summary="one trap class &amp; changes in show class">
-      <created>1618919858752</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1618919858752</updated>
-    </task>
-    <task id="LOCAL-00026" summary="2 spells &amp; changes in deck,game and card">
-      <created>1618929028070</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1618929028070</updated>
-    </task>
-    <option name="localTasksCounter" value="27" />
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -337,10 +317,7 @@
     <MESSAGE value="3 monsters" />
     <MESSAGE value="1 monster" />
     <MESSAGE value="1 monster + readme change" />
-    <MESSAGE value="one trap class &amp; changes in show class" />
-    <MESSAGE value="2 spells &amp; changes in deck,game and card" />
-    <MESSAGE value="3 spells" />
-    <option name="LAST_COMMIT_MESSAGE" value="3 spells" />
+    <option name="LAST_COMMIT_MESSAGE" value="1 monster + readme change" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

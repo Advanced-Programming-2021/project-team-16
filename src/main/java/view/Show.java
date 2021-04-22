@@ -24,8 +24,7 @@ public class Show {
         }
     }
 
-    public static void showGraveCards() {
-        Game game = Game.getInstance();
+    public static void showGraveCards(Game game) {
         for (Card c : game.getCurrentPlayer().getBoard().getGrave()) {
             System.out.println(c);
         }
@@ -43,5 +42,13 @@ public class Show {
     }
 
     public static void showBoard(Card[][] myBoard, Card[][] rivalBoars) {
+    }
+
+    public static void showGameMessage(String gameMessage) {
+        System.out.println(gameMessage);
+    }
+
+    public static void showPhase(Game.Phase phase) {
+        System.out.println("phase:" + phase.name());
     }
 }

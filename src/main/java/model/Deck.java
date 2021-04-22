@@ -76,8 +76,7 @@ public class Deck {
         return name;
     }
 
-    public Card drawOneCard() {
-        Game game = Game.getInstance();
+    public Card drawOneCard(Game game) {
         Board board = game.getCurrentPlayer().getBoard();
         ArrayList<Card> deck = board.getDeck();
         if (deck.isEmpty()) return null;

@@ -11,8 +11,8 @@ public class Raigeki extends Spell {
                 , "Destroy all monsters your opponent controls.", "Limited", 2500);
     }
 
-    public void action() {
-        Game game = Game.getInstance();
+    public void action(Game game) {
+
         Board board = game.getRival().getBoard();
         for (int index = 0; index < board.getMonsterZone().length; index++) {
             Monster monster = board.getMonsterZone()[index];
