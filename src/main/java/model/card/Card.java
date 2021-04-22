@@ -1,8 +1,6 @@
 package model.card;
 
 
-import model.person.Player;
-
 import java.util.ArrayList;
 
 public abstract class Card {
@@ -10,7 +8,7 @@ public abstract class Card {
     protected String name;
     protected String description;
     protected int price;
-    protected Player owner = null;
+    //  protected Player owner = null;
 
     public Card(String name, String description, int price) {
         this.name = name;
@@ -19,9 +17,9 @@ public abstract class Card {
         cards.add(this);
     }
 
-    public void setOwner(Player player) {
-        owner = player;
-    }
+    //  public void setOwner(Player player) {
+    //      owner = player;
+    //  }
 
     public static Card getCardByName(String name) {
         for (Card card : cards) {
