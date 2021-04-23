@@ -1,5 +1,6 @@
 package model.card.monster;
 
+import controller.GameMenu;
 import model.Game;
 import model.card.Card;
 import model.person.Player;
@@ -21,7 +22,8 @@ public class Scanner extends Monster {
     }
 
 
-    public String setReplacement(String replacementName, int monsterZoneIndex, Game game) {
+    public String setReplacement(String replacementName, int monsterZoneIndex) {
+        Game game = GameMenu.getCurrentGame();
         Card replacement = getCardByName(replacementName);
         if (!(replacement instanceof Monster)) return "This is not a monster.";
         ArrayList<Card> rivalGrave = game.getRival().getBoard().getGrave();

@@ -1,7 +1,10 @@
 package model;
 
 import model.card.Card;
+import model.card.monster.HeraldOfCreation;
 import model.card.monster.Monster;
+import model.card.monster.Scanner;
+import model.card.monster.Texchanger;
 import model.card.trap.TorrentialTribute;
 import model.person.Player;
 import view.CommandProcessor;
@@ -43,12 +46,12 @@ public class Game {
     }
 
     private void run(Player me, Player rival) {
-
+        Monster[] monsters = currentPlayer.getBoard().getMonsterZone();
         //herald of creation
-
-        if (CommandProcessor.yesNoQuestion()) ;
-
+        for (Monster monster : monsters)
+            if (monster instanceof HeraldOfCreation) ((HeraldOfCreation) monster).setUsed(false);
         //texchanger
+        for (Monster monster : monsters) if (monster instanceof Texchanger) ((Texchanger) monster).setAttacked(false);
         //spell absorbtion
         //ring of defence
         //negate attack
@@ -71,9 +74,22 @@ public class Game {
 
 
     public void selectCard(Board.Zone zone, int index) {
-        //scanner
         this.selectedZone = zone;
         this.selectedZoneIndex = index;
+        this.selectedCard = currentPlayer.getBoard().getCardByIndexAndZone(index, zone);
+        if (selectedCard instanceof HeraldOfCreation)
+            if (CommandProcessor.yesNoQuestion("Do you want to use Herald of Creation?")) {
+                HeraldOfCreation heraldOfCreation = (HeraldOfCreation) selectedCard;
+                Show.showGameMessage("Enter the hand index of the card witch you want to tribute");
+                Show.showGameMessage(heraldOfCreation.action(CommandProcessor.getCardIndex(), CommandProcessor.getCardName()));
+            }
+        if (selectedCard instanceof Scanner)
+            if (CommandProcessor.yesNoQuestion("Do you want to use Scanner?")) {
+                Scanner scanner = (Scanner) selectedCard;
+                Show.showGameMessage("Enter the name of the monster witch you want to replace with Scanner");
+                Show.showGameMessage(scanner.setReplacement(CommandProcessor.getCardName(), index));
+            }
+
     }
 
     public void deselect() {

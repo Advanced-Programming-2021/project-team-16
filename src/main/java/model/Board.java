@@ -56,6 +56,26 @@ public class Board {
         return numberOfMonsters;
     }
 
+    public int getIndexOfCard(String cardName, Zone zone) {
+        //zone = monster | spell&trap
+        if (zone == Zone.MONSTER)
+            for (int i = 0; i < monsterZone.length; i++) {
+                if (cardName.equals(monsterZone[i].getName())) return i;
+            }
+
+        else if (zone == Zone.SPELL_AND_TRAP)
+            for (int i = 0; i < spellAndTrapZone.length; i++)
+                if (cardName.equals(spellAndTrapZone[i].getName())) return i;
+
+        return -1;
+    }
+
+    public Card getCardByIndexAndZone(int zoneIndex, Zone zone) {
+        if (zone == Zone.MONSTER) return monsterZone[zoneIndex];
+        if (zone == Zone.SPELL_AND_TRAP) return spellAndTrapZone[zoneIndex];
+        return null;
+    }
+
     public ArrayList<Card> getDeck() {
         return deck;
     }

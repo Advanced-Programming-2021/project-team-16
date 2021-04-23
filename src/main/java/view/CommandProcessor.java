@@ -3,8 +3,10 @@ package view;
 import model.card.Card;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class CommandProcessor {
+    private static Scanner scanner = new Scanner(System.in);
     private static ArrayList getCommandMatcher(String command, String regex) {
     } //!!!!!!!!!!!
 
@@ -35,8 +37,19 @@ public class CommandProcessor {
     public static Card askForHandTribute() {
     }
 
-    public static boolean yesNoQuestion() {
+    public static boolean yesNoQuestion(String question) {
+        System.out.println(question);
+        return "yes".equals(scanner.nextLine());
 
+
+    }
+
+    public static int getCardIndex() {
+        return scanner.nextInt();
+    }
+
+    public static String getCardName() {
+        return scanner.nextLine();
     }
 }
 
