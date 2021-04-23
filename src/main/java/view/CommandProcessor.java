@@ -1,5 +1,7 @@
 package view;
 
+import model.card.Card;
+
 import java.util.ArrayList;
 
 public class CommandProcessor {
@@ -30,5 +32,11 @@ public class CommandProcessor {
     private static void scoreboard() {
     }
 
+    public static Card askForHandTribute() {
+    }
+
+    public static boolean yesNoQuestion() {
+
+    }
 }
 

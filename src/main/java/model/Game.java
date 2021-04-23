@@ -38,12 +38,20 @@ public class Game {
 
     public Game(Player player1, Player player2, int round) {
         if (round == 1) {
-            run(player1, player2)
+            run(player1, player2);
         }
     }
 
     private void run(Player me, Player rival) {
-        //runCards
+
+        //herald of creation
+
+        if (CommandProcessor.yesNoQuestion()) ;
+
+        //texchanger
+        //spell absorbtion
+        //ring of defence
+        //negate attack
         Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
         this.currentPlayer = me;
         this.rival = rival;
@@ -63,6 +71,7 @@ public class Game {
 
 
     public void selectCard(Board.Zone zone, int index) {
+        //scanner
         this.selectedZone = zone;
         this.selectedZoneIndex = index;
     }
@@ -81,7 +90,7 @@ public class Game {
 
     }
 
-    private void endRound() {
+    private void endMatch() {
 
     }
 
