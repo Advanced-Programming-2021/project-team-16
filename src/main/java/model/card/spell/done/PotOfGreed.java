@@ -1,6 +1,9 @@
 package model.card.spell.done;
 
+import model.Board;
+import model.Deck;
 import model.Game;
+import model.card.Card;
 import model.card.spell.Spell;
 
 public class PotOfGreed extends Spell {
@@ -9,9 +12,16 @@ public class PotOfGreed extends Spell {
                 "Draw 2 cards.", "Limited", 2500);
     }
 
-    public void action() {
-        Game game = Game.getInstance();
-        game.addNCardsToHand(2);
+    public void action(Game game) {
+        for (int i = 0; i < 2; i++) {
+            Board board = game.getCurrentPlayer().getBoard();
+            Deck deck = game.getCurrentPlayer().getUser().getActiveDeck();
+            Card card = deck.drawOneCard(game);
+            if (card == null)
+                return;
+            game.putCardInZone(card, Board.Zone.HAND, null, board);
+        }
     }
 
 }
+

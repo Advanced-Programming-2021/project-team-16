@@ -4,8 +4,8 @@ import model.card.Card;
 
 public class Monster extends Card {
     protected int level;
-    protected int ATK;
-    protected int DEF;
+    public int ATK;
+    public int DEF;
     protected MonsterType monsterType;
 
     public Monster(String name, String description, int price, MonsterType monsterType, int level, int ATK, int DEF) {
