@@ -9,9 +9,9 @@ public class TorrentialTribute extends Trap {
         super("TorrentialTribute", "Trap", TrapType.NORMAL, "When a monster(s) is Summoned: Destroy all monsters on the field.", "Unlimited", 2000);
     }
 
-    @Override
-    public String action() {
-        Game game = Game.getInstance();
+
+    public String action(Game game) {
+
         Monster[] monsterZone = game.getCurrentPlayer().getBoard().getMonsterZone();
         for (int i = 0; i < monsterZone.length; i++) {
             Monster monster = monsterZone[i];

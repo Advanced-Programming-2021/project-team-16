@@ -1,6 +1,8 @@
 package model.card.trap;
 
+import model.Board;
 import model.Game;
+import model.card.Card;
 
 public class MirrorForce extends Trap {
     public MirrorForce() {
@@ -13,9 +15,10 @@ public class MirrorForce extends Trap {
         );
     }
 
-    @Override
-    public String action() {
-        Game game = Game.getInstance();
-        return action();
+    public String action(Game game, Card card) {// dar tabe action card neveshte she.
+        // Card card=game.getRival().getBoard();
+        game.removeCardFromZone(card, Board.Zone.MONSTER, game.getSelectedZoneIndex(), game.getRival().getBoard());
+        game.putCardInZone(card, Board.Zone.GRAVE, null, game.getRival().getBoard());
+        return "done!";
     }
 }

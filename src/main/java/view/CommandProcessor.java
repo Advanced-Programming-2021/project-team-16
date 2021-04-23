@@ -28,7 +28,9 @@ public class CommandProcessor {
     public static void game() {
     }
 
-    private static void scan() {
+    public static String scan() {
+        return scanner.nextLine();
+
     }
 
     private static void scoreboard() {

@@ -9,9 +9,7 @@ public class NegateAttack extends Trap {
     }
 
 
-    @Override
-    public String action() {
-        Game game = Game.getInstance();
-        return action();
+    public String action(Game game) {
+
     }
 }
