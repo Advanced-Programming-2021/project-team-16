@@ -5,6 +5,7 @@ import model.card.monster.HeraldOfCreation;
 import model.card.monster.Monster;
 import model.card.monster.Scanner;
 import model.card.monster.Texchanger;
+import model.card.trap.TimeSeal;
 import model.card.trap.TorrentialTribute;
 import model.person.Player;
 import view.CommandProcessor;
@@ -98,8 +99,18 @@ public class Game {
 
     }
 
-    private String drawCard() {
+    private String drawCard(Game game) {
         //Null pointer exception!!!!
+        Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
+        for (int i = 0; i < spellAndTrapZone.length; i++) {
+            Card card = spellAndTrapZone[i];
+            if (card.getClass() == TimeSeal.class) {
+                game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, i, game.rival.getBoard());
+                return "You can't draw card because enemy has Time seal.";
+            }
+        }
+        Card drewCard = null;
+        return "drew " + drewCard.getName();
     }
 
     private void endRound(Player surrounded) {
