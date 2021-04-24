@@ -31,6 +31,10 @@ public class Player {
         return user;
     }
 
+    public void setLP(int LP) {
+        this.LP = LP;
+    }
+
     public boolean askPlayerToActive(Card c) {
         System.out.println("Do U Want to Call " + c.getName());
         return false;
