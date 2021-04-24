@@ -1,6 +1,7 @@
-package model.card.spell;
+package model.card.spell.equipspells;
 
 import model.Game;
+import model.card.spell.Spell;
 
 public class BlackPendant extends Spell {
     public BlackPendant() {

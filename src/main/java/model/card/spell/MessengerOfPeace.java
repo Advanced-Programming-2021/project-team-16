@@ -9,6 +9,7 @@ public class MessengerOfPeace extends Spell {
     }
 
     public void action(Game game) {
+
     }
 
 }

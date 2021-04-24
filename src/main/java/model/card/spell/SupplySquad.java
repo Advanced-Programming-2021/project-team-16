@@ -1,6 +1,9 @@
 package model.card.spell;
 
+import model.Board;
+import model.Deck;
 import model.Game;
+import model.card.Card;
 
 public class SupplySquad extends Spell {
     public SupplySquad() {
@@ -9,6 +12,9 @@ public class SupplySquad extends Spell {
     }
 
     public void action(Game game) {
+        Board board = game.getCurrentPlayer().getBoard();
+        Deck deck = game.getCurrentPlayer().getUser().getActiveDeck();
+        Card card = deck.drawOneCard(game, board);
     }
 
 }

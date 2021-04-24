@@ -1,4 +1,6 @@
-package model.card.spell;
+package model.card.spell.equipspells;
+
+import model.card.spell.Spell;
 
 public class UnitedWeStand extends Spell {
     public UnitedWeStand() {

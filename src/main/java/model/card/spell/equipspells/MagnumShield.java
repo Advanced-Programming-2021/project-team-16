@@ -1,6 +1,7 @@
-package model.card.spell;
+package model.card.spell.equipspells;
 
 import model.Game;
+import model.card.spell.Spell;
 
 public class MagnumShield extends Spell {
     public MagnumShield() {
@@ -11,5 +12,7 @@ public class MagnumShield extends Spell {
     }
 
     public void action(Game game) {
+
+
     }
 }

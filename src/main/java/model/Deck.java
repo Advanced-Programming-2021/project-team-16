@@ -76,8 +76,8 @@ public class Deck {
         return name;
     }
 
-    public Card drawOneCard(Game game) {
-        Board board = game.getCurrentPlayer().getBoard();
+    public Card drawOneCard(Game game, Board board) {
+
         ArrayList<Card> deck = board.getDeck();
         if (deck.isEmpty()) return null;
         return deck.remove(deck.size() - 1);
