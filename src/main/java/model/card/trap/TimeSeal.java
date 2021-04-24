@@ -8,7 +8,7 @@ public class TimeSeal extends Trap {
     }
 
 
-    public String action(Game game) {
-
+    public boolean action(Game game) {
+        return false;
     }
 }

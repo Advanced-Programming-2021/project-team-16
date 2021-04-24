@@ -1,6 +1,8 @@
 package model.card.trap;
 
+import model.Board;
 import model.Game;
+import model.card.monster.Monster;
 
 public class TrapHole extends Trap {
     public TrapHole() {
@@ -8,8 +10,17 @@ public class TrapHole extends Trap {
         );
     }
 
+    boolean trapIsActivate = false;
 
-    public String action(Game game) {
+    public String action(Game game, int index) {   //(summon & flipSummon & activeEffect) method
+        Board board = game.getRival().getBoard();
+        Monster monster = board.getMonsterZone()[index];
+        if (monster.getATK() >= 1000) {
+            trapIsActivate = true;
+            game.removeCardFromZone(monster, Board.Zone.MONSTER, index, board);
+            game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
 
+        }
+        return "done!";
     }
 }
