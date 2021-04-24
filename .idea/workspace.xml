@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/MysticalSpaceTyphoon.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/ChangeOfHeart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/ChangeOfHeart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/BlackPendant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/BlackPendant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/MagnumShield.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/MagnumShield.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/SwordOfDarkDestruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/SwordOfDarkDestruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/UnitedWeStand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/UnitedWeStand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/MysticalSpaceTyphoon.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/SupplySquad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/SupplySquad.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -289,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619222898783</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="finished equip spells">
+      <created>1619265080801</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1619265080801</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -323,7 +328,8 @@
     <MESSAGE value="1 monster" />
     <MESSAGE value="1 monster + readme change" />
     <MESSAGE value="updated spells and changes in deck" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated spells and changes in deck" />
+    <MESSAGE value="finished equip spells" />
+    <option name="LAST_COMMIT_MESSAGE" value="finished equip spells" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
