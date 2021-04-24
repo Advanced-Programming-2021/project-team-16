@@ -30,6 +30,18 @@ public class ChangeOfHeart extends Spell {
         game.putCardInZone(selectedMonster, Board.Zone.MONSTER, position, board);
         return "Selected card is under your control now!";
     }
+
+    public boolean isOnBoard(Game game) {
+        Monster[] monsterZone = game.getCurrentPlayer().getBoard().getMonsterZone();
+        Board.CardPosition[] monsterPositions = game.getCurrentPlayer().getBoard().getCardPositions()[0];
+        for (int i = 0; i < monsterZone.length; i++) {
+            if (monsterZone[i] != null)
+                if (this.name.equals(monsterZone[i].getName()))
+                    if (monsterPositions[i] != Board.CardPosition.HIDE_DEF)
+                        return true;
+        }
+        return false;
+    }
 }
 
 
