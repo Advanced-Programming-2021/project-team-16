@@ -12,14 +12,13 @@ public class MagicCylinder extends Trap {
 
     boolean done = false;
 
-    public String action(Game game, int indexOfThis) {
+    public String action(Game game) { //attack
         Board board = game.getRival().getBoard();
         Card card = game.getSelectedCard();
 
         if (card instanceof Monster) {
             game.putCardInZone(card, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-
-            game.removeCardFromZone(card, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);/////////
+            // game.removeCardFromZone(card, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);???
             done = true;
         }
         if (done = true) {

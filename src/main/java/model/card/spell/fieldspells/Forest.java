@@ -14,7 +14,7 @@ public class Forest extends Spell {
         Monster[] monsterZone = game.getCurrentPlayer().getBoard().getMonsterZone();
         Monster[] monsterZoneTwo = game.getRival().getBoard().getMonsterZone();
         for (Monster monster : monsterZone) {
-            for (Monster monsterTwo : monsterZone)
+            for (Monster monsterTwo : monsterZoneTwo)
                 if ((monster != null) && (monsterTwo != null)) {
                     if (monster.getMonsterType() == Monster.MonsterType.BEAST ||
                             monster.getMonsterType() == Monster.MonsterType.BEAST_WARRIOR ||
