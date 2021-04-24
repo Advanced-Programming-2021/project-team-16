@@ -11,6 +11,8 @@ import view.CommandProcessor;
 import view.Show;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class Game {
@@ -19,6 +21,9 @@ public class Game {
     private int selectedZoneIndex;
     private Player currentPlayer;
     private Player rival;
+    private Player winner;
+    private Player loser;
+    private boolean surrendered;
     private Phase currentPhase;
 
 
@@ -40,12 +45,52 @@ public class Game {
     }
 
     public Game(Player player1, Player player2, int round) {
+        this.currentPlayer = player2;
+        this.rival = player1;
         if (round == 1) {
-            run(player1, player2);
+            while (winner == null) {
+                run(rival, currentPlayer);
+            }
+            endRound();
+        } else {
+            HashMap<Player, Integer> winnerAndLp = new HashMap<>();
+            this.currentPlayer = player2;
+            this.rival = player1;
+            while (getMatchWinner(winnerAndLp) == null) {
+                winner = null;
+                player1.setLP(8000);
+                player2.setLP(8000);
+                while (winner == null) {
+                    run(rival, currentPlayer);
+                }
+                winnerAndLp.put(winner, winner.getLP());
+            }
+            winner = getMatchWinner(winnerAndLp);
+            loser = (winner == player1) ? player2 : player1;
+            int maxLp = 0;
+            for (Map.Entry<Player, Integer> player : winnerAndLp.entrySet()) {
+                if (player.getKey() == winner && maxLp < player.getValue()) maxLp = player.getValue();
+            }
+            endMatch(maxLp);
         }
     }
 
+    private Player getMatchWinner(HashMap<Player, Integer> winnerAndLp) {
+        int count1 = 0, count2 = 0;
+        for (Map.Entry<Player, Integer> winner : winnerAndLp.entrySet()) {
+            if (winner.getKey() == currentPlayer) count1++;
+            else count2++;
+        }
+        if (count1 == 2) return currentPlayer;
+        if (count2 == 2) return rival;
+        return null;
+    }
+
     private void run(Player me, Player rival) {
+
+        Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
+        this.currentPlayer = me;
+        this.rival = rival;
         Monster[] monsters = currentPlayer.getBoard().getMonsterZone();
         //herald of creation
         for (Monster monster : monsters)
@@ -55,21 +100,29 @@ public class Game {
         //spell absorbtion
         //ring of defence
         //negate attack
-        Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
-        this.currentPlayer = me;
-        this.rival = rival;
         setCurrentPhase(Phase.DRAW);
-        Show.showGameMessage(drawCard());
-        setCurrentPhase(Phase.STANDBY);
-        //standbyCards
-        setCurrentPhase(Phase.MAIN_1);
-        CommandProcessor.game();
-        setCurrentPhase(Phase.BATTLE);
-        CommandProcessor.game();
-        setCurrentPhase(Phase.MAIN_2);
-        CommandProcessor.game();
-        setCurrentPhase(Phase.END);
-        run(rival, me);
+        if (currentPlayer.getBoard().getDeck().size() == 0 || currentPlayer.getBoard().isZoneFull(Board.Zone.HAND)) {
+            Show.showGameMessage("You can't draw any card");
+            winner = rival;
+            return;
+        } else {
+            Show.showGameMessage(drawCard());
+            setCurrentPhase(Phase.STANDBY);
+            //standbyCards
+            if (sbLost()) return;
+            setCurrentPhase(Phase.MAIN_1);
+            CommandProcessor.game();
+            setCurrentPhase(Phase.BATTLE);
+            CommandProcessor.game();
+            setCurrentPhase(Phase.MAIN_2);
+            CommandProcessor.game();
+            setCurrentPhase(Phase.END);
+        }
+    }
+
+    private boolean sbLost() {
+        if (currentPlayer.getLP() == 0 && rival.getLP() == 0) endRound();
+        return false;
     }
 
 
@@ -102,11 +155,14 @@ public class Game {
         //Null pointer exception!!!!
     }
 
-    private void endRound(Player surrounded) {
+    private void endRound() {
+
+
+        //az field haye winner , loser estefade kon
 
     }
 
-    private void endMatch() {
+    private void endMatch(int maxLp) {
 
     }
 
