@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/model/person/Phase.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/ChangeOfHeart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/done/ChangeOfHeart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/BlackPendant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/BlackPendant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/MagnumShield.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/MagnumShield.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/SwordOfDarkDestruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/SwordOfDarkDestruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/UnitedWeStand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/UnitedWeStand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Show.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +21,7 @@
       <list>
         <option value="Class" />
         <option value="Interface" />
+        <option value="Enum" />
       </list>
     </option>
   </component>

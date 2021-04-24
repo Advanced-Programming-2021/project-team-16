@@ -7,6 +7,7 @@ import model.card.monster.Scanner;
 import model.card.monster.Texchanger;
 import model.card.trap.TimeSeal;
 import model.card.trap.TorrentialTribute;
+import model.person.Phase;
 import model.person.Player;
 import view.CommandProcessor;
 import view.Show;
@@ -27,24 +28,6 @@ public class Game {
     private boolean surrendered;
     private Phase currentPhase;
 
-
-    public enum Phase {
-        DRAW("draw phase"),
-        STANDBY("standby phase"),
-        MAIN_1("main phase 1"),
-        BATTLE("battle phase"),
-        MAIN_2("main phase 2"),
-        END("end phase");
-
-        Phase(String name) {
-        }
-
-        @Override
-        public String toString() {
-            return name();
-        }
-    }
-
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
         this.rival = player1;
@@ -57,13 +40,17 @@ public class Game {
             HashMap<Player, Integer> winnerAndLp = new HashMap<>();
             this.currentPlayer = player2;
             this.rival = player1;
+            int currentRound = 0;
             while (getMatchWinner(winnerAndLp) == null) {
+                currentRound++;
+                Show.showImportantGameMessage("round " + currentRound);
                 winner = null;
                 player1.setLP(8000);
                 player2.setLP(8000);
                 while (winner == null) {
                     run(rival, currentPlayer);
                 }
+                Show.showImportantGameMessage(winner.getUser().getNickname() + " won the round");
                 winnerAndLp.put(winner, winner.getLP());
             }
             winner = getMatchWinner(winnerAndLp);
@@ -102,27 +89,38 @@ public class Game {
         //ring of defence
         //negate attack
         setCurrentPhase(Phase.DRAW);
-        if (currentPlayer.getBoard().getDeck().size() == 0 || currentPlayer.getBoard().isZoneFull(Board.Zone.HAND)) {
-            Show.showGameMessage("You can't draw any card");
-            winner = rival;
-            return;
-        } else {
-            Show.showGameMessage(drawCard());
-            setCurrentPhase(Phase.STANDBY);
-            //standbyCards
-            if (sbLost()) return;
-            setCurrentPhase(Phase.MAIN_1);
-            CommandProcessor.game();
-            setCurrentPhase(Phase.BATTLE);
-            CommandProcessor.game();
-            setCurrentPhase(Phase.MAIN_2);
-            CommandProcessor.game();
-            setCurrentPhase(Phase.END);
-        }
+        Show.showGameMessage(drawCard());
+        if (didSbWin()) return;
+        setCurrentPhase(Phase.STANDBY);
+        //standby_Effect Cards
+        if (didSbWin()) return;
+        setCurrentPhase(Phase.MAIN_1);
+        CommandProcessor.game();
+        if (didSbWin()) return;
+        setCurrentPhase(Phase.BATTLE);
+        CommandProcessor.game();
+        if (didSbWin()) return;
+        setCurrentPhase(Phase.MAIN_2);
+        CommandProcessor.game();
+        if (didSbWin()) return;
+        setCurrentPhase(Phase.END);
     }
 
-    private boolean sbLost() {
-        if (currentPlayer.getLP() == 0 && rival.getLP() == 0) endRound();
+    private boolean didSbWin() {
+        if (winner != null) {
+            loser = (winner == currentPlayer) ? rival : currentPlayer;
+            return true;
+        }
+        if (currentPlayer.getLP() == 0) {
+            winner = rival;
+            loser = currentPlayer;
+            return true;
+        }
+        if (rival.getLP() == 0) {
+            winner = currentPlayer;
+            loser = rival;
+            return true;
+        }
         return false;
     }
 
@@ -148,21 +146,26 @@ public class Game {
 
     public void deselect() {
         this.selectedZone = null;
-        this.selectedZoneIndex = 0;
+        this.selectedZoneIndex = -1;
 
     }
 
-    private String drawCard(Game game) {
-        //Null pointer exception!!!!
+    private String drawCard() {
+        if (currentPlayer.getBoard().getDeck().size() == 0 || currentPlayer.getBoard().isZoneFull(Board.Zone.HAND)) {
+            winner = rival;
+            return "You can't draw any card";
+        }
         Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
         for (int i = 0; i < spellAndTrapZone.length; i++) {
             Card card = spellAndTrapZone[i];
-            if (card.getClass() == TimeSeal.class) {
-                game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, i, game.rival.getBoard());
+            if (card instanceof TimeSeal) {
+                removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, i, rival.getBoard());
                 return "You can't draw card because enemy has Time seal.";
             }
         }
-        Card drewCard = null;
+        Card drewCard = currentPlayer.getBoard().getCardByIndexAndZone(0, Board.Zone.DECK);
+        removeCardFromZone(drewCard, Board.Zone.DECK, 0, currentPlayer.getBoard());
+        putCardInZone(drewCard, Board.Zone.HAND, null, currentPlayer.getBoard());
         return "drew " + drewCard.getName();
     }
 
@@ -198,6 +201,10 @@ public class Game {
 
     }
 
+    public void surrendered() {
+        winner = rival;
+    }
+
     public Card getSelectedCard() {
         return selectedCard;
     }
@@ -228,7 +235,9 @@ public class Game {
             case GRAVE -> board.getGrave().add(card);
             case DECK -> board.getDeck().add(card);
             case MONSTER -> {
-                board.getMonsterZone()[board.getFirstEmptyIndexOfZone(Board.Zone.MONSTER)] = (Monster) card;
+                int index = board.getFirstEmptyIndexOfZone(Board.Zone.MONSTER);
+                board.getMonsterZone()[index] = (Monster) card;
+                board.getCardPositions()[0][index] = position;
                 Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
                 for (Card c : spellAndTrapZone) {
                     if (c instanceof TorrentialTribute) {
@@ -246,23 +255,29 @@ public class Game {
                 }
             }
             case FIELD_SPELL -> board.setFieldSpell(card);
-            case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[board.getFirstEmptyIndexOfZone(Board.Zone.SPELL_AND_TRAP)] = card;
+            case SPELL_AND_TRAP -> {
+                int index = board.getFirstEmptyIndexOfZone(Board.Zone.SPELL_AND_TRAP);
+                board.getSpellAndTrapZone()[index] = card;
+                board.getCardPositions()[1][index] = position;
+            }
         }
     }
 
     public void removeCardFromZone(Card card, Board.Zone zone, int zoneIndex, Board board) {
-        if (zone == Board.Zone.MONSTER || zone == Board.Zone.FIELD_SPELL ||
-                zone == Board.Zone.SPELL_AND_TRAP || zone == Board.Zone.HAND)
-            putCardInZone(null, zone, null, board);                         //repeated cards!?
-        else {
-            ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();
-            for (int i = thisZone.size() - 1; i >= 0; i--)
-                if (thisZone.get(i) == card) {
-                    thisZone.remove(i);
-                    break;
-                }
+        switch (zone) {
+            case MONSTER -> board.getMonsterZone()[zoneIndex] = null;
+            case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[zoneIndex] = null;
+            case HAND -> board.getHand()[zoneIndex] = null;
+            case FIELD_SPELL -> board.setFieldSpell(null);
+            default -> {
+                ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();
+                for (int i = thisZone.size() - 1; i >= 0; i--)
+                    if (thisZone.get(i) == card) {
+                        thisZone.remove(i);
+                        break;
+                    }
+            }
         }
-
     }
 
 

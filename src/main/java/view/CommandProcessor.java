@@ -1,5 +1,7 @@
 package view;
 
+import controller.GameMenu;
+import model.Game;
 import model.card.Card;
 
 import java.util.ArrayList;
@@ -26,6 +28,9 @@ public class CommandProcessor {
     }
 
     public static void game() {
+        Game game = GameMenu.getCurrentGame();
+        //bade har ettefagh:  if (didSbWin()) return;
+        //if sb surrendered -> surrendered();
     }
 
     public static String scan() {

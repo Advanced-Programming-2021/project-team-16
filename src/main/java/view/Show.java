@@ -3,6 +3,7 @@ package view;
 import model.Deck;
 import model.Game;
 import model.card.Card;
+import model.person.Phase;
 import model.person.User;
 
 import java.util.ArrayList;
@@ -48,7 +49,11 @@ public class Show {
         System.out.println(gameMessage);
     }
 
-    public static void showPhase(Game.Phase phase) {
-        System.out.println("phase:" + phase.name());
+    public static void showPhase(Phase phase) {
+        System.out.println("phase:" + phase.getPhaseName());
+    }
+
+    public static void showImportantGameMessage(String importantMessage) {
+        System.out.println(importantMessage);
     }
 }
