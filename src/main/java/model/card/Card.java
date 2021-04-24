@@ -2,12 +2,14 @@ package model.card;
 
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Card {
     private static ArrayList<Card> cards = new ArrayList<>();
     protected String name;
     protected String description;
     protected int price;
+    public Random random = new Random();
     //  protected Player owner = null;
 
     public Card(String name, String description, int price) {

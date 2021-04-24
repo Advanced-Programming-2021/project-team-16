@@ -2,13 +2,11 @@ package model.card.trap;
 
 import model.card.Card;
 
-import java.util.Random;
-
 public abstract class Trap extends Card {
     protected TrapType TrapType;
     public String icon;
     public String status;
-    public Random random = new Random();
+
 
     public Trap(String name, String icon, Trap.TrapType trapType, String description, String status, int price) {
         super(name, description, price);

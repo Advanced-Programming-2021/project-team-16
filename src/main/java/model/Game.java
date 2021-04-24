@@ -109,7 +109,8 @@ public class Game {
                 return "You can't draw card because enemy has Time seal.";
             }
         }
-        Card drewCard = null;
+        Card drewCard = game.currentPlayer.getBoard().getDeck().remove(0);
+        game.putCardInZone(drewCard, Board.Zone.HAND, null, game.currentPlayer.getBoard());
         return "drew " + drewCard.getName();
     }
 
