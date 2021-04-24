@@ -15,6 +15,9 @@ public class SupplySquad extends Spell {
         Board board = game.getCurrentPlayer().getBoard();
         Deck deck = game.getCurrentPlayer().getUser().getActiveDeck();
         Card card = deck.drawOneCard(game, board);
+        if (card == null)
+            return;
+        game.putCardInZone(card, Board.Zone.HAND, null, board);
     }
 
 }

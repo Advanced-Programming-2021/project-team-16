@@ -35,8 +35,8 @@ public class MindCrush extends Trap {
                             game.removeCardFromZone(rivalCard4, Board.Zone.SPELL_AND_TRAP, game.getSelectedZoneIndex(), board);
                             game.putCardInZone(rivalCard4, Board.Zone.GRAVE, null, board);
                         } else {
-                            game.removeCardFromZone(randomCard, Board.Zone.HAND, game.getSelectedZoneIndex(), board);
-                            game.putCardInZone(randomCard, Board.Zone.GRAVE, null, board);
+                            game.removeCardFromZone(randomCard, Board.Zone.HAND, int_random, board1);
+                            game.putCardInZone(randomCard, Board.Zone.GRAVE, null, board1);
                         }
 
                     }
