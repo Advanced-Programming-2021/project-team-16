@@ -21,6 +21,10 @@ public class Player {
         else LP = 0;
     }
 
+    public void increaseLP(int amount) {
+        LP += amount;
+    }
+
     public int getLP() {
         return LP;
     }

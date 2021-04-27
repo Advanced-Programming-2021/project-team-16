@@ -23,6 +23,7 @@ public class Terraforming extends Spell {
         if (((Spell) card).getSpellType() != SpellType.FIELD) return "This is not a field spell card!";
         game.putCardInZone(card, Board.Zone.HAND, null, board);
         game.removeCardFromZone(card, Board.Zone.DECK, 0, board);
+        super.action(game);
         return "Card was added to your hand successfully!";
     }
 }

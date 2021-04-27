@@ -29,6 +29,7 @@ public class MysticalSpaceTyphoon extends Spell {
             game.removeCardFromZone(spellOrTrap, Board.Zone.SPELL_AND_TRAP, zoneIndex, rivBoard);
             game.putCardInZone(spellOrTrap, Board.Zone.GRAVE, null, rivBoard);
         }
+        super.action(game);
         return "Target was destroyed successfully.";
     }
 }

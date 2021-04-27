@@ -41,6 +41,7 @@ public class Yami extends Spell {
             }
 
         }
+        super.action(game);
         return "done!";
     }
 }

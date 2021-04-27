@@ -39,6 +39,7 @@ public class UnitedWeStand extends Spell {
 
         }
         ((Monster) givenMonster).ATK += 800 * counter;
+        super.action(game);
         return givenMonster + " is equipped successfully!";
     }
 }

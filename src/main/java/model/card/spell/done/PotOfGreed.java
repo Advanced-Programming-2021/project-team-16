@@ -12,15 +12,18 @@ public class PotOfGreed extends Spell {
                 "Draw 2 cards.", "Limited", 2500);
     }
 
-    public void action(Game game) {
+    public String action(Game game) {
         for (int i = 0; i < 2; i++) {
             Board board = game.getCurrentPlayer().getBoard();
             Deck deck = game.getCurrentPlayer().getUser().getActiveDeck();
             Card card = deck.drawOneCard(game, board);
             if (card == null)
-                return;
+                return null;
+            super.action(game);
             game.putCardInZone(card, Board.Zone.HAND, null, board);
+
         }
+        return null;
     }
 
 }

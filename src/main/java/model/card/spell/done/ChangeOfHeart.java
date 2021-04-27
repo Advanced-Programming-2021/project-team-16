@@ -28,6 +28,7 @@ public class ChangeOfHeart extends Spell {
         if (board1.isZoneFull(Board.Zone.MONSTER)) return "Your monster zone is full!";
         game.removeCardFromZone(selectedMonster, Board.Zone.MONSTER, 0, board);
         game.putCardInZone(selectedMonster, Board.Zone.MONSTER, position, board);
+        super.action(game);
         return "Selected card is under your control now!";
     }
 

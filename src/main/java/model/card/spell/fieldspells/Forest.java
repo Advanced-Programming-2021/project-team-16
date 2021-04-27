@@ -29,6 +29,7 @@ public class Forest extends Spell {
                     }
                 }
         }
+        super.action(game);
         return "done!";
     }
 }

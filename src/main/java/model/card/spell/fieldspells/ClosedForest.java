@@ -21,8 +21,7 @@ public class ClosedForest extends Spell {
             if (monster != null) {
                 Board board = game.getCurrentPlayer().getBoard();
                 ArrayList<Card> grave = board.getGrave();
-                for (int i = 0, graveSize = grave.size(); i < graveSize; i++) {
-                    Card card = grave.get(i);
+                for (Card card : grave) {
                     if (card instanceof Monster) {
                         number++;
                     }
@@ -37,6 +36,7 @@ public class ClosedForest extends Spell {
                 }
             }
         }
+        super.action(game);
         return "done!";
     }
 }

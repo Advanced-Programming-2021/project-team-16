@@ -14,14 +14,16 @@ public class SwordsOfRevealingLight extends Spell {
                 , "Unlimited", 2500);
     }
 
-    public void action(Game game) {
+    public String action(Game game) {
         isAtivated = true;
         Monster[] monsterZone = game.getRival().getBoard().getMonsterZone();
         Board board = game.getRival().getBoard();
         for (int i = 0; i < monsterZone.length; i++) {
             if (monsterZone[i] != null && board.getCardPositions()[0][i] == Board.CardPosition.HIDE_DEF)
                 board.getCardPositions()[0][i] = Board.CardPosition.REVEAL_DEF;
+            super.action(game);
         }
+        return null;
     }
 
     public boolean isActivated() {

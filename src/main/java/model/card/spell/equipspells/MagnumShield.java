@@ -49,6 +49,7 @@ public class MagnumShield extends Spell {
             if (board.getCardPositions()[0][indexOfThisMonster] != Board.CardPosition.ATK)
                 ((Monster) givenMonster).DEF += ((Monster) givenMonster).getATK();
         }
+        super.action(game);
         return givenMonster + " is equipped successfully!";
 
     }

@@ -11,12 +11,14 @@ public class DarkHole extends Spell {
                 , "Destroy all monsters on the field.", "Unlimited", 2500);
     }
 
-    public void action(Game game) {
+    public String action(Game game) {
         Board board = game.getCurrentPlayer().getBoard();
         for (int index = 0; index < board.getMonsterZone().length; index++) {
             Monster monster = board.getMonsterZone()[index];
             if (monster != null) game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
             game.removeCardFromZone(monster, Board.Zone.MONSTER, index, board);
+//            SupplySquad supplySquad = new SupplySquad();
+//            supplySquad.action(game);
         }
         board = game.getRival().getBoard();
         for (int index = 0; index < board.getMonsterZone().length; index++) {
@@ -24,6 +26,8 @@ public class DarkHole extends Spell {
             if (monster != null) game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
             game.removeCardFromZone(monster, Board.Zone.MONSTER, index, board);
         }
+        super.action(game);
+        return null;
     }
 
 }
