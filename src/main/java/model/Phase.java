@@ -1,4 +1,4 @@
-package model.person;
+package model;
 
 public enum Phase {
     DRAW("draw phase"),

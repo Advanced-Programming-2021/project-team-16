@@ -7,7 +7,6 @@ import model.card.monster.Scanner;
 import model.card.monster.Texchanger;
 import model.card.trap.TimeSeal;
 import model.card.trap.TorrentialTribute;
-import model.person.Phase;
 import model.person.Player;
 import view.CommandProcessor;
 import view.Show;
@@ -79,6 +78,7 @@ public class Game {
         Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
         this.currentPlayer = me;
         this.rival = rival;
+        currentPlayer.getBoard().noMonsterAttacked();
         Monster[] monsters = currentPlayer.getBoard().getMonsterZone();
         //herald of creation
         for (Monster monster : monsters)
@@ -89,21 +89,27 @@ public class Game {
         //ring of defence
         //negate attack
         setCurrentPhase(Phase.DRAW);
+        selectedCard = null;
         Show.showGameMessage(drawCard());
         if (didSbWin()) return;
         setCurrentPhase(Phase.STANDBY);
+        selectedCard = null;
         //standby_Effect Cards
         if (didSbWin()) return;
         setCurrentPhase(Phase.MAIN_1);
+        selectedCard = null;
         CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.BATTLE);
+        selectedCard = null;
         CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.MAIN_2);
+        selectedCard = null;
         CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.END);
+        selectedCard = null;
     }
 
     private boolean didSbWin() {
@@ -194,6 +200,55 @@ public class Game {
     }
 
     public String attack(int monsterNumber) {
+        Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
+        if (selectedCard == null) return "no card is selected yet";
+        if (selectedZone != Board.Zone.MONSTER) return "you can’t attack with this card";
+        if (currentPhase != Phase.BATTLE) return "you can’t do this action in this phase";
+        if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex] == true)
+            return "this card already attacked";
+        if (attacked == null) return "there is no card to attack here";
+        Monster attacking = (Monster) selectedCard;
+        int deltaLP;
+        if (rival.getBoard().getCardPositions()[0][monsterNumber] == Board.CardPosition.ATK) {
+            deltaLP = attacking.getATK() - attacked.getATK();
+            if (deltaLP > 0) {
+                rival.decreaseLP(deltaLP);
+                removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
+                putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
+                return "your opponent’s monster is destroyed and your opponent receives" + deltaLP + " battle damage";
+            } else if (deltaLP == 0) {
+                removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
+                putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
+                removeCardFromZone(attacking, Board.Zone.MONSTER, selectedZoneIndex, currentPlayer.getBoard());
+                putCardInZone(attacking, Board.Zone.GRAVE, null, currentPlayer.getBoard());
+                return "both you and your opponent monster cards are destroyed and no one receives damage"
+            } else {
+                deltaLP *= -1;
+                currentPlayer.decreaseLP(deltaLP);
+                removeCardFromZone(attacking, Board.Zone.MONSTER, selectedZoneIndex, currentPlayer.getBoard());
+                putCardInZone(attacking, Board.Zone.GRAVE, null, currentPlayer.getBoard());
+                return "Your monster card is destroyed and you received " + deltaLP + " battle damage";
+            }
+        } else {
+            deltaLP = attacking.getATK() - attacked.getDEF();
+            String result;
+            if (deltaLP > 0) {
+                removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
+                putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
+                result = "the defense position monster is destroyed";
+            } else if (deltaLP == 0) result = "no card is destroyed";
+            else {
+                deltaLP *= -1;
+                currentPlayer.decreaseLP(deltaLP);
+                result = "no card is destroyed and you received " + deltaLP + " battle damage";
+            }
+            if (rival.getBoard().getCardPositions()[0][monsterNumber] == Board.CardPosition.HIDE_DEF)
+                result = "opponent’s monster card was <monster card name> and " + result;
+            return result;
+        }
+    }
+
+    public String attackDirectly() {
 
     }
 

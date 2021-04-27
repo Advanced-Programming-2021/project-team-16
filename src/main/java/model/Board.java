@@ -4,6 +4,7 @@ import model.card.Card;
 import model.card.monster.Monster;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Board {
     private ArrayList<Card> deck = new ArrayList<>();
@@ -15,6 +16,7 @@ public class Board {
     // first row-> monster zone
     // second row -> spell and trap
     private Card fieldSpell;
+    private boolean[] didMonsterAttack = new boolean[5];
 
 
     public Board(ArrayList<Card> deck) {
@@ -123,4 +125,11 @@ public class Board {
         DECK
     }
 
+    public boolean[] getDidMonsterAttack() {
+        return didMonsterAttack;
+    }
+
+    public void noMonsterAttacked() {
+        Arrays.fill(didMonsterAttack, false);
+    }
 }

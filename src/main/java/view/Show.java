@@ -2,8 +2,8 @@ package view;
 
 import model.Deck;
 import model.Game;
+import model.Phase;
 import model.card.Card;
-import model.person.Phase;
 import model.person.User;
 
 import java.util.ArrayList;

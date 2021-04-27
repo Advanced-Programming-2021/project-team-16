@@ -16,7 +16,9 @@ public class Player {
     }
 
     public void decreaseLP(int amount) {
-        LP -= amount;
+        if (LP > amount)
+            LP -= amount;
+        else LP = 0;
     }
 
     public int getLP() {
