@@ -1,5 +1,6 @@
 package model.card.monster;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 
@@ -12,12 +13,15 @@ public class GraveYardEffectMonster extends Monster {
         this.doesLPChange = doesLPChange;
     }
 
-    public void action(Game game, int indexOfThis) {
-        game.removeCardFromZone(null, Board.Zone.MONSTER, game.getSelectedZoneIndex(), game.getCurrentPlayer().getBoard());
+    public String action(int indexOfThis) {
+        Game game = GameMenu.getCurrentGame();
+        game.removeCardFromZone(game.getSelectedCard(), Board.Zone.MONSTER, game.getSelectedZoneIndex(), game.getCurrentPlayer().getBoard());
         game.putCardInZone(game.getSelectedCard(), Board.Zone.GRAVE, null, game.getCurrentPlayer().getBoard());
-        game.putCardInZone(this, Board.Zone.GRAVE, null, game.getRival().getBoard());
-        game.removeCardFromZone(this, Board.Zone.MONSTER, indexOfThis, game.getRival().getBoard());
-        int LPOfThis = game.getRival().getBoard().getCardPositions()[0][indexOfThis] == Board.CardPosition.ATK ? this.ATK : this.DEF;
-        if (doesLPChange) game.getRival().decreaseLP(((Monster) game.getSelectedCard()).getATK() - LPOfThis);
+        Board.CardPosition position = game.getRival().getBoard().getCardPositions()[0][indexOfThis];
+        int LPOfThis = position == Board.CardPosition.ATK ? this.ATK : this.DEF;
+        int lpDamage = (doesLPChange && position == Board.CardPosition.ATK) ?
+                ((Monster) game.getSelectedCard()).getATK() - LPOfThis : 0;
+        game.getRival().decreaseLP(lpDamage);
+        return "You attacked " + this.getName() + "so both monsters are destroyed and your opponent receives" + lpDamage + " battle damage";
     }
 }
