@@ -199,10 +199,31 @@ public class Game {
     public String attack(int monsterNumber) {
         if (selectedCard == null) return "no card is selected yet";
         if (selectedZone != Board.Zone.MONSTER) return "you can’t attack with this card";
+        Monster attacking = (Monster) selectedCard;
+        if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
         if (currentPhase != Phase.BATTLE) return "you can’t do this action in this phase";
         if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
         if (monsterNumber == -1) return attackDirectly();
         Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
+        if (attacked instanceof Texchanger) {
+            changeTurn();
+            Show.showGameMessage("choose zone for the cyberse monster that you want to tribute (deck, graveyard or hand)");
+            Board.Zone zone = CommandProcessor.getZone();
+            int cardIndex = -1;
+            Card card;
+            if (zone == Board.Zone.HAND) {
+                Show.showGameMessage("choose hand index");
+                cardIndex = CommandProcessor.getCardIndex();
+                card = currentPlayer.getBoard().getHand()[cardIndex];
+            } else if (zone == Board.Zone.DECK || zone == Board.Zone.GRAVE) {
+                Show.showGameMessage("Enter the card's name");
+                cardIndex = currentPlayer.getBoard().getIndexOfCard(CommandProcessor.getCardName(), zone);
+                card = currentPlayer.getBoard().getCardByIndexAndZone(cardIndex, zone);
+            } else return "zone is not valid";
+            String result = ((Texchanger) attacked).specialSummonACyberseMonster(card, zone, cardIndex);
+            changeTurn();
+            return result;
+        }
         if (attacked == null) return "there is no card to attack here";
         if (attacked instanceof CommandKnight && ((CommandKnight) attacked).hasDoneAction()) {
             for (Monster monster : rival.getBoard().getMonsterZone()) {
@@ -210,16 +231,11 @@ public class Game {
                     return "You can't attack command knight while other monsters are available";
             }
         }
-        Monster attacking = (Monster) selectedCard;
-        if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
         int deltaLP;
         Board.CardPosition attackedPosition = rival.getBoard().getCardPositions()[0][monsterNumber];
         currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex] = true;
         if (attacked instanceof Suijin && !((Suijin) attacked).isUsedUp() && attackedPosition != Board.CardPosition.HIDE_DEF)
             return ((Suijin) attacked).action(attackedPosition);
-        if (attacked instanceof Texchanger && !((Texchanger) attacked).isAttacked()) {
-
-        }
         if (attackedPosition == Board.CardPosition.ATK) {
             deltaLP = attacking.getATK() - attacked.getATK();
             if (deltaLP > 0) {

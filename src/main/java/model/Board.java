@@ -65,16 +65,25 @@ public class Board {
                 if (cardName.equals(monsterZone[i].getName())) return i;
             }
 
-        else if (zone == Zone.SPELL_AND_TRAP)
+        else if (zone == Zone.SPELL_AND_TRAP) {
             for (int i = 0; i < spellAndTrapZone.length; i++)
                 if (cardName.equals(spellAndTrapZone[i].getName())) return i;
-
+        } else if (zone == Zone.GRAVE) {
+            for (int i = 0; i < grave.size(); i++)
+                if (grave.get(i).getName().equals(cardName)) return i;
+        } else if (zone == Zone.DECK) {
+            for (int i = 0; i < deck.size(); i++)
+                if (deck.get(i).getName().equals(cardName)) return i;
+        }
         return -1;
     }
 
     public Card getCardByIndexAndZone(int zoneIndex, Zone zone) {
         if (zone == Zone.MONSTER) return monsterZone[zoneIndex];
         if (zone == Zone.SPELL_AND_TRAP) return spellAndTrapZone[zoneIndex];
+        if (zone == Zone.GRAVE) return grave.get(zoneIndex);
+        if (zone == Zone.DECK) return deck.get(zoneIndex);
+
         return null;
     }
 

@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameMenu;
+import model.Board;
 import model.Game;
 import model.card.Card;
 
@@ -58,6 +59,11 @@ public class CommandProcessor {
 
     public static String getCardName() {
         return scanner.nextLine();
+    }
+
+    public static Board.Zone getZone() {
+        String zoneName = scanner.nextLine();
+        // zoneName -> switch/case
     }
 }
 
