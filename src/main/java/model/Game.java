@@ -216,10 +216,10 @@ public class Game {
         if (rival.getBoard().getCardPositions()[0][monsterNumber] == Board.CardPosition.ATK) {
             deltaLP = attacking.getATK() - attacked.getATK();
             if (deltaLP > 0) {
-                if (attacked instanceof GraveYardEffectMonster)
-                    return ((GraveYardEffectMonster) attacked).action(monsterNumber);
                 removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
                 putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
+                if (attacked instanceof GraveYardEffectMonster)
+                    return ((GraveYardEffectMonster) attacked).action(monsterNumber);
                 rival.decreaseLP(deltaLP);
                 return "your opponent’s monster is destroyed and your opponent receives" + deltaLP + " battle damage";
             } else if (deltaLP == 0) {
@@ -239,10 +239,10 @@ public class Game {
             deltaLP = attacking.getATK() - attacked.getDEF();
             String result;
             if (deltaLP > 0) {
-                if (attacked instanceof GraveYardEffectMonster)
-                    return ((GraveYardEffectMonster) attacked).action(monsterNumber);
                 removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
                 putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
+                if (attacked instanceof GraveYardEffectMonster)
+                    return ((GraveYardEffectMonster) attacked).action(monsterNumber);
                 result = "the defense position monster is destroyed";
             } else if (deltaLP == 0) result = "no card is destroyed";
             else {

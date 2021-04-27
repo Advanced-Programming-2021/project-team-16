@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/UpdateStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/UpdateStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/CommnadKnight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/CommandKnight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/GraveYardEffectMonster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/GraveYardEffectMonster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +110,7 @@
       <workItem from="1619090760749" duration="5181000" />
       <workItem from="1619459139193" duration="673000" />
       <workItem from="1619513955514" duration="189000" />
-      <workItem from="1619527284267" duration="6221000" />
+      <workItem from="1619527284267" duration="6730000" />
     </task>
     <task id="LOCAL-00001" summary="uml-code">
       <created>1618339504128</created>
@@ -306,7 +301,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619529771703</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="attackDirectly + CommandKnight, GraveYardEffectMonster -&gt; in Game">
+      <created>1619538048270</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1619538048270</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -342,7 +344,8 @@
     <MESSAGE value="updated spells and changes in deck" />
     <MESSAGE value="finished equip spells" />
     <MESSAGE value="attack" />
-    <option name="LAST_COMMIT_MESSAGE" value="attack" />
+    <MESSAGE value="attackDirectly + CommandKnight, GraveYardEffectMonster -&gt; in Game" />
+    <option name="LAST_COMMIT_MESSAGE" value="attackDirectly + CommandKnight, GraveYardEffectMonster -&gt; in Game" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
