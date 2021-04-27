@@ -1,5 +1,6 @@
 package model.card.monster;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 
@@ -9,7 +10,8 @@ public class TheCalculator extends Monster {
                 "you control x 300.", 8000, MonsterType.THUNDER, 2, 0, 0);
     }
 
-    public void action(Game game) {
+    public void action() {
+        Game game = GameMenu.getCurrentGame();
         int sumOfLevels = 0;
         Monster[] monsterZone = game.getCurrentPlayer().getBoard().getMonsterZone();
         Board.CardPosition[][] cardPositions = game.getCurrentPlayer().getBoard().getCardPositions();

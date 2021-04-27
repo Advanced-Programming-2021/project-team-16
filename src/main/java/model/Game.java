@@ -211,22 +211,36 @@ public class Game {
             }
         }
         Monster attacking = (Monster) selectedCard;
+        if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
         int deltaLP;
+        Board.CardPosition attackedPosition = rival.getBoard().getCardPositions()[0][monsterNumber];
         currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex] = true;
-        if (rival.getBoard().getCardPositions()[0][monsterNumber] == Board.CardPosition.ATK) {
+        if (attacked instanceof Suijin && !((Suijin) attacked).isUsedUp() && attackedPosition != Board.CardPosition.HIDE_DEF)
+            return ((Suijin) attacked).action(attackedPosition);
+        if (attacked instanceof Texchanger && !((Texchanger) attacked).isAttacked()) {
+
+        }
+        if (attackedPosition == Board.CardPosition.ATK) {
             deltaLP = attacking.getATK() - attacked.getATK();
             if (deltaLP > 0) {
-                removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
-                putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
-                if (attacked instanceof GraveYardEffectMonster)
-                    return ((GraveYardEffectMonster) attacked).action(monsterNumber);
-                rival.decreaseLP(deltaLP);
-                return "your opponent’s monster is destroyed and your opponent receives" + deltaLP + " battle damage";
+                if (!(attacked instanceof Marshmallon)) {
+                    removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
+                    putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
+                    if (attacked instanceof GraveYardEffectMonster)
+                        return ((GraveYardEffectMonster) attacked).action(monsterNumber);
+                    rival.decreaseLP(deltaLP);
+                    return "your opponent’s monster is destroyed and your opponent receives" + deltaLP + " battle damage";
+                } else {
+                    rival.decreaseLP(deltaLP);
+                    return "you can't destroy marshmallon and your opponent receives" + deltaLP + " battle damage";
+                }
             } else if (deltaLP == 0) {
-                removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
-                putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
                 removeCardFromZone(attacking, Board.Zone.MONSTER, selectedZoneIndex, currentPlayer.getBoard());
                 putCardInZone(attacking, Board.Zone.GRAVE, null, currentPlayer.getBoard());
+                if (attacked instanceof Marshmallon)
+                    return "Your monster card is destroyed. you can't destroy marshmallon";
+                removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
+                putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
                 return "both you and your opponent monster cards are destroyed and no one receives damage"
             } else {
                 deltaLP *= -1;
@@ -239,19 +253,24 @@ public class Game {
             deltaLP = attacking.getATK() - attacked.getDEF();
             String result;
             if (deltaLP > 0) {
-                removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
-                putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
-                if (attacked instanceof GraveYardEffectMonster)
-                    return ((GraveYardEffectMonster) attacked).action(monsterNumber);
-                result = "the defense position monster is destroyed";
+                if (!(attacked instanceof Marshmallon)) {
+                    removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
+                    putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
+                    if (attacked instanceof GraveYardEffectMonster)
+                        return ((GraveYardEffectMonster) attacked).action(monsterNumber);
+                    result = "the defense position monster is destroyed";
+                } else result = "you can't destroy marshmallon";
             } else if (deltaLP == 0) result = "no card is destroyed";
             else {
                 deltaLP *= -1;
                 currentPlayer.decreaseLP(deltaLP);
                 result = "no card is destroyed and you received " + deltaLP + " battle damage";
             }
-            if (rival.getBoard().getCardPositions()[0][monsterNumber] == Board.CardPosition.HIDE_DEF)
-                result = "opponent’s monster card was <monster card name> and " + result;
+            if (attackedPosition == Board.CardPosition.HIDE_DEF) {
+                result = "opponent’s monster card was " + attacked.getName() + " and " + result;
+                if (attacked instanceof Marshmallon) return ((Marshmallon) attacked).action(monsterNumber);
+            }
+
             return result;
         }
     }
@@ -359,6 +378,12 @@ public class Game {
     public void setCurrentPhase(Phase currentPhase) {
         this.currentPhase = currentPhase;
         Show.showPhase(currentPhase);
+    }
+
+    public void changeTurn() {
+        Player temp = currentPlayer;
+        currentPlayer = rival;
+        rival = temp;
     }
 
     public void setSelectedCard(Card selectedCard) {

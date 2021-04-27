@@ -1,6 +1,6 @@
 package model.card.monster;
 
-import model.Board;
+import controller.GameMenu;
 import model.Game;
 
 public class Marshmallon extends Monster {
@@ -10,9 +10,14 @@ public class Marshmallon extends Monster {
                 700, MonsterType.FAIRY, 3, 300, 500);
     }
 
-    public void action(int monsterIndexOfThis, Game game) {
-        Board board = game.getRival().getBoard();
-        if (board.getCardPositions()[0][monsterIndexOfThis] == Board.CardPosition.HIDE_DEF)
-            game.getCurrentPlayer().decreaseLP(1000);
+    public String action(int indexOfThis) {
+        Game game = GameMenu.getCurrentGame();
+        game.getCurrentPlayer().decreaseLP(1000);
+        int deltaLP = ((Monster) game.getSelectedCard()).getATK() - this.getDEF();
+        int damageToYou = deltaLP > 0 ? 1000 : 1000 - deltaLP;
+        int damageToRival = Math.max(deltaLP, 0);
+        return "opponent’s monster card was " + this.getName() + " and you received " + damageToYou + " battle damage"
+                + " and opponent received " + damageToRival + " battle damage";
+
     }
 }

@@ -1,5 +1,6 @@
 package model.card.monster;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 
@@ -13,11 +14,14 @@ public class Suijin extends Monster {
                 8700, MonsterType.AQUA, 7, 2500, 2400);
     }
 
-    public void action(Game game) {
-        game.getCurrentPlayer().decreaseLP(2500);
+    public String action(Board.CardPosition position) {
+        Game game = GameMenu.getCurrentGame();
+        int lpDamage = position == Board.CardPosition.ATK ? ATK : DEF;
+        game.getCurrentPlayer().decreaseLP(lpDamage);
         isUsedUp = true;
         game.removeCardFromZone(game.getSelectedCard(), Board.Zone.MONSTER, game.getSelectedZoneIndex(), game.getCurrentPlayer().getBoard());
         game.putCardInZone(game.getSelectedCard(), Board.Zone.GRAVE, null, game.getCurrentPlayer().getBoard());
+        return "You attacked a suijin and Your monster card is destroyed and you received " + lpDamage + " battle damage";
     }
 
     public boolean isUsedUp() {

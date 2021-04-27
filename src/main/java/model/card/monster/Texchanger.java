@@ -12,11 +12,12 @@ public class Texchanger extends Monster {
                 MonsterType.CYBERSE, 1, 100, 100);
     }
 
-    public void specialSummonACyberseMonster(Monster cyberseMonster, Board.Zone zone, int zoneIndex, Game game) {
-        if (cyberseMonster.getMonsterType() != MonsterType.CYBERSE) return;
+    public String specialSummonACyberseMonster(Monster cyberseMonster, Board.Zone zone, int zoneIndex, Game game) {
+        if (cyberseMonster.getMonsterType() != MonsterType.CYBERSE) return "it's not a cyberse.";
         Board board = game.getCurrentPlayer().getBoard();
         game.removeCardFromZone(cyberseMonster, zone, zoneIndex, board);
         game.putCardInZone(cyberseMonster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+        return "special summon is done";
     }
 
     public boolean isAttacked() {

@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/ActionCard.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/CommandKnight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/CommandKnight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/Marshmallon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/Marshmallon.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/Suijin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/Suijin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/Texchanger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/Texchanger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/TheCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/TheCalculator.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +118,7 @@
       <workItem from="1619090760749" duration="5181000" />
       <workItem from="1619459139193" duration="673000" />
       <workItem from="1619513955514" duration="189000" />
-      <workItem from="1619527284267" duration="6730000" />
+      <workItem from="1619527284267" duration="11838000" />
     </task>
     <task id="LOCAL-00001" summary="uml-code">
       <created>1618339504128</created>
@@ -308,7 +316,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619538048270</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="little change in attack">
+      <created>1619538501182</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1619538501182</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,7 +360,8 @@
     <MESSAGE value="finished equip spells" />
     <MESSAGE value="attack" />
     <MESSAGE value="attackDirectly + CommandKnight, GraveYardEffectMonster -&gt; in Game" />
-    <option name="LAST_COMMIT_MESSAGE" value="attackDirectly + CommandKnight, GraveYardEffectMonster -&gt; in Game" />
+    <MESSAGE value="little change in attack" />
+    <option name="LAST_COMMIT_MESSAGE" value="little change in attack" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

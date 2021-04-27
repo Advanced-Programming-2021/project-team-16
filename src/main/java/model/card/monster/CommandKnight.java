@@ -24,6 +24,7 @@ public class CommandKnight extends Monster {
     }
 
     public void undoAction() {
+        Game game = GameMenu.getCurrentGame();
         for (Card card : Card.getCards()) {
             if (card instanceof Monster) ((Monster) card).ATK -= 400;
         }

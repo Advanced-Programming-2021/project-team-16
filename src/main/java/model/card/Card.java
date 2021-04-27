@@ -10,7 +10,6 @@ public abstract class Card {
     protected String description;
     protected int price;
     public Random random = new Random();
-    //  protected Player owner = null;
 
     public Card(String name, String description, int price) {
         this.name = name;
@@ -19,20 +18,17 @@ public abstract class Card {
         cards.add(this);
     }
 
-    //  public void setOwner(Player player) {
-    //      owner = player;
-    //  }
 
     public static Card getCardByName(String name) {
         for (Card card : cards) {
-            if (card.name.equalsIgnoreCase(name)) {
+            if (card.name.equals(name)) {
                 return card;
             }
         }
         return null;
     }
 
-    public static void sort(ArrayList<Card> cards) {///////////
+    public static void sort(ArrayList<Card> cards) {
     }
 
     public static ArrayList<Card> getCards() {
