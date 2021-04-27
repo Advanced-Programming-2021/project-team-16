@@ -1,10 +1,7 @@
 package model;
 
 import model.card.Card;
-import model.card.monster.HeraldOfCreation;
-import model.card.monster.Monster;
-import model.card.monster.Scanner;
-import model.card.monster.Texchanger;
+import model.card.monster.*;
 import model.card.trap.TimeSeal;
 import model.card.trap.TorrentialTribute;
 import model.person.Player;
@@ -200,21 +197,30 @@ public class Game {
     }
 
     public String attack(int monsterNumber) {
-        Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
         if (selectedCard == null) return "no card is selected yet";
         if (selectedZone != Board.Zone.MONSTER) return "you can’t attack with this card";
         if (currentPhase != Phase.BATTLE) return "you can’t do this action in this phase";
-        if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex] == true)
-            return "this card already attacked";
+        if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
+        if (monsterNumber == -1) return attackDirectly();
+        Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
         if (attacked == null) return "there is no card to attack here";
+        if (attacked instanceof CommandKnight && ((CommandKnight) attacked).hasDoneAction()) {
+            for (Monster monster : rival.getBoard().getMonsterZone()) {
+                if (!(monster instanceof CommandKnight) && monster != null)
+                    return "You can't attack command knight while other monsters are available";
+            }
+        }
         Monster attacking = (Monster) selectedCard;
         int deltaLP;
+        currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex] = true;
         if (rival.getBoard().getCardPositions()[0][monsterNumber] == Board.CardPosition.ATK) {
             deltaLP = attacking.getATK() - attacked.getATK();
             if (deltaLP > 0) {
-                rival.decreaseLP(deltaLP);
+                if (attacked instanceof GraveYardEffectMonster)
+                    return ((GraveYardEffectMonster) attacked).action(monsterNumber);
                 removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
                 putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
+                rival.decreaseLP(deltaLP);
                 return "your opponent’s monster is destroyed and your opponent receives" + deltaLP + " battle damage";
             } else if (deltaLP == 0) {
                 removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
@@ -233,6 +239,8 @@ public class Game {
             deltaLP = attacking.getATK() - attacked.getDEF();
             String result;
             if (deltaLP > 0) {
+                if (attacked instanceof GraveYardEffectMonster)
+                    return ((GraveYardEffectMonster) attacked).action(monsterNumber);
                 removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
                 putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
                 result = "the defense position monster is destroyed";
@@ -249,7 +257,13 @@ public class Game {
     }
 
     public String attackDirectly() {
-
+        for (Monster monster : rival.getBoard().getMonsterZone()) {
+            //what other reasons can there be?
+            if (monster != null) return "you can’t attack the opponent directly";
+        }
+        int lp = ((Monster) selectedCard).getATK();
+        rival.decreaseLP(lp);
+        return "you opponent receives " + lp + " battle damage";
     }
 
     public String activeEffect() {
@@ -293,6 +307,8 @@ public class Game {
                 int index = board.getFirstEmptyIndexOfZone(Board.Zone.MONSTER);
                 board.getMonsterZone()[index] = (Monster) card;
                 board.getCardPositions()[0][index] = position;
+                if (position != Board.CardPosition.HIDE_DEF && card instanceof CommandKnight)
+                    if (!((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action();
                 Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
                 for (Card c : spellAndTrapZone) {
                     if (c instanceof TorrentialTribute) {
@@ -320,7 +336,11 @@ public class Game {
 
     public void removeCardFromZone(Card card, Board.Zone zone, int zoneIndex, Board board) {
         switch (zone) {
-            case MONSTER -> board.getMonsterZone()[zoneIndex] = null;
+            case MONSTER -> {
+                board.getMonsterZone()[zoneIndex] = null;
+                if (card instanceof CommandKnight)
+                    if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).undoAction();
+            }
             case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[zoneIndex] = null;
             case HAND -> board.getHand()[zoneIndex] = null;
             case FIELD_SPELL -> board.setFieldSpell(null);

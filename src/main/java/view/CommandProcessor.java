@@ -31,6 +31,7 @@ public class CommandProcessor {
         Game game = GameMenu.getCurrentGame();
         //bade har ettefagh:  if (didSbWin()) return;
         //if sb surrendered -> surrendered();
+        //hamleye mostaghim -> attack(-1)
     }
 
     public static String scan() {

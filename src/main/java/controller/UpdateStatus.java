@@ -11,7 +11,7 @@ public class UpdateStatus {
     }
 
     public static void makeAllMonsters() {
-        new CommnadKnight();
+        new CommandKnight();
         new Monster("Battle OX", "A monster with tremendous power, it destroys enemies with a swing of " +
                 "its axe.", 2900, Monster.MonsterType.BEAST_WARRIOR, 4, 1700, 1000);
         new Monster("Axe Raider", "An axe-wielding monster of tremendous strength and agility.", 3100,
