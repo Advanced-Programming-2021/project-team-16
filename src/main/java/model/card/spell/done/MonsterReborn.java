@@ -55,7 +55,7 @@ public class MonsterReborn extends Spell {
                 game.removeCardFromZone(monster, Board.Zone.GRAVE, 0, board);
             }
         }
-
+        super.action(game);
         return monstername + " special summoned successfully!";
 
     }

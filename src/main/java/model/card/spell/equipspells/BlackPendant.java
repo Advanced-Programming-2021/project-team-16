@@ -30,6 +30,7 @@ public class BlackPendant extends Spell {
         }
         if (!doesExist) return "given monster is neither in rival's monster zone nor current player's.";
         ((Monster) givenMonster).ATK += 500;
+        super.action(game);
         return givenMonster + " is equipped successfully!";
     }
 

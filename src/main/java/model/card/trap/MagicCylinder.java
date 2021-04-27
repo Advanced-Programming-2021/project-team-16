@@ -4,6 +4,7 @@ import model.Board;
 import model.Game;
 import model.card.Card;
 import model.card.monster.Monster;
+import model.card.spell.done.RingOfDefense;
 
 public class MagicCylinder extends Trap {
     public MagicCylinder() {
@@ -11,6 +12,7 @@ public class MagicCylinder extends Trap {
     }
 
     boolean done = false;
+    int damageAmount = 0;
 
     public String action(Game game) { //attack
         Board board = game.getRival().getBoard();
@@ -25,8 +27,15 @@ public class MagicCylinder extends Trap {
 
             assert card instanceof Monster;
             game.getRival().decreaseLP(((Monster) card).getATK());
+            damageAmount = ((Monster) card).getATK();
+            RingOfDefense ringOfDefense = new RingOfDefense();
+            ringOfDefense.action(game);
         }
         return "done!";
+    }
+
+    public int getDamageAmount() {
+        return damageAmount;
     }
 }
 

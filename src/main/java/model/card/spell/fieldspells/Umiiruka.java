@@ -32,6 +32,7 @@ public class Umiiruka extends Spell {
 
             }
         }
+        super.action(game);
         return "done!";
     }
 }

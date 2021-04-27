@@ -3,17 +3,17 @@ package model.card.trap;
 import model.card.Card;
 
 public abstract class Trap extends Card {
-    protected TrapType TrapType;
+    protected TrapType trapType;
     public String icon;
     public String status;
 
 
-    public Trap(String name, String icon, Trap.TrapType trapType, String description, String status, int price) {
+    public Trap(String name, String icon, TrapType trapType, String description, String status, int price) {
         super(name, description, price);
         this.name = name;
         this.description = description;
         this.price = price;
-        this.TrapType = trapType;
+        this.trapType = trapType;
         this.icon = icon;
         this.status = status;
     }

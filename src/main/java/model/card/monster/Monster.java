@@ -31,7 +31,9 @@ public class Monster extends Card {
         CYBERSE,
         FAIRY,
         BEAST_WARRIOR,
-        SEA_SERPENT
+        SEA_SERPENT,
+        AQUARITUAL,
+        WARRIORITUAL
     }
 
     public int getLevel() {

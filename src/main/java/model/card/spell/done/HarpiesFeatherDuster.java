@@ -11,7 +11,7 @@ public class HarpiesFeatherDuster extends Spell {
                 , "Destroy all Spells and Traps your opponent controls.", "Limited", 2500);
     }
 
-    public void action(Game game) {
+    public String action(Game game) {
 
         Board board = game.getRival().getBoard();
         for (int index = 0; index < board.getSpellAndTrapZone().length; index++) {
@@ -22,6 +22,10 @@ public class HarpiesFeatherDuster extends Spell {
         Card fieldSpell = board.getFieldSpell();
         if (fieldSpell != null) game.putCardInZone(fieldSpell, Board.Zone.GRAVE, null, board);
         game.removeCardFromZone(fieldSpell, Board.Zone.FIELD_SPELL, 0, board);
+
+        super.action(game);
+
+        return null;
     }
 
 }

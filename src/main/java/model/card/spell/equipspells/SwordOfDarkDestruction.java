@@ -33,6 +33,7 @@ public class SwordOfDarkDestruction extends Spell {
                 ((Monster) givenMonster).getMonsterType() == Monster.MonsterType.SPELL_CASTER) {
             ((Monster) givenMonster).ATK += 400;
             ((Monster) givenMonster).DEF -= 200;
+            super.action(game);
             return givenMonster + " is equipped successfully!";
         }
         return givenMonster + " is equipped but Sword Of Dark Destruction only affects Fairy and Spell Caster monsters!";

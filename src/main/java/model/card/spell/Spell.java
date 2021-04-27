@@ -1,6 +1,8 @@
 package model.card.spell;
 
+import model.Game;
 import model.card.Card;
+import model.card.spell.done.SpellAbsorption;
 
 public abstract class Spell extends Card {
     protected SpellType spellType;
@@ -40,5 +42,20 @@ public abstract class Spell extends Card {
     public SpellType getSpellType() {
         return spellType;
     }
+
+    public String action(Game game) {
+        for (Card card : game.getCurrentPlayer().getBoard().getSpellAndTrapZone()) {
+            if (card instanceof SpellAbsorption) {
+                ((SpellAbsorption) card).action(game, game.getCurrentPlayer());
+            }
+        }
+        for (Card card : game.getRival().getBoard().getSpellAndTrapZone()) {
+            if (card instanceof SpellAbsorption) {
+                ((SpellAbsorption) card).action(game, game.getRival());
+            }
+        }
+        return null;
+    }
+
 }
 
