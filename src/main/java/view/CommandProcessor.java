@@ -5,12 +5,13 @@ import model.Board;
 import model.Game;
 import model.card.Card;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class CommandProcessor {
     private static Scanner scanner = new Scanner(System.in);
-    private static ArrayList getCommandMatcher(String command, String regex) {
+
+    private static HashMap<String, String> getCommandMatcher(String command, String regex) {
     } //!!!!!!!!!!!
 
     private static void login() {

@@ -2,7 +2,9 @@ package view;
 
 public class Enums {
 
-    public enum LoginCommands {}
+    public enum LoginCommands {
+
+    }
 
     public enum MainMenuCommands {}
 

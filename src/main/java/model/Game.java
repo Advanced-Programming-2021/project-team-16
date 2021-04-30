@@ -375,6 +375,8 @@ public class Game {
                 board.getMonsterZone()[zoneIndex] = null;
                 if (card instanceof CommandKnight)
                     if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).undoAction();
+
+
             }
             case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[zoneIndex] = null;
             case HAND -> board.getHand()[zoneIndex] = null;
