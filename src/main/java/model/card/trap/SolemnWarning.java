@@ -16,17 +16,19 @@ public abstract class SolemnWarning extends Trap {
         Board board = game.getRival().getBoard();
         Monster monster = board.getMonsterZone()[index];
         Player player = game.getCurrentPlayer();
-
-        game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-        game.removeCardFromZone(monster, Board.Zone.HAND, game.getSelectedZoneIndex(), board);
-        summon = true;
-        player.decreaseLP(2000);
-
-
-        summon = false;
-        game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
-        game.removeCardFromZone(monster, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);
+        if (!(board.isZoneFull(Board.Zone.MONSTER))) {
+            game.removeCardFromZone(monster, Board.Zone.HAND, game.getSelectedZoneIndex(), board);
+            game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+            summon = true;
+            player.decreaseLP(2000);
+            summon = false;
+            game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
+            game.removeCardFromZone(monster, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);
+        }
         return "Stop summon!";
+
+
     }
+
     //  public abstract void action(Game game);
 }

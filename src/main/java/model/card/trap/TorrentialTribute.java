@@ -4,7 +4,7 @@ import model.Board;
 import model.Game;
 import model.card.monster.Monster;
 
-public class TorrentialTribute extends Trap {
+public abstract class TorrentialTribute extends Trap {
     public TorrentialTribute() {
         super("TorrentialTribute", "Trap", TrapType.NORMAL, "When a monster(s) is Summoned: Destroy all monsters on the field.", "Unlimited", 2000);
     }
