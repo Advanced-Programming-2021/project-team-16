@@ -18,14 +18,15 @@ public class CallOfTheHaunted extends Trap {
 
         Board board = game.getCurrentPlayer().getBoard();
         Card monster = getCardByName(monsterName);
-        game.removeCardFromZone(monster, Board.Zone.GRAVE, game.getSelectedZoneIndex(), board);
-        if (monster instanceof Monster) {
-            game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-        }
-        if (!(monster instanceof Monster)) {
-            game.putCardInZone(monster, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.ATK, board);
+        if ((monster instanceof Monster)/* && (board.getGrave()!= null)*/) { //////?
+            game.removeCardFromZone(monster, Board.Zone.GRAVE, game.getSelectedZoneIndex(), board);
 
+            game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+            return "summoned successfully!";
         }
-        return "done!";
+
+        game.putCardInZone(monster, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.ATK, board);
+        return "There is no monster";
+
     }
 }
