@@ -17,6 +17,7 @@ public class MagicJammer extends Trap {
         Board board = game.getCurrentPlayer().getBoard();
         int index = random.nextInt(4);
         Card card = board.getHand()[index];
+        //Card spell =
         if (spellIsActivate) {
             game.removeCardFromZone(card, Board.Zone.HAND, index, board);
             game.putCardInZone(card, Board.Zone.GRAVE, null, board);

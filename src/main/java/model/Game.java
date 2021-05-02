@@ -2,8 +2,7 @@ package model;
 
 import model.card.Card;
 import model.card.monster.*;
-import model.card.trap.TimeSeal;
-import model.card.trap.TorrentialTribute;
+import model.card.trap.*;
 import model.person.Player;
 import view.CommandProcessor;
 import view.Show;
@@ -184,13 +183,109 @@ public class Game {
     }
 
     public String summon(String summonType) {
+        if (selectedCard == null) {
+            return "no card is selected yet";
+        }
+        if (!(selectedCard instanceof Monster) || getCurrentPlayer().getBoard().getHand() != selectedCard.getName(summonType)) {
+            return "you can't summon this card";
+        }
+        if (currentPhase != Phase.MAIN_1 || currentPhase != Phase.MAIN_2) {
+            return "action not allowed in this phase";
+        } //////////?
+        if (getCurrentPlayer().getBoard().isZoneFull(Board.Zone.MONSTER)) {
+            return "RMonster card zone is full";
+        }
+        /*if ???
+         * if
+         * if*/
+        if (((Monster) selectedCard).getLevel() <= 4) {
+            putCardInZone(selectedCard, selectedZone, Board.CardPosition.ATK, getCurrentPlayer().getBoard());
+            return "summoned successfully";
+        }
+        ArrayList<Card> monsterGrave = getCurrentPlayer().getBoard().getGrave();
+        Card[] spellAndTrapZone = currentPlayer.getBoard().getSpellAndTrapZone();
+        Card[] spellAndTrapZoner = rival.getBoard().getSpellAndTrapZone();
+        Monster RMonster = (Monster) rival.getBoard().getHand()[selectedZoneIndex];
+        Monster CMonster = (Monster) currentPlayer.getBoard().getHand()[selectedZoneIndex];
 
+        if (selectedCard instanceof CallOfTheHaunted) {
+            if (selectedCard == monsterGrave.get(selectedZoneIndex)) {
+                for (Card card : spellAndTrapZone) {
+                    if (card.getClass() == CallOfTheHaunted.class) {
+                        if (((CallOfTheHaunted) card).action(this, summonType).equals("summoned successfully!")) {
+                            return "summoned successfully!";
+                        }
+                        if (((CallOfTheHaunted) card).action(this, summonType).equals("There is no RMonster")) {
+                            return "You can't summon!";
+                        }
+                    }
+                }
+            }
+        }
+        if (selectedCard instanceof TrapHole) {
+            if (RMonster.getATK() >= 1000) {
+                if (selectedCard == RMonster) {
+                    if (!(rival.getBoard().isZoneFull(Board.Zone.MONSTER))) {
+                        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, rival.getBoard());
+                        putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, getRival().getBoard());
+                        for (Card card : spellAndTrapZone) {
+                            if (card.getClass() == TrapHole.class) {
+                                ((TrapHole) card).action(this, selectedZoneIndex);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (selectedCard instanceof TorrentialTribute) {
+            if (RMonster != null && selectedCard == RMonster && !(rival.getBoard().isZoneFull(Board.Zone.MONSTER))) {
+
+                removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, rival.getBoard());
+                putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, rival.getBoard());
+            }
+            if (CMonster != null && selectedCard == CMonster && !(currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER))) {
+
+                removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
+                putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
+            }
+            for (Card card : spellAndTrapZone) {
+                if (card.getClass() == TorrentialTribute.class) {
+                    ((TorrentialTribute) card).action(this);
+                }
+            }
+        }
+        if (selectedCard instanceof TerratigerTheEmpoweredWarrior) {/////////?????
+            if (CMonster != null && selectedCard == CMonster && !(currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER))) {
+
+                removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
+                putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
+            }
+            for (Card card : spellAndTrapZone) {
+                if (card.getClass() == TerratigerTheEmpoweredWarrior.class) {
+                    ((TerratigerTheEmpoweredWarrior) card).action(selectedZoneIndex, this);
+                }
+            }
+            return "summoned successfully!";
+        }
+        if (selectedCard instanceof SolemnWarning) {
+            if (selectedCard == RMonster) {
+                for (Card card : spellAndTrapZoner) {
+                    if (card.getClass() == SolemnWarning.class) {
+                        if (((SolemnWarning) card).action(this, selectedZoneIndex).equals("Stop summon!")) {
+                            return "summoned successfully!";
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public String set(boolean isFromHand) {
+        if (selectedCard == null) {
+            return "no card is selected yet";
 
+        }
     }
-
 
     public String flipSummon() {
 
@@ -348,14 +443,14 @@ public class Game {
                 for (Card c : spellAndTrapZone) {
                     if (c instanceof TorrentialTribute) {
                         if (rival.askPlayerToActive(c))
-                            ((TorrentialTribute) c).action();
+                            ((TorrentialTribute) c).action(this);
                         return;
                     }
                 }
                 spellAndTrapZone = currentPlayer.getBoard().getSpellAndTrapZone();
                 for (Card c : spellAndTrapZone) {
                     if (c instanceof TorrentialTribute) {
-                        ((TorrentialTribute) c).action();
+                        ((TorrentialTribute) c).action(this);
                         return;
                     }
                 }
