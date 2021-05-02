@@ -208,84 +208,90 @@ public class Game {
         Monster RMonster = (Monster) rival.getBoard().getHand()[selectedZoneIndex];
         Monster CMonster = (Monster) currentPlayer.getBoard().getHand()[selectedZoneIndex];
 
-        if (selectedCard instanceof CallOfTheHaunted) {
-            if (selectedCard == monsterGrave.get(selectedZoneIndex)) {
-                for (Card card : spellAndTrapZone) {
-                    if (card.getClass() == CallOfTheHaunted.class) {
-                        if (((CallOfTheHaunted) card).action(this, summonType).equals("summoned successfully!")) {
-                            return "summoned successfully!";
-                        }
-                        if (((CallOfTheHaunted) card).action(this, summonType).equals("There is no RMonster")) {
-                            return "You can't summon!";
-                        }
+        for (Card card : spellAndTrapZone) {
+            if (card.getClass() == CallOfTheHaunted.class) {
+                if (selectedCard == monsterGrave.get(selectedZoneIndex)) {
+
+                    if (((CallOfTheHaunted) card).action(this, summonType).equals("summoned successfully!")) {
+                        return "summoned successfully!";
+                    }
+                    if (((CallOfTheHaunted) card).action(this, summonType).equals("There is no RMonster")) {
+                        return "You can't summon!";
                     }
                 }
             }
         }
-        if (selectedCard instanceof TrapHole) {
-            if (RMonster.getATK() >= 1000) {
-                if (selectedCard == RMonster) {
-                    if (!(rival.getBoard().isZoneFull(Board.Zone.MONSTER))) {
-                        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, rival.getBoard());
-                        putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, getRival().getBoard());
-                        for (Card card : spellAndTrapZone) {
-                            if (card.getClass() == TrapHole.class) {
-                                ((TrapHole) card).action(this, selectedZoneIndex);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (selectedCard instanceof TorrentialTribute) {
-            if (RMonster != null && selectedCard == RMonster && !(rival.getBoard().isZoneFull(Board.Zone.MONSTER))) {
-
-                removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, rival.getBoard());
-                putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, rival.getBoard());
-            }
-            if (CMonster != null && selectedCard == CMonster && !(currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER))) {
-
-                removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
-                putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
-            }
-            for (Card card : spellAndTrapZone) {
-                if (card.getClass() == TorrentialTribute.class) {
-                    ((TorrentialTribute) card).action(this);
-                }
-            }
-        }
-        if (selectedCard instanceof TerratigerTheEmpoweredWarrior) {/////////?????
-            if (CMonster != null && selectedCard == CMonster && !(currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER))) {
-
-                removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
-                putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
-            }
-            for (Card card : spellAndTrapZone) {
-                if (card.getClass() == TerratigerTheEmpoweredWarrior.class) {
-                    ((TerratigerTheEmpoweredWarrior) card).action(selectedZoneIndex, this);
-                }
-            }
-            return "summoned successfully!";
-        }
-        if (selectedCard instanceof SolemnWarning) {
+        if (RMonster.getATK() >= 1000) {
             if (selectedCard == RMonster) {
-                for (Card card : spellAndTrapZoner) {
-                    if (card.getClass() == SolemnWarning.class) {
-                        if (((SolemnWarning) card).action(this, selectedZoneIndex).equals("Stop summon!")) {
-                            return "summoned successfully!";
+                if (!(rival.getBoard().isZoneFull(Board.Zone.MONSTER))) {
+                    removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, rival.getBoard());
+                    putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, getRival().getBoard());
+                    for (Card card : spellAndTrapZone) {
+                        if (card.getClass() == TrapHole.class) {
+                            ((TrapHole) card).action(this, selectedZoneIndex);
+
                         }
+                    }
+                }
+            }
+        }
+        for (Card card : spellAndTrapZone) {
+            if (card.getClass() == TorrentialTribute.class) {
+                if (RMonster != null && selectedCard == RMonster && !(rival.getBoard().isZoneFull(Board.Zone.MONSTER))) {
+
+                    removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, rival.getBoard());
+                    putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, rival.getBoard());
+                }
+                if (CMonster != null && selectedCard == CMonster && !(currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER))) {
+
+                    removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
+                    putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
+                }
+                ((TorrentialTribute) card).action(this);
+            }
+        }
+
+        for (Card card : spellAndTrapZone) {
+            if (card.getClass() == TerratigerTheEmpoweredWarrior.class) {
+                if (CMonster != null && selectedCard == CMonster && !(currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER))) {
+
+                    removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
+                    putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
+                }
+
+                ((TerratigerTheEmpoweredWarrior) card).action(selectedZoneIndex, this);
+            }
+        }
+
+        for (Card card : spellAndTrapZoner) {
+            if (card.getClass() == SolemnWarning.class) {
+                if (selectedCard == RMonster) {
+                    ((SolemnWarning) card).action(this, selectedZoneIndex);
+                    if (((SolemnWarning) card).action(this, selectedZoneIndex).equals("Stop summon!")) {
+                        return "summoned successfully!";
                     }
                 }
             }
         }
     }
+
 
     public String set(boolean isFromHand) {
         if (selectedCard == null) {
             return "no card is selected yet";
-
+        }
+        for (Card card : rival.getBoard().getHand()) {
+            if (selectedCard != card)
+                return "you can’t set this card";
+        }
+        for (Card card : currentPlayer.getBoard().getHand()) {
+            if (selectedCard != card)
+                return "you can’t set this card";
         }
     }
+
+
+}
 
     public String flipSummon() {
 
