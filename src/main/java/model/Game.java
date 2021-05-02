@@ -189,9 +189,9 @@ public class Game {
         if (!(selectedCard instanceof Monster) || getCurrentPlayer().getBoard().getHand() != selectedCard.getName(summonType)) {
             return "you can't summon this card";
         }
-        if (currentPhase != Phase.MAIN_1 || currentPhase != Phase.MAIN_2) {
+        if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
             return "action not allowed in this phase";
-        } //////////?
+        }
         if (getCurrentPlayer().getBoard().isZoneFull(Board.Zone.MONSTER)) {
             return "RMonster card zone is full";
         }

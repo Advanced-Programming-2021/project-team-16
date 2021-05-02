@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameMenu;
+import controller.Login;
 import model.Board;
 import model.Game;
 import model.card.Card;
@@ -15,6 +16,24 @@ public class CommandProcessor {
     } //!!!!!!!!!!!
 
     private static void login() {
+        HashMap<String, String> data;
+        for (String command = scanner.nextLine(); !command.equals(Enums.LoginCommands.LOGOUT.getRegex()) &&
+                !command.equals(Enums.LoginCommands.EXIT.getRegex()); command = scanner.nextLine()) {
+            if (command.matches(Enums.LoginCommands.LOGIN.getRegex())) {
+                data = getCommandMatcher(command, Enums.LoginCommands.LOGIN.getRegex());
+                String result = Login.login(data.get("username"), data.get("password"));
+                System.out.println(result);
+                if (result.equals("user logged in successfully!")) mainMenu();
+            } else if (command.matches(Enums.LoginCommands.CREATE_USER.getRegex())) {
+                data = getCommandMatcher(command, Enums.LoginCommands.CREATE_USER.getRegex());
+                System.out.println(Login.signUp(data.get("username"), data.get("password"), data.get("nickname")));
+            } else if (command.equals(Enums.LoginCommands.SHOW_CURRENT.getRegex()))
+                System.out.println(Login.menuName());
+            else if (command.matches(Enums.LoginCommands.ENTER_MENU.getRegex()))
+                System.out.println("please login first");
+        }
+        System.out.println("user logged out successfully!");
+
     }
 
     private static void mainMenu() {
