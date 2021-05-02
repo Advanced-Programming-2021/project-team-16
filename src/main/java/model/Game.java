@@ -205,7 +205,7 @@ public class Game {
         if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
         if (monsterNumber == -1) return attackDirectly();
         Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
-        if (attacked instanceof Texchanger) {
+        if (attacked instanceof Texchanger && !((Texchanger) attacked).isAttacked()) {
             changeTurn();
             Show.showGameMessage("choose zone for the cyberse monster that you want to tribute (deck, graveyard or hand)");
             Board.Zone zone = CommandProcessor.getZone();

@@ -7,8 +7,8 @@
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/Texchanger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/Texchanger.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/person/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/Enums.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Enums.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,7 +115,8 @@
       <workItem from="1619459139193" duration="673000" />
       <workItem from="1619513955514" duration="189000" />
       <workItem from="1619527284267" duration="2289000" />
-      <workItem from="1619806072407" duration="4342000" />
+      <workItem from="1619806072407" duration="5205000" />
+      <workItem from="1619898164311" duration="2105000" />
     </task>
     <task id="LOCAL-00001" summary="uml-code">
       <created>1618339504128</created>
@@ -306,7 +307,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619553638162</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="changes">
+      <created>1619814833365</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1619814833365</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -333,7 +341,6 @@
     <MESSAGE value="4 monsters + changes in Board and Game + adding UpdateStatus class in controller" />
     <MESSAGE value="2 monsters + changes in Board &amp; Game" />
     <MESSAGE value="changes in GraveYardEffectMonster" />
-    <MESSAGE value="changes" />
     <MESSAGE value="2 monsters" />
     <MESSAGE value="gitignore" />
     <MESSAGE value="3 monsters" />
@@ -343,7 +350,8 @@
     <MESSAGE value="finished equip spells" />
     <MESSAGE value="work on spells and some detail changes" />
     <MESSAGE value="attack -&gt; Texchanger" />
-    <option name="LAST_COMMIT_MESSAGE" value="attack -&gt; Texchanger" />
+    <MESSAGE value="changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

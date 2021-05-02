@@ -13,7 +13,7 @@ public class User {
     private String password;
     private String nickname;
     private int money;
-    //private int score;
+    private int score;
     private ArrayList<Deck> decks = new ArrayList<Deck>();
     private ArrayList<Card> cards = new ArrayList<Card>();
     private Deck activeDeck;
@@ -27,8 +27,8 @@ public class User {
         for (int i = users.size(); i > 0 && change; i--) {
             change = false;
             for (int j = 0; j < i; j++)
-                if (users.get(j).getMoney() < users.get(j + 1).getMoney() ||
-                        (users.get(j).getMoney() == users.get(j + 1).getMoney() &&
+                if (users.get(j).score < users.get(j + 1).score ||
+                        (users.get(j).score == users.get(j + 1).score &&
                                 users.get(j).getNickname().compareTo(users.get(j + 1).getNickname()) > 0)) {
                     swap(users, j, j + 1);
                     change = true;
@@ -56,6 +56,10 @@ public class User {
 
     public void decreaseMoney(int amount) {
         this.money -= amount;
+    }
+
+    public void increaseScore(int amount) {
+        this.score += amount;
     }
 
     public void setPassword(String newPass) {

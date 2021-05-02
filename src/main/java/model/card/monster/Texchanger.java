@@ -21,6 +21,7 @@ public class Texchanger extends Monster {
         Board board = game.getCurrentPlayer().getBoard();
         game.removeCardFromZone(cyberseMonster, zone, zoneIndex, board);
         game.putCardInZone(cyberseMonster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+        setAttacked(true);
         return "special summon is done";
     }
 
