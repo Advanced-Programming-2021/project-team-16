@@ -56,6 +56,18 @@ public class User {
         return null;
     }
 
+    public static String getPasswordWeakness(String password) {
+        if (password.length() < 7) return "password must have at least 7 characters";
+        boolean hasLetter = false, hasDigit = false;
+        for (int i = 0; i < password.length(); i++) {
+            if (Character.isDigit(password.charAt(i))) hasDigit = true;
+            else if (Character.isLetter(password.charAt(i))) hasLetter = true;
+        }
+        if (!hasDigit) return "password must have at least 1 digit";
+        if (!hasLetter) return "password must have at least 1 letter";
+        return "strong";
+    }
+
     public void setActiveDeck(Deck deck) {
         if (this.decks.contains(deck))
             this.activeDeck = deck;

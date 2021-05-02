@@ -8,6 +8,7 @@ public class Login {
             return "user with username " + username + " already exists";
         if (User.getUserByNickname(nickname) != null)
             return "user with nickname " + nickname + " already exists";
+        if (!User.getPasswordWeakness(password).equals("strong")) return User.getPasswordWeakness(password);
         new User(username, password, nickname);
         return "user created successfully!";
     }

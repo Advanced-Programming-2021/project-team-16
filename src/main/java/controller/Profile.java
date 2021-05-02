@@ -1,11 +1,22 @@
 package controller;
 
-public class Profile {
-    public static void changeNickname(String newNickname) {
+import model.person.User;
 
+public class Profile {
+    public static String changeNickname(String newNickname) {
+        if (User.getUserByNickname(newNickname) != null)
+            return "user with nickname " + newNickname + " already exists";
+        MainMenu.getCurrentUser().setNickname(newNickname);
+        return "nickname changed successfully!";
     }
 
-    public static void changePassword(String newPassword) {
+    public static String changePassword(String currentPassword, String newPassword) {
+        User user = MainMenu.getCurrentUser();
+        if (!user.getPassword().equals(currentPassword)) return "current password is invalid";
+        if (newPassword.equals(currentPassword)) return "please enter a new password";
+        if (!User.getPasswordWeakness(newPassword).equals("strong")) return User.getPasswordWeakness(newPassword);
+        user.setPassword(newPassword);
+        return "password changed successfully!";
 
     }
 

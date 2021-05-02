@@ -27,6 +27,8 @@ public class Enums {
     public enum DeckMenuCommands {}
 
     public enum ProfileCommands {
+        CHANGE_NICKNAME("profile change --nickname (\\w)"),
+        CHANGE_PASSWORD("profile change --password --current (\\w) --new (\\w)"),
         SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.*)"),
         EXIT("menu exit");
@@ -38,6 +40,24 @@ public class Enums {
         }
 
         ProfileCommands(String regex) {
+            this.regex = regex;
+        }
+
+    }
+
+    public enum ScoreboardCommands {
+        SHOW_SCOREBOARD("scoreboard show"),
+        SHOW_CURRENT("menu show-current"),
+        ENTER_MENU("menu enter (.*)"),
+        EXIT("menu exit");
+
+        String regex;
+
+        public String getRegex() {
+            return regex;
+        }
+
+        ScoreboardCommands(String regex) {
             this.regex = regex;
         }
 
