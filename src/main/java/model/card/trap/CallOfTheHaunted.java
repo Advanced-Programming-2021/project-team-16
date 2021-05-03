@@ -22,11 +22,11 @@ public abstract class CallOfTheHaunted extends Trap {
             game.removeCardFromZone(monster, Board.Zone.GRAVE, game.getSelectedZoneIndex(), board);
 
             game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-            return "summoned successfully!";
-        }
 
-        game.putCardInZone(monster, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.ATK, board);
-        return "There is no monster";
+        }
+        return "summoned successfully!";
+        //  game.putCardInZone(monster, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.ATK, board);
+        //   return "There is no monster";
 
     }
 }
