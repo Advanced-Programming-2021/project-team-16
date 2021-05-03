@@ -10,25 +10,30 @@ import model.card.Card;
 
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CommandProcessor {
     private static Scanner scanner = new Scanner(System.in);
 
-    private static HashMap<String, String> getCommandMatcher(String command, String regex) {
-
-    } //!!!!!!!!!!!
+    private static HashMap<String, String> getCommandData(String command) {
+        HashMap<String, String> data = new HashMap<>();
+        Matcher matcher = Pattern.compile("--(\\S+) ([^\\s-]+)").matcher(command);
+        while (matcher.find()) data.put(matcher.group(1), matcher.group(2));
+        return data;
+    }
 
     private static void login() {
         HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.LoginCommands.LOGOUT.getRegex()) &&
                 !command.equals(Enums.LoginCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.matches(Enums.LoginCommands.LOGIN.getRegex())) {
-                data = getCommandMatcher(command, Enums.LoginCommands.LOGIN.getRegex());
+                data = getCommandData(command);
                 String result = Login.login(data.get("username"), data.get("password"));
                 System.out.println(result);
                 if (result.equals("user logged in successfully!")) mainMenu();
             } else if (command.matches(Enums.LoginCommands.CREATE_USER.getRegex())) {
-                data = getCommandMatcher(command, Enums.LoginCommands.CREATE_USER.getRegex());
+                data = getCommandData(command);
                 System.out.println(Login.signUp(data.get("username"), data.get("password"), data.get("nickname")));
             } else if (command.equals(Enums.LoginCommands.SHOW_CURRENT.getRegex()))
                 System.out.println(Login.menuName());
@@ -57,10 +62,10 @@ public class CommandProcessor {
             else if (command.equals(Enums.ProfileCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
             else if (command.matches(Enums.ProfileCommands.CHANGE_NICKNAME.getRegex())) {
-                data = getCommandMatcher(command, Enums.ProfileCommands.CHANGE_NICKNAME.getRegex());
+                data = getCommandData(command);
                 System.out.println(Profile.changeNickname(data.get("nickname")));
             } else if (command.matches(Enums.ProfileCommands.CHANGE_PASSWORD.getRegex())) {
-                data = getCommandMatcher(command, Enums.ProfileCommands.CHANGE_PASSWORD.getRegex());
+                data = getCommandData(command);
                 System.out.println(Profile.changePassword(data.get("current"), data.get("new"));
             }
         }
@@ -80,7 +85,6 @@ public class CommandProcessor {
 
 
     private static void scoreboard() {
-        HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.ScoreboardCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.equals(Enums.ScoreboardCommands.SHOW_SCOREBOARD.getRegex()))
                 Scoreboard.showScoreboard();

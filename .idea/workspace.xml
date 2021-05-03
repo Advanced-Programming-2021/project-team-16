@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Profile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Profile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/person/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/User.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/Enums.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Enums.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +113,8 @@
       <workItem from="1619513955514" duration="189000" />
       <workItem from="1619527284267" duration="2289000" />
       <workItem from="1619806072407" duration="5205000" />
-      <workItem from="1619898164311" duration="10933000" />
+      <workItem from="1619898164311" duration="11714000" />
+      <workItem from="1620059452637" duration="1555000" />
     </task>
     <task id="LOCAL-00001" summary="uml-code">
       <created>1618339504128</created>
@@ -329,7 +326,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619979827566</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="profile and scoreboard completed">
+      <created>1619986526035</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1619986526035</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -367,7 +371,8 @@
     <MESSAGE value="attack -&gt; Texchanger" />
     <MESSAGE value="changes" />
     <MESSAGE value="login completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="login completed" />
+    <MESSAGE value="profile and scoreboard completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="profile and scoreboard completed" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
