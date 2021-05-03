@@ -12,7 +12,7 @@ public class Show {
     public static void showCardArray(ArrayList cards) {
     }
 
-    public static void showSingleCard(Card card) {
+    public static void showSingleCard(String cardName) {
     }
 
     public static void showScoreBoard(ArrayList<User> users) {

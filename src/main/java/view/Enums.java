@@ -3,9 +3,12 @@ package view;
 public class Enums {
 
     public enum LoginCommands {
-        LOGIN("user login --username (\\w) --password (\\w)"),
+        LOGIN("user login (--username (\\w+) --password (\\w+)|--password (\\w+) --username (\\w+))"),
         LOGOUT("user logout"),
-        CREATE_USER("user create --username (\\w) --nickname (\\w) --password (\\w)"),
+        CREATE_USER("user create (--username (\\w+) --nickname (\\w+) --password (\\w+)|" +
+                "--password (\\w+) --username (\\w+) --nickname (\\w+)|--nickname (\\w+) --password (\\w+) --username (\\w+)|" +
+                "--username (\\w+) --password (\\w+) --nickname (\\w+)|--nickname (\\w+) --username (\\w+) --password (\\w+)|" +
+                "--password (\\w+) --nickname (\\w+) --username (\\w+))"),
         SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.*)"),
         EXIT("menu exit");
@@ -27,8 +30,8 @@ public class Enums {
     public enum DeckMenuCommands {}
 
     public enum ProfileCommands {
-        CHANGE_NICKNAME("profile change --nickname (\\w)"),
-        CHANGE_PASSWORD("profile change --password --current (\\w) --new (\\w)"),
+        CHANGE_NICKNAME("profile change --nickname (\\w+)"),
+        CHANGE_PASSWORD("profile change --password (--current (\\w+) --new (\\w+)|--new (\\w+) --current (\\w+))"),
         SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.*)"),
         EXIT("menu exit");
@@ -64,8 +67,10 @@ public class Enums {
     }
 
     public enum GameMenuCommands {
+        DUEL("duel --new (--second-player (\\w+) --rounds (\\d+)|--rounds (\\d+) --second-player (\\w+))"),
+        AI_DUEL("duel --new (--ai --rounds (\\d+)|--rounds (\\d+) --ai)"),
         SHOW_CURRENT("menu show-current"),
-        ENTER_MENU("menu enter (.*)"),
+        ENTER_MENU("menu enter (.+)"),
         EXIT("menu exit");
 
 
@@ -76,6 +81,20 @@ public class Enums {
         }
 
         GameMenuCommands(String regex) {
+            this.regex = regex;
+        }
+    }
+
+    public enum GameCommands() {
+
+        SHOW_CARD("card show (\\w+)");
+        String regex;
+
+        public String getRegex() {
+            return regex;
+        }
+
+        GameCommands(String regex) {
             this.regex = regex;
         }
     }
