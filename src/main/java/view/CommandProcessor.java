@@ -1,12 +1,10 @@
 package view;
 
-import controller.GameMenu;
-import controller.Login;
-import controller.Profile;
-import controller.Scoreboard;
+import controller.*;
 import model.Board;
 import model.Game;
 import model.card.Card;
+import model.person.User;
 
 import java.util.HashMap;
 import java.util.Scanner;
@@ -39,6 +37,7 @@ public class CommandProcessor {
                 System.out.println(Login.menuName());
             else if (command.matches(Enums.LoginCommands.ENTER_MENU.getRegex()))
                 System.out.println("please login first");
+            else System.out.println("invalid command");
         }
         System.out.println("user logged out successfully!");
 
@@ -54,7 +53,6 @@ public class CommandProcessor {
     }
 
     private static void profile() {
-
         HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.ProfileCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.equals(Enums.ProfileCommands.SHOW_CURRENT.getRegex()))
@@ -67,7 +65,51 @@ public class CommandProcessor {
             } else if (command.matches(Enums.ProfileCommands.CHANGE_PASSWORD.getRegex())) {
                 data = getCommandData(command);
                 System.out.println(Profile.changePassword(data.get("current"), data.get("new"));
-            }
+            } else System.out.println("invalid command");
+        }
+    }
+
+    public static void gameMenu() {
+        HashMap<String, String> data;
+        for (String command = scanner.nextLine().trim(); !command.equals(Enums.GameMenuCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
+            if (command.equals(Enums.GameMenuCommands.SHOW_CURRENT.getRegex()))
+                System.out.println(GameMenu.menuName());
+            else if (command.equals(Enums.GameMenuCommands.ENTER_MENU.getRegex()))
+                System.out.println("menu navigation is not possible");
+            else if (command.matches(Enums.GameMenuCommands.DUEL.getRegex())) {
+                data = getCommandData(command);
+                User secondUser = User.getUserByUsername(data.get("second-player"));
+                User firstUser = MainMenu.getCurrentUser();
+                String error = null;
+                if (secondUser == null) error = "there is no player with this username";
+                else if (firstUser.getActiveDeck() == null) error = firstUser.getUsername() + " has no active deck";
+                else if (secondUser.getActiveDeck() == null) error = secondUser.getUsername() + " has no active deck";
+                else if (!firstUser.getActiveDeck().isDeckValid())
+                    error = firstUser.getUsername() + "’s deck is invalid";
+                else if (!secondUser.getActiveDeck().isDeckValid())
+                    error = secondUser.getUsername() + "’s deck is invalid";
+                else if (!data.get("rounds").equals("1") && !data.get("rounds").equals("3"))
+                    error = "number of rounds is not supported";
+                if (error != null) System.out.println(error);
+                else {
+                    System.out.println("duel started successfully");
+                    GameMenu.duel(secondUser, Integer.parseInt(data.get("rounds")));
+                }
+            } else if (command.matches(Enums.GameMenuCommands.AI_DUEL.getRegex())) {
+                User firstUser = MainMenu.getCurrentUser();
+                String rounds = getCommandData(command).get("rounds");
+                String error = null;
+                if (firstUser.getActiveDeck() == null) error = firstUser.getUsername() + " has no active deck";
+                else if (!firstUser.getActiveDeck().isDeckValid())
+                    error = firstUser.getUsername() + "’s deck is invalid";
+                else if (!rounds.equals("1") && !rounds.equals("3"))
+                    error = "number of rounds is not supported";
+                if (error != null) System.out.println(error);
+                else {
+                    System.out.println("duel started successfully");
+                    GameMenu.duel(null, Integer.parseInt(rounds));
+                }
+            } else System.out.println("invalid command");
         }
     }
 
@@ -92,6 +134,7 @@ public class CommandProcessor {
                 System.out.println(Scoreboard.menuName());
             else if (command.equals(Enums.ScoreboardCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
+            else System.out.println("invalid command");
         }
     }
 
