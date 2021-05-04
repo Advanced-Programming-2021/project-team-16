@@ -320,35 +320,101 @@ public class Game {
     public String set(boolean isFromHand) {
         if (selectedCard == null) {
             return "no card is selected yet";
-            //   }
-            //   for (Card card : rival.getBoard().getHand()) {
-            //       if (selectedCard != card)
-            //           return "you can’t set this card";
-            //   }
-            //   for (Card card : currentPlayer.getBoard().getHand()) {
-            //       if (selectedCard != card)
-            //           return "you can’t set this card";
-            //   }
-            if (currentPhase != Phase.MAIN_1 || currentPhase != Phase.MAIN_2) {
-                return "action not allowed in this phase";
-            }
-            if (rival.getBoard().isZoneFull(Board.Zone.MONSTER)) {
-                return "monster card zone is full";
-            }
-            if (currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER)) {
-                return "monster card zone is full";
+        }
+        for (Card card : currentPlayer.getBoard().getHand()) {
+            if (card instanceof Monster) {
+                if (selectedCard == card) {
+                    //  if(selectedCard != (Marshmallon) card && selectedCard !=(Scanner)card){
+                    if (selectedCard != currentPlayer.getBoard().getHand()[selectedZoneIndex]) {
+                        return "you can’t set this card";
+                    }
+                    if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
+                        return "action not allowed in this phase";
+                    }
+                    if (currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER)) {
+                        return "monster card zone is full";
+                    }
+                    if (!isFromHand) {//kafie?
+                        return "you already summoned/set on this turn";
+                    }
+                    if (!currentPlayer.getBoard().isZoneFull(selectedZone)) {
+                        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());// selectedZoneIndex hamun firstEmptyZoneIndexe?
+                        putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
+                    }
+
+                }
             }
         }
+        for (Card card : currentPlayer.getBoard().getHand()) {
+            if (card instanceof Spell) {
+                if (selectedCard == card) {
+                    // if (selectedCard == null) {
+                    //     return "no card is selected yet";
+                    // }
+                    if (selectedCard != currentPlayer.getBoard().getHand()[selectedZoneIndex]) {
+                        return "you can’t set this card";
+                    }
+                    if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
+                        return "action not allowed in this phase";
+                    }
+                    //  if (rival.getBoard().isZoneFull(Board.Zone.MONSTER)) {///////////////////
+                    //      return "spell card zone is full";
+                    //  }
+                    if (currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP)) {
+                        return "spell card zone is full";
+                    }
+                    if (!isFromHand) {                                                 //kafie?
+                        return "you already summoned/set on this turn";
+                    }
+                    if (!currentPlayer.getBoard().isZoneFull(selectedZone)) {
+                        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
+                        putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
+                    }
+                }
+            }
+        }
+        for (Card card : currentPlayer.getBoard().getHand()) {
+            if (card instanceof Trap) {
+                if (selectedCard == card) {
+                    if (selectedCard != currentPlayer.getBoard().getHand()[selectedZoneIndex]) {
+                        return "you can’t set this card";
+                    }
+                    if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
+                        return "action not allowed in this phase";
+                    }
+                    if (currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP)) {
+                        return "trap card zone is full";
+                    }
+                    if (!isFromHand) {//kafie?
+                        return "you already summoned/set on this turn";
+                    }
+                    if (!currentPlayer.getBoard().isZoneFull(selectedZone)) {
+                        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
+                        putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
+                    }
 
-
+                }
+            }
+        }
+        return "set successfully";
     }
 
+    //   for (Card card : rival.getBoard().getHand()) {
+    //       if (selectedCard != card)
+    //           return "you can’t set this card";
+    //   }
+    //   for (Card card : currentPlayer.getBoard().getHand()) {
+    //       if (selectedCard != card)
+    //           return "you can’t set this card";
+    //   }
     public String flipSummon() {
-        Boolean isInZone = false;
+        boolean isInZone = false;
         Game game = GameMenu.getCurrentGame();
         if (selectedCard == null) return "no card is selected yet";
         for (Monster monster : game.getCurrentPlayer().getBoard().getMonsterZone()) {
-            if (monster == (Monster) selectedCard) isInZone = true;
+            if (monster == (Monster) selectedCard) {
+                isInZone = true;
+            }
         }
         if (!isInZone) return "you can’t change this card position";
         if (getCurrentPhase() != Phase.MAIN_1 && getCurrentPhase() != Phase.MAIN_2)
