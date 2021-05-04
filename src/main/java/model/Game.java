@@ -20,6 +20,7 @@ public class Game {
     private Card selectedCard;
     private Board.Zone selectedZone;
     private int selectedZoneIndex;
+    private boolean isSelectedCardForRival = false; //TODO : tasir dadane in tooye tavabe
     private Player currentPlayer;
     private Player rival;
     private Player winner;
@@ -88,12 +89,11 @@ public class Game {
         //spell absorbtion
         //ring of defence
         //negate attack
-        setCurrentPhase(Phase.DRAW);
         selectedCard = null;
+        setCurrentPhase(Phase.DRAW)
         Show.showGameMessage(drawCard());
         if (didSbWin()) return;
         setCurrentPhase(Phase.STANDBY);
-        selectedCard = null;
         Board currBoard = currentPlayer.getBoard();
         Card[] cards = currBoard.getSpellAndTrapZone();
         for (int i = 0; i < cards.length; i++) {
@@ -108,19 +108,16 @@ public class Game {
             }
         }
         setCurrentPhase(Phase.MAIN_1);
-        selectedCard = null;
+        Show.showBoard();
         CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.BATTLE);
-        selectedCard = null;
         CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.MAIN_2);
-        selectedCard = null;
         CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.END);
-        selectedCard = null;
     }
 
     private boolean didSbWin() {
@@ -142,29 +139,37 @@ public class Game {
     }
 
 
-    public void selectCard(Board.Zone zone, int index) {
+    public String selectCard(Board.Zone zone, int index, boolean isSelectedCardForRival) {
+        this.isSelectedCardForRival = isSelectedCardForRival;
         this.selectedZone = zone;
         this.selectedZoneIndex = index;
-        this.selectedCard = currentPlayer.getBoard().getCardByIndexAndZone(index, zone);
-        if (selectedCard instanceof HeraldOfCreation)
-            if (CommandProcessor.yesNoQuestion("Do you want to use Herald of Creation?")) {
-                HeraldOfCreation heraldOfCreation = (HeraldOfCreation) selectedCard;
-                Show.showGameMessage("Enter the hand index of the card witch you want to tribute");
-                Show.showGameMessage(heraldOfCreation.action(CommandProcessor.getCardIndex(), CommandProcessor.getCardName()));
-            }
-        if (selectedCard instanceof Scanner)
-            if (CommandProcessor.yesNoQuestion("Do you want to use Scanner?")) {
-                Scanner scanner = (Scanner) selectedCard;
-                Show.showGameMessage("Enter the name of the monster witch you want to replace with Scanner");
-                Show.showGameMessage(scanner.setReplacement(CommandProcessor.getCardName(), index));
-            }
+        if (isSelectedCardForRival) this.selectedCard = rival.getBoard().getCardByIndexAndZone(index, zone);
+        else {
+            this.selectedCard = currentPlayer.getBoard().getCardByIndexAndZone(index, zone);
+            if (selectedCard instanceof HeraldOfCreation)
+                if (CommandProcessor.yesNoQuestion("Do you want to use Herald of Creation?")) {
+                    HeraldOfCreation heraldOfCreation = (HeraldOfCreation) selectedCard;
+                    Show.showGameMessage("Enter the hand index of the card witch you want to tribute");
+                    Show.showGameMessage(heraldOfCreation.action(CommandProcessor.getCardIndex(), CommandProcessor.getCardName()));
+                }
+            if (selectedCard instanceof Scanner)
+                if (CommandProcessor.yesNoQuestion("Do you want to use Scanner?")) {
+                    Scanner scanner = (Scanner) selectedCard;
+                    Show.showGameMessage("Enter the name of the monster witch you want to replace with Scanner");
+                    Show.showGameMessage(scanner.setReplacement(CommandProcessor.getCardName(), index));
+                }
+        }
+        if (selectedCard == null) return "no card found in the given position";
+        else return "card selected";
 
     }
 
-    public void deselect() {
+    public String deselect() {
+        if (selectedCard == null) return "no card is selected yet";
+        selectedCard = null;
         this.selectedZone = null;
         this.selectedZoneIndex = -1;
-
+        return "card deselected";
     }
 
     private String drawCard() {
@@ -183,7 +188,7 @@ public class Game {
         Card drewCard = currentPlayer.getBoard().getCardByIndexAndZone(0, Board.Zone.DECK);
         removeCardFromZone(drewCard, Board.Zone.DECK, 0, currentPlayer.getBoard());
         putCardInZone(drewCard, Board.Zone.HAND, null, currentPlayer.getBoard());
-        return "drew " + drewCard.getName();
+        return "new card added to the hand : " + drewCard.getName();
     }
 
     private void endRound() {

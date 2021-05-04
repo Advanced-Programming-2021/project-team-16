@@ -12,7 +12,7 @@ public class Enums {
         SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.*)"),
         EXIT("menu exit");
-        String regex;
+        private String regex;
 
         public String getRegex() {
             return regex;
@@ -25,9 +25,13 @@ public class Enums {
 
     public enum MainMenuCommands {}
 
-    public enum ShopCommands {}
+    public enum ShopCommands {
+        //show card -> page 11 -> doc phase 1
+    }
 
-    public enum DeckMenuCommands {}
+    public enum DeckMenuCommands {
+        //show card -> page 11 -> doc phase 1
+    }
 
     public enum ProfileCommands {
         CHANGE_NICKNAME("profile change --nickname (\\w+)"),
@@ -36,7 +40,7 @@ public class Enums {
         ENTER_MENU("menu enter (.*)"),
         EXIT("menu exit");
 
-        String regex;
+        private String regex;
 
         public String getRegex() {
             return regex;
@@ -74,7 +78,7 @@ public class Enums {
         EXIT("menu exit");
 
 
-        String regex;
+        private String regex;
 
         public String getRegex() {
             return regex;
@@ -85,10 +89,11 @@ public class Enums {
         }
     }
 
-    public enum GameCommands() {
-
+    public enum GameCommands {
+        SELECT_CARD("select --(\\w+) (\\d+)?( --opponent)?"),
+        DESELECT_CARD("select -d"),
         SHOW_CARD("card show (\\w+)");
-        String regex;
+        private final String regex;
 
         public String getRegex() {
             return regex;

@@ -1,5 +1,6 @@
 package view;
 
+import controller.GameMenu;
 import model.Deck;
 import model.Game;
 import model.Phase;
@@ -43,7 +44,9 @@ public class Show {
     public static void showAllDecks() {
     }
 
-    public static void showBoard(Card[][] myBoard, Card[][] rivalBoars) {
+    public static void showBoard() {
+        Game game = GameMenu.getCurrentGame();
+        //namayesh
     }
 
     public static void showGameMessage(String gameMessage) {

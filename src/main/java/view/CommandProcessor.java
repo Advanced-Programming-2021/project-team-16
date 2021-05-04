@@ -115,7 +115,43 @@ public class CommandProcessor {
 
     public static void game() {
         Game game = GameMenu.getCurrentGame();
-        //bade har ettefagh:  if (didSbWin()) return;
+        for (String command = scanner.nextLine().trim(); !command.equals(Enums.ScoreboardCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
+            boolean isSelectedCardForOpponent;
+            String error = null;
+            Matcher matcher;
+            if ((matcher = Pattern.compile(Enums.GameCommands.SELECT_CARD.getRegex()).matcher(command)).find()) {
+                isSelectedCardForOpponent = matcher.group(3) != null;
+                boolean isSelectionValid = true;
+                int index = -1;
+                Board.Zone zone = getZoneByZoneName(matcher.group(1));
+                if (matcher.group(2) == null && zone != Board.Zone.FIELD_SPELL) isSelectionValid = false;
+                if (matcher.group(2) != null) {
+                    if (matcher.group(2).length() > 1) isSelectionValid = false;
+                    else index = Integer.parseInt(matcher.group(2));
+                    if (index == 0) isSelectionValid = false;
+                    if (zone == null) isSelectionValid = false;
+                    else
+                        switch (zone) {
+                            case HAND -> {
+                                if (index > 6) isSelectionValid = false;
+                            }
+                            case MONSTER, SPELL_AND_TRAP -> {
+                                if (index > 5) isSelectionValid = false;
+                            }
+                            case GRAVE, DECK -> isSelectionValid = false;
+                        }
+                }
+                if (isSelectedCardForOpponent && zone == Board.Zone.HAND)
+                    System.out.println("you can't choose your opponent's hand");
+                else if (!isSelectionValid) System.out.println("invalid selection");
+                else System.out.println(game.selectCard(zone, index, isSelectedCardForOpponent));
+            } else if (command.equals(Enums.GameCommands.DESELECT_CARD.getRegex())) System.out.println(game.deselect());
+                //else if ()
+            else System.out.println("invalid command");
+        }
+
+
+        //bade har ettefagh:  if (didSbWin()) return; + show board
         //if sb surrendered -> surrendered();
         //hamleye mostaghim -> attack(-1)
     }
@@ -158,7 +194,20 @@ public class CommandProcessor {
 
     public static Board.Zone getZone() {
         String zoneName = scanner.nextLine();
-        // zoneName -> switch/case
+        return getZoneByZoneName(zoneName);
+    }
+
+    private static Board.Zone getZoneByZoneName(String zoneName) {
+        Board.Zone zone = null;
+        switch (zoneName.toLowerCase()) {
+            case "field" -> zone = Board.Zone.FIELD_SPELL;
+            case "monster" -> zone = Board.Zone.MONSTER;
+            case "spell" -> zone = Board.Zone.SPELL_AND_TRAP;
+            case "grave" -> zone = Board.Zone.GRAVE;
+            case "deck" -> zone = Board.Zone.DECK;
+            case "hand" -> zone = Board.Zone.HAND;
+        }
+        return zone;
     }
 }
 
