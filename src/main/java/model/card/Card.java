@@ -1,10 +1,9 @@
 package model.card;
 
-
 import java.util.ArrayList;
 import java.util.Random;
 
-public abstract class Card {
+public abstract class Card implements Comparable<Card> {
     private static ArrayList<Card> cards = new ArrayList<>();
     protected String name;
     protected String description;
@@ -18,7 +17,6 @@ public abstract class Card {
         cards.add(this);
     }
 
-
     public static Card getCardByName(String name) {
         for (Card card : cards) {
             if (card.name.equals(name)) {
@@ -28,12 +26,16 @@ public abstract class Card {
         return null;
     }
 
-    public static void sort(ArrayList<Card> cards) {
-    }
+    //  public static void sort(ArrayList<Card> cards) {
+    //  }
 
     public static ArrayList<Card> getCards() {
         return cards;
+    }
 
+    @Override
+    public int compareTo(Card other) {
+        return this.name.compareTo(other.name);
     }
 
     @Override

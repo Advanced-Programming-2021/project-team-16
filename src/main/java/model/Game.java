@@ -324,24 +324,25 @@ public class Game {
         for (Card card : currentPlayer.getBoard().getHand()) {
             if (card instanceof Monster) {
                 if (selectedCard == card) {
-                    //  if(selectedCard != (Marshmallon) card && selectedCard !=(Scanner)card){
-                    if (selectedCard != currentPlayer.getBoard().getHand()[selectedZoneIndex]) {
-                        return "you can’t set this card";
-                    }
-                    if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
-                        return "action not allowed in this phase";
-                    }
-                    if (currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER)) {
-                        return "monster card zone is full";
-                    }
-                    if (!isFromHand) {//kafie?
-                        return "you already summoned/set on this turn";
-                    }
-                    if (!currentPlayer.getBoard().isZoneFull(selectedZone)) {
-                        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());// selectedZoneIndex hamun firstEmptyZoneIndexe?
-                        putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
-                    }
+                    if (!(selectedCard instanceof Marshmallon) && !(selectedCard instanceof Scanner)) {
+                        if (selectedCard != currentPlayer.getBoard().getHand()[selectedZoneIndex]) {
+                            return "you can’t set this card";
+                        }
+                        if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
+                            return "action not allowed in this phase";
+                        }
+                        if (currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER)) {
+                            return "monster card zone is full";
+                        }
+                        if (!isFromHand) {//kafie?
+                            return "you already summoned/set on this turn";
+                        }
+                        if (!currentPlayer.getBoard().isZoneFull(selectedZone)) {
+                            removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());// selectedZoneIndex hamun firstEmptyZoneIndexe?
+                            putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
+                        }
 
+                    }
                 }
             }
         }
@@ -565,10 +566,10 @@ public class Game {
 //                 putCardInZone();     how to say the card in the field zone?
 //                removeCardFromZone();
 //            }
-            putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.ACTEVATED, currentPlayer.getBoard());
+            putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.ACTIVATED, currentPlayer.getBoard());
             return "spell activated";
         }
-        putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.ACTEVATED, getCurrentPlayer().getBoard());
+        putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.ACTIVATED, getCurrentPlayer().getBoard());
         return "spell activated";
 
     }

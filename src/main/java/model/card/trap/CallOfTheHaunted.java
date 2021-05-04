@@ -6,7 +6,7 @@ import model.Game;
 import model.card.Card;
 import model.card.monster.Monster;
 
-public abstract class CallOfTheHaunted extends Trap {
+public class CallOfTheHaunted extends Trap {
     public CallOfTheHaunted() {
         super("CallOfTheHaunted", "Trap", TrapType.CONTINUOUS, "Activate this card by targeting 1 monster in your GY;" +
                 " Special Summon that target in Attack Position. " +

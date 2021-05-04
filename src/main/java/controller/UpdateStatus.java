@@ -3,6 +3,11 @@ package controller;
 import model.card.Card;
 import model.card.monster.*;
 import model.card.spell.Spell;
+import model.card.spell.fieldspells.ClosedForest;
+import model.card.spell.fieldspells.Forest;
+import model.card.spell.fieldspells.Umiiruka;
+import model.card.spell.fieldspells.Yami;
+import model.card.trap.*;
 
 public class UpdateStatus {
     public static void makeAllCards() {
@@ -162,12 +167,22 @@ public class UpdateStatus {
         new Spell("United We Stand", "Spell", Spell.SpellType.EQUIP
                 , "The equipped monster gains 800 ATK/DEF for each face-up monster" +
                 " you control.", "Unlimited", 4300);
-//        new Spell
-//        new Spell         -->  for field spells
-//        new Spell
-//        new Spell
+        new ClosedForest();
+        new Forest();
+        new Umiiruka();
+        new Yami();
     }
 
     public static void makeAllTraps() {
+        new CallOfTheHaunted();
+        new MagicCylinder();
+        new MagicJammer();
+        new MindCrush();
+        new MirrorForce();
+        new NegateAttack();
+        new SolemnWarning();
+        new TimeSeal();
+        new TorrentialTribute();
+        new TrapHole();
     }
 }
