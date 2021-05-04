@@ -1,12 +1,12 @@
-package model.card.spell.done;
+package model.card.spell;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.monster.Monster;
-import model.card.spell.Spell;
 
 public class SwordsOfRevealingLight extends Spell {
-    boolean isAtivated;
+    boolean isAtivated = false;
 
     public SwordsOfRevealingLight() {
         super("Swords of Revealing Light", "Spell", SpellType.NORMAL
@@ -14,14 +14,15 @@ public class SwordsOfRevealingLight extends Spell {
                 , "Unlimited", 2500);
     }
 
-    public String action(Game game) {
+    public String action() {
+        Game game = GameMenu.getCurrentGame();
         isAtivated = true;
         Monster[] monsterZone = game.getRival().getBoard().getMonsterZone();
         Board board = game.getRival().getBoard();
         for (int i = 0; i < monsterZone.length; i++) {
             if (monsterZone[i] != null && board.getCardPositions()[0][i] == Board.CardPosition.HIDE_DEF)
                 board.getCardPositions()[0][i] = Board.CardPosition.REVEAL_DEF;
-            super.action(game);
+            super.action();
         }
         return null;
     }

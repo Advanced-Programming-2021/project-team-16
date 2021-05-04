@@ -1,18 +1,20 @@
-package model.card.spell.done;
+package model.card.spell;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
-import model.card.spell.Spell;
 
 public class HarpiesFeatherDuster extends Spell {
+    private boolean isAtivated = false;
+
     public HarpiesFeatherDuster() {
         super("Harpie's Feather Duster", "Spell", SpellType.NORMAL
                 , "Destroy all Spells and Traps your opponent controls.", "Limited", 2500);
     }
 
-    public String action(Game game) {
-
+    public String action() {
+        Game game = GameMenu.getCurrentGame();
         Board board = game.getRival().getBoard();
         for (int index = 0; index < board.getSpellAndTrapZone().length; index++) {
             Card card = board.getMonsterZone()[index];
@@ -22,10 +24,13 @@ public class HarpiesFeatherDuster extends Spell {
         Card fieldSpell = board.getFieldSpell();
         if (fieldSpell != null) game.putCardInZone(fieldSpell, Board.Zone.GRAVE, null, board);
         game.removeCardFromZone(fieldSpell, Board.Zone.FIELD_SPELL, 0, board);
-
-        super.action(game);
+        isAtivated = true;
+        super.action();
 
         return null;
     }
 
+    public boolean isActivated() {
+        return isAtivated;
+    }
 }

@@ -1,23 +1,25 @@
-package model.card.spell.done;
+package model.card.spell;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
 import model.card.monster.Monster;
-import model.card.spell.Spell;
 
 import java.util.ArrayList;
 
 import static model.Board.CardPosition.*;
 
 public class MonsterReborn extends Spell {
+    private boolean isAtivated = false;
+
     public MonsterReborn() {
         super("Monster Reborn", "Spell", SpellType.NORMAL
                 , "Target 1 monster in either GY; Special Summon it.", "Limited", 2500);
     }
 
-    public String action(Game game, String player, String monstername, Board.CardPosition position) {
-
+    public String action(String player, String monstername, Board.CardPosition position) {
+        Game game = GameMenu.getCurrentGame();
         Card monster = getCardByName(monstername);
         if ("current".equalsIgnoreCase(player)) {
             Board board = game.getCurrentPlayer().getBoard();
@@ -55,10 +57,14 @@ public class MonsterReborn extends Spell {
                 game.removeCardFromZone(monster, Board.Zone.GRAVE, 0, board);
             }
         }
-        super.action(game);
+        isAtivated = true;
+        super.action();
         return monstername + " special summoned successfully!";
 
     }
 
+    public boolean isActivated() {
+        return isAtivated;
+    }
 }
 

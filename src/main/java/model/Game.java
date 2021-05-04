@@ -1,7 +1,11 @@
 package model;
 
+import controller.GameMenu;
 import model.card.Card;
 import model.card.monster.*;
+import model.card.spell.MessengerOfPeace;
+import model.card.spell.Spell;
+import model.card.spell.SupplySquad;
 import model.card.trap.*;
 import model.person.Player;
 import view.CommandProcessor;
@@ -90,8 +94,19 @@ public class Game {
         if (didSbWin()) return;
         setCurrentPhase(Phase.STANDBY);
         selectedCard = null;
-        //standby_Effect Cards
-        if (didSbWin()) return;
+        Board currBoard = currentPlayer.getBoard();
+        Card[] cards = currBoard.getSpellAndTrapZone();
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] instanceof MessengerOfPeace) {
+                boolean answer;
+                answer = CommandProcessor.yesNoQuestion("Do you want to to pay 100 LP to keep Messenger of peace?");
+                if (answer) currentPlayer.decreaseLP(100);
+                else {
+                    putCardInZone(cards[i], Board.Zone.GRAVE, null, currBoard);
+                    removeCardFromZone(cards[i], Board.Zone.SPELL_AND_TRAP, i, currBoard);
+                }
+            }
+        }
         setCurrentPhase(Phase.MAIN_1);
         selectedCard = null;
         CommandProcessor.game();
@@ -294,6 +309,37 @@ public class Game {
 }
 
     public String flipSummon() {
+        Boolean isInZone = false;
+        Game game = GameMenu.getCurrentGame();
+        if (selectedCard == null) return "no card is selected yet";
+        for (Monster monster : game.getCurrentPlayer().getBoard().getMonsterZone()) {
+            if (monster == (Monster) selectedCard) isInZone = true;
+        }
+        if (!isInZone) return "you can’t change this card position";
+        if (getCurrentPhase() != Phase.MAIN_1 && getCurrentPhase() != Phase.MAIN_2)
+            return "you can’t do this action in this phase";
+        Monster[] monsterZone = game.getCurrentPlayer().getBoard().getMonsterZone();
+        Board board = game.getCurrentPlayer().getBoard();
+        for (int i = 0; i < monsterZone.length; i++) {
+            if (monsterZone[i] == (Monster) selectedCard) {
+                if (board.getCardPositions()[0][i] != Board.CardPosition.HIDE_DEF) {
+                    return "you can’t flip summon this card";                                //TODO: once per turn.
+                } else {
+                    board.getCardPositions()[0][i] = Board.CardPosition.ATK;
+
+                    if (((Monster) selectedCard).getATK() >= 1000) {
+                        for (Card card : getRival().getBoard().getMonsterZone()) {
+                            if (card instanceof TrapHole)
+                                putCardInZone(selectedCard, Board.Zone.GRAVE, null, getCurrentPlayer().getBoard());
+                            return "card was destroyed due to Trap hole activation";
+                        }
+                    }
+                }
+                break;                                                                       //needs some changes
+            }
+
+        }
+        return "flip summoned successfully";
 
     }
 
@@ -358,7 +404,7 @@ public class Game {
                     return "Your monster card is destroyed. you can't destroy marshmallon";
                 removeCardFromZone(attacked, Board.Zone.MONSTER, monsterNumber, rival.getBoard());
                 putCardInZone(attacked, Board.Zone.GRAVE, null, rival.getBoard());
-                return "both you and your opponent monster cards are destroyed and no one receives damage"
+                return "both you and your opponent monster cards are destroyed and no one receives damage";
             } else {
                 deltaLP *= -1;
                 currentPlayer.decreaseLP(deltaLP);
@@ -403,6 +449,26 @@ public class Game {
     }
 
     public String activeEffect() {
+        if (selectedCard == null) return "no card is selected yet";
+        if (!(selectedCard instanceof Spell)) return "activate effect is only for spell cards.";
+        if (getCurrentPhase() != Phase.MAIN_1 && getCurrentPhase() != Phase.MAIN_2)
+            return "you can’t activate an effect on this turn";
+        if (((Spell) selectedCard).getCondition() == Spell.Conditions.ACTIVATED)
+            return "you have already activated this card";
+        if (selectedZone == Board.Zone.HAND && currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP)
+                && ((Spell) selectedCard).getSpellType() != Spell.SpellType.FIELD)
+            return "spell card zone is full";
+        //TODO: prepration stuff
+        if (((Spell) selectedCard).getSpellType() == Spell.SpellType.FIELD) {
+//            if (currentPlayer.getBoard().isZoneFull(Board.Zone.FIELD_SPELL)) {
+//                 putCardInZone();     how to say the card in the field zone?
+//                removeCardFromZone();
+//            }
+            putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.ACTEVATED, currentPlayer.getBoard());
+            return "spell activated";
+        }
+        putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.ACTEVATED, getCurrentPlayer().getBoard());
+        return "spell activated";
 
     }
 
@@ -476,8 +542,12 @@ public class Game {
                 board.getMonsterZone()[zoneIndex] = null;
                 if (card instanceof CommandKnight)
                     if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).undoAction();
-
-
+                for (Card spell : board.getSpellAndTrapZone()) {
+                    if (spell instanceof SupplySquad) {
+                        SupplySquad supplySquad = new SupplySquad();
+                        supplySquad.action();
+                    }
+                }
             }
             case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[zoneIndex] = null;
             case HAND -> board.getHand()[zoneIndex] = null;

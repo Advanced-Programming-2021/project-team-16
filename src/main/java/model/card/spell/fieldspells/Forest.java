@@ -5,6 +5,7 @@ import model.card.monster.Monster;
 import model.card.spell.Spell;
 
 public class Forest extends Spell {
+    private boolean isAtivated = false;
     public Forest() {
         super("Forest", "Spell", SpellType.FIELD, "All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.", "Unlimited", 4300);
     }
@@ -29,7 +30,12 @@ public class Forest extends Spell {
                     }
                 }
         }
-        super.action(game);
+        isAtivated = true;
+        super.action();
         return "done!";
+    }
+
+    public boolean isActivated() {
+        return isAtivated;
     }
 }

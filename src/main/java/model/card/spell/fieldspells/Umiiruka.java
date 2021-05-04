@@ -5,6 +5,7 @@ import model.card.monster.Monster;
 import model.card.spell.Spell;
 
 public class Umiiruka extends Spell {
+    private boolean isAtivated = false;
     public Umiiruka() {
         super("Umiiruka", "Spell", SpellType.FIELD, "Increase the ATK of all WATER monsters by 500 points and decrease their DEF by 400 points.", "Unlimited", 4300);
     }
@@ -32,8 +33,13 @@ public class Umiiruka extends Spell {
 
             }
         }
-        super.action(game);
+        isAtivated = true;
+        super.action();
         return "done!";
+    }
+
+    public boolean isActivated() {
+        return isAtivated;
     }
 }
 

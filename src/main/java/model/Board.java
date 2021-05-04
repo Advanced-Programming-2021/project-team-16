@@ -122,7 +122,8 @@ public class Board {
     public enum CardPosition {
         HIDE_DEF,
         REVEAL_DEF,
-        ATK
+        ATK,
+        ACTEVATED
     }
 
     public enum Zone {

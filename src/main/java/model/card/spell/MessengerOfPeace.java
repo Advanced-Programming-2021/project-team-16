@@ -1,24 +1,28 @@
-package model.card.spell.done;
+package model.card.spell;
 
+import controller.GameMenu;
 import model.Game;
 import model.Phase;
 import model.card.monster.Monster;
-import model.card.spell.Spell;
 
 public class MessengerOfPeace extends Spell {
     boolean monsterCantAttack;
+    private boolean isAtivated = false;
 
     public MessengerOfPeace() {
         super("Messenger of peace", "Spell", SpellType.CONTINUES
                 , "Monsters with 1500 or more ATK cannot declare an attack. Once per turn, during your Standby Phase, pay 100 LP or destroy this card.", "Unlimited", 4000);
     }
 
-    public String action(Game game, Monster monster, Phase phase) {
+    public String action(Monster monster, Phase phase) {
+        Game game = GameMenu.getCurrentGame();
         if (monster.getATK() >= 1500) monsterCantAttack = true;
-
-//        if(phase.getPhaseName().equalsIgnoreCase("standby"))     TODO: standby stuff
-        super.action(game);
+        isAtivated = true;
+        super.action();
         return null;
     }
 
+    public boolean isActivated() {
+        return isAtivated;
+    }
 }

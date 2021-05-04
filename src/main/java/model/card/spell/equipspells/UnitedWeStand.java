@@ -1,5 +1,6 @@
 package model.card.spell.equipspells;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
@@ -7,14 +8,17 @@ import model.card.monster.Monster;
 import model.card.spell.Spell;
 
 public class UnitedWeStand extends Spell {
-    Boolean doesExist;
+    private boolean doesExist = false;
+    private boolean isAtivated = false;
 
     public UnitedWeStand() {
         super("United We Stand", "Spell", SpellType.EQUIP
-                , "The equipped monster gains 800 ATK/DEF for each face-up monster you control.", "Unlimited", 4300);
+                , "The equipped monster gains 800 ATK/DEF for each face-up monster" +
+                        " you control.", "Unlimited", 4300);
     }
 
-    public String action(Game game, Card givenMonster) {
+    public String action(Card givenMonster) {
+        Game game = GameMenu.getCurrentGame();
         int counter = 0;
         Monster[] monsterZoneCurr = game.getCurrentPlayer().getBoard().getMonsterZone();
         Monster[] monsterZoneRiv = game.getRival().getBoard().getMonsterZone();
@@ -38,8 +42,13 @@ public class UnitedWeStand extends Spell {
                     board.getCardPositions()[0][i] == Board.CardPosition.ATK) counter++;
 
         }
-        ((Monster) givenMonster).ATK += 800 * counter;
-        super.action(game);
+        ((Monster) givenMonster).increaseATK(800 * counter);
+        isAtivated = true;
+        super.action();
         return givenMonster + " is equipped successfully!";
+    }
+
+    public boolean isActivated() {
+        return isAtivated;
     }
 }

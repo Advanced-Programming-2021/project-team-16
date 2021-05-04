@@ -1,18 +1,21 @@
-package model.card.spell.done;
+package model.card.spell;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
 import model.card.monster.Monster;
-import model.card.spell.Spell;
 
 public class ChangeOfHeart extends Spell {
+    private boolean isAtivated = true;
+
     public ChangeOfHeart() {
         super("Change of Heart", "Spell", SpellType.NORMAL
                 , "Target 1 monster your opponent controls; take control of it until the End Phase.", "Limited", 2500);
     }
 
-    public String action(Game game, Monster monster, Board.CardPosition position) {
+    public String action(Monster monster, Board.CardPosition position) {
+        Game game = GameMenu.getCurrentGame();
         boolean isValid = false;
         Card selectedMonster = null;
         Board board = game.getRival().getBoard();
@@ -28,7 +31,8 @@ public class ChangeOfHeart extends Spell {
         if (board1.isZoneFull(Board.Zone.MONSTER)) return "Your monster zone is full!";
         game.removeCardFromZone(selectedMonster, Board.Zone.MONSTER, 0, board);
         game.putCardInZone(selectedMonster, Board.Zone.MONSTER, position, board);
-        super.action(game);
+        super.action();
+        isAtivated = true;
         return "Selected card is under your control now!";
     }
 
@@ -42,6 +46,10 @@ public class ChangeOfHeart extends Spell {
                         return true;
         }
         return false;
+    }
+
+    public boolean isActivated() {
+        return isAtivated;
     }
 }
 

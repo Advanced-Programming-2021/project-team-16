@@ -9,6 +9,7 @@ import model.card.spell.Spell;
 import java.util.ArrayList;
 
 public class ClosedForest extends Spell {
+    private boolean isAtivated = false;
     public ClosedForest() {
         super("ClosedForest", "Spell", SpellType.FIELD, "All Beast-Type monsters you control gain 100 ATK for each monster in your Graveyard. Field Spell Cards cannot be activated. Field Spell Cards cannot be activated during the turn this card is destroyed.", "Unlimited", 4300);
     }
@@ -36,7 +37,12 @@ public class ClosedForest extends Spell {
                 }
             }
         }
-        super.action(game);
+        isAtivated = true;
+        super.action();
         return "done!";
+    }
+
+    public boolean isActivated() {
+        return isAtivated;
     }
 }

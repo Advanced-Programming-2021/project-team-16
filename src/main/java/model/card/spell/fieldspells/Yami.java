@@ -5,6 +5,7 @@ import model.card.monster.Monster;
 import model.card.spell.Spell;
 
 public class Yami extends Spell {
+    private boolean isAtivated = false;
     public Yami() {
         super("Yami", "Spell", SpellType.FIELD, "All Fiend and Spellcaster monsters on the field gain 200 ATK/DEF, also all Fairy monsters on the field lose 200 ATK/DEF.", "Unlimited", 4300);
     }
@@ -41,7 +42,12 @@ public class Yami extends Spell {
             }
 
         }
-        super.action(game);
+        isAtivated = true;
+        super.action();
         return "done!";
+    }
+
+    public boolean isActivated() {
+        return isAtivated;
     }
 }

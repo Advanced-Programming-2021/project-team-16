@@ -1,11 +1,12 @@
-package model.card.spell.done;
+package model.card.spell;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
-import model.card.spell.Spell;
 
 public class TwinTwisters extends Spell {
+    private boolean isAtivated = false;
     public TwinTwisters() {
         super("Twin Twisters", "Spell", SpellType.QUICK_PLAY
                 , "Discard 1 card, then target up to 2 Spells/Traps on the field; destroy them.", "Unlimited", 3500);
@@ -16,7 +17,8 @@ public class TwinTwisters extends Spell {
      * @param cards spell or traps to remove
      */
 
-    public String action(Game game, int index, Card... cards) {
+    public String action(int index, Card... cards) {
+        Game game = GameMenu.getCurrentGame();
         if (game.getCurrentPlayer().getBoard().getHand()[index] == null) {
             return "This index is empty!";
         }
@@ -32,8 +34,13 @@ public class TwinTwisters extends Spell {
             game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, 0, game.getCurrentPlayer().getBoard());
             game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, 0, game.getRival().getBoard());
         }
-        super.action(game);
+        isAtivated = true;
+        super.action();
         return "Removed!";
 
+    }
+
+    public boolean isActivated() {
+        return isAtivated;
     }
 }

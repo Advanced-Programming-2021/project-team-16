@@ -1,11 +1,12 @@
 package model.card.spell;
 
+import controller.GameMenu;
 import model.Game;
 import model.card.Card;
-import model.card.spell.done.SpellAbsorption;
 
-public abstract class Spell extends Card {
+public class Spell extends Card {
     protected SpellType spellType;
+    protected Conditions condition;
     public String icon;
     public String status;
 
@@ -19,6 +20,15 @@ public abstract class Spell extends Card {
         this.status = status;
     }
 
+    public enum Conditions {
+
+        SET,                                                 //TODO: use to set a spell.
+        ACTIVATED
+    }
+
+    public void setCondition(Conditions givenCondition) {
+        this.condition = givenCondition;
+    }
 
     public enum SpellType {
         EQUIP,
@@ -43,7 +53,13 @@ public abstract class Spell extends Card {
         return spellType;
     }
 
-    public String action(Game game) {
+    public Conditions getCondition() {
+        return condition;
+    }
+
+
+    public String action() {
+        Game game = GameMenu.getCurrentGame();
         for (Card card : game.getCurrentPlayer().getBoard().getSpellAndTrapZone()) {
             if (card instanceof SpellAbsorption) {
                 ((SpellAbsorption) card).action(game, game.getCurrentPlayer());
