@@ -1,6 +1,7 @@
 package model.card;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public abstract class Card implements Comparable<Card> {
@@ -26,8 +27,9 @@ public abstract class Card implements Comparable<Card> {
         return null;
     }
 
-    //  public static void sort(ArrayList<Card> cards) {
-    //  }
+    public static void sort(ArrayList<Card> cards) {
+        Collections.sort(cards);
+    }
 
     public static ArrayList<Card> getCards() {
         return cards;
