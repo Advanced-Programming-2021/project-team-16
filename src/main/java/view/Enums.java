@@ -92,7 +92,8 @@ public class Enums {
     public enum GameCommands {
         SELECT_CARD("select --(\\w+) (\\d+)?( --opponent)?"),
         DESELECT_CARD("select -d"),
-        SHOW_CARD("card show (\\w+)");
+        SHOW_CARD("card show (\\w+)"),
+        END_PHASE("end-phase");
         private final String regex;
 
         public String getRegex() {

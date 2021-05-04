@@ -6,6 +6,7 @@ import model.Game;
 import model.card.Card;
 import model.person.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -115,10 +116,10 @@ public class CommandProcessor {
 
     public static void game() {
         Game game = GameMenu.getCurrentGame();
-        for (String command = scanner.nextLine().trim(); !command.equals(Enums.ScoreboardCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
-            boolean isSelectedCardForOpponent;
-            String error = null;
-            Matcher matcher;
+        boolean isSelectedCardForOpponent;
+        Matcher matcher;
+        for (String command = scanner.nextLine().trim(); !command.equals(Enums.GameCommands.END_PHASE.getRegex()); command = scanner.nextLine().trim()) {
+            Show.showBoard();
             if ((matcher = Pattern.compile(Enums.GameCommands.SELECT_CARD.getRegex()).matcher(command)).find()) {
                 isSelectedCardForOpponent = matcher.group(3) != null;
                 boolean isSelectionValid = true;
@@ -126,7 +127,7 @@ public class CommandProcessor {
                 Board.Zone zone = getZoneByZoneName(matcher.group(1));
                 if (matcher.group(2) == null && zone != Board.Zone.FIELD_SPELL) isSelectionValid = false;
                 if (matcher.group(2) != null) {
-                    if (matcher.group(2).length() > 1) isSelectionValid = false;
+                    if (matcher.group(2).length() > 3) isSelectionValid = false;
                     else index = Integer.parseInt(matcher.group(2));
                     if (index == 0) isSelectionValid = false;
                     if (zone == null) isSelectionValid = false;
@@ -146,14 +147,41 @@ public class CommandProcessor {
                 else if (!isSelectionValid) System.out.println("invalid selection");
                 else System.out.println(game.selectCard(zone, index, isSelectedCardForOpponent));
             } else if (command.equals(Enums.GameCommands.DESELECT_CARD.getRegex())) System.out.println(game.deselect());
-                //else if ()
+            else if (command.equals("summon")) System.out.println(game.summon(null)); //TODO : summon type??
+            else if (command.equals("set")) System.out.println(game.set());
+            else if (command.equals("flip-summon")) System.out.println(game.flipSummon());
+            else if ((matcher = Pattern.compile("attack (\\d+)").matcher(command)).find()) {
+                boolean isIndexValid = true;
+                int index = -1;
+                if (matcher.group(1).length() > 3) isIndexValid = false;
+                else {
+                    index = Integer.parseInt(matcher.group(1));
+                    if (index < 1 || index > 5) isIndexValid = false;
+                }
+                if (isIndexValid) System.out.println(game.attack(index));
+                else System.out.println("index is not valid");
+            } else if (command.matches("attack\\sdirect")) System.out.println(game.attack(-1));
+            else if (command.matches("activate\\seffect")) System.out.println(game.activeEffect());
+            else if (command.matches("show\\sgraveyard")) {
+                ArrayList<Card> currentGrave = game.getCurrentPlayer().getBoard().getGrave();
+                ArrayList<Card> rival = game.getRival().getBoard().getGrave();
+                if (currentGrave.size() == 0) System.out.println("your graveyard empty");
+                else {
+                    System.out.println("your graveyard:");
+                    Show.showCardArray(game.getCurrentPlayer().getBoard().getGrave());
+                }
+                if (rival.size() == 0) System.out.println("rival's graveyard empty");
+                else {
+                    System.out.println("rival's graveyard:");
+                    Show.showCardArray(game.getRival().getBoard().getGrave());
+                }
+                while (!scanner.nextLine().trim().equals("back")) ;
+
+            } else if (command.matches("card\\sshow\\s--selected")) System.out.println(game.showSelectedCard());
+            else if (command.equals("surrender")) game.surrendered();
             else System.out.println("invalid command");
+            if (game.didSbWin()) return;
         }
-
-
-        //bade har ettefagh:  if (didSbWin()) return; + show board
-        //if sb surrendered -> surrendered();
-        //hamleye mostaghim -> attack(-1)
     }
 
     /*public static String scan() {

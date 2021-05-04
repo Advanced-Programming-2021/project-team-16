@@ -98,9 +98,8 @@ public class Game {
         Card[] cards = currBoard.getSpellAndTrapZone();
         for (int i = 0; i < cards.length; i++) {
             if (cards[i] instanceof MessengerOfPeace) {
-                boolean answer;
-                answer = CommandProcessor.yesNoQuestion("Do you want to to pay 100 LP to keep Messenger of peace?");
-                if (answer) currentPlayer.decreaseLP(100);
+                if (CommandProcessor.yesNoQuestion("Do you want to to pay 100 LP to keep Messenger of peace?"))
+                    currentPlayer.decreaseLP(100);
                 else {
                     putCardInZone(cards[i], Board.Zone.GRAVE, null, currBoard);
                     removeCardFromZone(cards[i], Board.Zone.SPELL_AND_TRAP, i, currBoard);
@@ -108,7 +107,6 @@ public class Game {
             }
         }
         setCurrentPhase(Phase.MAIN_1);
-        Show.showBoard();
         CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.BATTLE);
@@ -120,7 +118,7 @@ public class Game {
         setCurrentPhase(Phase.END);
     }
 
-    private boolean didSbWin() {
+    public boolean didSbWin() {
         if (winner != null) {
             loser = (winner == currentPlayer) ? rival : currentPlayer;
             return true;
@@ -232,7 +230,7 @@ public class Game {
             if (board.howManyMonsters() == 0) {
                 return "there no monsters one this address";
             } else {
-                specialSummonable.tribute(selectedZone, this);/////////
+                specialSummonable.tribute(selectedZoneIndex, this);/////////
 
                 removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, board);
                 putCardInZone(selectedCard,/*board.getFirstEmptyIndexOfZone() */ selectedZone, Board.CardPosition.ATK, board);/////////
@@ -322,10 +320,9 @@ public class Game {
     }
 
 
-    public String set(boolean isFromHand) {
-        if (selectedCard == null) {
-            return "no card is selected yet";
-        }
+    public String set() {
+        boolean isFromHand = selectedZone == Board.Zone.HAND;
+        if (selectedCard == null) return "no card is selected yet";
         for (Card card : currentPlayer.getBoard().getHand()) {
             if (card instanceof Monster) {
                 if (selectedCard == card) {
@@ -680,6 +677,17 @@ public class Game {
         Player temp = currentPlayer;
         currentPlayer = rival;
         rival = temp;
+    }
+
+    public String showSelectedCard() {
+        if (selectedCard == null) return "no card is selected yet";
+        if (isSelectedCardForRival) {
+            if ((selectedZone == Board.Zone.MONSTER && currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
+                    (selectedZone == Board.Zone.SPELL_AND_TRAP && currentPlayer.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF))
+                return "card is not visible";
+        }
+        Show.showSingleCard(selectedCard.getName());
+        return "";
     }
 
     public void setSelectedCard(Card selectedCard) {
