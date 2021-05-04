@@ -18,9 +18,17 @@ public abstract class Trap extends Card {
         this.status = status;
     }
 
+    public String getIcon() {
+        return icon;
+    }
 
-    // @Override
-    // public abstract Trap();
+    public String getStatus() {
+        return status;
+    }
+
+    public Trap.TrapType getTrapType() {
+        return trapType;
+    }
 
 
     public enum TrapType {

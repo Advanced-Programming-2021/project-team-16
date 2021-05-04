@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Random;
 
 public abstract class Card implements Comparable<Card> {
+
     private static ArrayList<Card> cards = new ArrayList<>();
     protected String name;
     protected String description;
