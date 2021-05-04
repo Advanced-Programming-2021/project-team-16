@@ -12,7 +12,7 @@ public class Player {
     public Player(User user) {
         this.user = user;
         LP = 8000;
-        board = new Board(user.getActiveDeck().getMainDeck());
+        if (user != null) board = new Board(user.getActiveDeck().getMainDeck());
     }
 
     public void decreaseLP(int amount) {

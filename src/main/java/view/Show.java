@@ -9,14 +9,10 @@ import model.person.User;
 import java.util.ArrayList;
 
 public class Show {
-    public static void showCardArray(ArrayList<Card> cards) {
-        for (Card card : cards) {
-            if (card != null) System.out.println(card);
-        }
+    public static void showCardArray(ArrayList cards) {
     }
 
-    public static void showSingleCard(Card card) {
-        System.out.println(card);
+    public static void showSingleCard(String cardName) {
     }
 
     public static void showScoreBoard(ArrayList<User> users) {
@@ -42,9 +38,6 @@ public class Show {
 
 
     public static void showDeck(Deck deck) {
-
-        // showCardArray can be used instead!
-
     }
 
     public static void showAllDecks() {

@@ -4,36 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="work on spells and some detail changes">
+    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="gameMen">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/UpdateStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/UpdateStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/GameMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/GameMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Deck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Spell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/Spell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/AdvancedRitualArt.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/AdvancedRitualArt.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/ChangeOfHeart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/ChangeOfHeart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/DarkHole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/DarkHole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/HarpiesFeatherDuster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/HarpiesFeatherDuster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/MessengerOfPeace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/MessengerOfPeace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/MonsterReborn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/MonsterReborn.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/MysticalSpaceTyphoon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/MysticalSpaceTyphoon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/PotOfGreed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/PotOfGreed.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/Raigeki.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/Raigeki.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/RingOfDefense.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/RingOfDefense.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/SpellAbsorption.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/SpellAbsorption.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/SupplySquad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/SupplySquad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/SwordsOfRevealingLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/SwordsOfRevealingLight.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/Terraforming.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/Terraforming.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/done/TwinTwisters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/TwinTwisters.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/BlackPendant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/BlackPendant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/MagnumShield.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/MagnumShield.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/SwordOfDarkDestruction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/SwordOfDarkDestruction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/UnitedWeStand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/equipspells/UnitedWeStand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/ClosedForest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/ClosedForest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/Forest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/Forest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/Umiiruka.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/Umiiruka.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/Yami.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/fieldspells/Yami.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/MagicCylinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/MagicCylinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/person/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/AI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/person/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/Enums.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Enums.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Show.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -141,7 +121,8 @@
       <workItem from="1619513955514" duration="189000" />
       <workItem from="1619527284267" duration="2289000" />
       <workItem from="1619806072407" duration="5205000" />
-      <workItem from="1619898164311" duration="10933000" />
+      <workItem from="1619898164311" duration="11714000" />
+      <workItem from="1620059452637" duration="5879000" />
     </task>
     <task id="LOCAL-00001" summary="uml-code">
       <created>1618339504128</created>
@@ -353,7 +334,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619979827566</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="profile and scoreboard completed">
+      <created>1619986526035</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1619986526035</updated>
+    </task>
+    <task id="LOCAL-00032" summary="getCommandData">
+      <created>1620068208371</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1620068208371</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -391,7 +386,9 @@
     <MESSAGE value="attack -&gt; Texchanger" />
     <MESSAGE value="changes" />
     <MESSAGE value="login completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="login completed" />
+    <MESSAGE value="profile and scoreboard completed" />
+    <MESSAGE value="getCommandData" />
+    <option name="LAST_COMMIT_MESSAGE" value="getCommandData" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

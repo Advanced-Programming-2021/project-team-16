@@ -15,6 +15,11 @@ public class Deck {
         this.name = name;
     }
 
+    public static ArrayList<Card> getRandomDeck() {
+        //baraye ai lazeme
+        //TODO
+    }
+
     public void addCardToSideDeck(Card card) {
         sideDeck.add(card);
     }
@@ -64,8 +69,8 @@ public class Deck {
         }
     }
 
-    public boolean deckIsValid() {
-        return this.mainDeck.size() <= 60 && this.mainDeck.size() >= 40;  //sidedeck!?
+    public boolean isDeckValid() {
+        return this.mainDeck.size() <= 60 && this.mainDeck.size() >= 40;
     }
 
     public static void sort(ArrayList<Deck> decks) {

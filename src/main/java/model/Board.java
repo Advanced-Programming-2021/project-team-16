@@ -5,6 +5,7 @@ import model.card.monster.Monster;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Board {
     private ArrayList<Card> deck = new ArrayList<>();
@@ -20,7 +21,8 @@ public class Board {
 
 
     public Board(ArrayList<Card> deck) {
-
+        this.deck.addAll(deck);
+        Collections.shuffle(this.deck);
     }
 
     public boolean isZoneFull(Zone zone) {

@@ -1,6 +1,5 @@
 package model.card.monster;
 
-import model.Board;
 import model.Game;
 
 public class GateGuardian extends Monster implements specialSummonable {
@@ -10,10 +9,10 @@ public class GateGuardian extends Monster implements specialSummonable {
                 MonsterType.WARRIOR, 11, 3750, 3400);
     }
 
-    public void specialSummon(int[] monsterZoneIndexes, int handZoneIndex, Game game) {
-        specialSummonable.tribute(monsterZoneIndexes, game);
-        Board board = game.getCurrentPlayer().getBoard();
-        game.removeCardFromZone(this, Board.Zone.HAND, handZoneIndex, board);
-        game.putCardInZone(this, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-    }
+            public void specialSummon(int[] monsterZoneIndexes,/* int handZoneIndex,*/ Game game) {
+                specialSummonable.tribute(monsterZoneIndexes, game);
+                // Board board = game.getCurrentPlayer().getBoard();
+                // game.removeCardFromZone(this, Board.Zone.HAND, handZoneIndex, board);
+                // game.putCardInZone(this, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+            }
 }
