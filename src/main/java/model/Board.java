@@ -125,7 +125,7 @@ public class Board {
         HIDE_DEF,
         REVEAL_DEF,
         ATK,
-        ACTEVATED
+        ACTIVATED
     }
 
     public enum Zone {
