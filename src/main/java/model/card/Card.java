@@ -12,6 +12,10 @@ public abstract class Card implements Comparable<Card> {
     protected int price;
     public Random random = new Random();
 
+    public int getPrice() {
+        return price;
+    }
+
     public Card(String name, String description, int price) {
         this.name = name;
         this.description = description;
@@ -43,7 +47,7 @@ public abstract class Card implements Comparable<Card> {
 
     @Override
     public String toString() {
-        return name + ":" + description;
+        return name + ":" + price;
     }
 
     public String getName() {

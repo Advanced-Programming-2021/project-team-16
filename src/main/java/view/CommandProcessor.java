@@ -48,6 +48,16 @@ public class CommandProcessor {
     }
 
     private static void shop() {
+        String command = scanner.nextLine().trim();
+        while (!command.matches(Enums.ShopCommands.EXIT.getRegex())) {
+
+            if (command.matches(Enums.ShopCommands.SHOP_BUY.getRegex())) {
+                System.out.println(Shop.buy(command));
+            } else if (command.equals(Enums.ShopCommands.SHOP_SHOW.getRegex())) {
+                System.out.println(Shop.allCardsOfShop(command));
+            } else System.out.println("invalid command!");
+            command = scanner.nextLine().trim();
+        }
     }
 
     private static void deckMenu() {
