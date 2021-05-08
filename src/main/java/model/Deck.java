@@ -84,6 +84,19 @@ public class Deck {
         return this.sideDeck.size() <= 15;
     }
 
+    public boolean isDeckValid() {
+        int numberOfOneCard = 0;
+        ArrayList<Card> allCards = new ArrayList<>(mainDeck);
+        allCards.addAll(sideDeck);
+        for (Card card : allCards) {
+            for (Card card2 : allCards) {
+                if (card.getName().equals(card2.getName())) numberOfOneCard++;
+            }
+            if (numberOfOneCard > 3) return false;
+        }
+        return isMainDeckValid() && isSideDeckValid();
+    }
+
     public static void sort(ArrayList<Deck> decks) {
         decks.sort(Comparator.comparing(o -> o.name));
 

@@ -1,5 +1,6 @@
 package controller;
 
+import com.google.gson.Gson;
 import model.card.Card;
 import model.card.monster.*;
 import model.card.spell.*;
@@ -12,12 +13,27 @@ import model.card.spell.fieldspells.Forest;
 import model.card.spell.fieldspells.Umiiruka;
 import model.card.spell.fieldspells.Yami;
 import model.card.trap.*;
+import model.person.User;
+
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class UpdateStatus {
+
     public static void makeAllCards() {
         makeAllMonsters();
         makeAllSpells();
         makeAllTraps();
+    }
+
+    public static void saveUsers() {
+        try {
+            FileWriter writer = new FileWriter("users_json.txt");
+            writer.write(new Gson().toJson(User.getAllUsers()));
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void makeAllMonsters() {
