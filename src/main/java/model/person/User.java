@@ -14,8 +14,9 @@ public class User {
     private String nickname;
     private int money;
     private int score;
-    private ArrayList<Deck> decks = new ArrayList<Deck>();
-    private ArrayList<Card> cards = new ArrayList<Card>();
+    private int gameScore;
+    private ArrayList<Deck> decks = new ArrayList<>();
+    private ArrayList<Card> cards = new ArrayList<>();
     private Deck activeDeck;
 
     public static ArrayList<User> getAllUsers() {
@@ -85,12 +86,20 @@ public class User {
         this.score += amount;
     }
 
+    public void increaseGameScore(int amount) {
+        this.gameScore += amount;
+    }
+
     public void setPassword(String newPass) {
         this.password = newPass;
     }
 
     public void setNickname(String newNickname) {
         this.nickname = newNickname;
+    }
+
+    public void setGameScore(int amount) {
+        this.gameScore = amount;
     }
 
     public String getUsername() {
@@ -109,8 +118,21 @@ public class User {
         return money;
     }
 
+    public int getGameScore() {
+        return gameScore;
+    }
+
+
     public ArrayList<Deck> getDecks() {
         return decks;
+    }
+
+    public Deck getDeckByName(String name) {
+        for (Deck deck : decks) {
+            if (deck.getName().equals(name))
+                return deck;
+        }
+        return null;
     }
 
     public ArrayList<Card> getCards() {
@@ -124,6 +146,10 @@ public class User {
 
     public void addDeck(Deck deck) {
         this.decks.add(deck);
+    }
+
+    public void removeDeck(Deck deck) {
+        this.decks.remove(deck);
     }
 
     public void addCard(Card card) {

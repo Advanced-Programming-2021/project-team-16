@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameMenu;
+import controller.MainMenu;
 import model.Board;
 import model.Deck;
 import model.Game;
@@ -71,7 +72,18 @@ public class Show {
     }
 
 
-    public static void showDeck(Deck deck) {
+    public static void showMainDeck(String deckName) {
+
+        User user = MainMenu.getCurrentUser();
+        ArrayList<Deck> userDecks = user.getDecks();
+        if (user.getDeckByName(deckName) == null) System.out.println("deck with name " + deckName + " does not exist");
+        System.out.println("Deck: " + deckName);
+        System.out.println("Main deck:");
+        System.out.println("Monsters:");
+        Deck deck = user.getDeckByName(deckName);
+    }
+
+    public static void showSideDeck(String deckName) {
     }
 
     public static void showAllDecks() {

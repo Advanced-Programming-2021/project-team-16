@@ -12,6 +12,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 public class CommandProcessor {
     private static Scanner scanner = new Scanner(System.in);
 
@@ -20,6 +21,11 @@ public class CommandProcessor {
         Matcher matcher = Pattern.compile("--(\\S+) ([^\\s-]+)").matcher(command);
         while (matcher.find()) data.put(matcher.group(1), matcher.group(2));
         return data;
+    }
+
+    private static Matcher getCommandMatcher(String input, String regex) {
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(input);
     }
 
     private static void login() {
@@ -45,12 +51,69 @@ public class CommandProcessor {
     }
 
     private static void mainMenu() {
+        String command = scanner.nextLine().trim();
+        while (!command.equals(Enums.MainMenuCommands.EXIT.getRegex()) && !command.equals(Enums.MainMenuCommands.LOGOUT.getRegex())) {
+
+            if (command.matches(Enums.MainMenuCommands.ENTER_MENU.getRegex())) {
+                Matcher matcher = getCommandMatcher(command, Enums.MainMenuCommands.ENTER_MENU.getRegex());
+                if (matcher.find())
+                    MainMenu.enterMenu(matcher.group(1));
+            } else if (command.equals(Enums.MainMenuCommands.SHOW_CURRENT.getRegex())) {
+                System.out.println(MainMenu.menuName());
+
+            }
+            command = scanner.nextLine().trim();
+        }
+        System.out.println("user logged out successfully!");
     }
 
     private static void shop() {
     }
 
     private static void deckMenu() {
+        HashMap<String, String> data;
+        String command = scanner.nextLine().trim();
+        while (!command.equals(Enums.DeckMenuCommands.EXIT.getRegex())) {
+
+            if (command.matches(Enums.DeckMenuCommands.CREATE_DECK.getRegex())) {
+                Matcher matcher = getCommandMatcher(command, Enums.DeckMenuCommands.CREATE_DECK.getRegex());
+                if (matcher.find())
+                    System.out.println(DeckMenu.create(matcher.group(1)));
+            } else if (command.matches(Enums.DeckMenuCommands.DELETE_DECK.getRegex())) {
+                Matcher matcher = getCommandMatcher(command, Enums.DeckMenuCommands.DELETE_DECK.getRegex());
+                if (matcher.find())
+                    System.out.println(DeckMenu.delete(matcher.group(1)));
+            } else if (command.matches((Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex()))) {
+                data = getCommandData(command);
+                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), true));
+            } else if (command.matches(Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())) {
+                data = getCommandData(command);
+                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), false));
+            } else if (command.matches(Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())) {
+                data = getCommandData(command);
+                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), true));
+            } else if (command.matches(Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())) {
+                data = getCommandData(command);
+                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), false));
+            } else if (command.matches(Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex())) {
+                Matcher matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex());
+                if (matcher.find())
+                    System.out.println(DeckMenu.activate(matcher.group(1)));
+            } else if (command.equals(Enums.DeckMenuCommands.SHOW_ALL_DECKS.getRegex())) {
+            } else if (command.matches(Enums.DeckMenuCommands.SHOW_MAIN_DECK.getRegex())) {
+            } else if (command.matches(Enums.DeckMenuCommands.SHOW_SIDE_DECK.getRegex())) {
+            } else if (command.equals(Enums.DeckMenuCommands.SHOW_DECK_CARDS.getRegex())) {
+                System.out.println(DeckMenu.showUsersCards());
+            } else if (command.equals(Enums.DeckMenuCommands.SHOW_CURRENT.getRegex())) {
+                System.out.println(DeckMenu.menuName());
+            } else if (command.equals(Enums.DeckMenuCommands.ENTER_MENU.getRegex())) {
+                System.out.println("menu navigation is not possible");
+            } else {
+                System.out.println("invalid command!");
+            }
+            command = scanner.nextLine().trim();
+        }
+
     }
 
     private static void profile() {

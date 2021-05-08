@@ -20,6 +20,7 @@ public class Terraforming extends Spell {
         Card card = getCardByName(spellname);
         Board board = game.getCurrentPlayer().getBoard();
         ArrayList<Card> deck = board.getDeck();
+
         if (!deck.contains(card)) return "Your deck doesn't contain this card!";
         assert card != null;
         if (((Spell) card).getSpellType() != SpellType.FIELD) return "This is not a field spell card!";

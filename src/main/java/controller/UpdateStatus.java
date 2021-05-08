@@ -2,7 +2,11 @@ package controller;
 
 import model.card.Card;
 import model.card.monster.*;
-import model.card.spell.Spell;
+import model.card.spell.*;
+import model.card.spell.equipspells.BlackPendant;
+import model.card.spell.equipspells.MagnumShield;
+import model.card.spell.equipspells.SwordOfDarkDestruction;
+import model.card.spell.equipspells.UnitedWeStand;
 import model.card.spell.fieldspells.ClosedForest;
 import model.card.spell.fieldspells.Forest;
 import model.card.spell.fieldspells.Umiiruka;
@@ -104,69 +108,25 @@ public class UpdateStatus {
     }
 
     public static void makeAllSpells() {
-        new Spell("Advanced Ritual Art", "Spell", Spell.SpellType.RITUAL
-                , "This card can be used to Ritual Summon any 1 Ritual Monster. You must also send Normal Monsters from your Deck to the" +
-                " Graveyard whose total Levels equal the Level of that Ritual Monster.", "Unlimited", 3000);
-        new Spell("Change of Heart", "Spell", Spell.SpellType.NORMAL
-                , "Target 1 monster your opponent controls; take control of it until the End Phase.", "Limited", 2500);
-        new Spell("Dark Hole", "Spell", Spell.SpellType.NORMAL
-                , "Destroy all monsters on the field.", "Unlimited", 2500);
-
-        new Spell("Harpie's Feather Duster", "Spell", Spell.SpellType.NORMAL
-                , "Destroy all Spells and Traps your opponent controls.", "Limited", 2500);
-
-        new Spell("Messenger of peace", "Spell", Spell.SpellType.CONTINUES
-                , "Monsters with 1500 or more ATK cannot declare an attack. Once per turn, " +
-                "during your Standby Phase, pay 100 LP or destroy this card.", "Unlimited", 4000);
-
-        new Spell("Monster Reborn", "Spell", Spell.SpellType.NORMAL
-                , "Target 1 monster in either GY; Special Summon it.", "Limited", 2500);
-
-        new Spell("Mystical space typhoon", "Spell", Spell.SpellType.QUICK_PLAY
-                , "Target 1 Spell/Trap on the field; destroy that target.", "Unlimited", 3500);
-
-        new Spell("Pot of Greed", "Spell", Spell.SpellType.NORMAL,
-                "Draw 2 cards.", "Limited", 2500);
-
-        new Spell("Raigeki", "Spell", Spell.SpellType.NORMAL
-                , "Destroy all monsters your opponent controls.", "Limited", 2500);
-
-        new Spell("Ring of defense", "Spell", Spell.SpellType.QUICK_PLAY
-                , "When a Trap effect that inflicts damage is activated: Make that effect damage 0.", "Unlimited", 3500);
-
-        new Spell("Spell Absorption", "Spell", Spell.SpellType.CONTINUES
-                , "Each time a Spell Card is activated, gain 500 Life Points immediately after it resolves.", "Unlimited", 4000);
-
-        new Spell("Supply Squad", "Spell", Spell.SpellType.CONTINUES
-                , "Once per turn, if a monster(s) you control is " +
-                "destroyed by battle or card effect: Draw 1 card.", "Unlimited", 4000);
-
-        new Spell("Swords of Revealing Light", "Spell", Spell.SpellType.NORMAL
-                , "After this card's activation, it remains on the field, but destroy it during the End Phase of your opponent's 3rd turn. When this card is activated: If your opponent controls a face-down monster, flip all monsters they control face-up. While this card is face-up on the field, your opponent's monsters cannot declare an attack."
-                , "Unlimited", 2500);
-
-        new Spell("Terraforming", "Spell", Spell.SpellType.NORMAL
-                , "Add 1 Field Spell from your Deck to your hand.", "Limited", 2500);
-
-        new Spell("Twin Twisters", "Spell", Spell.SpellType.QUICK_PLAY
-                , "Discard 1 card, then target up to 2 Spells/Traps on the field; destroy them.", "Unlimited", 3500);
-
-        new Spell("Black Pendant", "Spell", Spell.SpellType.EQUIP
-                , "The equipped monster gains 500 ATK. When this card is sent from the field to " +
-                "the Graveyard: Inflict 500 damage to your opponent.", "Unlimited", 4300);
-
-        new Spell("Magnum Shield", "Spell", Spell.SpellType.EQUIP
-                , "Equip only to a Warrior-Type monster. Apply this effect, depending on its battle position." +
-                "● Attack Position: It gains ATK equal to its original DEF." +
-                "● Defense Position: It gains DEF equal to its original ATK.", "Unlimited", 4300);
-
-        new Spell("Sword of dark destruction", "Spell", Spell.SpellType.EQUIP
-                , "A DARK monster equipped with this card increases its " +
-                "ATK by 400 points and decreases its DEF by 200 points.", "Unlimited", 4300);
-
-        new Spell("United We Stand", "Spell", Spell.SpellType.EQUIP
-                , "The equipped monster gains 800 ATK/DEF for each face-up monster" +
-                " you control.", "Unlimited", 4300);
+        new AdvancedRitualArt();
+        new ChangeOfHeart();
+        new DarkHole();
+        new HarpiesFeatherDuster();
+        new MessengerOfPeace();
+        new MonsterReborn();
+        new MysticalSpaceTyphoon();
+        new PotOfGreed();
+        new Raigeki();
+        new RingOfDefense();
+        new SpellAbsorption();
+        new SupplySquad();
+        new SwordsOfRevealingLight();
+        new Terraforming();
+        new TwinTwisters();
+        new BlackPendant();
+        new MagnumShield();
+        new SwordOfDarkDestruction();
+        new UnitedWeStand();
         new ClosedForest();
         new Forest();
         new Umiiruka();

@@ -8,16 +8,23 @@ import java.util.Comparator;
 
 public class Deck {
     private String name;
-    private ArrayList<Card> mainDeck = new ArrayList<>();
-    private ArrayList<Card> sideDeck = new ArrayList<>();
+    private ArrayList<Card> mainDeck; //= new ArrayList<>();
+    private ArrayList<Card> sideDeck; //= new ArrayList<>();
+    private ArrayList<Deck> decks = new ArrayList<>();
+
 
     public Deck(String name) {
         this.name = name;
+        decks.add(this);
+        mainDeck = new ArrayList<>();
+        sideDeck = new ArrayList<>();
     }
 
     public static ArrayList<Card> getRandomDeck() {
         //baraye ai lazeme
         //TODO
+
+        return null;
     }
 
     public void addCardToSideDeck(Card card) {
@@ -69,12 +76,17 @@ public class Deck {
         }
     }
 
-    public boolean isDeckValid() {
+    public boolean isMainDeckValid() {
         return this.mainDeck.size() <= 60 && this.mainDeck.size() >= 40;
+    }
+
+    public boolean isSideDeckValid() {
+        return this.sideDeck.size() <= 15;
     }
 
     public static void sort(ArrayList<Deck> decks) {
         decks.sort(Comparator.comparing(o -> o.name));
+
     }
 
     public String toString() {
@@ -88,4 +100,31 @@ public class Deck {
         return deck.remove(deck.size() - 1);
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public ArrayList<Card> getMainDeckCards() {
+        return mainDeck;
+    }
+
+    public ArrayList<Card> getSideDeckCards() {
+        return sideDeck;
+    }
+
+    public boolean isLimited(Card card) {
+        int number = 0;
+        for (Card eachCard : this.sideDeck) {
+            if (eachCard.equals(card))
+                number++;
+        }
+        for (Card eachCard : this.mainDeck) {
+            if (eachCard.equals(card))
+                number++;
+        }
+        return number >= 3;
+    }
+//    public static Deck getDeckByName(String name) {
+//        return
+//    }
 }

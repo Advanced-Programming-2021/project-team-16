@@ -27,6 +27,7 @@ public class Game {
     private Player loser;
     private boolean surrendered;
     private Phase currentPhase;
+    private int gameScore;
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -40,6 +41,9 @@ public class Game {
             HashMap<Player, Integer> winnerAndLp = new HashMap<>();
             this.currentPlayer = player2;
             this.rival = player1;
+            player1.getUser().setGameScore(0);
+            player2.getUser().setGameScore(0);
+
             int currentRound = 0;
             while (getMatchWinner(winnerAndLp) == null) {
                 currentRound++;
@@ -50,7 +54,7 @@ public class Game {
                 while (winner == null) {
                     run(rival, currentPlayer);
                 }
-                Show.showImportantGameMessage(winner.getUser().getNickname() + " won the round");
+                Show.showImportantGameMessage(winner.getUser().getUsername() + " won the game and the score is: 1000-0");
                 winnerAndLp.put(winner, winner.getLP());
             }
             winner = getMatchWinner(winnerAndLp);
@@ -90,7 +94,7 @@ public class Game {
         //ring of defence
         //negate attack
         selectedCard = null;
-        setCurrentPhase(Phase.DRAW)
+        setCurrentPhase(Phase.DRAW);
         Show.showGameMessage(drawCard());
         if (didSbWin()) return;
         setCurrentPhase(Phase.STANDBY);
@@ -189,15 +193,28 @@ public class Game {
         return "new card added to the hand : " + drewCard.getName();
     }
 
-    private void endRound() {
+    private String endRound() {
 
+        winner.getUser().increaseScore(1000);
+//      winner.getUser().increaseGameScore(1000);
+        winner.getUser().increaseMoney(1000 + winner.getLP());
+        loser.getUser().increaseMoney(100);
+//      int winnerGameScore = winner.getUser().getGameScore();
+//      int loserGameScore = loser.getUser().getGameScore();
+//      if(winnerGameScore == 2000 && loserGameScore == 0) {
+//          endMatch()
+//      }
+        return winner.getUser().getUsername() + " won the game and the score is: 1000-0";
 
-        //az field haye winner , loser estefade kon
 
     }
 
-    private void endMatch(int maxLp) {
+    private String endMatch(int maxLp) {
+        winner.getUser().increaseScore(3000);
+        winner.getUser().increaseMoney(3000 + (3 * maxLp));
+        loser.getUser().increaseMoney(300);
 
+        return winner.getUser().getUsername() + "won the whole match with score: " + winner.getUser().getGameScore() + "-" + loser.getUser().getGameScore();
     }
 
     public String summon(String summonType) {
@@ -411,12 +428,14 @@ public class Game {
     //           return "you can’t set this card";
     //   }
     public String flipSummon() {
+
         boolean isInZone = false;
         Game game = GameMenu.getCurrentGame();
         if (selectedCard == null) return "no card is selected yet";
         for (Monster monster : game.getCurrentPlayer().getBoard().getMonsterZone()) {
-            if (monster == (Monster) selectedCard) {
+            if (monster == selectedCard) {
                 isInZone = true;
+                break;
             }
         }
         if (!isInZone) return "you can’t change this card position";
@@ -425,7 +444,7 @@ public class Game {
         Monster[] monsterZone = game.getCurrentPlayer().getBoard().getMonsterZone();
         Board board = game.getCurrentPlayer().getBoard();
         for (int i = 0; i < monsterZone.length; i++) {
-            if (monsterZone[i] == (Monster) selectedCard) {
+            if (monsterZone[i] == selectedCard) {
                 if (board.getCardPositions()[0][i] != Board.CardPosition.HIDE_DEF) {
                     return "you can’t flip summon this card";                                //TODO: once per turn.
                 } else {
@@ -435,11 +454,12 @@ public class Game {
                         for (Card card : getRival().getBoard().getMonsterZone()) {
                             if (card instanceof TrapHole)
                                 putCardInZone(selectedCard, Board.Zone.GRAVE, null, getCurrentPlayer().getBoard());
+                            removeCardFromZone(selectedCard, Board.Zone.MONSTER, i, getCurrentPlayer().getBoard());
                             return "card was destroyed due to Trap hole activation";
                         }
                     }
                 }
-                break;                                                                       //needs some changes
+                //needs some changes
             }
 
         }
@@ -562,12 +582,12 @@ public class Game {
         if (selectedZone == Board.Zone.HAND && currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP)
                 && ((Spell) selectedCard).getSpellType() != Spell.SpellType.FIELD)
             return "spell card zone is full";
-        //TODO: prepration stuff
+        //TODO: preparation stuff
         if (((Spell) selectedCard).getSpellType() == Spell.SpellType.FIELD) {
-//            if (currentPlayer.getBoard().isZoneFull(Board.Zone.FIELD_SPELL)) {
-//                 putCardInZone();     how to say the card in the field zone?
-//                removeCardFromZone();
-//            }
+            if (currentPlayer.getBoard().isZoneFull(Board.Zone.FIELD_SPELL)) {
+                putCardInZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.GRAVE, null, currentPlayer.getBoard());
+                removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
+            }
             putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.ACTIVATED, currentPlayer.getBoard());
             return "spell activated";
         }

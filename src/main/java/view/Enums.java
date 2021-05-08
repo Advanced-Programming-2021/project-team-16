@@ -23,14 +23,56 @@ public class Enums {
         }
     }
 
-    public enum MainMenuCommands {}
+    public enum MainMenuCommands {
+        SHOW_CURRENT("menu show-current"),
+        ENTER_MENU("menu enter (\\w+)"),
+        LOGOUT("user logout"),
+        EXIT("menu exit");
+        private String regex;
+
+        public String getRegex() {
+            return regex;
+        }
+
+        MainMenuCommands(String regex) {
+            this.regex = regex;
+        }
+
+    }
 
     public enum ShopCommands {
+
         //show card -> page 11 -> doc phase 1
     }
 
     public enum DeckMenuCommands {
-        //show card -> page 11 -> doc phase 1
+
+        CREATE_DECK("deck create (\\w+)"),
+        DELETE_DECK("deck delete (\\w+)"),
+        SET_ACTIVE_DECK("deck set-activate (\\w+)"),
+        ADD_CARD_TO_MAIN("deck add-card --card (\\w+) --deck (\\w+)"),
+        ADD_CARD_TO_SIDE("deck add-card --card (\\w+) --deck (\\w+) --side"),
+        RM_CARD_FROM_MAIN("deck rm-card --card (\\w+) --deck (\\w+)"),
+        RM_CARD_FROM_SIDE("deck rm-card --card (\\w+) --deck (\\w+) --side"),
+        SHOW_ALL_DECKS("deck show --all"),
+        SHOW_MAIN_DECK("deck show --deck-name (\\w+)"),
+        SHOW_SIDE_DECK("deck show --deck-name (\\w+) --side"),
+        SHOW_DECK_CARDS("deck show --cards"),
+        ENTER_MENU("menu enter (.*)"),
+        SHOW_CURRENT("menu show-current"),
+        EXIT("menu exit");
+
+
+        private String regex;
+
+        public String getRegex() {
+            return regex;
+        }
+
+        DeckMenuCommands(String regex) {
+            this.regex = regex;
+        }
+
     }
 
     public enum ProfileCommands {
