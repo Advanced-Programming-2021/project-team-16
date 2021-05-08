@@ -41,6 +41,18 @@ public class Enums {
     }
 
     public enum ShopCommands {
+        SHOP_BUY("card name(?\\w+)"),
+        SHOP_SHOW("--all"),
+        EXIT("menu exit");
+        private final String regex;
+
+        public String getRegex() {
+            return regex;
+        }
+
+        ShopCommands(String regex) {
+            this.regex = regex;
+        }
 
         //show card -> page 11 -> doc phase 1
     }
