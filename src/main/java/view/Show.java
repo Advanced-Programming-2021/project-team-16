@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class Show {
     public static void showCardsInShop() {
         ArrayList<Card> cards = Card.getCards();
+        Card.sort(cards);
         for (Card card : cards) {
             System.out.println(card.getName() + ":" + card.getPrice());
         }
