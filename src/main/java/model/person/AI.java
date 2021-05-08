@@ -10,20 +10,30 @@ public class AI extends Player {
     }
 
     public void playMainPhase() {
+        setOrSummon();
+        activeEffect();
+    }
+
+    public void setOrSummon() {
+        //دنیا
+    }
+
+    public void activeEffect() {
+        //درسا
     }
 
     public void playBattlePhase() {
+        //زهرا
     }
 
-    public void bringInMonster() {
+    public int[] getTribute(int numberOfTributes) {
+        //زهرا
     }
 
-    public void bringInSpellAndTrap() {
-    }
+//    public void bringInMonster() {
+//    }
+//
+//    public void bringInSpellAndTrap() {
+//    }
 
-    public void checkForActivableCards() {
-    }
-
-    public void getInstance() {
-    }
 }
