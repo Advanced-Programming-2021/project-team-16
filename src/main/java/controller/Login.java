@@ -2,6 +2,8 @@ package controller;
 
 import model.person.User;
 
+import java.util.ArrayList;
+
 public class Login {
     public static String signUp(String username, String password, String nickname) {
         if (User.getUserByUsername(username) != null)
@@ -9,7 +11,7 @@ public class Login {
         if (User.getUserByNickname(nickname) != null)
             return "user with nickname " + nickname + " already exists";
         if (!User.getPasswordWeakness(password).equals("strong")) return User.getPasswordWeakness(password);
-        new User(username, password, nickname);
+        new User(username, password, nickname, 100000, 0, new ArrayList<String>(), new ArrayList<String>(), null);
         return "user created successfully!";
     }
 

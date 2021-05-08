@@ -10,7 +10,7 @@ public class Deck {
     private String name;
     private ArrayList<Card> mainDeck; //= new ArrayList<>();
     private ArrayList<Card> sideDeck; //= new ArrayList<>();
-    private ArrayList<Deck> decks = new ArrayList<>();
+    private static ArrayList<Deck> decks = new ArrayList<>();
 
 
     public Deck(String name) {
@@ -24,6 +24,13 @@ public class Deck {
         //baraye ai lazeme
         //TODO
 
+        return null;
+    }
+
+    public static Deck getDeckByName(String name) {
+        for (Deck deck : decks) {
+            if (deck.name.equals(name)) return deck;
+        }
         return null;
     }
 

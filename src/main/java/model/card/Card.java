@@ -12,6 +12,11 @@ public abstract class Card implements Comparable<Card> {
     protected int price;
     public Random random = new Random();
 
+    public static Card make(String cardName) {
+        return null;//////switch case + default -> Monster.clone(getCardByName(cardName))
+        //TODO
+    }
+
     public int getPrice() {
         return price;
     }
@@ -20,6 +25,7 @@ public abstract class Card implements Comparable<Card> {
         this.name = name;
         this.description = description;
         this.price = price;
+        for (Card card : cards) if (card.getName().equals(this.getName())) return;
         cards.add(this);
     }
 

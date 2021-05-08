@@ -28,7 +28,7 @@ public class CommandProcessor {
         return pattern.matcher(input);
     }
 
-    private static void login() {
+    public static void login() {
         HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.LoginCommands.LOGOUT.getRegex()) &&
                 !command.equals(Enums.LoginCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
@@ -138,7 +138,7 @@ public class CommandProcessor {
                 System.out.println(Profile.changeNickname(data.get("nickname")));
             } else if (command.matches(Enums.ProfileCommands.CHANGE_PASSWORD.getRegex())) {
                 data = getCommandData(command);
-                System.out.println(Profile.changePassword(data.get("current"), data.get("new"));
+                System.out.println(Profile.changePassword(data.get("current"), data.get("new")));
             } else System.out.println("invalid command");
         }
     }
@@ -257,10 +257,6 @@ public class CommandProcessor {
         }
     }
 
-    /*public static String scan() {
-        return scanner.nextLine();
-
-    }*/ // -> harchi lazeme bayad methode joda dashte bashe ke badan beshe tooye gerafic in method haro jodagoone eslah card
 
 
     private static void scoreboard() {
@@ -275,8 +271,6 @@ public class CommandProcessor {
         }
     }
 
-    public static Card askForHandTribute() {
-    }
 
     public static boolean yesNoQuestion(String question) {
         System.out.println(question);

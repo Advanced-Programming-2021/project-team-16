@@ -4,7 +4,6 @@ import controller.GameMenu;
 import controller.MainMenu;
 import model.Board;
 import model.Deck;
-import model.Game;
 import model.Phase;
 import model.card.Card;
 import model.card.monster.Monster;
@@ -16,10 +15,16 @@ import java.util.ArrayList;
 
 
 public class Show {
-    public static void showCardArray() {
+    public static void showCardsInShop() {
         ArrayList<Card> cards = Card.getCards();
         for (Card card : cards) {
-            System.out.println(card.getName() + ":" + card.getDescription());
+            System.out.println(card.getName() + ":" + card.getPrice());
+        }
+    }
+
+    public static void showCardArray(ArrayList<Card> cards) {
+        for (int i = 1; i <= cards.size(); i++) {
+            System.out.println(i + ". " + cards.get(i - 1).getName() + ": " + cards.get(i - 1).getDescription());
         }
     }
 
@@ -60,16 +65,16 @@ public class Show {
         }
     }
 
-    public static void showGraveCards(Game game) {
-        for (Card c : game.getCurrentPlayer().getBoard().getGrave()) {
-            System.out.println(c);
-        }
-        for (Card c : game.getRival().getBoard().getGrave()) {
-            System.out.println(c);
-        }
-
-
-    }
+//    public static void showGraveCards(Game game) {
+//        for (Card c : game.getCurrentPlayer().getBoard().getGrave()) {
+//            System.out.println(c);
+//        }
+//        for (Card c : game.getRival().getBoard().getGrave()) {
+//            System.out.println(c);
+//        }
+//
+//
+//    }
 
 
     public static void showMainDeck(String deckName) {
@@ -89,13 +94,14 @@ public class Show {
     public static void showAllDecks() {
     }
 
-    public static void showBoard(Board.CardPosition[][] myBoard, Board.CardPosition[][] rivalBoars) {
+    public static void showBoard() {
         Board board = GameMenu.getCurrentGame().getCurrentPlayer().getBoard();
         String fz = "";
         String monsterCardZone = "";
         String spellAndTrapZone = "";
         int dn = board.getDeck().size();
         int gy = board.getGrave().size();
+        Board.CardPosition[][] myBoard = board.getCardPositions();
         if (board.getFieldSpell() == null) {
             fz = "E";
         }
@@ -111,6 +117,7 @@ public class Show {
         if (boardR.getFieldSpell() != null) {
             fz = "O";
         }
+        Board.CardPosition[][] rivalBoars = boardR.getCardPositions();
         String rivalNickname = GameMenu.getCurrentGame().getRival().getUser().getNickname();
         int rivalLP = GameMenu.getCurrentGame().getRival().getLP();
         System.out.println(rivalNickname + ":" + rivalLP);
@@ -127,6 +134,7 @@ public class Show {
             if (rivalBoars[0][i] == Board.CardPosition.HIDE_DEF) {
                 spellAndTrapZone = "H";
             }
+            if (boardR.getSpellAndTrapZone()[i] == null) spellAndTrapZone = "E";
             System.out.println(spellAndTrapZone + "\t");
         }
         System.out.print("\t");
@@ -140,6 +148,7 @@ public class Show {
             if (rivalBoars[1][i] == Board.CardPosition.ATK) {
                 monsterCardZone = "OO";
             }
+            if (boardR.getMonsterZone()[i] == null) monsterCardZone = "E";
             System.out.println(monsterCardZone + "\t");
         }
         System.out.println(gyR + "\t\t\t\t\t\t" + fz + "\n\n");
@@ -156,6 +165,7 @@ public class Show {
             if (myBoard[0][i] == Board.CardPosition.ATK) {
                 monsterCardZone = "OO";
             }
+            if (board.getMonsterZone()[i] == null) monsterCardZone = "E";
             System.out.println(monsterCardZone + "\t");
         }
         System.out.print("\t");
@@ -166,6 +176,7 @@ public class Show {
             if (myBoard[1][i] == Board.CardPosition.HIDE_DEF) {
                 spellAndTrapZone = "H";
             }
+            if (board.getSpellAndTrapZone()[i] == null) spellAndTrapZone = "E";
             System.out.println(spellAndTrapZone + "\t");
         }
         System.out.println("  \t\t\t\t\t\t" + dn);

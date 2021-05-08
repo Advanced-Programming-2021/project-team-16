@@ -1,6 +1,7 @@
 package controller;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import model.card.Card;
 import model.card.monster.*;
 import model.card.spell.*;
@@ -17,13 +18,36 @@ import model.person.User;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateStatus {
+    public static void beforeRun() {
+        makeAllCards();
+        makeDecks();
+        makeUsers();
+    }
+
+    public static void afterRun() {
+        saveUsers();
+        saveDecks();
+    }
+
 
     public static void makeAllCards() {
         makeAllMonsters();
         makeAllSpells();
         makeAllTraps();
+    }
+
+    private static void makeDecks() {
+
+    }
+
+    private static void saveDecks() {
+
     }
 
     public static void saveUsers() {
@@ -35,6 +59,17 @@ public class UpdateStatus {
             e.printStackTrace();
         }
     }
+
+    public static void makeUsers() {
+        try {
+            String jsonUsers = new String(Files.readAllBytes(Paths.get("json.txt")));
+            ArrayList<User> users = new Gson().fromJson(jsonUsers, new TypeToken<List<User>>() {
+            }.getType());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public static void makeAllMonsters() {
         new CommandKnight();
