@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/UpdateStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/UpdateStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/person/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/AI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +182,7 @@
       <workItem from="1620480972875" duration="4571000" />
       <workItem from="1620487392230" duration="1919000" />
       <workItem from="1620505111576" duration="7987000" />
-      <workItem from="1620588167737" duration="9297000" />
+      <workItem from="1620588167737" duration="10211000" />
     </task>
     <task id="LOCAL-00001" summary="uml-code">
       <created>1618339504128</created>
@@ -480,7 +478,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620597484114</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="ai-battle">
+      <created>1620601507989</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1620601507989</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -499,7 +504,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="4 monsters + changes in Board and Game + adding UpdateStatus class in controller" />
     <MESSAGE value="2 monsters + changes in Board &amp; Game" />
     <MESSAGE value="changes in GraveYardEffectMonster" />
     <MESSAGE value="2 monsters" />
@@ -524,7 +528,8 @@
     <MESSAGE value="deck" />
     <MESSAGE value="json-users" />
     <MESSAGE value="login-test" />
-    <option name="LAST_COMMIT_MESSAGE" value="login-test" />
+    <MESSAGE value="ai-battle" />
+    <option name="LAST_COMMIT_MESSAGE" value="ai-battle" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

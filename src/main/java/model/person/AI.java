@@ -28,34 +28,44 @@ public class AI extends Player {
     }
 
     public void playBattlePhase() {
+        Game game = GameMenu.getCurrentGame();
+        Monster[] myMonsters = board.getMonsterZone();
+        Board rivalBoard = game.getRival().getBoard();
+        Monster[] rivalMonsters = rivalBoard.getMonsterZone();
+        Board.CardPosition[] rivalMonsterPositions = rivalBoard.getCardPositions()[0];
+        int myMonsterIndex = getMyMonsterIndex();
+        while (myMonsterIndex != -1) {
+            game.selectCard(Board.Zone.MONSTER, myMonsterIndex, false);
+            int rivalMonsterIndex = -1;
+            int minATKOrDEF = 9999999;
+            for (int i = 0; i < rivalMonsters.length; i++)
+                if (rivalMonsters[i] != null) {
+                    int ATKOrDEF = rivalMonsterPositions[i] == Board.CardPosition.ATK ?
+                            rivalMonsters[i].getATK() : rivalMonsters[i].getDEF();
+                    if (ATKOrDEF < minATKOrDEF) {
+                        minATKOrDEF = ATKOrDEF;
+                        rivalMonsterIndex = i;
+                    }
+                }
+            if (myMonsters[myMonsterIndex].getATK() < minATKOrDEF) return;
+            game.attack(rivalMonsterIndex);
+            myMonsterIndex = getMyMonsterIndex();
+        }
+    }
+
+    private int getMyMonsterIndex() {
         Monster[] myMonsters = board.getMonsterZone();
         Board.CardPosition[] myMonsterPositions = board.getCardPositions()[0];
+        boolean[] didMonsterAttack = board.getDidMonsterAttack();
         int myMonsterIndex = -1;
         int maxATK = -1;
         for (int i = 0; i < myMonsters.length; i++)
-            if (myMonsters[i] != null && myMonsterPositions[i] == Board.CardPosition.ATK)
+            if (myMonsters[i] != null && myMonsterPositions[i] == Board.CardPosition.ATK && !didMonsterAttack[i])
                 if (myMonsters[i].getATK() > maxATK) {
                     maxATK = myMonsters[i].getATK();
                     myMonsterIndex = i;
                 }
-        if (myMonsterIndex == -1) return;
-        Game game = GameMenu.getCurrentGame();
-        game.selectCard(Board.Zone.MONSTER, myMonsterIndex, false);
-        Board rivalBoard = game.getRival().getBoard();
-        Monster[] rivalMonsters = rivalBoard.getMonsterZone();
-        Board.CardPosition[] rivalMonsterPositions = rivalBoard.getCardPositions()[0];
-        int rivalMonsterIndex = -1;
-        int minATKOrDEF = 9999999;
-        for (int i = 0; i < rivalMonsters.length; i++)
-            if (rivalMonsters[i] != null) {
-                int ATKOrDEF = rivalMonsterPositions[i] == Board.CardPosition.ATK ?
-                        rivalMonsters[i].getATK() : rivalMonsters[i].getDEF();
-                if (ATKOrDEF < minATKOrDEF) {
-                    minATKOrDEF = ATKOrDEF;
-                    rivalMonsterIndex = i;
-                }
-            }
-        game.attack(rivalMonsterIndex);
+        return myMonsterIndex;
     }
 
 
