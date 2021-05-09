@@ -41,8 +41,8 @@ public class Enums {
     }
 
     public enum ShopCommands {
-        SHOP_BUY("card name(?\\w+)"),
-        SHOP_SHOW("--all"),
+        SHOP_BUY("shop buy(?\\w+)"),
+        SHOP_SHOW("shop show --all"),
         EXIT("menu exit");
         private final String regex;
 
@@ -158,5 +158,4 @@ public class Enums {
             this.regex = regex;
         }
     }
-
 }

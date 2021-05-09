@@ -69,10 +69,11 @@ public class CommandProcessor {
 
     private static void shop() {
         String command = scanner.nextLine().trim();
+        Matcher matcher = getCommandMatcher(command, Enums.ShopCommands.SHOP_BUY.getRegex());
         while (!command.matches(Enums.ShopCommands.EXIT.getRegex())) {
 
             if (command.matches(Enums.ShopCommands.SHOP_BUY.getRegex())) {
-                System.out.println(Shop.buy(command));
+                System.out.println(Shop.buy(matcher.group(1)));
             } else if (command.equals(Enums.ShopCommands.SHOP_SHOW.getRegex())) {
                 System.out.println(Shop.allCardsOfShop(command));
             } else System.out.println("invalid command!");
@@ -123,7 +124,6 @@ public class CommandProcessor {
             }
             command = scanner.nextLine().trim();
         }
-
     }
 
     private static void profile() {
@@ -138,7 +138,7 @@ public class CommandProcessor {
                 System.out.println(Profile.changeNickname(data.get("nickname")));
             } else if (command.matches(Enums.ProfileCommands.CHANGE_PASSWORD.getRegex())) {
                 data = getCommandData(command);
-                System.out.println(Profile.changePassword(data.get("current"), data.get("new"));
+                System.out.println(Profile.changePassword(data.get("current"), data.get("new")));
             } else System.out.println("invalid command");
         }
     }
@@ -275,8 +275,10 @@ public class CommandProcessor {
         }
     }
 
-    public static Card askForHandTribute() {
-    }
+//    public static int askIndexForTribute() {
+//int[] monsters =scanner.nextInt()[scanner.nextInt()];
+//        return scanner.nextInt();
+//    }
 
     public static boolean yesNoQuestion(String question) {
         System.out.println(question);
