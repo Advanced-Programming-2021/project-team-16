@@ -16,8 +16,8 @@ public class Umiiruka extends Spell {
         for (Monster monster : monsterZone) {
             if (monster != null) {
                 if (monster.getMonsterType() == Monster.MonsterType.AQUA) {
-                    monster.ATK += 500;
-                    monster.DEF -= 400;
+                    /*monster.ATK += 500;
+                    monster.DEF -= 400;*/
                 }
 
             }
@@ -27,8 +27,8 @@ public class Umiiruka extends Spell {
         for (Monster monster : monsterZoneTwo) {
             if (monster != null) {
                 if (monster.getMonsterType() == Monster.MonsterType.AQUA) {
-                    monster.ATK += 500;
-                    monster.DEF -= 400;
+                    /*monster.ATK += 500;
+                    monster.DEF -= 400;*/
                 }
 
             }

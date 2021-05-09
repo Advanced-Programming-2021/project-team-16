@@ -4,14 +4,13 @@ public class Enums {
 
     public enum LoginCommands {
         LOGIN("user login (--username (\\w+) --password (\\w+)|--password (\\w+) --username (\\w+))"),
-        LOGOUT("user logout"),
         CREATE_USER("user create (--username (\\w+) --nickname (\\w+) --password (\\w+)|" +
                 "--password (\\w+) --username (\\w+) --nickname (\\w+)|--nickname (\\w+) --password (\\w+) --username (\\w+)|" +
                 "--username (\\w+) --password (\\w+) --nickname (\\w+)|--nickname (\\w+) --username (\\w+) --password (\\w+)|" +
                 "--password (\\w+) --nickname (\\w+) --username (\\w+))"),
         SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.*)"),
-        EXIT("menu exit");
+        EXIT("(menu exit|exit)");
         private String regex;
 
         public String getRegex() {

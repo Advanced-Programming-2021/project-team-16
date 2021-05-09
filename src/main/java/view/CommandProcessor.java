@@ -30,12 +30,11 @@ public class CommandProcessor {
 
     public static void login() {
         HashMap<String, String> data;
-        for (String command = scanner.nextLine().trim(); !command.equals(Enums.LoginCommands.LOGOUT.getRegex()) &&
-                !command.equals(Enums.LoginCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
+        for (String command = scanner.nextLine().trim(); !command.matches(Enums.LoginCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.matches(Enums.LoginCommands.LOGIN.getRegex())) {
                 data = getCommandData(command);
                 String result = Login.login(data.get("username"), data.get("password"));
-                System.out.println(result);
+                System.out.print(result + "\n");
                 if (result.equals("user logged in successfully!")) mainMenu();
             } else if (command.matches(Enums.LoginCommands.CREATE_USER.getRegex())) {
                 data = getCommandData(command);
@@ -46,8 +45,6 @@ public class CommandProcessor {
                 System.out.println("please login first");
             else System.out.println("invalid command");
         }
-        System.out.println("user logged out successfully!");
-
     }
 
     private static void mainMenu() {
@@ -64,7 +61,7 @@ public class CommandProcessor {
             }
             command = scanner.nextLine().trim();
         }
-        System.out.println("user logged out successfully!");
+        System.out.print("user logged out successfully!\n");
     }
 
     private static void shop() {

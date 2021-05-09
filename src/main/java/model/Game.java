@@ -247,7 +247,7 @@ public class Game {
             if (board.howManyMonsters() == 0) {
                 return "there no monsters one this address";
             } else {
-                specialSummonable.tribute(selectedZoneIndex, this);/////////
+               // specialSummonable.tribute(selectedZoneIndex, this);/////////
 
                 removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, board);
                 putCardInZone(selectedCard,/*board.getFirstEmptyIndexOfZone() */ selectedZone, Board.CardPosition.ATK, board);/////////
@@ -263,7 +263,7 @@ public class Game {
                 for (Card card : spellAndTrapZone) {
                     if (card instanceof GateGuardian) {
                         for (int i = 0; i < 3; i++) {
-                            ((GateGuardian) card).specialSummon((Integer) selectedZone, this);///////////////
+                            ////((GateGuardian) card).specialSummon((Integer) selectedZone, this);///////////////
                         }
                         removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, board);
                         putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
@@ -334,6 +334,7 @@ public class Game {
                 }
             }
         }
+        return "";
     }
 
 

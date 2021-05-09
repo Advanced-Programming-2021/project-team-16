@@ -28,6 +28,7 @@ public class AI extends Player {
 
     public int[] getTribute(int numberOfTributes) {
         //زهرا
+        return null;
     }
 
 //    public void bringInMonster() {

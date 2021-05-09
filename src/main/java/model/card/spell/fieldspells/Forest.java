@@ -23,10 +23,10 @@ public class Forest extends Spell {
                             monsterTwo.getMonsterType() == Monster.MonsterType.BEAST ||
                             monsterTwo.getMonsterType() == Monster.MonsterType.BEAST_WARRIOR ||
                             monsterTwo.getMonsterType() == Monster.MonsterType.INSECT) {
-                        monster.ATK += 200;
+                        /*monster.ATK += 200;
                         monster.DEF += 200;
                         monsterTwo.ATK += 200;
-                        monsterTwo.DEF += 200;
+                        monsterTwo.DEF += 200;*/
                     }
                 }
         }

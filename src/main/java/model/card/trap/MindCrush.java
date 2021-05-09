@@ -22,10 +22,11 @@ public class MindCrush extends Trap {
         Monster monster = (Monster) Monster.getCardByName(CommandProcessor.getCardName());
         if (monster != null) {
             for (Card rivalCard : cardR) {
-                if ((Monster) rivalCard instanceof monster) {
+               /* if ((Monster) rivalCard instanceof monster) {
 
-                }
+                }*??????*/ //TODO
             }
         }
+        return "";//????}
     }
 }

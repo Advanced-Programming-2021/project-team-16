@@ -26,17 +26,17 @@ public class Yami extends Spell {
                             monster.getMonsterType() == Monster.MonsterType.FIEND ||
                             monster1.getMonsterType() == Monster.MonsterType.SPELL_CASTER ||
                             monster1.getMonsterType() == Monster.MonsterType.FIEND) {
-                        monster.ATK += 200;
+                       /* monster.ATK += 200;
                         monster.DEF += 200;
                         monster1.ATK += 200;
-                        monster1.DEF += 200;
+                        monster1.DEF += 200;*/
                     }
                     if (monster.getMonsterType() == Monster.MonsterType.FAIRY
                             || monster1.getMonsterType() == Monster.MonsterType.FAIRY) {
-                        monster.ATK -= 200;
+                        /*monster.ATK -= 200;
                         monster.DEF -= 200;
                         monster1.ATK -= 200;
-                        monster1.DEF -= 200;
+                        monster1.DEF -= 200;*/
                     }
                 }
             }

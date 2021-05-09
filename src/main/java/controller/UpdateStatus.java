@@ -26,8 +26,8 @@ import java.util.List;
 public class UpdateStatus {
     public static void beforeRun() {
         makeAllCards();
-        makeDecks();
-        makeUsers();
+        /*makeDecks();
+        makeUsers();*/
     }
 
     public static void afterRun() {
@@ -62,11 +62,11 @@ public class UpdateStatus {
 
     public static void makeUsers() {
         try {
-            String jsonUsers = new String(Files.readAllBytes(Paths.get("json.txt")));
+            String jsonUsers = new String(Files.readAllBytes(Paths.get("users_json.txt")));
             ArrayList<User> users = new Gson().fromJson(jsonUsers, new TypeToken<List<User>>() {
             }.getType());
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("error");
         }
     }
 

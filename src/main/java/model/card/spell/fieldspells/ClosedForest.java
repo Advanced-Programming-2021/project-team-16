@@ -29,7 +29,7 @@ public class ClosedForest extends Spell {
                 }
                 if (number > 0) {
                     if (monster.getMonsterType() == Monster.MonsterType.BEAST) {
-                        monster.ATK += number * 100;
+                        ///monster.ATK += number * 100;
                     }
 
                 } else {
