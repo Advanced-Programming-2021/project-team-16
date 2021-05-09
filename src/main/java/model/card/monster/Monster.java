@@ -67,4 +67,8 @@ public class Monster extends Card {
     public void decreaseDEF(int amount) {
         DEF -= amount;
     }
+
+    public Monster clone(Monster monster) {
+        return new Monster(monster.name, monster.description, monster.price, monster.monsterType, monster.level, monster.ATK, monster.DEF);
+    }
 }

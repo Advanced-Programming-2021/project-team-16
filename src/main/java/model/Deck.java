@@ -10,7 +10,7 @@ public class Deck {
     private String name;
     private ArrayList<Card> mainDeck; //= new ArrayList<>();
     private ArrayList<Card> sideDeck; //= new ArrayList<>();
-    private ArrayList<Deck> decks = new ArrayList<>();
+    private static ArrayList<Deck> decks = new ArrayList<>();
 
 
     public Deck(String name) {
@@ -24,6 +24,13 @@ public class Deck {
         //baraye ai lazeme
         //TODO
 
+        return null;
+    }
+
+    public static Deck getDeckByName(String name) {
+        for (Deck deck : decks) {
+            if (deck.name.equals(name)) return deck;
+        }
         return null;
     }
 
@@ -82,6 +89,19 @@ public class Deck {
 
     public boolean isSideDeckValid() {
         return this.sideDeck.size() <= 15;
+    }
+
+    public boolean isDeckValid() {
+        int numberOfOneCard = 0;
+        ArrayList<Card> allCards = new ArrayList<>(mainDeck);
+        allCards.addAll(sideDeck);
+        for (Card card : allCards) {
+            for (Card card2 : allCards) {
+                if (card.getName().equals(card2.getName())) numberOfOneCard++;
+            }
+            if (numberOfOneCard > 3) return false;
+        }
+        return isMainDeckValid() && isSideDeckValid();
     }
 
     public static void sort(ArrayList<Deck> decks) {
