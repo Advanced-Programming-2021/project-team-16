@@ -26,8 +26,8 @@ import java.util.List;
 public class UpdateStatus {
     public static void beforeRun() {
         makeAllCards();
-        /*makeDecks();
-        makeUsers();*/
+        //makeDecks();
+        makeUsers();
     }
 
     public static void afterRun() {

@@ -215,7 +215,7 @@ public class CommandProcessor {
                 if (isSelectedCardForOpponent && zone == Board.Zone.HAND)
                     System.out.println("you can't choose your opponent's hand");
                 else if (!isSelectionValid) System.out.println("invalid selection");
-                else System.out.println(game.selectCard(zone, index, isSelectedCardForOpponent));
+                else System.out.println(game.selectCard(zone, index - 1, isSelectedCardForOpponent));
             } else if (command.equals(Enums.GameCommands.DESELECT_CARD.getRegex())) System.out.println(game.deselect());
             else if (command.equals("summon")) System.out.println(game.summon(null)); //TODO : summon type??
             else if (command.equals("set")) System.out.println(game.set());
@@ -285,7 +285,7 @@ public class CommandProcessor {
     }
 
     public static int getCardIndex() {
-        return scanner.nextInt();
+        return scanner.nextInt() - 1;
     }
 
     public static String getCardName() {
