@@ -28,7 +28,7 @@ public class CommandProcessor {
         return pattern.matcher(input);
     }
 
-    public static void login() {
+    private static void login() {
         HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.matches(Enums.LoginCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.matches(Enums.LoginCommands.LOGIN.getRegex())) {
@@ -66,10 +66,11 @@ public class CommandProcessor {
 
     private static void shop() {
         String command = scanner.nextLine().trim();
+        Matcher matcher = getCommandMatcher(command, Enums.ShopCommands.SHOP_BUY.getRegex());
         while (!command.matches(Enums.ShopCommands.EXIT.getRegex())) {
 
             if (command.matches(Enums.ShopCommands.SHOP_BUY.getRegex())) {
-                System.out.println(Shop.buy(command));
+                System.out.println(Shop.buy(matcher.group(1)));
             } else if (command.equals(Enums.ShopCommands.SHOP_SHOW.getRegex())) {
                 System.out.println(Shop.allCardsOfShop(command));
             } else System.out.println("invalid command!");
@@ -120,7 +121,6 @@ public class CommandProcessor {
             }
             command = scanner.nextLine().trim();
         }
-
     }
 
     private static void profile() {
@@ -254,6 +254,10 @@ public class CommandProcessor {
         }
     }
 
+    /*public static String scan() {
+        return scanner.nextLine();
+
+    }*/ // -> harchi lazeme bayad methode joda dashte bashe ke badan beshe tooye gerafic in method haro jodagoone eslah card
 
 
     private static void scoreboard() {
@@ -268,6 +272,10 @@ public class CommandProcessor {
         }
     }
 
+//    public static int askIndexForTribute() {
+//int[] monsters =scanner.nextInt()[scanner.nextInt()];
+//        return scanner.nextInt();
+//    }
 
     public static boolean yesNoQuestion(String question) {
         System.out.println(question);

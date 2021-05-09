@@ -3,9 +3,7 @@ package model.card.trap;
 import model.Board;
 import model.Game;
 import model.card.Card;
-import model.card.monster.Monster;
 import view.CommandProcessor;
-import view.Show;
 
 
 public class MindCrush extends Trap {
@@ -17,16 +15,41 @@ public class MindCrush extends Trap {
     public String action(Game game, Card card1, int i) {
         Board boardC = game.getCurrentPlayer().getBoard();
         Board boardR = game.getRival().getBoard();
-        Show.showImportantGameMessage("say a card name to remove frome ");
-        Card[] cardR = game.getRival().getBoard().getHand();
-        Monster monster = (Monster) Monster.getCardByName(CommandProcessor.getCardName());
-        if (monster != null) {
-            for (Card rivalCard : cardR) {
-               /* if ((Monster) rivalCard instanceof monster) {
-
-                }*??????*/ //TODO
+        Card card = Card.getCardByName(CommandProcessor.getCardName());
+        int int_random = random.nextInt(4);
+        Card[] hand = boardC.getHand();
+        Card randomCard = hand[int_random];
+        for (Card rivalCard : boardR.getHand()) {
+            if (card != null && card.equals(rivalCard)) {
+                game.removeCardFromZone(card, Board.Zone.HAND, CommandProcessor.getCardIndex(), boardR);
+                game.putCardInZone(card, Board.Zone.GRAVE, null, boardR);
+                for (Card rivalCard1 : boardR.getMonsterZone()) {
+                    if (card.equals(rivalCard1)) {
+                        game.removeCardFromZone(card, Board.Zone.MONSTER, CommandProcessor.getCardIndex(), boardR);
+                        game.putCardInZone(card, Board.Zone.GRAVE, null, boardR);
+                    }
+                }
+                for (Card rivalCard2 : boardR.getDeck()) {
+                    if (card.equals(rivalCard2)) {
+                        game.removeCardFromZone(card, Board.Zone.DECK, CommandProcessor.getCardIndex(), boardR);
+                        game.putCardInZone(card, Board.Zone.GRAVE, null, boardR);
+                    }
+                }
+                for (Card rivalCard3 : boardR.getSpellAndTrapZone()) {
+                    if (card.equals(rivalCard3)) {
+                        game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, CommandProcessor.getCardIndex(), boardR);
+                        game.putCardInZone(card, Board.Zone.GRAVE, null, boardR);
+                    }
+                }
             }
         }
-        return "";//????}
+        for (Card rivalCard : boardR.getHand()) {
+            if (card != null && !card.equals(rivalCard)) {
+                game.removeCardFromZone(randomCard, Board.Zone.HAND, int_random, boardC);
+                game.putCardInZone(randomCard, Board.Zone.GRAVE, null, boardC);
+            }
+
+        }
+        return "done!";
     }
 }

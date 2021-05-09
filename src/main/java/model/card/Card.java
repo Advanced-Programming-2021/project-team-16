@@ -65,5 +65,12 @@ public abstract class Card implements Comparable<Card> {
         return description;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Card)) return false;
+        Card card = (Card) o;
+        return name.equals(card.name);
+    }
 }
 
