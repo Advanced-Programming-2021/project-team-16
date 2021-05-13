@@ -190,6 +190,7 @@ public class CommandProcessor {
         Matcher matcher;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.GameCommands.END_PHASE.getRegex()); command = scanner.nextLine().trim()) {
             Show.showBoard();
+            game.setSelectedCard(null);
             if ((matcher = Pattern.compile(Enums.GameCommands.SELECT_CARD.getRegex()).matcher(command)).find()) {
                 isSelectedCardForOpponent = matcher.group(3) != null;
                 boolean isSelectionValid = true;

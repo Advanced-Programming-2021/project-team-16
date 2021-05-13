@@ -28,6 +28,7 @@ public class Game {
     private Player winner;
     private Player loser;
     private Phase currentPhase;
+    private boolean hasSummonedOrSet;
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -81,10 +82,10 @@ public class Game {
     }
 
     private void run(Player me, Player rival) {
-
-        Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
+        hasSummonedOrSet = false;
         this.currentPlayer = me;
         this.rival = rival;
+        Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
         currentPlayer.getBoard().noMonsterAttacked();
         Monster[] monsters = currentPlayer.getBoard().getMonsterZone();
         //herald of creation
@@ -104,7 +105,8 @@ public class Game {
         Card[] cards = currBoard.getSpellAndTrapZone();
         for (int i = 0; i < cards.length; i++) {
             if (cards[i] instanceof MessengerOfPeace) {
-                if (CommandProcessor.yesNoQuestion("Do you want to to pay 100 LP to keep Messenger of peace?"))
+                if (currentPlayer instanceof AI) currentPlayer.decreaseLP(100);
+                else if (CommandProcessor.yesNoQuestion("Do you want to to pay 100 LP to keep Messenger of peace?"))
                     currentPlayer.decreaseLP(100);
                 else {
                     putCardInZone(cards[i], Board.Zone.GRAVE, null, currBoard);
@@ -113,13 +115,16 @@ public class Game {
             }
         }
         setCurrentPhase(Phase.MAIN_1);
-        CommandProcessor.game();
+        if (currentPlayer instanceof AI) ((AI) currentPlayer).playMainPhase();
+        else CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.BATTLE);
-        CommandProcessor.game();
+        if (currentPlayer instanceof AI) ((AI) currentPlayer).playBattlePhase();
+        else CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.MAIN_2);
-        CommandProcessor.game();
+        if (currentPlayer instanceof AI) ((AI) currentPlayer).playMainPhase();
+        else CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.END);
     }
