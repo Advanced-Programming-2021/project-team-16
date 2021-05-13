@@ -7,6 +7,7 @@ import model.card.spell.MessengerOfPeace;
 import model.card.spell.Spell;
 import model.card.spell.SupplySquad;
 import model.card.trap.*;
+import model.person.AI;
 import model.person.Player;
 import model.person.User;
 import view.CommandProcessor;
@@ -416,6 +417,7 @@ public class Game {
         }
         return "set successfully";
     }
+
     public String flipSummon() {
 
         boolean isInZone = false;
@@ -467,10 +469,19 @@ public class Game {
         Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
         if (attacked instanceof Texchanger && !((Texchanger) attacked).isAttacked()) {
             changeTurn();
+            if (currentPlayer instanceof AI) {
+                for (Card card : currentPlayer.getBoard().getDeck())
+                    if (card instanceof Monster && ((Monster) card).getMonsterType() == Monster.MonsterType.CYBERSE) {
+                        Show.showGameMessage(((Texchanger) attacked).specialSummonACyberseMonster(card, Board.Zone.DECK, 0));
+                        break;
+                    }
+                changeTurn();
+                return "texchanger cancelled the attack";
+            }
             Show.showGameMessage("choose zone for the cyberse monster that you want to tribute (deck, graveyard or hand)");
             Board.Zone zone = CommandProcessor.getZone();
             int cardIndex = -1;
-            Card card;
+            Card card = null;
             if (zone == Board.Zone.HAND) {
                 Show.showGameMessage("choose hand index");
                 cardIndex = CommandProcessor.getCardIndex();
@@ -479,10 +490,11 @@ public class Game {
                 Show.showGameMessage("Enter the card's name");
                 cardIndex = currentPlayer.getBoard().getIndexOfCard(CommandProcessor.getCardName(), zone);
                 card = currentPlayer.getBoard().getCardByIndexAndZone(cardIndex, zone);
-            } else return "zone is not valid";
-            String result = ((Texchanger) attacked).specialSummonACyberseMonster(card, zone, cardIndex);
+            } else Show.showGameMessage("zone is not valid");
+            if (card != null)
+                Show.showGameMessage(((Texchanger) attacked).specialSummonACyberseMonster(card, zone, cardIndex));
             changeTurn();
-            return result;
+            return "texchanger cancelled the attack";
         }
         if (attacked == null) return "there is no card to attack here";
         if (attacked instanceof CommandKnight && ((CommandKnight) attacked).hasDoneAction()) {
