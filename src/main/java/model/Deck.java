@@ -20,7 +20,7 @@ public class Deck {
         sideDeck = new ArrayList<>();
     }
 
-    public static ArrayList<Card> getRandomDeck() {
+    public static ArrayList<Card> getRandomMainDeck() {
         //baraye ai lazeme
         //TODO
 

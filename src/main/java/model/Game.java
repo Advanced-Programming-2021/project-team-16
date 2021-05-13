@@ -8,6 +8,7 @@ import model.card.spell.Spell;
 import model.card.spell.SupplySquad;
 import model.card.trap.*;
 import model.person.Player;
+import model.person.User;
 import view.CommandProcessor;
 import view.Show;
 
@@ -25,9 +26,7 @@ public class Game {
     private Player rival;
     private Player winner;
     private Player loser;
-    private boolean surrendered;
     private Phase currentPhase;
-    private int gameScore;
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -36,7 +35,8 @@ public class Game {
             while (winner == null) {
                 run(rival, currentPlayer);
             }
-            endRound();
+            Show.showGameMessage(endRound());
+
         } else {
             HashMap<Player, Integer> winnerAndLp = new HashMap<>();
             this.currentPlayer = player2;
@@ -63,8 +63,9 @@ public class Game {
             for (Map.Entry<Player, Integer> player : winnerAndLp.entrySet()) {
                 if (player.getKey() == winner && maxLp < player.getValue()) maxLp = player.getValue();
             }
-            endMatch(maxLp);
+            Show.showGameMessage(endMatch(maxLp));
         }
+        User.getAllUsers().remove(User.getUserByUsername("AI"));
     }
 
     private Player getMatchWinner(HashMap<Player, Integer> winnerAndLp) {
@@ -682,6 +683,7 @@ public class Game {
     }
 
     public void changeTurn() {
+        Show.showImportantGameMessage("it's " + rival.getUser().getNickname() + "’s turn");
         Player temp = currentPlayer;
         currentPlayer = rival;
         rival = temp;

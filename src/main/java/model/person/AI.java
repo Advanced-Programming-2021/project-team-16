@@ -6,12 +6,14 @@ import model.Deck;
 import model.Game;
 import model.card.monster.Monster;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class AI extends Player {
     public AI() {
         super(null);
-        board = new Board(Deck.getRandomDeck());
+        board = new Board(Deck.getRandomMainDeck());
+        user = new User("AI", "", "ai", 0, 0, new ArrayList<>(), new ArrayList<>(), "");
     }
 
     public void playMainPhase() {
