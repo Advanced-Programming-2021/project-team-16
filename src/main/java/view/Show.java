@@ -31,7 +31,8 @@ public class Show {
 
     public static void showSingleCard(String cardName) {
         Card card = Card.getCardByName(cardName);
-        if (card instanceof Monster) {
+        if (card == null) System.out.println("no card with this name exists");
+        else if (card instanceof Monster) {
             Monster monster = (Monster) card;
             System.out.println("Name: " + monster.getName());
             System.out.println("Level: " + monster.getLevel());
@@ -39,15 +40,13 @@ public class Show {
             System.out.println("ATK: " + monster.getATK());
             System.out.println("DEF" + monster.getDEF());
             System.out.println("Description: " + monster.getDescription());
-        }
-        if (card instanceof Spell) {
+        } else if (card instanceof Spell) {
             Spell spell = (Spell) card;
             System.out.println("Name: " + spell.getName());
             System.out.println("Spell");
             System.out.println("Type: " + spell.getSpellType());
             System.out.println("Description: " + spell.getDescription());
-        }
-        if (card instanceof Trap) {
+        } else if (card instanceof Trap) {
             Trap trap = (Trap) card;
             System.out.println("Name: " + trap.getName());
             System.out.println("Trap");

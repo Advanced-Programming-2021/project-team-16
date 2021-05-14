@@ -94,12 +94,15 @@ public class CommandProcessor {
         String command = scanner.nextLine().trim();
         Matcher matcher;
         while (!command.matches(Enums.ShopCommands.EXIT.getRegex())) {
-            matcher = getCommandMatcher(command, Enums.ShopCommands.SHOP_BUY.getRegex());
-            if (command.matches(Enums.ShopCommands.SHOP_BUY.getRegex())) {
+            if ((matcher = getCommandMatcher(command, Enums.ShopCommands.SHOP_BUY.getRegex())).find())
                 System.out.println(Shop.buy(matcher.group(1)));
-            } else if (command.equals(Enums.ShopCommands.SHOP_SHOW.getRegex())) {
-                Show.showCardsInShop();
-            } else System.out.println("invalid command!");
+            else if (command.equals(Enums.ShopCommands.SHOW_ALL_CARDS.getRegex())) Show.showCardsInShop();
+            else if ((matcher = getCommandMatcher(command, Enums.ShopCommands.SHOW_CARD.getRegex())).find())
+                Show.showSingleCard(matcher.group(1));
+            else if (command.equals(Enums.ShopCommands.SHOW_CURRENT.getRegex())) System.out.println(Shop.menuName());
+            else if (command.matches(Enums.ShopCommands.ENTER_MENU.getRegex()))
+                System.out.println("menu navigation is not possible");
+            else System.out.println("invalid command!");
             command = scanner.nextLine().trim();
         }
     }
@@ -148,11 +151,11 @@ public class CommandProcessor {
                 System.out.println(DeckMenu.showUsersCards());
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_CURRENT.getRegex())) {
                 System.out.println(DeckMenu.menuName());
-            } else if (command.equals(Enums.DeckMenuCommands.ENTER_MENU.getRegex())) {
+            } else if (command.equals(Enums.DeckMenuCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
-            } else {
-                System.out.println("invalid command!");
-            }
+            else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_CARD.getRegex())).find())
+                Show.showSingleCard(matcher.group(1));
+            else System.out.println("invalid command!");
             command = scanner.nextLine().trim();
         }
     }
@@ -280,19 +283,17 @@ public class CommandProcessor {
                     System.out.println("rival's graveyard:");
                     Show.showCardArray(game.getRival().getBoard().getGrave());
                 }
-                while (!scanner.nextLine().trim().equals("back")) ;
-
+                while (!scanner.nextLine().trim().equals("back"))
+                    System.out.println("use \"back\" command for exiting");
             } else if (command.matches("card\\sshow\\s--selected")) System.out.println(game.showSelectedCard());
             else if (command.equals("surrender")) game.surrendered();
+            else if ((matcher = getCommandMatcher(command, Enums.GameCommands.SHOW_CARD.getRegex())).find())
+                Show.showSingleCard(matcher.group(1));
             else System.out.println("invalid command");
             if (game.didSbWin()) return;
         }
     }
 
-    /*public static String scan() {
-        return scanner.nextLine();
-
-    }*/ // -> harchi lazeme bayad methode joda dashte bashe ke badan beshe tooye gerafic in method haro jodagoone eslah card
 
 
     private static void scoreboard() {

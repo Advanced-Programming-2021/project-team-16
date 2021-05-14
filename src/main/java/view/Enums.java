@@ -40,8 +40,11 @@ public class Enums {
     }
 
     public enum ShopCommands {
-        SHOP_BUY("shop buy(?\\w+)"),
-        SHOP_SHOW("shop show --all"),
+        SHOP_BUY("shop buy (.*)"),
+        SHOW_ALL_CARDS("shop show --all"),
+        SHOW_CURRENT("menu show-current"),
+        ENTER_MENU("menu enter (.*)"),
+        SHOW_CARD("card show (.*)"),
         EXIT("menu exit");
         private final String regex;
 
@@ -53,11 +56,10 @@ public class Enums {
             this.regex = regex;
         }
 
-        //show card -> page 11 -> doc phase 1
     }
 
     public enum DeckMenuCommands {
-
+        SHOW_CARD("card show (.*)"),
         CREATE_DECK("deck create (\\w+)"),
         DELETE_DECK("deck delete (\\w+)"),
         SET_ACTIVE_DECK("deck set-activate (\\w+)"),
@@ -162,7 +164,7 @@ public class Enums {
     public enum GameCommands {
         SELECT_CARD("select --(\\w+) (\\d+)?( --opponent)?"),
         DESELECT_CARD("select -d"),
-        SHOW_CARD("card show (\\w+)"),
+        SHOW_CARD("card show (.*)"),
         END_PHASE("end-phase");
         private final String regex;
 
