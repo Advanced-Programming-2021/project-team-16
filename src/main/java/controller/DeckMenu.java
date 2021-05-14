@@ -11,7 +11,7 @@ public class DeckMenu {
         if (MainMenu.getCurrentUser().getDeckByName(name) != null) {
             return "deck with name " + name + " already exists";
         } else {
-            Deck deck = new Deck(name);
+            Deck deck = new Deck(name, new ArrayList<>(), new ArrayList<>());
             MainMenu.getCurrentUser().addDeck(deck);
             return "deck created successfully!";
         }
