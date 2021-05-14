@@ -277,7 +277,13 @@ public class Game {
                 if (card != null && card != selectedCard) numberOfHandCards++;
             if (numberOfHandCards == 0) return "there is no way you could special summon this monster";
             else {
-                int[] index = CommandProcessor.getTribute(1, false);
+                int[] index;
+                if (currentPlayer instanceof AI) {
+                    for (Card card : currentPlayer.getBoard().getHand()) {
+                        if (card != null)
+                    }
+                }
+                index = CommandProcessor.getTribute(1, false);
                 if (index == null) return "special summon cancelled";
                 return ((TheTricky) selectedCard).specialSummon(index[0], selectedZoneIndex);
             }

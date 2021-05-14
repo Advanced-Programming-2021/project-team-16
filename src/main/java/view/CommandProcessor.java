@@ -4,6 +4,7 @@ import controller.*;
 import model.Board;
 import model.Game;
 import model.card.Card;
+import model.person.AI;
 import model.person.User;
 
 import java.util.ArrayList;
@@ -274,10 +275,7 @@ public class CommandProcessor {
         }
     }
 
-//    public static int askIndexForTribute() {
-//int[] monsters =scanner.nextInt()[scanner.nextInt()];
-//        return scanner.nextInt();
-//    }
+
 
     public static boolean yesNoQuestion(String question) {
         System.out.println(question);
@@ -286,9 +284,6 @@ public class CommandProcessor {
 
     }
 
-    public static int getCardIndex() {
-        return scanner.nextInt() - 1;
-    }
 
     public static String getCardName() {
         return scanner.nextLine();
@@ -313,6 +308,9 @@ public class CommandProcessor {
     }
 
     public static int[] getTribute(int numberOfTributes, boolean isFromMonsterZone) {
+        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) {
+            return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getTribute(numberOfTributes);
+        }
         System.out.println("please enter " + numberOfTributes + " index(es) for tribute");
         int[] indexes = new int[numberOfTributes];
         Arrays.fill(indexes, -1);
