@@ -10,9 +10,7 @@ import model.card.spell.equipspells.MagnumShield;
 import model.card.spell.equipspells.SwordOfDarkDestruction;
 import model.card.spell.equipspells.UnitedWeStand;
 import model.card.spell.fieldspells.ClosedForest;
-import model.card.spell.fieldspells.Forest;
-import model.card.spell.fieldspells.Umiiruka;
-import model.card.spell.fieldspells.Yami;
+import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.*;
 import model.person.User;
 
@@ -21,12 +19,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class UpdateStatus {
     public static void beforeRun() {
         makeAllCards();
-        //makeDecks();
+        makeDecks();
         makeUsers();
     }
 
@@ -56,7 +55,7 @@ public class UpdateStatus {
             writer.write(new Gson().toJson(User.getAllUsers()));
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("error");
         }
     }
 
@@ -179,9 +178,36 @@ public class UpdateStatus {
         new SwordOfDarkDestruction();
         new UnitedWeStand();
         new ClosedForest();
-        new Forest();
-        new Umiiruka();
-        new Yami();
+        new FieldSpell("Umiiruka", "Increase the ATK of all WATER monsters by 500 points and decrease " +
+                "their DEF by 400 points.", new HashMap<Monster.MonsterType, Integer>() {{
+            put(Monster.MonsterType.AQUA, 500);
+        }},
+                new HashMap<Monster.MonsterType, Integer>() {{
+                    put(Monster.MonsterType.AQUA, -400);
+                }});
+        new FieldSpell("Forest", "All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.",
+                new HashMap<Monster.MonsterType, Integer>() {{
+                    put(Monster.MonsterType.BEAST, 200);
+                    put(Monster.MonsterType.BEAST_WARRIOR, 200);
+                    put(Monster.MonsterType.INSECT, 200);
+                }},
+                new HashMap<Monster.MonsterType, Integer>() {{
+                    put(Monster.MonsterType.BEAST, 200);
+                    put(Monster.MonsterType.BEAST_WARRIOR, 200);
+                    put(Monster.MonsterType.INSECT, 200);
+                }});
+        new FieldSpell("Yami", "All Fiend and Spellcaster monsters on the field gain 200 ATK/DEF, also " +
+                "all Fairy monsters on the field lose 200 ATK/DEF.",
+                new HashMap<Monster.MonsterType, Integer>() {{
+                    put(Monster.MonsterType.FIEND, 200);
+                    put(Monster.MonsterType.SPELL_CASTER, 200);
+                    put(Monster.MonsterType.FAIRY, -200);
+                }},
+                new HashMap<Monster.MonsterType, Integer>() {{
+                    put(Monster.MonsterType.FIEND, 200);
+                    put(Monster.MonsterType.SPELL_CASTER, 200);
+                    put(Monster.MonsterType.FAIRY, -200);
+                }});
     }
 
     public static void makeAllTraps() {
