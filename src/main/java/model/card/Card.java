@@ -53,7 +53,11 @@ public abstract class Card implements Comparable<Card> {
     }
 
     public static void sort(ArrayList<Card> cards) {
-        Collections.sort(cards);
+        for (int i = cards.size() - 1; i > 0; i--)
+            for (int j = 0; j < i; j++) {
+                if (cards.get(j).getName().compareTo(cards.get(j + 1).getName()) > 0)
+                    Collections.swap(cards, j, j + 1);
+            }
     }
 
     public static ArrayList<Card> getCards() {
