@@ -30,7 +30,7 @@ public class CommandProcessor {
         return pattern.matcher(input);
     }
 
-    private static void login() {
+    public static void login() {
         HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.matches(Enums.LoginCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.matches(Enums.LoginCommands.LOGIN.getRegex())) {
@@ -220,7 +220,7 @@ public class CommandProcessor {
                 else if (!isSelectionValid) System.out.println("invalid selection");
                 else System.out.println(game.selectCard(zone, index - 1, isSelectedCardForOpponent));
             } else if (command.equals(Enums.GameCommands.DESELECT_CARD.getRegex())) System.out.println(game.deselect());
-            else if (command.equals("summon")) System.out.println(game.summon(null)); //TODO : summon type??
+            else if (command.equals("summon")) System.out.println(game.summon()); //TODO : summon type??
             else if (command.equals("set")) System.out.println(game.set());
             else if (command.equals("flip-summon")) System.out.println(game.flipSummon());
             else if ((matcher = Pattern.compile("attack (\\d+)").matcher(command)).find()) {
@@ -306,6 +306,7 @@ public class CommandProcessor {
         }
         return zone;
     }
+
 
     public static int[] getTribute(int numberOfTributes, boolean isFromMonsterZone) {
         if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) {

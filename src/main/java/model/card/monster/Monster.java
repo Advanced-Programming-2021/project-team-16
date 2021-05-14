@@ -68,7 +68,8 @@ public class Monster extends Card {
         DEF -= amount;
     }
 
-    public Monster clone(Monster monster) {
+    public static Monster clone(Monster monster) {
+        if (monster == null) return null;
         return new Monster(monster.name, monster.description, monster.price, monster.monsterType, monster.level, monster.ATK, monster.DEF);
     }
 }

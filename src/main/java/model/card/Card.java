@@ -1,5 +1,10 @@
 package model.card;
 
+import model.card.monster.CommandKnight;
+import model.card.monster.GraveYardEffectMonster;
+import model.card.monster.Monster;
+import model.card.monster.Suijin;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -13,7 +18,23 @@ public abstract class Card implements Comparable<Card> {
     public Random random = new Random();
 
     public static Card make(String cardName) {
-        return null;//////switch case + default -> Monster.clone(getCardByName(cardName))
+        Card card;
+        switch (cardName) {
+            case "Command Knight":
+                card = new CommandKnight();
+            case "Yomi Ship":
+                card = new GraveYardEffectMonster("Yomi Ship", "If this card is destroyed by battle and sent to the GY: " +
+                        "Destroy the monster that destroyed this card.", 1700, Monster.MonsterType.AQUA, 3, 800,
+                        1400, true);
+            case "Suijin":
+                card = new Suijin();
+                break;
+            //... all cards in update status except Monster(...)
+
+            default:
+                card = Monster.clone((Monster) getCardByName(cardName));
+        }
+        return card;
         //TODO
     }
 

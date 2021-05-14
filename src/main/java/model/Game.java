@@ -162,8 +162,10 @@ public class Game {
             if (selectedCard instanceof HeraldOfCreation)
                 if (CommandProcessor.yesNoQuestion("Do you want to use Herald of Creation?")) {
                     HeraldOfCreation heraldOfCreation = (HeraldOfCreation) selectedCard;
-                    Show.showGameMessage("Enter the hand index of the card witch you want to tribute");
-                    Show.showGameMessage(heraldOfCreation.action(CommandProcessor.getCardIndex(), CommandProcessor.getCardName()));
+                    int[] tributes = CommandProcessor.getTribute(1, false);
+                    if (tributes == null) return "cancelled";
+                    else
+                        Show.showGameMessage(heraldOfCreation.action(tributes[0], ), CommandProcessor.getCardName()));
                 }
             if (selectedCard instanceof Scanner)
                 if (CommandProcessor.yesNoQuestion("Do you want to use Scanner?")) {
@@ -228,7 +230,7 @@ public class Game {
         return winner.getUser().getUsername() + "won the whole match with score: " + winner.getUser().getGameScore() + "-" + loser.getUser().getGameScore();
     }
 
-    public String summon(String summonType) {
+    public String summon() {
         if (selectedCard == null) return "no card is selected yet";
         if (selectedZone != Board.Zone.HAND || !(selectedCard instanceof Monster)) return "you can’t summon this card";
         if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) return "action not allowed in this phase";
@@ -279,9 +281,8 @@ public class Game {
             else {
                 int[] index;
                 if (currentPlayer instanceof AI) {
-                    for (Card card : currentPlayer.getBoard().getHand()) {
-                        if (card != null)
-                    }
+                    Card[] cards = currentPlayer.getBoard().getHand();
+                    for (int i = 0; i < cards.length; i++) if (cards[i] != null) index = new int[]{i};
                 }
                 index = CommandProcessor.getTribute(1, false);
                 if (index == null) return "special summon cancelled";
