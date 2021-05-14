@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="FieldSpell">
+    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="FieldSpell"/>
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
@@ -12,13 +12,12 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/GateGuardian.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/GateGuardian.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/TheTricky.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/TheTricky.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/specialSummonable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/specialSummonable.java" afterDir="false" />
-    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="changes in show and menus">
+    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="changes in show and menus"/>
+    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/DeckMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/DeckMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/Card.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/Enums.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Enums.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Show.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/ChangeOfHeart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/ChangeOfHeart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/person/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/AI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -518,6 +517,14 @@
       <option name="project" value="LOCAL" />
       <updated>1620901879926</updated>
     </task>
+    <task id="LOCAL-00047" summary="changes in show and menus">
+      <created>1620976834915</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1620976834915</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <task id="LOCAL-00047" summary="ai-run">
       <created>1620905341145</created>
       <option name="number" value="00047" />
