@@ -12,13 +12,19 @@ public class Deck {
     private ArrayList<Card> mainDeck; //= new ArrayList<>();
     private ArrayList<Card> sideDeck; //= new ArrayList<>();
     private static ArrayList<Deck> decks = new ArrayList<>();
-    private ArrayList<String> cardNames;
+    private ArrayList<String> mainCardNames;
+    private ArrayList<String> sideCardNames;
 
-    public Deck(String name, ArrayList<Card> mainDeck, ArrayList<Card> sideDeck) {
+    public Deck(String name, ArrayList<String> mainCardNames, ArrayList<String> sideCardNames) {
         this.name = name;
         decks.add(this);
-//        mainDeck = new ArrayList<>();
-//        sideDeck = new ArrayList<>();
+        for (String mainCardName : mainCardNames) {
+            mainDeck.add(Card.make(mainCardName));
+        }
+        for (String sideCardName : sideCardNames) {
+            sideDeck.add(Card.make(sideCardName));
+        }
+
     }
 
     public static ArrayList<Card> getRandomMainDeck() {
@@ -39,12 +45,12 @@ public class Deck {
 
     public void addCardToSideDeck(Card card) {
         this.sideDeck.add(card);
-        this.cardNames.add(card.getName());
+        this.sideCardNames.add(card.getName());
     }
 
     public void addCardToMainDeck(Card card) {
         this.mainDeck.add(card);
-        this.cardNames.add(card.getName());
+        this.mainCardNames.add(card.getName());
     }
 
     public void removeCardFromMain(Card card) {

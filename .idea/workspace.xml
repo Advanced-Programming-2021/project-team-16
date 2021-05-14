@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
+    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="sort">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Shop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/MainMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/MainMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/trap/MindCrush.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/trap/MindCrush.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/person/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/AI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/Enums.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Enums.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Show.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +188,29 @@
       <workItem from="1620505111576" duration="7987000" />
       <workItem from="1620588167737" duration="10364000" />
       <workItem from="1620825787801" duration="2377000" />
-      <workItem from="1620897452283" duration="35863000" />
+      <workItem from="1620897452283" duration="23213000" />
+      <workItem from="1620897452283" duration="32234000" />
+    </task>
+    <task id="LOCAL-00006" summary="making some classes abstract, completing Monster class, adding price">
+      <created>1618498823111</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1618498823111</updated>
+    </task>
+    <task id="LOCAL-00007" summary="4 monsters + changes in Board and Game + adding UpdateStatus class in controller">
+      <created>1618570241873</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1618570241873</updated>
+    </task>
+    <task id="LOCAL-00008" summary="changes">
+      <created>1618584252661</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1618584252661</updated>
     </task>
     <task id="LOCAL-00009" summary="2 monsters + changes in Board &amp; Game">
       <created>1618588313040</created>
@@ -502,6 +527,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621005323020</updated>
     </task>
+    <task id="LOCAL-00054" summary="setselectedcard -&gt; selectcard">
+      <created>1621007500839</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1621007500839</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <task id="LOCAL-00054" summary="changes">
       <created>1621005765061</created>
       <option name="number" value="00054" />
@@ -509,28 +542,7 @@
       <option name="project" value="LOCAL" />
       <updated>1621005765061</updated>
     </task>
-    <task id="LOCAL-00055" summary="setOrSummon ai">
-      <created>1621009286130</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1621009286131</updated>
-    </task>
-    <task id="LOCAL-00056" summary="setOrSummon ai">
-      <created>1621009974617</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1621009974618</updated>
-    </task>
-    <task id="LOCAL-00057" summary="random deck">
-      <created>1621011576898</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1621011576898</updated>
-    </task>
-    <option name="localTasksCounter" value="58" />
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -549,6 +561,8 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <MESSAGE value="updated spells and changes in deck" />
+    <MESSAGE value="finished equip spells" />
     <MESSAGE value="work on spells and some detail changes" />
     <MESSAGE value="attack -&gt; Texchanger" />
     <MESSAGE value="login completed" />
@@ -571,10 +585,10 @@
     <MESSAGE value="summon" />
     <MESSAGE value="changes in flip-summon" />
     <MESSAGE value="changes" />
+    <MESSAGE value="setselectedcard -&gt; selectcard" />
+    <option name="LAST_COMMIT_MESSAGE" value="setselectedcard -&gt; selectcard" />
     <MESSAGE value="sort" />
-    <MESSAGE value="setOrSummon ai" />
-    <MESSAGE value="random deck" />
-    <option name="LAST_COMMIT_MESSAGE" value="random deck" />
+    <option name="LAST_COMMIT_MESSAGE" value="sort" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
