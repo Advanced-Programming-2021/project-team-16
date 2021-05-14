@@ -18,22 +18,15 @@ public abstract class Card implements Comparable<Card> {
     public Random random = new Random();
 
     public static Card make(String cardName) {
-        Card card;
-        switch (cardName) {
-            case "Command Knight":
-                card = new CommandKnight();
-            case "Yomi Ship":
-                card = new GraveYardEffectMonster("Yomi Ship", "If this card is destroyed by battle and sent to the GY: " +
-                        "Destroy the monster that destroyed this card.", 1700, Monster.MonsterType.AQUA, 3, 800,
-                        1400, true);
-            case "Suijin":
-                card = new Suijin();
-                break;
-            //... all cards in update status except Monster(...)
-
-            default:
-                card = Monster.clone((Monster) getCardByName(cardName));
-        }
+        //... all cards in update status except Monster(...)
+        Card card = switch (cardName) {
+            case "Command Knight" -> new CommandKnight();
+            case "Yomi Ship" -> new GraveYardEffectMonster("Yomi Ship", "If this card is destroyed by battle and sent to the GY: " +
+                    "Destroy the monster that destroyed this card.", 1700, Monster.MonsterType.AQUA, 3, 800,
+                    1400, true);
+            case "Suijin" -> new Suijin();
+            default -> Monster.clone((Monster) getCardByName(cardName));
+        };
         return card;
         //TODO
     }

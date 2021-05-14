@@ -252,7 +252,7 @@ public class CommandProcessor {
                 else if (!isSelectionValid) System.out.println("invalid selection");
                 else System.out.println(game.selectCard(zone, index - 1, isSelectedCardForOpponent));
             } else if (command.equals(Enums.GameCommands.DESELECT_CARD.getRegex())) System.out.println(game.deselect());
-            else if (command.equals("summon")) System.out.println(game.summon(null)); //TODO : summon type??
+            else if (command.equals("summon")) System.out.println(game.summon());
             else if (command.equals("set")) System.out.println(game.set());
             else if (command.equals("flip-summon")) System.out.println(game.flipSummon());
             else if ((matcher = Pattern.compile("attack (\\d+)").matcher(command)).find()) {
