@@ -1,11 +1,12 @@
 package model;
 
-import controller.GameMenu;
 import model.card.Card;
 import model.card.monster.*;
 import model.card.spell.*;
 import model.card.spell.fieldspells.FieldSpell;
-import model.card.trap.*;
+import model.card.trap.TimeSeal;
+import model.card.trap.TorrentialTribute;
+import model.card.trap.Trap;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
@@ -28,6 +29,7 @@ public class Game {
     private Player loser;
     private Phase currentPhase;
     private boolean hasSummonedOrSet; //TODO : tasir dadane in tooye tavabe
+    private ArrayList<Card> setInThisPhase = new ArrayList<>();
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -90,6 +92,7 @@ public class Game {
     }
 
     private void run(Player me, Player rival) {
+        setInThisPhase.clear();
         hasSummonedOrSet = false;
         this.currentPlayer = me;
         this.rival = rival;
@@ -228,125 +231,37 @@ public class Game {
     }
 
     public String summon(String summonType) {
-        ArrayList<Monster> monsters = new ArrayList<>();
-        Card[] spellAndTrapZone = currentPlayer.getBoard().getSpellAndTrapZone();
-        Card[] spellAndTrapZoner = rival.getBoard().getSpellAndTrapZone();
-        Monster CMonster = (Monster) currentPlayer.getBoard().getHand()[selectedZoneIndex];
-        Board board = currentPlayer.getBoard();
-        Monster monster = board.getMonsterZone()[CommandProcessor.getCardIndex()];
-        if (selectedCard == null) {
-            return "no card is selected yet";
+        if (selectedCard == null) return "no card is selected yet";
+        if (selectedZone != Board.Zone.HAND || !(selectedCard instanceof Monster)) return "you can’t summon this card";
+        if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) return "action not allowed in this phase";
+        if (getCurrentPlayer().getBoard().isZoneFull(Board.Zone.MONSTER)) return "monster card zone is full";
+        if (hasSummonedOrSet) return "you already summoned/set on this turn";
+        if (selectedCard instanceof specialSummonable) {
+            if (selectedCard instanceof BeastKingBarbaros) {
+                if (CommandProcessor.yesNoQuestion("do you want to normally summon" + selectedCard.getName() + "? (this will make it's ATK 1900)"))
+                    ((BeastKingBarbaros) selectedCard).normalSummonOrSet();
+                else if (CommandProcessor.yesNoQuestion("do tou want to special summon it?"))
+                    return specialSummon();
+                else return "summon cancelled";
+            } else if (CommandProcessor.yesNoQuestion("you can't normally set this. do you want to special summon it?"))
+                return specialSummon();
         }
-        if ((selectedCard instanceof GateGuardian)
-                || (selectedCard instanceof TheTricky)
-                || !(selectedCard instanceof Monster)
-                || selectedCard != currentPlayer.getBoard().getHand()[selectedZoneIndex]) {////////////////
-            return "you can't summon this card";
-        }
-        if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
-            return "action not allowed in this phase";
-        }
-        if (getCurrentPlayer().getBoard().isZoneFull(Board.Zone.MONSTER)) {
-            return "RMonster card zone is full";
-        }
-        /*if ghablan summon ya set karde bashe va dg natune summon ya set kone*/
-
-
-        if (((Monster) selectedCard).getLevel() <= 4) {
-            removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, board);
-            putCardInZone(selectedCard,/*board.getFirstEmptyIndexOfZone() */ selectedZone, Board.CardPosition.ATK, board);/////////
-            return "summoned successfully";
-        }
-        if (((Monster) selectedCard).getLevel() == 5 || ((Monster) selectedCard).getLevel() == 6) {
-            if (board.howManyMonsters() == 0) {
+        int numberOfTributes = switch (((Monster) selectedCard).getLevel()) {
+            case 5, 6 -> 1;
+            case 7, 8, 9 -> 2;
+            default -> 0;
+        };
+        if (numberOfTributes != 0) {
+            if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < numberOfTributes)
                 return "there are not enough cards for tribute";
-            } else {
-                if (monster == null) {
-                    return "there no monsters one this address";
-                }
-                removeCardFromZone(selectedCard, Board.Zone.MONSTER, CommandProcessor.getCardIndex(), board);
-                putCardInZone(selectedCard, Board.Zone.GRAVE, null, board);
-
-                removeCardFromZone(CMonster, Board.Zone.HAND, selectedZoneIndex, board);
-
-                putCardInZone(CMonster,/*board.getFirstEmptyIndexOfZone() */ Board.Zone.MONSTER, Board.CardPosition.ATK, board);/////////
-                return "summoned successfully";
-            }
+            int[] tributeIndexes = CommandProcessor.getTribute(numberOfTributes, true);
+            if (tributeIndexes == null) return "summon cancelled";
+            specialSummonable.tribute(tributeIndexes, this);
         }
-        if (((Monster) selectedCard).getLevel() == 7 || ((Monster) selectedCard).getLevel() == 8) {
-            if (!(selectedCard instanceof GateGuardian)) {
-                if (board.howManyMonsters() < 2) {
-                    return "there are not enough cards for tribute";
-                }
-                for (int i = 0; i < 2; i++) {
-                    monsters.add(monster);
-                }
-                if (monsters.size() == 2) {
-                    for (int i = 0; i < 2; i++) {
-                        removeCardFromZone(monster, Board.Zone.MONSTER, CommandProcessor.getCardIndex(), board);
-                        putCardInZone(monster, Board.Zone.GRAVE, null, board);
-                    }
-                } else {
-                    return "there is no monster on one of these addresses";
-                }
-                removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, board);
-                putCardInZone(selectedCard,/*board.getFirstEmptyIndexOfZone() */ selectedZone, Board.CardPosition.ATK, board);/////////
-                return "summoned successfully";
-            }
-        }
-        for (Card card : spellAndTrapZone) {
-            if (card instanceof CallOfTheHaunted) {
-                ((CallOfTheHaunted) card).action(this, summonType);
-                if (((CallOfTheHaunted) card).action(this, summonType).equals("monsterZone is full!")) {
-                    return "monsterZone is full, You can't summon!";
-                } else if (((CallOfTheHaunted) card).action(this, summonType).equals("summoned successfully!")) {
-                    return "summoned successfully!";
-                }
-            }
-        }
-        if (CMonster.getATK() >= 1000) {////////////////////////
-            if (selectedCard == CMonster) {
-                if (!(currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER))) {
-                    removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, rival.getBoard());
-                    putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, getRival().getBoard());
-                    for (Card card : spellAndTrapZoner) {
-                        if (card instanceof TrapHole) {
-                            ((TrapHole) card).action(selectedCard, CommandProcessor.getCardIndex(), this);
-                            if (((TrapHole) card).action(selectedCard, CommandProcessor.getCardIndex(), this).equals("The monster is killed successfully!")) {
-                                return "remove the monster by TrapHole is successfully!";
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        for (Card card : spellAndTrapZone) {                 ///////////////////
-            if (card instanceof TorrentialTribute) {
-                if (selectedCard == CMonster && !currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER)) {
-                    removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
-                    putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
-                }
-                ((TorrentialTribute) card).action(this);
-            }
-        }
-        if (selectedCard instanceof TerratigerTheEmpoweredWarrior) {
-            for (Monster monster1 : getCurrentPlayer().getBoard().getMonsterZone())
-                ((TerratigerTheEmpoweredWarrior) monster1).action(selectedZoneIndex, this);
-        }
-        //    for (Card card : spellAndTrapZone) {
-        //        if (card instanceof TerratigerTheEmpoweredWarrior) {
-        //            if (selectedCard == CMonster && !currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER)) {
-        //                removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
-        //                putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());}
-        //            ((TerratigerTheEmpoweredWarrior) card).action(selectedZoneIndex, this);}}
-
-        //     for (Card card : spellAndTrapZoner) {              ///////////special summon
-        //         if (card instanceof SolemnWarning) {
-        //             if (selectedCard == CMonster) {
-        //                 ((SolemnWarning) card).action(this, selectedZoneIndex);
-        //                 if (((SolemnWarning) card).action(this, selectedZoneIndex).equals("Stop summon!")) {
-        //                     return "summoned successfully!";}}}}
-        return summonType;
+        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
+        putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
+        hasSummonedOrSet = true;
+        return "summoned successfully";
     }
 
     private String specialSummon() {
@@ -377,120 +292,62 @@ public class Game {
     }
 
     public String set() {
-        boolean isFromHand = selectedZone == Board.Zone.HAND;
         if (selectedCard == null) return "no card is selected yet";
-        for (Card card : currentPlayer.getBoard().getHand()) {
-            if (card instanceof Monster) {
-                if (selectedCard != card) {
-                    return "you can’t set this card";
-                } else if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
-                    return "action not allowed in this phase";
-                }
-                if (currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER)) {
-                    return "monster card zone is full";
-                }
-                if (!isFromHand) {//kafie?
-                    return "you already summoned/set on this turn";
-                }
-                if (!currentPlayer.getBoard().isZoneFull(selectedZone)) {
-                    removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());// selectedZoneIndex hamun firstEmptyZoneIndexe?
-                    putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
-                }
-
+        if (selectedZone != Board.Zone.HAND) return "you can’t set this card";
+        if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2)
+            return "you can’t do this action in this phase";
+        if (selectedCard instanceof Monster) {
+            if (currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER)) return "monster card zone is full";
+            if (hasSummonedOrSet) return "you already summoned/set on this turn";
+            if (selectedCard instanceof specialSummonable) {
+                if (selectedCard instanceof BeastKingBarbaros) {
+                    if (CommandProcessor.yesNoQuestion("do you want to normally set" + selectedCard.getName() + "? (this will make it's ATK 1900)"))
+                        ((BeastKingBarbaros) selectedCard).normalSummonOrSet();
+                    else if (CommandProcessor.yesNoQuestion("do tou want to special summon it?"))
+                        return specialSummon();
+                    else return "set cancelled";
+                } else if (CommandProcessor.yesNoQuestion("you can't normally set this. do you want to special summon?"))
+                    return specialSummon();
             }
-        }
-        for (Card card : currentPlayer.getBoard().getHand()) {
-            if (card instanceof Spell) {
-                if (selectedCard == card) {
-                    // if (selectedCard == null) {
-                    //     return "no card is selected yet";
-                    // }
-                    if (selectedCard != currentPlayer.getBoard().getHand()[selectedZoneIndex]) {
-                        return "you can’t set this card";
-                    }
-                    if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
-                        return "action not allowed in this phase";
-                    }
-                    //  if (rival.getBoard().isZoneFull(Board.Zone.MONSTER)) {///////////////////
-                    //      return "spell card zone is full";
-                    //  }
-                    if (currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP)) {
-                        return "spell card zone is full";
-                    }
-                    if (!isFromHand) {                                                 //kafie?
-                        return "you already summoned/set on this turn";
-                    }
-                    if (!currentPlayer.getBoard().isZoneFull(selectedZone)) {
-                        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
-                        putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
-                    }
-                }
+            int numberOfTributes = switch (((Monster) selectedCard).getLevel()) {
+                case 5, 6 -> 1;
+                case 7, 8, 9 -> 2;
+                default -> 0;
+            };
+            if (numberOfTributes != 0) {
+                if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < numberOfTributes)
+                    return "there are not enough cards for tribute";
+                int[] tributeIndexes = CommandProcessor.getTribute(numberOfTributes, true);
+                if (tributeIndexes == null) return "set cancelled";
+                specialSummonable.tribute(tributeIndexes, this);
             }
+            removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
+            putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
+            hasSummonedOrSet = true;
+            setInThisPhase.add(selectedCard);
+            return "set successfully";
         }
-        for (Card card : currentPlayer.getBoard().getHand()) {
-            if (card instanceof Trap) {
-                if (selectedCard == card) {
-                    if (selectedCard != currentPlayer.getBoard().getHand()[selectedZoneIndex]) {
-                        return "you can’t set this card";
-                    }
-                    if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) {
-                        return "action not allowed in this phase";
-                    }
-                    if (currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP)) {
-                        return "trap card zone is full";
-                    }
-                    if (!isFromHand) {//kafie?
-                        return "you already summoned/set on this turn";
-                    }
-                    if (!currentPlayer.getBoard().isZoneFull(selectedZone)) {
-                        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
-                        putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
-                    }
-
-                }
-            }
+        if (selectedCard instanceof Spell || selectedCard instanceof Trap) {
+            if (currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP))
+                return "spell card zone is full";
+            removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
+            putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
+            hasSummonedOrSet = true;
+            return "set successfully";
         }
-        return "set successfully";
+        return "not successful";
     }
 
     public String flipSummon() {
-
-        boolean isInZone = false;
-        Game game = GameMenu.getCurrentGame();
         if (selectedCard == null) return "no card is selected yet";
-        for (Monster monster : game.getCurrentPlayer().getBoard().getMonsterZone()) {
-            if (monster == selectedCard) {
-                isInZone = true;
-                break;
-            }
-        }
-        if (!isInZone) return "you can’t change this card position";
+        if (selectedZone != Board.Zone.MONSTER) return "you can’t change this card position";
         if (getCurrentPhase() != Phase.MAIN_1 && getCurrentPhase() != Phase.MAIN_2)
             return "you can’t do this action in this phase";
-        Monster[] monsterZone = game.getCurrentPlayer().getBoard().getMonsterZone();
-        Board board = game.getCurrentPlayer().getBoard();
-        for (int i = 0; i < monsterZone.length; i++) {
-            if (monsterZone[i] == selectedCard) {
-                if (board.getCardPositions()[0][i] != Board.CardPosition.HIDE_DEF) {
-                    return "you can’t flip summon this card";                                //TODO: once per turn.
-                } else {
-                    board.getCardPositions()[0][i] = Board.CardPosition.ATK;
-
-                    if (((Monster) selectedCard).getATK() >= 1000) {
-                        for (Card card : getRival().getBoard().getMonsterZone()) {
-                            if (card instanceof TrapHole)
-                                putCardInZone(selectedCard, Board.Zone.GRAVE, null, getCurrentPlayer().getBoard());
-                            removeCardFromZone(selectedCard, Board.Zone.MONSTER, i, getCurrentPlayer().getBoard());
-                            return "card was destroyed due to Trap hole activation";
-                        }
-                    }
-                }
-                //needs some changes
-            }
-
-        }
+        if (currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] != Board.CardPosition.HIDE_DEF
+                || setInThisPhase.contains(selectedCard))
+            return "you can’t flip summon this card";
+        currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] = Board.CardPosition.ATK;
         return "flip summoned successfully";
-
     }
 
     public String attack(int monsterNumber) {

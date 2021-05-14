@@ -383,7 +383,7 @@ public class CommandProcessor {
                     if (index < 0 || index > 4)
                         error = "invalid index";
                     else if (GameMenu.getCurrentGame().getCurrentPlayer().getBoard().getMonsterZone()[index] == null)
-                        error = "this index is empty";
+                        error = "there are no monsters on this address";
                 } else {
                     if (index < 0 || index > 5)
                         error = "invalid index";
