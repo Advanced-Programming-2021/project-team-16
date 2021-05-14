@@ -155,7 +155,7 @@ public class AI extends Player {
            if(myHand[i] instanceof Spell){
               if(myHand[i] instanceof HarpiesFeatherDuster){
                   if(rivalSpellAndTrap != null && rivalSpellAndTrap.length > 2){
-                      game.setSelectedCard(myHand[i]);
+                      game.selectCard(Board.Zone.HAND, i, false);
                       game.activeEffect();}
               }
 
@@ -170,7 +170,7 @@ public class AI extends Player {
                       sumOfMyATK += myMonsters[i].getATK();
                   }
                   if(sumOfMyATK < sumOfRivalATK){
-                      game.setSelectedCard(myHand[i]);
+                      game.selectCard(Board.Zone.HAND, i, false);
                       game.activeEffect();
                   }
                  }
@@ -198,18 +198,18 @@ public class AI extends Player {
                   }
                   if(rivalBiggestATK > rivalsBiggestDEF && rivalBiggestATK > myBiggestATK){
                       Card monster = board.getCardByIndexAndZone(rivalIndexFotATK, Board.Zone.MONSTER);
-                      game.setSelectedCard(myHand[i]);
+                      game.selectCard(Board.Zone.HAND, i, false);
                       game.activeEffect();
                   }
               }
               if(myHand[i] instanceof PotOfGreed){
                   if(myHand.length <= 2)
-                  game.setSelectedCard(myHand[i]);
+                      game.selectCard(Board.Zone.HAND, i, false);
                   game.activeEffect();
               }
               if(myHand[i] instanceof  Raigeki){
                   if(rivalMonsters != null && rivalMonsters.length > myMonsters.length){
-                      game.setSelectedCard(myHand[i]);
+                      game.selectCard(Board.Zone.HAND, i, false);
                       game.activeEffect();
                   }
               }
@@ -220,12 +220,12 @@ public class AI extends Player {
                           use = true;
                   }
                   if(use){
-                      game.setSelectedCard(myHand[i]);
+                      game.selectCard(Board.Zone.HAND, i, false);
                       game.activeEffect();
                   }
               }
               if(myHand[i] instanceof SupplySquad){
-                  game.setSelectedCard(myHand[i]);
+                  game.selectCard(Board.Zone.HAND, i, false);
                   game.activeEffect();
               }
            }
@@ -237,7 +237,7 @@ public class AI extends Player {
                        if (board.getCardPositions()[0][i] == Board.CardPosition.HIDE_DEF) faceDownMonsters++;
                    }
                    if (faceDownMonsters > 2){
-                       game.setSelectedCard(myHand[i]);
+                       game.selectCard(Board.Zone.HAND, i, false);
                        game.activeEffect();
                    }
                }
