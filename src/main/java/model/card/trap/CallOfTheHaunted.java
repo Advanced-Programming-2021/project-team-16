@@ -5,6 +5,7 @@ import model.Board;
 import model.Game;
 import model.card.Card;
 import model.card.monster.Monster;
+import model.person.AI;
 
 public class CallOfTheHaunted extends Trap {
     public CallOfTheHaunted() {
@@ -24,6 +25,19 @@ public class CallOfTheHaunted extends Trap {
             game.removeCardFromZone(monster, Board.Zone.GRAVE, game.getSelectedZoneIndex(), board);
             game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
         }
+
         return "summoned successfully!";
+    }
+
+    public void actionForAI(Game game, Card monster) {
+        Board board = game.getCurrentPlayer().getBoard();
+        if (game.getCurrentPlayer() instanceof AI) {
+            if (board.getGrave() != null && !board.isZoneFull(Board.Zone.MONSTER)) {
+                if (monster instanceof Monster) {
+                    game.removeCardFromZone(monster, Board.Zone.GRAVE, game.getSelectedZoneIndex(), board);
+                    game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+                }
+            }
+        }
     }
 }
