@@ -1,10 +1,9 @@
 package model.card.monster;
 
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
-
-import java.util.ArrayList;
 
 
 public class GateGuardian extends Monster implements specialSummonable {
@@ -14,28 +13,14 @@ public class GateGuardian extends Monster implements specialSummonable {
                 MonsterType.WARRIOR, 11, 3750, 3400);
     }
 
-    public String action(int monsterZoneIndex, int handZoneIndex, Game game) {
-        ArrayList<Monster> monsters = new ArrayList<>();
+    public String specialSummon(int[] tributes, int handZoneIndexOfThis) {
+        Game game = GameMenu.getCurrentGame();
         Board board = game.getCurrentPlayer().getBoard();
-        Monster monster = board.getMonsterZone()[monsterZoneIndex];
-        Monster specialMonster = (Monster) board.getHand()[handZoneIndex];
-        if (board.howManyMonsters() < 3) {
-            return "there are not enough cards for tribute";
-        }
-        for (int i = 0; i < 3; i++) {
-            monsters.add(monster);
-        }
-        if (monsters.size() == 3) {
-            for (int i = 0; i < 3; i++) {
-                game.removeCardFromZone(monster, Board.Zone.MONSTER, monsterZoneIndex, board);
-                game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
-            }
-        } else {
-            return "there is no monster on one of these addresses";
-        }
-        game.removeCardFromZone(specialMonster, Board.Zone.HAND, handZoneIndex, board);
-        game.putCardInZone(specialMonster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-        return "summoned successfully";
-        // specialSummonable.specialSummon(monsterZoneIndex, handZoneIndexOfThis, game);
+        if (tributes == null) return "special summon cancelled";
+        specialSummonable.tribute(tributes, game);
+        game.removeCardFromZone(this, Board.Zone.HAND, handZoneIndexOfThis, board);
+        game.putCardInZone(this, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+        return this.getName() + " special summoned successfully";
+
     }
 }

@@ -1,5 +1,6 @@
 package model.card.monster;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
@@ -10,14 +11,16 @@ public class TheTricky extends Monster implements specialSummonable {
                 , 4300, MonsterType.SPELL_CASTER, 5, 2000, 1200);
     }
 
-    public void specialSummon(int handIndexOfTribute, int handIndexOfThis, Game game) {
+    public String specialSummon(int handIndexOfTribute, int handIndexOfThis) {
+        Game game = GameMenu.getCurrentGame();
         Board board = game.getCurrentPlayer().getBoard();
         Card card = board.getHand()[handIndexOfTribute];
-        if (card == null) return;
+        if (card == null) return "empty hand index";
         game.putCardInZone(card, Board.Zone.GRAVE, null, board);
         game.removeCardFromZone(card, Board.Zone.HAND, handIndexOfTribute, board);
         game.putCardInZone(this, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
         game.removeCardFromZone(this, Board.Zone.HAND, handIndexOfThis, board);
+        return this.getName() + "special summoned successfully";
 
     }
 }

@@ -29,7 +29,7 @@ public class Game {
     private Player winner;
     private Player loser;
     private Phase currentPhase;
-    private boolean hasSummonedOrSet;
+    private boolean hasSummonedOrSet; //TODO : tasir dadane in tooye tavabe
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -345,6 +345,33 @@ public class Game {
         //                 if (((SolemnWarning) card).action(this, selectedZoneIndex).equals("Stop summon!")) {
         //                     return "summoned successfully!";}}}}
         return summonType;
+    }
+
+    private String specialSummon() {
+        if (selectedCard instanceof BeastKingBarbaros) {
+            if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < 3)
+                return "there is no way you could special summon this monster";
+            return ((BeastKingBarbaros) selectedCard).specialSummon(CommandProcessor.getTribute(3, true), selectedZoneIndex);
+        } else if (selectedCard instanceof GateGuardian) {
+            if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < 3)
+                return "there is no way you could special summon this monster";
+            return ((GateGuardian) selectedCard).specialSummon(CommandProcessor.getTribute(3, true), selectedZoneIndex);
+        } else if (selectedCard instanceof TheTricky) {
+            int numberOfHandCards = 0;
+            for (Card card : currentPlayer.getBoard().getHand())
+                if (card != null && card != selectedCard) numberOfHandCards++;
+            if (numberOfHandCards == 0) return "there is no way you could special summon this monster";
+            else {
+                int[] index = CommandProcessor.getTribute(1, false);
+                if (index == null) return "special summon cancelled";
+                return ((TheTricky) selectedCard).specialSummon(index[0], selectedZoneIndex);
+            }
+        } else return "this card can not be special summoned";
+    }
+
+    private String ritualSummon() {
+        //TODO
+        return "this card can not be ritual summoned";
     }
 
     public String set() {

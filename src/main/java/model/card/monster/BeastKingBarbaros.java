@@ -1,5 +1,6 @@
 package model.card.monster;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
@@ -15,7 +16,9 @@ public class BeastKingBarbaros extends Monster implements specialSummonable {
         this.ATK = 1900;
     }
 
-    public void specialSummon(int[] monsterZoneIndex, int handZoneIndexOfThis, Game game) {
+    public String specialSummon(int[] monsterZoneIndex, int handZoneIndexOfThis) {
+        if (monsterZoneIndex == null) return "special summon cancelled";
+        Game game = GameMenu.getCurrentGame();
         specialSummonable.tribute(monsterZoneIndex, game);
         Board board = game.getCurrentPlayer().getBoard();
         game.removeCardFromZone(this, Board.Zone.HAND, handZoneIndexOfThis, board);
@@ -34,6 +37,7 @@ public class BeastKingBarbaros extends Monster implements specialSummonable {
         Card fieldSpell = board.getFieldSpell();
         game.removeCardFromZone(fieldSpell, Board.Zone.FIELD_SPELL, 0, board);
         if (fieldSpell != null) game.putCardInZone(fieldSpell, Board.Zone.GRAVE, null, board);
+        return this.name + " special summoned successfully";
     }
 }
 

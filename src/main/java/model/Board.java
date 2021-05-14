@@ -90,6 +90,12 @@ public class Board {
         return null;
     }
 
+    public int getNumberOfMonstersInMonsterZone() {
+        int n = 0;
+        for (Monster monster : monsterZone) if (monster != null) n++;
+        return n;
+    }
+
     public ArrayList<Card> getDeck() {
         return deck;
     }
@@ -121,6 +127,7 @@ public class Board {
     public void setFieldSpell(FieldSpell fieldSpell) {
         this.fieldSpell = fieldSpell;
     }
+
 
     public enum CardPosition {
         HIDE_DEF,
