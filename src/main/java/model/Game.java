@@ -2,9 +2,7 @@ package model;
 
 import model.card.Card;
 import model.card.monster.*;
-import model.card.spell.MessengerOfPeace;
-import model.card.spell.Spell;
-import model.card.spell.SupplySquad;
+import model.card.spell.*;
 import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.TimeSeal;
 import model.card.trap.TorrentialTribute;
@@ -60,6 +58,15 @@ public class Game {
                     run(rival, currentPlayer);
                 }
                 Show.showImportantGameMessage(winner.getUser().getUsername() + " won the game and the score is: 1000-0");
+                winner.getUser().increaseGameScore(1000);
+                int winnerGameScore = winner.getUser().getGameScore();
+                int loserGameScore = loser.getUser().getGameScore();
+                if(winnerGameScore == 2000 && loserGameScore == 0) {
+                    int maxLp = 0;
+                    for (Map.Entry<Player, Integer> player : winnerAndLp.entrySet()) {
+                        if (player.getKey() == winner && maxLp < player.getValue()) maxLp = player.getValue();
+                    }
+                    Show.showGameMessage(endMatch(maxLp)); }
                 winnerAndLp.put(winner, winner.getLP());
             }
             winner = getMatchWinner(winnerAndLp);
@@ -209,14 +216,9 @@ public class Game {
     private String endRound() {
 
         winner.getUser().increaseScore(1000);
-//      winner.getUser().increaseGameScore(1000);
         winner.getUser().increaseMoney(1000 + winner.getLP());
         loser.getUser().increaseMoney(100);
-//      int winnerGameScore = winner.getUser().getGameScore();
-//      int loserGameScore = loser.getUser().getGameScore();
-//      if(winnerGameScore == 2000 && loserGameScore == 0) {
-//          endMatch()
-//      }
+
         return winner.getUser().getUsername() + " won the game and the score is: 1000-0";
 
 
@@ -481,15 +483,25 @@ public class Game {
                 && ((Spell) selectedCard).getSpellType() != Spell.SpellType.FIELD)
             return "spell card zone is full";
         //TODO: preparation stuff
+        if(selectedCard instanceof HarpiesFeatherDuster) ((HarpiesFeatherDuster) selectedCard).action();
+        if(selectedCard instanceof DarkHole) ((DarkHole) selectedCard).action();
+        if(selectedCard instanceof PotOfGreed) ((PotOfGreed) selectedCard).action();
+        if(selectedCard instanceof  Raigeki) ((Raigeki) selectedCard).action();
+        if(selectedCard instanceof RingOfDefense) ((RingOfDefense) selectedCard).action();
+        if(selectedCard instanceof SupplySquad) ((SupplySquad) selectedCard).action();
+        if(selectedCard instanceof SwordsOfRevealingLight) ((SwordsOfRevealingLight) selectedCard).action();
+        //if(selectedCard instanceof ChangeOfHeart) ((ChangeOfHeart) selectedCard).action()
         if (((Spell) selectedCard).getSpellType() == Spell.SpellType.FIELD) {
             if (currentPlayer.getBoard().isZoneFull(Board.Zone.FIELD_SPELL)) {
                 putCardInZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.GRAVE, null, currentPlayer.getBoard());
                 removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
             }
             putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.ACTIVATED, currentPlayer.getBoard());
+            removeCardFromZone(selectedCard, Board.Zone.HAND,selectedZoneIndex,getCurrentPlayer().getBoard());
             return "spell activated";
         }
         putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.ACTIVATED, getCurrentPlayer().getBoard());
+        removeCardFromZone(selectedCard, Board.Zone.HAND,selectedZoneIndex,getCurrentPlayer().getBoard());
         return "spell activated";
 
     }

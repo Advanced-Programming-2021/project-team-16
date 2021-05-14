@@ -11,7 +11,7 @@ public class DeckMenu {
         if (MainMenu.getCurrentUser().getDeckByName(name) != null) {
             return "deck with name " + name + " already exists";
         } else {
-            Deck deck = new Deck(name);
+            Deck deck = new Deck(name, new ArrayList<>(), new ArrayList<>());
             MainMenu.getCurrentUser().addDeck(deck);
             return "deck created successfully!";
         }
@@ -87,7 +87,7 @@ public class DeckMenu {
         ArrayList<Card> userCards = MainMenu.getCurrentUser().getCards();
         Card.sort(userCards);
         for (Card userCard : userCards) {
-            System.out.println(userCard.toString());
+            System.out.println(userCard.desToString());
         }
         return null;
     }

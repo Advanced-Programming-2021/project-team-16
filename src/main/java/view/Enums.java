@@ -86,6 +86,23 @@ public class Enums {
 
     }
 
+    public enum ImportExportCommands {
+        IMPORT_CARD("import card (\\w+)"),
+        EXPORT_CARD("export card (\\w+)"),
+        ENTER_MENU("menu enter (.*)"),
+        SHOW_CURRENT("menu show-current"),
+        EXIT("menu exit");
+        private String regex;
+
+        public String getRegex() {
+            return regex;
+        }
+
+        ImportExportCommands(String regex) {
+            this.regex = regex;
+        }
+    }
+
     public enum ProfileCommands {
         CHANGE_NICKNAME("profile change --nickname (\\w+)"),
         CHANGE_PASSWORD("profile change --password (--current (\\w+) --new (\\w+)|--new (\\w+) --current (\\w+))"),

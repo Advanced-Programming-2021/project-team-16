@@ -81,18 +81,81 @@ public class Show {
     public static void showMainDeck(String deckName) {
 
         User user = MainMenu.getCurrentUser();
-        ArrayList<Deck> userDecks = user.getDecks();
-        if (user.getDeckByName(deckName) == null) System.out.println("deck with name " + deckName + " does not exist");
-        System.out.println("Deck: " + deckName);
-        System.out.println("Main deck:");
-        System.out.println("Monsters:");
-        Deck deck = user.getDeckByName(deckName);
+        Deck userDeck = user.getDeckByName(deckName);
+        if (user.getDeckByName(deckName) != null) {
+            System.out.println("Deck: " + deckName);
+            System.out.println("Main deck:");
+            ArrayList<Card> mainDeckCards = userDeck.getMainDeckCards();
+            ArrayList<Card> monsters = new ArrayList<>();
+            ArrayList<Card> spellAndTrap = new ArrayList<>();
+            for (Card mainDeckCard : mainDeckCards) {
+                if (mainDeckCard instanceof Monster) monsters.add(mainDeckCard);
+                else spellAndTrap.add(mainDeckCard);
+            }
+            Card.sort(monsters);
+            Card.sort(spellAndTrap);
+            System.out.println("Monsters:");
+            for (Card monster : monsters) {
+                System.out.println(monster.desToString());
+            }
+            System.out.println("Spell and Traps:");
+            for (Card card : spellAndTrap) {
+                System.out.println(card.desToString());
+            }
+        } else System.out.println("deck with name " + deckName + " does not exist");
+
     }
 
     public static void showSideDeck(String deckName) {
+        User user = MainMenu.getCurrentUser();
+        Deck userDeck = user.getDeckByName(deckName);
+        if (user.getDeckByName(deckName) != null) {
+            System.out.println("Deck: " + deckName);
+            System.out.println("Side deck:");
+            ArrayList<Card> sideDeckCards = userDeck.getSideDeckCards();
+            ArrayList<Card> monsters = new ArrayList<>();
+            ArrayList<Card> spellAndTrap = new ArrayList<>();
+            for (Card sideDeckCard : sideDeckCards) {
+                if (sideDeckCard instanceof Monster) monsters.add(sideDeckCard);
+                else spellAndTrap.add(sideDeckCard);
+            }
+            Card.sort(monsters);
+            Card.sort(spellAndTrap);
+            System.out.println("Monsters:");
+            for (Card monster : monsters) {
+                System.out.println(monster.desToString());
+            }
+            System.out.println("Spell and Traps:");
+            for (Card card : spellAndTrap) {
+                System.out.println(card.desToString());
+            }
+        } else System.out.println("deck with name " + deckName + " does not exist");
+
     }
 
     public static void showAllDecks() {
+        String validation;
+        User user = MainMenu.getCurrentUser();
+        ArrayList<Deck> userDecks = user.getDecks();
+        System.out.println("Decks:");
+        System.out.println("Active deck:");
+        if (user.getActiveDeck() != null) {
+            Deck activeDeck = user.getActiveDeck();
+            if (activeDeck.isMainDeckValid() && activeDeck.isDeckValid()) validation = "valid";
+            else validation = "invalid";
+            System.out.println(activeDeck.getName() + ":  main deck " + activeDeck.getMainDeckCards().size()
+                    + ", side deck" + activeDeck.getSideDeckCards().size() + ", " + validation);
+        }
+        System.out.println("Other decks:");
+        if (userDecks != null) {
+            Deck.sort(userDecks);
+            for (Deck userDeck : userDecks) {
+                if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
+                else validation = "invalid";
+                System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
+                        ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
+            }
+        }
     }
 
     public static void showBoard() {
