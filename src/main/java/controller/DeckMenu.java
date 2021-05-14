@@ -87,7 +87,7 @@ public class DeckMenu {
         ArrayList<Card> userCards = MainMenu.getCurrentUser().getCards();
         Card.sort(userCards);
         for (Card userCard : userCards) {
-            System.out.println(userCard.toString());
+            System.out.println(userCard.desToString());
         }
         return null;
     }

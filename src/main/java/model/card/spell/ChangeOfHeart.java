@@ -29,8 +29,14 @@ public class ChangeOfHeart extends Spell {
         if (!isValid) return "The opponent doesn't have this monster!";
         Board board1 = game.getCurrentPlayer().getBoard();
         if (board1.isZoneFull(Board.Zone.MONSTER)) return "Your monster zone is full!";
-        game.removeCardFromZone(selectedMonster, Board.Zone.MONSTER, 0, board);
-        game.putCardInZone(selectedMonster, Board.Zone.MONSTER, position, board);
+        int index = -1;
+        for (int i = 0; i < monsterZone.length; i++) {
+            if(monsterZone[i] == monster) 
+            { index = i;
+              break;}
+        }
+        game.removeCardFromZone(selectedMonster, Board.Zone.MONSTER, index, board);
+        game.putCardInZone(selectedMonster, Board.Zone.MONSTER, position, board1);
         super.action();
         isAtivated = true;
         return "Selected card is under your control now!";

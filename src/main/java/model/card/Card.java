@@ -53,7 +53,11 @@ public abstract class Card implements Comparable<Card> {
 
     @Override
     public String toString() {
-        return name + ":" + price;
+        return name + ": " + price;
+    }
+
+    public String desToString() {
+        return name + ": " + description;
     }
 
     public String getName() {
