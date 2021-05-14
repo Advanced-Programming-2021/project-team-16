@@ -1,6 +1,5 @@
 package model;
 
-import controller.GameMenu;
 import model.card.Card;
 import model.card.monster.*;
 import model.card.spell.MessengerOfPeace;
@@ -10,7 +9,6 @@ import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.TimeSeal;
 import model.card.trap.TorrentialTribute;
 import model.card.trap.Trap;
-import model.card.trap.TrapHole;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
@@ -33,6 +31,7 @@ public class Game {
     private Player loser;
     private Phase currentPhase;
     private boolean hasSummonedOrSet; //TODO : tasir dadane in tooye tavabe
+    private ArrayList<Card> setInThisPhase = new ArrayList<>();
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -86,6 +85,7 @@ public class Game {
     }
 
     private void run(Player me, Player rival) {
+        setInThisPhase.clear();
         hasSummonedOrSet = false;
         this.currentPlayer = me;
         this.rival = rival;
@@ -322,6 +322,7 @@ public class Game {
             removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
             putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
             hasSummonedOrSet = true;
+            setInThisPhase.add(selectedCard);
             return "set successfully";
         }
         if (selectedCard instanceof Spell || selectedCard instanceof Trap) {
@@ -336,43 +337,15 @@ public class Game {
     }
 
     public String flipSummon() {
-
-        boolean isInZone = false;
-        Game game = GameMenu.getCurrentGame();
         if (selectedCard == null) return "no card is selected yet";
-        for (Monster monster : game.getCurrentPlayer().getBoard().getMonsterZone()) {
-            if (monster == selectedCard) {
-                isInZone = true;
-                break;
-            }
-        }
-        if (!isInZone) return "you can’t change this card position";
+        if (selectedZone != Board.Zone.MONSTER) return "you can’t change this card position";
         if (getCurrentPhase() != Phase.MAIN_1 && getCurrentPhase() != Phase.MAIN_2)
             return "you can’t do this action in this phase";
-        Monster[] monsterZone = game.getCurrentPlayer().getBoard().getMonsterZone();
-        Board board = game.getCurrentPlayer().getBoard();
-        for (int i = 0; i < monsterZone.length; i++) {
-            if (monsterZone[i] == selectedCard) {
-                if (board.getCardPositions()[0][i] != Board.CardPosition.HIDE_DEF) {
-                    return "you can’t flip summon this card";                                //TODO: once per turn.
-                } else {
-                    board.getCardPositions()[0][i] = Board.CardPosition.ATK;
-
-                    if (((Monster) selectedCard).getATK() >= 1000) {
-                        for (Card card : getRival().getBoard().getMonsterZone()) {
-                            if (card instanceof TrapHole)
-                                putCardInZone(selectedCard, Board.Zone.GRAVE, null, getCurrentPlayer().getBoard());
-                            removeCardFromZone(selectedCard, Board.Zone.MONSTER, i, getCurrentPlayer().getBoard());
-                            return "card was destroyed due to Trap hole activation";
-                        }
-                    }
-                }
-                //needs some changes
-            }
-
-        }
+        if (currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] != Board.CardPosition.HIDE_DEF
+                || setInThisPhase.contains(selectedCard))
+            return "you can’t flip summon this card";
+        currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] = Board.CardPosition.ATK;
         return "flip summoned successfully";
-
     }
 
     public String attack(int monsterNumber) {
