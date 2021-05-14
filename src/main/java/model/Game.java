@@ -469,7 +469,6 @@ public class Game {
 
     public String attackDirectly() {
         for (Monster monster : rival.getBoard().getMonsterZone()) {
-            //what other reasons can there be?
             if (monster != null) return "you can’t attack the opponent directly";
         }
         int lp = ((Monster) selectedCard).getATK();
