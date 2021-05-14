@@ -342,7 +342,8 @@ public class CommandProcessor {
     }
 
 
-    public static String getCardName() {
+    public static String getCardName(String whyDoYouNidThis) {
+        System.out.println(whyDoYouNidThis);
         return scanner.nextLine();
     }
 
@@ -367,7 +368,7 @@ public class CommandProcessor {
 
     public static int[] getTribute(int numberOfTributes, boolean isFromMonsterZone) {
         if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) {
-            return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getTribute(numberOfTributes);
+            return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getTribute(numberOfTributes, isFromMonsterZone);
         }
         System.out.println("please enter " + numberOfTributes + " index(es) for tribute");
         int[] indexes = new int[numberOfTributes];

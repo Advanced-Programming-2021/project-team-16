@@ -172,13 +172,15 @@ public class Game {
                     int[] tributes = CommandProcessor.getTribute(1, false);
                     if (tributes == null) return "cancelled";
                     else
-                        Show.showGameMessage(heraldOfCreation.action(tributes[0], ), CommandProcessor.getCardName()));
+                        Show.showGameMessage(heraldOfCreation.action(tributes[0], CommandProcessor.getCardName(
+                                "say a card name in graveyard for special summon")));
                 }
             if (selectedCard instanceof Scanner)
                 if (CommandProcessor.yesNoQuestion("Do you want to use Scanner?")) {
                     Scanner scanner = (Scanner) selectedCard;
-                    Show.showGameMessage("Enter the name of the monster witch you want to replace with Scanner");
-                    Show.showGameMessage(scanner.setReplacement(CommandProcessor.getCardName(), index));
+
+                    Show.showGameMessage(scanner.setReplacement(CommandProcessor.getCardName(
+                            "Enter the name of the monster witch you want to replace with Scanner"), index));
                 }
         }
         if (selectedCard == null) return "no card found in the given position";
@@ -234,6 +236,7 @@ public class Game {
 
     public String summon() {
         if (selectedCard == null) return "no card is selected yet";
+        if (isSelectedCardForRival) return "this action is not available on rival cards";
         if (selectedZone != Board.Zone.HAND || !(selectedCard instanceof Monster)) return "you can’t summon this card";
         if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2) return "action not allowed in this phase";
         if (getCurrentPlayer().getBoard().isZoneFull(Board.Zone.MONSTER)) return "monster card zone is full";
@@ -282,10 +285,7 @@ public class Game {
             if (numberOfHandCards == 0) return "there is no way you could special summon this monster";
             else {
                 int[] index;
-                if (currentPlayer instanceof AI) {
-                    Card[] cards = currentPlayer.getBoard().getHand();
-                    for (int i = 0; i < cards.length; i++) if (cards[i] != null) index = new int[]{i};
-                }
+
                 index = CommandProcessor.getTribute(1, false);
                 if (index == null) return "special summon cancelled";
                 return ((TheTricky) selectedCard).specialSummon(index[0], selectedZoneIndex);
@@ -300,6 +300,7 @@ public class Game {
 
     public String set() {
         if (selectedCard == null) return "no card is selected yet";
+        if (isSelectedCardForRival) return "this action is not available on rival cards";
         if (selectedZone != Board.Zone.HAND) return "you can’t set this card";
         if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2)
             return "you can’t do this action in this phase";
@@ -347,6 +348,7 @@ public class Game {
 
     public String flipSummon() {
         if (selectedCard == null) return "no card is selected yet";
+        if (isSelectedCardForRival) return "this action is not available on rival cards";
         if (selectedZone != Board.Zone.MONSTER) return "you can’t change this card position";
         if (getCurrentPhase() != Phase.MAIN_1 && getCurrentPhase() != Phase.MAIN_2)
             return "you can’t do this action in this phase";
@@ -359,6 +361,7 @@ public class Game {
 
     public String attack(int monsterNumber) {
         if (selectedCard == null) return "no card is selected yet";
+        if (isSelectedCardForRival) return "this action is not available on rival cards";
         if (selectedZone != Board.Zone.MONSTER) return "you can’t attack with this card";
         Monster attacking = (Monster) selectedCard;
         if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
@@ -383,12 +386,14 @@ public class Game {
             Card card = null;
             if (zone == Board.Zone.HAND) {
                 Show.showGameMessage("choose hand index");
-                cardIndex = CommandProcessor.getCardIndex();
+                int[] tribute = CommandProcessor.getTribute(1, false);
+                if (tribute == null) Show.showGameMessage("special summon cancelled");
+                else cardIndex = tribute[0];
                 card = currentPlayer.getBoard().getHand()[cardIndex];
             } else if (zone == Board.Zone.DECK || zone == Board.Zone.GRAVE) {
-                Show.showGameMessage("Enter the card's name");
-                cardIndex = currentPlayer.getBoard().getIndexOfCard(CommandProcessor.getCardName(), zone);
+                cardIndex = currentPlayer.getBoard().getIndexOfCard(CommandProcessor.getCardName("Enter the card's name"), zone);
                 card = currentPlayer.getBoard().getCardByIndexAndZone(cardIndex, zone);
+                if (card == null) Show.showGameMessage("no card with this name in the zone");
             } else Show.showGameMessage("zone is not valid");
             if (card != null)
                 Show.showGameMessage(((Texchanger) attacked).specialSummonACyberseMonster(card, zone, cardIndex));
@@ -639,5 +644,7 @@ public class Game {
         this.selectedZoneIndex = selectedZoneIndex;
     }
 
-
+    public boolean hasSummonedOrSet() {
+        return hasSummonedOrSet;
+    }
 }
