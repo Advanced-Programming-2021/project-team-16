@@ -3,7 +3,6 @@ package model;
 import model.card.Card;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
@@ -85,12 +84,6 @@ public class Deck {
         return mainDeck.size() >= 60;
     }
 
-    public void shuffle(String deck) {
-        switch (deck) {
-            case "Main" -> Collections.shuffle(mainDeck);
-            case "Side" -> Collections.shuffle(sideDeck);
-        }
-    }
 
     public boolean isMainDeckValid() {
         return this.mainDeck.size() <= 60 && this.mainDeck.size() >= 40;
