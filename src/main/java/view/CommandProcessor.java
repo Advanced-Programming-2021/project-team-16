@@ -92,13 +92,13 @@ public class CommandProcessor {
 
     private static void shop() {
         String command = scanner.nextLine().trim();
-        Matcher matcher = getCommandMatcher(command, Enums.ShopCommands.SHOP_BUY.getRegex());
+        Matcher matcher;
         while (!command.matches(Enums.ShopCommands.EXIT.getRegex())) {
-
+            matcher = getCommandMatcher(command, Enums.ShopCommands.SHOP_BUY.getRegex());
             if (command.matches(Enums.ShopCommands.SHOP_BUY.getRegex())) {
                 System.out.println(Shop.buy(matcher.group(1)));
             } else if (command.equals(Enums.ShopCommands.SHOP_SHOW.getRegex())) {
-                System.out.println(Shop.allCardsOfShop(command));
+                Show.showCardsInShop();
             } else System.out.println("invalid command!");
             command = scanner.nextLine().trim();
         }

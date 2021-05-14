@@ -5,6 +5,7 @@ import model.card.Card;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Random;
 
 public class Deck {
     private String name;
@@ -21,10 +22,12 @@ public class Deck {
     }
 
     public static ArrayList<Card> getRandomMainDeck() {
-        //baraye ai lazeme
-        //TODO
-
-        return null;
+        ArrayList<Card> randomDeck = new ArrayList<>();
+        ArrayList<Card> cards = Card.getCards();
+        int numberOfCards = cards.size();
+        Random random = new Random();
+        for (int i = 0; i < 45; i++) randomDeck.add(cards.get(random.nextInt(numberOfCards)));
+        return randomDeck;
     }
 
     public static Deck getDeckByName(String name) {

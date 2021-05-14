@@ -117,7 +117,6 @@ public abstract class Card implements Comparable<Card> {
             default -> Monster.clone((Monster) getCardByName(cardName));
         };
         return card;
-        //TODO
     }
 
     public int getPrice() {
