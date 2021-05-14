@@ -4,9 +4,13 @@ import controller.GameMenu;
 import model.Board;
 import model.Deck;
 import model.Game;
+import model.Phase;
 import model.card.Card;
+import model.card.monster.BeastKingBarbaros;
+import model.card.monster.GateGuardian;
 import model.card.monster.Monster;
 import model.card.spell.*;
+import model.card.trap.CallOfTheHaunted;
 import model.card.trap.MagicCylinder;
 
 import java.util.ArrayList;
@@ -25,15 +29,126 @@ public class AI extends Player {
         activeEffect();
     }
 
-    public void setOrSummon() {
-        //دنیا
+    public void setOrSummon(Card card) {
+        ArrayList<Monster> monsterTribute = new ArrayList<>();
+        Game game = GameMenu.getCurrentGame();
+        Card[] cards = board.getHand();
+        Card[] spellAndTrapZone = board.getSpellAndTrapZone();
+        Monster[] myMonsters = board.getMonsterZone();
+        Board rivalBoard = game.getRival().getBoard();
+        boolean done = false;
+        Board boardRival = game.getRival().getBoard();
+
+        if (game.getCurrentPhase() == Phase.MAIN_1 && game.getCurrentPhase() == Phase.MAIN_2) {
+            for (Card value : cards) {
+                if (card == value) {
+                    if ((((Monster) card).getLevel() == 5 || ((Monster) card).getLevel() == 6 && !board.isZoneFull(Board.Zone.MONSTER))) {
+                        if (board.howManyMonsters() != 0) {
+                            for (Monster monster : myMonsters) {
+                                if (monster.getLevel() < 4) {
+                                    game.removeCardFromZone(monster, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);
+                                    game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
+                                    done = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (done) {
+                            game.removeCardFromZone(card, Board.Zone.HAND, game.getSelectedZoneIndex(), board);
+                            game.putCardInZone(card, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+                            return;
+                        }
+                    } else if ((((Monster) card).getLevel() == 7 || ((Monster) card).getLevel() == 8) && !board.isZoneFull(Board.Zone.MONSTER)) {
+                        if (board.howManyMonsters() > 1) {
+                            for (Monster monster : myMonsters) {
+                                if (monster.getLevel() < 4) {
+                                    monsterTribute.add(monster);
+                                }
+                                if (monsterTribute.size() == 2) {
+                                    for (int i = 0; i < 2; i++) {
+                                        game.removeCardFromZone(monster, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);
+                                        game.putCardInZone(monster, Board.Zone.GRAVE, null, rivalBoard);
+                                    }
+                                    done = true;
+                                }
+                            }
+                        }
+                        if (done) {
+                            game.removeCardFromZone(card, Board.Zone.HAND, game.getSelectedZoneIndex(), board);
+                            game.putCardInZone(card, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+                            return;
+                        }
+                    } else if (card instanceof GateGuardian && !board.isZoneFull(Board.Zone.MONSTER)) {
+                        for (Monster monster : myMonsters) {
+                            if (monster.getLevel() < 4) {
+                                monsterTribute.add(monster);
+                            }
+                            if (monsterTribute.size() == 3) {
+                                for (int i = 0; i < 3; i++) {
+                                    game.removeCardFromZone(monster, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);
+                                    game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
+                                }
+                                done = true;
+                            }
+                        }
+                        if (done) {
+                            game.removeCardFromZone(card, Board.Zone.HAND, game.getSelectedZoneIndex(), board);
+                            game.putCardInZone(card, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+                            return;
+                        }
+                    } else if (card instanceof BeastKingBarbaros && !board.isZoneFull(Board.Zone.MONSTER)) {
+                        game.removeCardFromZone(card, Board.Zone.HAND, game.getSelectedZoneIndex(), board);
+                        game.putCardInZone(card, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+
+                        //             }
+
+                        ((Monster) card).decreaseATK(1900);
+                        return;
+                    } else if (card instanceof Monster && !board.isZoneFull(Board.Zone.MONSTER)) {//chera mige card az noe monstere?
+                        game.removeCardFromZone(card, Board.Zone.HAND, game.getSelectedZoneIndex(), board);// selectedZoneIndex hamun firstEmptyZoneIndexe?
+                        game.putCardInZone(card, Board.Zone.MONSTER, Board.CardPosition.HIDE_DEF, board);
+                        return;
+                    }
+                }
+            }
+            for (Card value : spellAndTrapZone) {
+                if (value instanceof CallOfTheHaunted) {
+                    ((CallOfTheHaunted) value).actionForAI(game, card);
+                    return;
+                } else if (value instanceof MonsterReborn && !board.isZoneFull(Board.Zone.MONSTER)) {
+                    if (board.getGrave() != null) {
+                        for (Card value1 : board.getGrave()) {
+                            if (card == value1 && card instanceof Monster) {
+                                game.removeCardFromZone(card, Board.Zone.GRAVE, 0, board);
+                                game.putCardInZone(card, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+                            }
+                            break;
+                        }
+                    } else if (boardRival.getGrave() != null) {
+                        for (Card value2 : boardRival.getGrave()) {
+                            if (card == value2 && card instanceof Monster) {
+                                game.removeCardFromZone(card, Board.Zone.GRAVE, 0, board);
+                                game.putCardInZone(card, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+                                break;
+                            }
+                        }
+                    }
+                    return;
+                } else if (!board.isZoneFull(Board.Zone.SPELL_AND_TRAP)) {
+                    card = value;
+                    game.removeCardFromZone(card, Board.Zone.HAND, game.getSelectedZoneIndex(), board);// selectedZoneIndex hamun firstEmptyZoneIndexe?
+                    game.putCardInZone(card, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.HIDE_DEF, board);
+                    return;
+                }
+            }
+        }
     }
 
     public void activeEffect() {
-     Game game = GameMenu.getCurrentGame();
-     Card[] myHand = board.getHand();
-     Board rivalBoard = game.getRival().getBoard();
-     Card[] rivalSpellAndTrap = rivalBoard.getSpellAndTrapZone();
+        Game game = GameMenu.getCurrentGame();
+        Card[] myHand = board.getHand();
+        Board rivalBoard = game.getRival().getBoard();
+        Card[] rivalSpellAndTrap = rivalBoard.getSpellAndTrapZone();
         Monster[] rivalMonsters = rivalBoard.getMonsterZone();
         Monster[] myMonsters = board.getMonsterZone();
         for (int i = 0; i < myHand.length; i++) {
