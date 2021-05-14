@@ -7,6 +7,7 @@ import model.card.Card;
 import model.person.User;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -362,6 +363,42 @@ public class CommandProcessor {
             case "hand" -> zone = Board.Zone.HAND;
         }
         return zone;
+    }
+
+    public static int[] getTribute(int numberOfTributes, boolean isFromMonsterZone) {
+        System.out.println("please enter " + numberOfTributes + " index(es) for tribute");
+        int[] indexes = new int[numberOfTributes];
+        Arrays.fill(indexes, -1);
+        String command;
+        while (Arrays.stream(indexes).anyMatch(i -> i == -1)) {
+            command = scanner.nextLine().trim();
+            if (command.equals("cancel"))
+                return null;
+            else if (command.matches("\\d+")) {
+                String error = null;
+                int index = Integer.parseInt(command) - 1;
+                if (Arrays.stream(indexes).anyMatch(i -> i == index))
+                    error = "you have already chosen this";
+                else if (isFromMonsterZone) {
+                    if (index < 0 || index > 4)
+                        error = "invalid index";
+                    else if (GameMenu.getCurrentGame().getCurrentPlayer().getBoard().getMonsterZone()[index] == null)
+                        error = "this index is empty";
+                } else {
+                    if (index < 0 || index > 5)
+                        error = "invalid index";
+                    else if (GameMenu.getCurrentGame().getCurrentPlayer().getBoard().getHand()[index] == null)
+                        error = "this index is empty";
+                }
+                if (error == null)
+                    for (int i = 0; i < indexes.length; i++)
+                        if (indexes[i] == -1) {
+                            indexes[i] = index;
+                            break;
+                        } else System.out.println(error);
+            } else System.out.println("invalid command.");
+        }
+        return indexes;
     }
 }
 

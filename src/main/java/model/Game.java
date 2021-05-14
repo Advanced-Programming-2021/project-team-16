@@ -6,6 +6,7 @@ import model.card.monster.*;
 import model.card.spell.MessengerOfPeace;
 import model.card.spell.Spell;
 import model.card.spell.SupplySquad;
+import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.*;
 import model.person.AI;
 import model.person.Player;
@@ -28,7 +29,7 @@ public class Game {
     private Player winner;
     private Player loser;
     private Phase currentPhase;
-    private boolean hasSummonedOrSet;
+    private boolean hasSummonedOrSet; //TODO : tasir dadane in tooye tavabe
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -346,6 +347,33 @@ public class Game {
         return summonType;
     }
 
+    private String specialSummon() {
+        if (selectedCard instanceof BeastKingBarbaros) {
+            if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < 3)
+                return "there is no way you could special summon this monster";
+            return ((BeastKingBarbaros) selectedCard).specialSummon(CommandProcessor.getTribute(3, true), selectedZoneIndex);
+        } else if (selectedCard instanceof GateGuardian) {
+            if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < 3)
+                return "there is no way you could special summon this monster";
+            return ((GateGuardian) selectedCard).specialSummon(CommandProcessor.getTribute(3, true), selectedZoneIndex);
+        } else if (selectedCard instanceof TheTricky) {
+            int numberOfHandCards = 0;
+            for (Card card : currentPlayer.getBoard().getHand())
+                if (card != null && card != selectedCard) numberOfHandCards++;
+            if (numberOfHandCards == 0) return "there is no way you could special summon this monster";
+            else {
+                int[] index = CommandProcessor.getTribute(1, false);
+                if (index == null) return "special summon cancelled";
+                return ((TheTricky) selectedCard).specialSummon(index[0], selectedZoneIndex);
+            }
+        } else return "this card can not be special summoned";
+    }
+
+    private String ritualSummon() {
+        //TODO
+        return "this card can not be ritual summoned";
+    }
+
     public String set() {
         boolean isFromHand = selectedZone == Board.Zone.HAND;
         if (selectedCard == null) return "no card is selected yet";
@@ -657,7 +685,13 @@ public class Game {
                     }
                 }
             }
-            case FIELD_SPELL -> board.setFieldSpell(card);
+            case FIELD_SPELL -> {
+                if (position == Board.CardPosition.ACTIVATED)
+                    ((FieldSpell) card).action(false);
+                removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
+                removeCardFromZone(rival.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, rival.getBoard());
+                board.setFieldSpell(((FieldSpell) card));
+            }
             case SPELL_AND_TRAP -> {
                 int index = board.getFirstEmptyIndexOfZone(Board.Zone.SPELL_AND_TRAP);
                 board.getSpellAndTrapZone()[index] = card;
@@ -672,16 +706,16 @@ public class Game {
                 board.getMonsterZone()[zoneIndex] = null;
                 if (card instanceof CommandKnight)
                     if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).undoAction();
-                for (Card spell : board.getSpellAndTrapZone()) {
-                    if (spell instanceof SupplySquad) {
-                        SupplySquad supplySquad = new SupplySquad();
-                        supplySquad.action();
-                    }
-                }
+                for (Card spell : board.getSpellAndTrapZone())
+                    if (spell instanceof SupplySquad)
+                        ((SupplySquad) spell).action();
             }
             case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[zoneIndex] = null;
             case HAND -> board.getHand()[zoneIndex] = null;
-            case FIELD_SPELL -> board.setFieldSpell(null);
+            case FIELD_SPELL -> {
+                if (card != null && ((FieldSpell) card).isActivated()) ((FieldSpell) card).action(true);
+                board.setFieldSpell(null);
+            }
             default -> {
                 ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();
                 for (int i = thisZone.size() - 1; i >= 0; i--)

@@ -2,6 +2,7 @@ package model;
 
 import model.card.Card;
 import model.card.monster.Monster;
+import model.card.spell.fieldspells.FieldSpell;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,7 +17,7 @@ public class Board {
     private CardPosition[][] cardPositions = new CardPosition[2][5];
     // first row-> monster zone
     // second row -> spell and trap
-    private Card fieldSpell;
+    private FieldSpell fieldSpell;
     private boolean[] didMonsterAttack = new boolean[5];
 
 
@@ -89,6 +90,12 @@ public class Board {
         return null;
     }
 
+    public int getNumberOfMonstersInMonsterZone() {
+        int n = 0;
+        for (Monster monster : monsterZone) if (monster != null) n++;
+        return n;
+    }
+
     public ArrayList<Card> getDeck() {
         return deck;
     }
@@ -113,13 +120,14 @@ public class Board {
         return cardPositions;
     }
 
-    public Card getFieldSpell() {
+    public FieldSpell getFieldSpell() {
         return fieldSpell;
     }
 
-    public void setFieldSpell(Card fieldSpell) {
+    public void setFieldSpell(FieldSpell fieldSpell) {
         this.fieldSpell = fieldSpell;
     }
+
 
     public enum CardPosition {
         HIDE_DEF,
