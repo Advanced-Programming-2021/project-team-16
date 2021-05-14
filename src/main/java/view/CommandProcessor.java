@@ -329,13 +329,11 @@ public class CommandProcessor {
             command = scanner.nextLine().trim();
         }
     }
-//    public static int askIndexForTribute() {
-//int[] monsters =scanner.nextInt()[scanner.nextInt()];
-//        return scanner.nextInt();
-//    }
 
 
     public static boolean yesNoQuestion(String question) {
+        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI)
+            return true;
         System.out.println(question);
         return "yes".equals(scanner.nextLine());
 
@@ -349,6 +347,7 @@ public class CommandProcessor {
     }
 
     public static Board.Zone getZone() {
+        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) return Board.Zone.HAND;
         String zoneName = scanner.nextLine();
         return getZoneByZoneName(zoneName);
     }
