@@ -48,13 +48,37 @@ public class CommandProcessor {
     }
 
     private static void mainMenu() {
+        Matcher matcher;
         String command = scanner.nextLine().trim();
         while (!command.equals(Enums.MainMenuCommands.EXIT.getRegex()) && !command.equals(Enums.MainMenuCommands.LOGOUT.getRegex())) {
 
             if (command.matches(Enums.MainMenuCommands.ENTER_MENU.getRegex())) {
-                Matcher matcher = getCommandMatcher(command, Enums.MainMenuCommands.ENTER_MENU.getRegex());
-                if (matcher.find())
-                    MainMenu.enterMenu(matcher.group(1));
+                matcher = getCommandMatcher(command, Enums.MainMenuCommands.ENTER_MENU.getRegex());
+                if (matcher.find()) {
+                    if (matcher.group(1).equals("Login")) {
+                        login();
+                    }
+                    if (matcher.group(1).equals("Duel")) {
+                        gameMenu();                                      //same as duel?
+                    }
+                    if (matcher.group(1).equals("Deck")) {
+                        deckMenu();
+                    }
+                    if (matcher.group(1).equals("Scoreboard")) {
+                        scoreboard();
+                    }
+                    if (matcher.group(1).equals("Profile")) {
+                        profile();
+                    }
+                    if (matcher.group(1).equals("Shop")) {
+                        shop();
+                    }
+                    if (matcher.group(1).equals("ImportAndExport")) {
+                        importExportMenu();
+                    } else {
+                        System.out.println("invalid command");
+                    }
+                }
             } else if (command.equals(Enums.MainMenuCommands.SHOW_CURRENT.getRegex())) {
                 System.out.println(MainMenu.menuName());
 
@@ -80,15 +104,16 @@ public class CommandProcessor {
 
     private static void deckMenu() {
         HashMap<String, String> data;
+        Matcher matcher;
         String command = scanner.nextLine().trim();
         while (!command.equals(Enums.DeckMenuCommands.EXIT.getRegex())) {
 
             if (command.matches(Enums.DeckMenuCommands.CREATE_DECK.getRegex())) {
-                Matcher matcher = getCommandMatcher(command, Enums.DeckMenuCommands.CREATE_DECK.getRegex());
+                matcher = getCommandMatcher(command, Enums.DeckMenuCommands.CREATE_DECK.getRegex());
                 if (matcher.find())
                     System.out.println(DeckMenu.create(matcher.group(1)));
             } else if (command.matches(Enums.DeckMenuCommands.DELETE_DECK.getRegex())) {
-                Matcher matcher = getCommandMatcher(command, Enums.DeckMenuCommands.DELETE_DECK.getRegex());
+                matcher = getCommandMatcher(command, Enums.DeckMenuCommands.DELETE_DECK.getRegex());
                 if (matcher.find())
                     System.out.println(DeckMenu.delete(matcher.group(1)));
             } else if (command.matches((Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex()))) {
@@ -104,12 +129,19 @@ public class CommandProcessor {
                 data = getCommandData(command);
                 System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), false));
             } else if (command.matches(Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex())) {
-                Matcher matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex());
+                matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex());
                 if (matcher.find())
                     System.out.println(DeckMenu.activate(matcher.group(1)));
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_ALL_DECKS.getRegex())) {
+                Show.showAllDecks();
             } else if (command.matches(Enums.DeckMenuCommands.SHOW_MAIN_DECK.getRegex())) {
+                matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_MAIN_DECK.getRegex());
+                if (matcher.find())
+                    Show.showMainDeck(matcher.group(1));
             } else if (command.matches(Enums.DeckMenuCommands.SHOW_SIDE_DECK.getRegex())) {
+                matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_SIDE_DECK.getRegex());
+                if (matcher.find())
+                    Show.showSideDeck(matcher.group(1));
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_DECK_CARDS.getRegex())) {
                 System.out.println(DeckMenu.showUsersCards());
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_CURRENT.getRegex())) {
@@ -273,6 +305,27 @@ public class CommandProcessor {
         }
     }
 
+    private static void importExportMenu() {
+        String command = scanner.nextLine().trim();
+        while (!command.equals(Enums.ImportExportCommands.EXIT.getRegex())) {
+            if (command.matches(Enums.ImportExportCommands.IMPORT_CARD.getRegex())) {
+                Matcher matcher = getCommandMatcher(command, Enums.ImportExportCommands.IMPORT_CARD.getRegex());
+                if (matcher.find())
+                    ImportExport.importCard(Card.getCardByName(matcher.group(1)));    //TODO: change this to sout if necessary.
+            } else if (command.matches(Enums.ImportExportCommands.EXPORT_CARD.getRegex())) {
+                Matcher matcher = getCommandMatcher(command, Enums.ImportExportCommands.EXPORT_CARD.getRegex());
+                if (matcher.find())
+                    ImportExport.exportCard(Card.getCardByName(matcher.group(1)));
+            } else if (command.matches(Enums.ImportExportCommands.ENTER_MENU.getRegex())) {
+                System.out.println("menu navigation is not possible");
+            } else if (command.equals(Enums.ImportExportCommands.SHOW_CURRENT.getRegex())) {
+                System.out.println(ImportExport.menuName());
+            } else {
+                System.out.println("invalid command!");
+            }
+            command = scanner.nextLine().trim();
+        }
+    }
 //    public static int askIndexForTribute() {
 //int[] monsters =scanner.nextInt()[scanner.nextInt()];
 //        return scanner.nextInt();
