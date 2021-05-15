@@ -220,5 +220,19 @@ public class AI extends Player {
         return null;
     }
 
+    public Monster getMonsterFromGrave(boolean isMyGrave) {
+        Monster mostLeveledMonster = null;
+        Board board = isMyGrave ? getBoard() : GameMenu.getCurrentGame().getRival().getBoard();
+        for (Card card : board.getGrave())
+            if (card instanceof Monster) {
+                mostLeveledMonster = (Monster) card;
+                break;
+            }
+        if (mostLeveledMonster == null) return null;
+        for (Card card : board.getGrave())
+            if (card instanceof Monster) if (((Monster) card).getLevel() > mostLeveledMonster.getLevel())
+                mostLeveledMonster = (Monster) card;
+        return mostLeveledMonster;
+    }
 
 }

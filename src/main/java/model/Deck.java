@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class Deck {
     private String name;
-    private ArrayList<Card> mainDeck; //= new ArrayList<>();
-    private ArrayList<Card> sideDeck; //= new ArrayList<>();
+    private ArrayList<Card> mainDeck = new ArrayList<>();
+    private ArrayList<Card> sideDeck = new ArrayList<>();
     private static ArrayList<Deck> decks = new ArrayList<>();
     private ArrayList<String> mainCardNames;
     private ArrayList<String> sideCardNames;
@@ -18,12 +18,10 @@ public class Deck {
     public Deck(String name, ArrayList<String> mainCardNames, ArrayList<String> sideCardNames) {
         this.name = name;
         decks.add(this);
-        for (String mainCardName : mainCardNames) {
-            mainDeck.add(Card.make(mainCardName));
-        }
-        for (String sideCardName : sideCardNames) {
-            sideDeck.add(Card.make(sideCardName));
-        }
+        this.mainCardNames = mainCardNames;
+        this.sideCardNames = sideCardNames;
+        for (String mainCardName : mainCardNames) mainDeck.add(Card.make(mainCardName));
+        for (String sideCardName : sideCardNames) sideDeck.add(Card.make(sideCardName));
 
     }
 

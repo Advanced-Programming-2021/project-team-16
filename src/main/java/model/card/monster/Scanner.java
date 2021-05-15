@@ -11,7 +11,7 @@ public class Scanner extends Monster {
     private Card replacement;
     private int monsterZoneIndex;
     private Player player;
-    private boolean isReplaced;
+    private static ArrayList<Scanner> activatedScanners = new ArrayList<>();
 
     public Scanner() {
         super("Scanner", "Once per turn, you can select 1 of your opponent's monsters that is removed " +
@@ -30,19 +30,17 @@ public class Scanner extends Monster {
         if (!rivalGrave.contains(replacement)) return "This card is not in rival's graveyard.";
         this.replacement = replacement;
         this.player = game.getCurrentPlayer();
-        this.isReplaced = true;
         this.monsterZoneIndex = monsterZoneIndex;
         game.getCurrentPlayer().getBoard().getMonsterZone()[monsterZoneIndex] = (Monster) replacement;
+        activatedScanners.add(this);
         return "Replaced successfully.";
     }
 
-    public void undo(Game game) {
-        if (isReplaced) {
-            isReplaced = false;
-            Monster[] monsters = game.getCurrentPlayer().getBoard().getMonsterZone();
-            monsters[monsterZoneIndex] = this;
-        }
-
+    public static void undo() {
+        for (Scanner activatedScanner : activatedScanners)
+            activatedScanner.player.getBoard().getMonsterZone()[activatedScanner.monsterZoneIndex] = activatedScanner;
+        activatedScanners.clear();
     }
+
 
 }

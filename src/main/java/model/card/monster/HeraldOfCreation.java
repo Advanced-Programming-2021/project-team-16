@@ -36,3 +36,5 @@ public class HeraldOfCreation extends Monster {
         this.isUsed = isUsed;
     }
 }
+
+
