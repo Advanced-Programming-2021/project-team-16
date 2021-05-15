@@ -84,7 +84,8 @@ public class CommandProcessor {
             } else if (command.equals(Enums.MainMenuCommands.SHOW_CURRENT.getRegex())) {
                 System.out.println(MainMenu.menuName());
 
-            }
+            } else System.out.println("invalid command");
+
             command = scanner.nextLine().trim();
         }
         System.out.print("user logged out successfully!\n");

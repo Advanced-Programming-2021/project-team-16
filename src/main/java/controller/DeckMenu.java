@@ -24,11 +24,15 @@ public class DeckMenu {
         } else {
             ArrayList<Card> mainDeckCards = MainMenu.getCurrentUser().getDeckByName(name).getMainDeckCards();
             ArrayList<Card> sideDeckCards = MainMenu.getCurrentUser().getDeckByName(name).getSideDeckCards();
-            for (Card mainDeckCard : mainDeckCards) {
-                MainMenu.getCurrentUser().addCard(mainDeckCard);
+            if (mainDeckCards != null) {
+                for (Card mainDeckCard : mainDeckCards) {
+                    MainMenu.getCurrentUser().addCard(mainDeckCard);
+                }
             }
-            for (Card sideDeckCard : sideDeckCards) {
-                MainMenu.getCurrentUser().addCard(sideDeckCard);
+            if (sideDeckCards != null) {
+                for (Card sideDeckCard : sideDeckCards) {
+                    MainMenu.getCurrentUser().addCard(sideDeckCard);
+                }
             }
             MainMenu.getCurrentUser().removeDeck(MainMenu.getCurrentUser().getDeckByName(name));
             return "deck deleted successfully";
