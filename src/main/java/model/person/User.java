@@ -9,30 +9,29 @@ import static java.util.Collections.swap;
 
 public class User {
     private static ArrayList<User> users = new ArrayList<>();
-    private String username;
+    private final String username;
     private String password;
     private String nickname;
     private int money;
     private int score;
     private int gameScore;
-    private ArrayList<Deck> decks;
+    private ArrayList<Deck> decks = new ArrayList<>();
     private Deck activeDeck;
-    private ArrayList<String> cardNames;
+    private ArrayList<String> cardNames = new ArrayList<>();
 
     public static ArrayList<User> getAllUsers() {
         return users;
     }
 
-    public User(String username, String password, String nickname, int money, int score, ArrayList<String> cardNames,
-                ArrayList<Deck> decks, Deck activeDeck) {
-        this.money = money;
-        this.score = score;
+    public User(String username, String password, String nickname) {
+        this.money = 100000;
+//        this.score = score;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
-        this.cardNames = cardNames;
-        this.decks = decks;
-        this.activeDeck = activeDeck;
+//        this.cardNames = cardNames;
+//        this.decks = decks;
+//        this.activeDeck = activeDeck;
         users.add(this);
     }
 
@@ -142,11 +141,17 @@ public class User {
         return null;
     }
 
+    public boolean hasCard(String cardName) {
+        for (String name : cardNames) if (name.equals(cardName)) return true;
+        return false;
+    }
+
     public ArrayList<Card> getCards() {
         ArrayList<Card> cards = new ArrayList<>();
         for (String cardName : cardNames) cards.add(Card.make(cardName));
         return cards;
     }
+
 
     public Deck getActiveDeck() {
         return activeDeck;
@@ -163,6 +168,14 @@ public class User {
 
     public void addCard(Card card) {
         this.cardNames.add(card.getName());
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public static void setUsers(ArrayList<User> users) {
+        User.users = users;
     }
 
     @Override

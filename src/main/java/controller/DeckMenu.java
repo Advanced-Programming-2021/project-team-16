@@ -2,6 +2,7 @@ package controller;
 
 import model.Deck;
 import model.card.Card;
+import view.Show;
 
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ public class DeckMenu {
         if (MainMenu.getCurrentUser().getDeckByName(name) != null) {
             return "deck with name " + name + " already exists";
         } else {
-            Deck deck = new Deck(name, new ArrayList<>(), new ArrayList<>());
+            Deck deck = new Deck(name);
             MainMenu.getCurrentUser().addDeck(deck);
             return "deck created successfully!";
         }
@@ -50,11 +51,10 @@ public class DeckMenu {
     }
 
     public static String addCardToDeck(String cardName, String deckName, boolean isMain) {
-        ArrayList<Card> userCards = MainMenu.getCurrentUser().getCards();
         Card card = Card.getCardByName(cardName);
 
 
-        if (!userCards.contains(card)) return "card with name " + cardName + " does not exist";
+        if (!MainMenu.getCurrentUser().hasCard(cardName)) return "card with name " + cardName + " does not exist";
         if (MainMenu.getCurrentUser().getDeckByName(deckName) == null)
             return "deck with name " + deckName + " does not exist";
         if (isMain) {
@@ -74,11 +74,8 @@ public class DeckMenu {
 
 
     public static String removeCardFromDeck(String cardName, String deckName, boolean isMain) {
-        ArrayList<Card> userCards = MainMenu.getCurrentUser().getCards();
         Card card = Card.getCardByName(cardName);
-
-
-        if (!userCards.contains(card)) return "card with name " + cardName + " does not exist";
+        if (!MainMenu.getCurrentUser().hasCard(cardName)) return "card with name " + cardName + " does not exist";
         if (MainMenu.getCurrentUser().getDeckByName(deckName) == null)
             return "deck with name " + deckName + " does not exist";
         if (isMain) {
@@ -92,9 +89,7 @@ public class DeckMenu {
     public static String showUsersCards() {
         ArrayList<Card> userCards = MainMenu.getCurrentUser().getCards();
         Card.sort(userCards);
-        for (Card userCard : userCards) {
-            System.out.println(userCard.desToString());
-        }
+        Show.showCardArray(userCards);
         return null;
     }
 

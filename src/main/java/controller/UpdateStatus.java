@@ -45,8 +45,9 @@ public class UpdateStatus {
     private static void makeDecks() {
         try {
             String jsonUsers = new String(Files.readAllBytes(Paths.get("decks_json.txt")));
-            ArrayList<User> decks = new Gson().fromJson(jsonUsers, new TypeToken<List<Deck>>() {
+            ArrayList<Deck> decks = new Gson().fromJson(jsonUsers, new TypeToken<List<Deck>>() {
             }.getType());
+            Deck.setDecks(decks);
         } catch (IOException e) {
             System.out.println("error");
         }
@@ -77,6 +78,7 @@ public class UpdateStatus {
             String jsonUsers = new String(Files.readAllBytes(Paths.get("users_json.txt")));
             ArrayList<User> users = new Gson().fromJson(jsonUsers, new TypeToken<List<User>>() {
             }.getType());
+            User.setUsers(users);
         } catch (IOException e) {
             System.out.println("error");
         }

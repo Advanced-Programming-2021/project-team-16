@@ -8,20 +8,14 @@ import java.util.Random;
 
 public class Deck {
     private String name;
-    //    private ArrayList<Card> mainDeck = new ArrayList<>();
-//    private ArrayList<Card> sideDeck = new ArrayList<>();
-    private static ArrayList<Deck> decks = new ArrayList<>();
-    private ArrayList<String> mainCardNames;
-    private ArrayList<String> sideCardNames;
 
-    public Deck(String name, ArrayList<String> mainCardNames, ArrayList<String> sideCardNames) {
+    private static ArrayList<Deck> decks = new ArrayList<>();
+    private ArrayList<String> mainCardNames = new ArrayList<>();
+    private ArrayList<String> sideCardNames = new ArrayList<>();
+
+    public Deck(String name) {
         this.name = name;
         decks.add(this);
-        this.mainCardNames = mainCardNames;
-        this.sideCardNames = sideCardNames;
-//        for (String mainCardName : mainCardNames) mainDeck.add(Card.make(mainCardName));
-//        for (String sideCardName : sideCardNames) sideDeck.add(Card.make(sideCardName));
-
     }
 
     public static ArrayList<Card> getRandomMainDeck() {
@@ -41,12 +35,10 @@ public class Deck {
     }
 
     public void addCardToSideDeck(Card card) {
-        //this.sideDeck.add(card);
         this.sideCardNames.add(card.getName());
     }
 
     public void addCardToMainDeck(Card card) {
-        // this.mainDeck.add(card);
         this.mainCardNames.add(card.getName());
     }
 
@@ -143,5 +135,7 @@ public class Deck {
         return number >= 3;
     }
 
-
+    public static void setDecks(ArrayList<Deck> decks) {
+        Deck.decks = decks;
+    }
 }
