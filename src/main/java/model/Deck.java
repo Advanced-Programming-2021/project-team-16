@@ -3,14 +3,13 @@ package model;
 import model.card.Card;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Random;
 
 public class Deck {
     private String name;
-    private ArrayList<Card> mainDeck = new ArrayList<>();
-    private ArrayList<Card> sideDeck = new ArrayList<>();
+    //    private ArrayList<Card> mainDeck = new ArrayList<>();
+//    private ArrayList<Card> sideDeck = new ArrayList<>();
     private static ArrayList<Deck> decks = new ArrayList<>();
     private ArrayList<String> mainCardNames;
     private ArrayList<String> sideCardNames;
@@ -20,8 +19,8 @@ public class Deck {
         decks.add(this);
         this.mainCardNames = mainCardNames;
         this.sideCardNames = sideCardNames;
-        for (String mainCardName : mainCardNames) mainDeck.add(Card.make(mainCardName));
-        for (String sideCardName : sideCardNames) sideDeck.add(Card.make(sideCardName));
+//        for (String mainCardName : mainCardNames) mainDeck.add(Card.make(mainCardName));
+//        for (String sideCardName : sideCardNames) sideDeck.add(Card.make(sideCardName));
 
     }
 
@@ -42,74 +41,60 @@ public class Deck {
     }
 
     public void addCardToSideDeck(Card card) {
-        this.sideDeck.add(card);
+        //this.sideDeck.add(card);
         this.sideCardNames.add(card.getName());
     }
 
     public void addCardToMainDeck(Card card) {
-        this.mainDeck.add(card);
+        // this.mainDeck.add(card);
         this.mainCardNames.add(card.getName());
     }
 
     public void removeCardFromMain(Card card) {
-        for (Card c : mainDeck) {
-            if (c.equals(card)) {
-                mainDeck.remove(card);
+        for (String c : mainCardNames) {
+            if (c.equals(card.getName())) {
+                mainCardNames.remove(card.getName());
                 return;
             }
         }
     }
 
     public void removeCardFromSide(Card card) {
-        for (Card c : sideDeck) {
-            if (c.equals(card)) {
-                sideDeck.remove(card);
+        for (String c : sideCardNames) {
+            if (c.equals(card.getName())) {
+                sideCardNames.remove(card.getName());
                 return;
             }
         }
     }
 
-    public ArrayList<Card> getSideDeck() {
-        return sideDeck;
+    public ArrayList<String> getSideDeck() {
+        return sideCardNames;
     }
 
-    public ArrayList<Card> getMainDeck() {
-        return mainDeck;
+    public ArrayList<String> getMainDeck() {
+        return mainCardNames;
     }
 
     public boolean SideIsFull() {
-        return sideDeck.size() >= 15;
+        return sideCardNames.size() >= 15;
     }
 
     public boolean MainIsFull() {
-        return mainDeck.size() >= 60;
+        return mainCardNames.size() >= 60;
     }
 
-    public void shuffle(String deck) {
-        switch (deck) {
-            case "Main" -> Collections.shuffle(mainDeck);
-            case "Side" -> Collections.shuffle(sideDeck);
-        }
-    }
 
     public boolean isMainDeckValid() {
-        return this.mainDeck.size() <= 60 && this.mainDeck.size() >= 40;
+        return this.mainCardNames.size() <= 60 && this.mainCardNames.size() >= 40;
     }
 
     public boolean isSideDeckValid() {
-        return this.sideDeck.size() <= 15;
+        return this.sideCardNames.size() <= 15;
     }
 
     public boolean isDeckValid() {
-        int numberOfOneCard = 0;
-        ArrayList<Card> allCards = new ArrayList<>(mainDeck);
-        allCards.addAll(sideDeck);
-        for (Card card : allCards) {
-            for (Card card2 : allCards) {
-                if (card.getName().equals(card2.getName())) numberOfOneCard++;
-            }
-            if (numberOfOneCard > 3) return false;
-        }
+
         return isMainDeckValid() && isSideDeckValid();
     }
 
@@ -133,26 +118,26 @@ public class Deck {
         return name;
     }
 
-    public ArrayList<Card> getMainDeckCards() {
-        return mainDeck;
+    public ArrayList<String> getMainDeckCards() {
+        return mainCardNames;
     }
 
     public static ArrayList<Deck> getAllDecks() {
         return decks;
     }
 
-    public ArrayList<Card> getSideDeckCards() {
-        return sideDeck;
+    public ArrayList<String> getSideDeckCards() {
+        return sideCardNames;
     }
 
     public boolean isLimited(Card card) {
         int number = 0;
-        for (Card eachCard : this.sideDeck) {
-            if (eachCard.equals(card))
+        for (String eachCard : this.sideCardNames) {
+            if (eachCard.equals(card.getName()))
                 number++;
         }
-        for (Card eachCard : this.mainDeck) {
-            if (eachCard.equals(card))
+        for (String eachCard : this.mainCardNames) {
+            if (eachCard.equals(card.getName()))
                 number++;
         }
         return number >= 3;

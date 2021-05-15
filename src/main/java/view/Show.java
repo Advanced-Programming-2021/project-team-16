@@ -65,17 +65,6 @@ public class Show {
         }
     }
 
-//    public static void showGraveCards(Game game) {
-//        for (Card c : game.getCurrentPlayer().getBoard().getGrave()) {
-//            System.out.println(c);
-//        }
-//        for (Card c : game.getRival().getBoard().getGrave()) {
-//            System.out.println(c);
-//        }
-//
-//
-//    }
-
 
     public static void showMainDeck(String deckName) {
 
@@ -84,15 +73,15 @@ public class Show {
         if (user.getDeckByName(deckName) != null) {
             System.out.println("Deck: " + deckName);
             System.out.println("Main deck:");
-            ArrayList<Card> mainDeckCards = userDeck.getMainDeckCards();
+            ArrayList<String> mainDeckCards = userDeck.getMainDeckCards();
             ArrayList<Card> monsters = new ArrayList<>();
             ArrayList<Card> spellAndTrap = new ArrayList<>();
-            for (Card mainDeckCard : mainDeckCards) {
-                if (mainDeckCard instanceof Monster) monsters.add(mainDeckCard);
-                else spellAndTrap.add(mainDeckCard);
+            for (String mainDeckCard : mainDeckCards) {
+
+                if (Card.getCardByName(mainDeckCard) instanceof Monster) monsters.add(Card.getCardByName(mainDeckCard));
+                else spellAndTrap.add(Card.getCardByName(mainDeckCard));
             }
             Card.sort(monsters);
-            Card.sort(spellAndTrap);
             System.out.println("Monsters:");
             for (Card monster : monsters) {
                 System.out.println(monster.desToString());
@@ -111,12 +100,12 @@ public class Show {
         if (user.getDeckByName(deckName) != null) {
             System.out.println("Deck: " + deckName);
             System.out.println("Side deck:");
-            ArrayList<Card> sideDeckCards = userDeck.getSideDeckCards();
+            ArrayList<String> sideDeckCards = userDeck.getSideDeckCards();
             ArrayList<Card> monsters = new ArrayList<>();
             ArrayList<Card> spellAndTrap = new ArrayList<>();
-            for (Card sideDeckCard : sideDeckCards) {
-                if (sideDeckCard instanceof Monster) monsters.add(sideDeckCard);
-                else spellAndTrap.add(sideDeckCard);
+            for (String sideDeckCard : sideDeckCards) {
+                if (Card.getCardByName(sideDeckCard) instanceof Monster) monsters.add(Card.getCardByName(sideDeckCard));
+                else spellAndTrap.add(Card.getCardByName(sideDeckCard));
             }
             Card.sort(monsters);
             Card.sort(spellAndTrap);

@@ -3,6 +3,8 @@ package model.person;
 import model.Board;
 import model.card.Card;
 
+import java.util.ArrayList;
+
 public class Player {
     protected User user;
     protected int LP;
@@ -12,7 +14,11 @@ public class Player {
     public Player(User user) {
         this.user = user;
         LP = 8000;
-        if (user != null) board = new Board(user.getActiveDeck().getMainDeck());
+        ArrayList<Card> cards = new ArrayList<>();
+        for (String cardName : user.getActiveDeck().getMainDeck()) {
+            cards.add(Card.make(cardName));
+        }
+        board = new Board(cards);
     }
 
     public void decreaseLP(int amount) {
