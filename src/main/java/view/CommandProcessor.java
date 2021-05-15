@@ -57,9 +57,7 @@ public class CommandProcessor {
             if (command.matches(Enums.MainMenuCommands.ENTER_MENU.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.MainMenuCommands.ENTER_MENU.getRegex());
                 if (matcher.find()) {
-                    if (matcher.group(1).equals("Login")) {
-                        login();
-                    }
+
                     if (matcher.group(1).equals("Duel")) {
                         gameMenu();                                      //same as duel?
                     }
@@ -84,7 +82,8 @@ public class CommandProcessor {
             } else if (command.equals(Enums.MainMenuCommands.SHOW_CURRENT.getRegex())) {
                 System.out.println(MainMenu.menuName());
 
-            }
+            } else System.out.println("invalid command");
+
             command = scanner.nextLine().trim();
         }
         System.out.print("user logged out successfully!\n");

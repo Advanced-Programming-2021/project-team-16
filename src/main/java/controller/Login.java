@@ -11,7 +11,7 @@ public class Login {
         if (User.getUserByNickname(nickname) != null)
             return "user with nickname " + nickname + " already exists";
         if (!User.getPasswordWeakness(password).equals("strong")) return User.getPasswordWeakness(password);
-        new User(username, password, nickname, 100000, 0, new ArrayList<String>(), new ArrayList<String>(), null);
+        new User(username, password, nickname, 100000, 0, new ArrayList<>(), new ArrayList<>(), null);
         return "user created successfully!";
     }
 
