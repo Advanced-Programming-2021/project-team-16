@@ -58,12 +58,12 @@ public class DeckMenu {
         if (MainMenu.getCurrentUser().getDeckByName(deckName) == null)
             return "deck with name " + deckName + " does not exist";
         if (isMain) {
-            if (!MainMenu.getCurrentUser().getDeckByName(deckName).MainIsFull()) return "main deck is full";
+            if (MainMenu.getCurrentUser().getDeckByName(deckName).MainIsFull()) return "main deck is full";
             if (MainMenu.getCurrentUser().getDeckByName(deckName).isLimited(card))
                 return "there are already three cards with name " + cardName + " in deck " + deckName;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToMainDeck(card);
         } else {
-            if (!MainMenu.getCurrentUser().getDeckByName(deckName).SideIsFull()) return "side deck is full";
+            if (MainMenu.getCurrentUser().getDeckByName(deckName).SideIsFull()) return "side deck is full";
             if (MainMenu.getCurrentUser().getDeckByName(deckName).isLimited(card))
                 return "there are already three cards with name " + cardName + " in deck " + deckName;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToSideDeck(card);

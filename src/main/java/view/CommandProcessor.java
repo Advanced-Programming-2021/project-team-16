@@ -57,9 +57,7 @@ public class CommandProcessor {
             if (command.matches(Enums.MainMenuCommands.ENTER_MENU.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.MainMenuCommands.ENTER_MENU.getRegex());
                 if (matcher.find()) {
-                    if (matcher.group(1).equals("Login")) {
-                        login();
-                    }
+
                     if (matcher.group(1).equals("Duel")) {
                         gameMenu();                                      //same as duel?
                     }
