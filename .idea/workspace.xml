@@ -82,7 +82,7 @@
       <recent name="model.card" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.HeraldOfCreation">
+  <component name="RunManager" selected="Application.HeraldOfCreation"/>
     <configuration name="HeraldOfCreation" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="model.card.monster.HeraldOfCreation" />
       <module name="YuGiOh" />
