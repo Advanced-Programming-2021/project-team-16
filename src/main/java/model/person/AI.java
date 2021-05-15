@@ -19,7 +19,7 @@ public class AI extends Player {
     public AI() {
         super(null);
         board = new Board(Deck.getRandomMainDeck());
-        user = new User("AI", "", "ai", 0, 0, new ArrayList<>(), new ArrayList<>(), "");
+        user = new User("AI", "", "ai", 0, 0, new ArrayList<>(), new ArrayList<>(), null);
     }
 
     public void playMainPhase() {

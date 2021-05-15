@@ -15,30 +15,24 @@ public class User {
     private int money;
     private int score;
     private int gameScore;
-    private ArrayList<Deck> decks = new ArrayList<>();
-    private ArrayList<Card> cards = new ArrayList<>();
+    private ArrayList<Deck> decks;
     private Deck activeDeck;
     private ArrayList<String> cardNames;
-    private ArrayList<String> deckNames;
-    private String activatedDeckName;
 
     public static ArrayList<User> getAllUsers() {
         return users;
     }
 
     public User(String username, String password, String nickname, int money, int score, ArrayList<String> cardNames,
-                ArrayList<String> deckNames, String activatedDeckName) {
+                ArrayList<Deck> decks, Deck activeDeck) {
         this.money = money;
         this.score = score;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
         this.cardNames = cardNames;
-        this.deckNames = deckNames;
-        this.activatedDeckName = activatedDeckName;
-        for (String cardName : cardNames) cards.add(Card.make(cardName));
-        for (String deckName : deckNames) decks.add(Deck.getDeckByName(deckName));
-        activeDeck = Deck.getDeckByName(activatedDeckName);
+        this.decks = decks;
+        this.activeDeck = activeDeck;
         users.add(this);
     }
 
@@ -83,7 +77,6 @@ public class User {
     public void setActiveDeck(Deck deck) {
         if (this.decks.contains(deck)) {
             this.activeDeck = deck;
-            this.activatedDeckName = deck.getName();
         }
 
     }
@@ -150,6 +143,8 @@ public class User {
     }
 
     public ArrayList<Card> getCards() {
+        ArrayList<Card> cards = new ArrayList<>();
+        for (String cardName : cardNames) cards.add(Card.make(cardName));
         return cards;
     }
 
@@ -160,16 +155,13 @@ public class User {
 
     public void addDeck(Deck deck) {
         this.decks.add(deck);
-        deckNames.add(deck.getName());
     }
 
     public void removeDeck(Deck deck) {
         this.decks.remove(deck);
-        deckNames.remove(deck.getName());
     }
 
     public void addCard(Card card) {
-        this.cards.add(card);
         this.cardNames.add(card.getName());
     }
 
