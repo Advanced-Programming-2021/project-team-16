@@ -61,7 +61,7 @@ public class CommandProcessor {
                         case "Scoreboard" -> scoreboard();
                         case "Profile" -> profile();
                         case "Shop" -> shop();
-                        case "ImportAndExport" -> importExportMenu();
+                        case "Import/Export" -> importExportMenu();
                         default -> System.out.println("invalid command");
                     }
                 }
@@ -129,7 +129,7 @@ public class CommandProcessor {
                 if (matcher.find())
                     Show.showSideDeck(matcher.group(1).toLowerCase(Locale.ROOT));
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_DECK_CARDS.getRegex())) {
-                System.out.println(DeckMenu.showUsersCards());
+                DeckMenu.showUsersCards();
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_CURRENT.getRegex())) {
                 System.out.println(DeckMenu.menuName());
             } else if (command.equals(Enums.DeckMenuCommands.ENTER_MENU.getRegex()))
