@@ -86,11 +86,12 @@ public class DeckMenu {
         return "card removed form deck successfully";
     }
 
-    public static String showUsersCards() {
+    public static void showUsersCards() {
         ArrayList<Card> userCards = MainMenu.getCurrentUser().getCards();
-        Card.sort(userCards);
-        Show.showCardArray(userCards);
-        return null;
+        if (userCards != null) {
+            Card.sort(userCards);
+            Show.showCardArray(userCards);
+        }
     }
 
     public static String menuName() {

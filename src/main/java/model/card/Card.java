@@ -39,39 +39,39 @@ public abstract class Card implements Comparable<Card> {
                     "Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute" +
                     " from the field or your hand.", 10200, Monster.MonsterType.AQUARITUAL, 7, 2550, 2500,
                     Card.getCardByName("Turtle Oath"), 8);
-            case "ManEaterBug" -> new ManEaterBug();
-            case "GateGuardian" -> new GateGuardian();
+            case "Man Eater Bug" -> new ManEaterBug();
+            case "Gate Guardian" -> new GateGuardian();
             case "Scanner" -> new Scanner();
             case "Marshmallon" -> new Marshmallon();
-            case "BeastKingBarbaros" -> new BeastKingBarbaros();
+            case "Beast King Barbaros" -> new BeastKingBarbaros();
             case "Texchanger" -> new Texchanger();
-            case "TheCalculator" -> new TheCalculator();
-            case "MirageDragon" -> new MirageDragon();
-            case "new HeraldOfCreation" -> new HeraldOfCreation();
+            case "The Calculator" -> new TheCalculator();
+            case "Mirage Dragon" -> new MirageDragon();
+            case "Herald Of Creation" -> new HeraldOfCreation();
             case "Exploder Dragon" -> new GraveYardEffectMonster("Exploder Dragon", "If this card is destroyed by battle and sent to the" +
                     " Graveyard: Destroy the monster that destroyed it. Neither player takes any battle damage from attacks" +
                     " involving this attacking card.", 1000, Monster.MonsterType.DRAGON, 3, 1000, 0, false);
-            case "TerratigerTheEmpoweredWarrior" -> new TerratigerTheEmpoweredWarrior();
-            case "TheTricky" -> new TheTricky();
-            case "AdvancedRitualArt" -> new AdvancedRitualArt();
-            case "ChangeOfHeart" -> new ChangeOfHeart();
-            case "DarkHole" -> new DarkHole();
-            case "HarpiesFeatherDuster" -> new HarpiesFeatherDuster();
-            case "MessengerOfPeace" -> new MessengerOfPeace();
-            case "MonsterReborn" -> new MonsterReborn();
-            case "MysticalSpaceTyphoon" -> new MysticalSpaceTyphoon();
-            case "PotOfGreed" -> new PotOfGreed();
+            case "Terratiger The Empowered Warrior" -> new TerratigerTheEmpoweredWarrior();
+            case "The Tricky" -> new TheTricky();
+            case "Advanced Ritual Art" -> new AdvancedRitualArt();
+            case "Change of Heart" -> new ChangeOfHeart();
+            case "Dark Hole" -> new DarkHole();
+            case "Harpie's Feather Duster" -> new HarpiesFeatherDuster();
+            case "Messenger of peace" -> new MessengerOfPeace();
+            case "Monster Reborn" -> new MonsterReborn();
+            case "Mystical space typhoon" -> new MysticalSpaceTyphoon();
+            case "Pot of Greed" -> new PotOfGreed();
             case "Raigeki" -> new Raigeki();
-            case "RingOfDefense" -> new RingOfDefense();
-            case "SpellAbsorption" -> new SpellAbsorption();
-            case "SupplySquad" -> new SupplySquad();
-            case "SwordsOfRevealingLight" -> new SwordsOfRevealingLight();
+            case "Ring of defense" -> new RingOfDefense();
+            case "Spell Absorption" -> new SpellAbsorption();
+            case "Supply Squad" -> new SupplySquad();
+            case "Swords of Revealing Light" -> new SwordsOfRevealingLight();
             case "Terraforming" -> new Terraforming();
-            case "TwinTwisters" -> new TwinTwisters();
-            case "BlackPendant" -> new BlackPendant();
-            case "MagnumShield" -> new MagnumShield();
-            case "SwordOfDarkDestruction" -> new SwordOfDarkDestruction();
-            case "UnitedWeStand" -> new UnitedWeStand();
+            case "Twin Twisters" -> new TwinTwisters();
+            case "Black Pendant" -> new BlackPendant();
+            case "Magnum Shield" -> new MagnumShield();
+            case "Sword of dark destruction" -> new SwordOfDarkDestruction();
+            case "United We Stand" -> new UnitedWeStand();
             case "ClosedForest" -> new ClosedForest();
             case "Umiiruka" -> new FieldSpell("Umiiruka", "Increase the ATK of all WATER monsters by 500 points and decrease " +
                     "their DEF by 400 points.", new HashMap<Monster.MonsterType, Integer>() {{
@@ -103,16 +103,16 @@ public abstract class Card implements Comparable<Card> {
                         put(Monster.MonsterType.SPELL_CASTER, 200);
                         put(Monster.MonsterType.FAIRY, -200);
                     }});
-            case "CallOfTheHaunted" -> new CallOfTheHaunted();
-            case "MagicCylinder" -> new MagicCylinder();
-            case "MagicJammer" -> new MagicJammer();
-            case "MindCrush" -> new MindCrush();
-            case "MirrorForce" -> new MirrorForce();
-            case "NegateAttack" -> new NegateAttack();
-            case "SolemnWarning" -> new SolemnWarning();
-            case "TimeSeal" -> new TimeSeal();
-            case "TorrentialTribute" -> new TorrentialTribute();
-            case "TrapHole" -> new TrapHole();
+            case "Call Of The Haunted" -> new CallOfTheHaunted();
+            case "Magic Cylinder" -> new MagicCylinder();
+            case "Magic Jammer" -> new MagicJammer();
+            case "Mind Crush" -> new MindCrush();
+            case "Mirror Force" -> new MirrorForce();
+            case "Negate Attack" -> new NegateAttack();
+            case "Solemn Warning" -> new SolemnWarning();
+            case "Time Seal" -> new TimeSeal();
+            case "Torrential Tribute" -> new TorrentialTribute();
+            case "Trap Hole" -> new TrapHole();
             default -> Monster.clone((Monster) getCardByName(cardName));
         };
     }
