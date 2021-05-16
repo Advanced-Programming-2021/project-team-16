@@ -1,1 +1,1 @@
-[{"username":"zahra","password":"zahra81","nickname":"zar","money":98300,"score":0,"gameScore":0,"decks":[{"name":"hi","mainCardNames":["Yomi Ship"],"sideCardNames":[]}],"cardNames":["Yomi Ship"]}]
+[{"username":"zahra","password":"zahra81","nickname":"zar","money":98300,"score":0,"gameScore":0,"decks":[{"name":"hi","mainCardNames":["Yomi Ship"],"sideCardNames":[]}],"cardNames":["Yomi Ship"]},{"username":"dorsa","password":"najiii81","nickname":"dori","money":100000,"score":0,"gameScore":0,"decks":[],"cardNames":[]}]

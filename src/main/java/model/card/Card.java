@@ -55,25 +55,25 @@ public abstract class Card implements Comparable<Card> {
             case "Terratiger The Empowered Warrior" -> new TerratigerTheEmpoweredWarrior();
             case "The Tricky" -> new TheTricky();
             case "Advanced Ritual Art" -> new AdvancedRitualArt();
-            case "Change Of Heart" -> new ChangeOfHeart();
+            case "Change of Heart" -> new ChangeOfHeart();
             case "Dark Hole" -> new DarkHole();
-            case "Harpies Feather Duster" -> new HarpiesFeatherDuster();
-            case "Messenger Of Peace" -> new MessengerOfPeace();
+            case "Harpie's Feather Duster" -> new HarpiesFeatherDuster();
+            case "Messenger of peace" -> new MessengerOfPeace();
             case "Monster Reborn" -> new MonsterReborn();
-            case "Mystical Space Typhoon" -> new MysticalSpaceTyphoon();
-            case "Pot Of Greed" -> new PotOfGreed();
+            case "Mystical space typhoon" -> new MysticalSpaceTyphoon();
+            case "Pot of Greed" -> new PotOfGreed();
             case "Raigeki" -> new Raigeki();
-            case "Ring Of Defense" -> new RingOfDefense();
+            case "Ring of defense" -> new RingOfDefense();
             case "Spell Absorption" -> new SpellAbsorption();
             case "Supply Squad" -> new SupplySquad();
-            case "Swords Of Revealing Light" -> new SwordsOfRevealingLight();
+            case "Swords of Revealing Light" -> new SwordsOfRevealingLight();
             case "Terraforming" -> new Terraforming();
             case "Twin Twisters" -> new TwinTwisters();
             case "Black Pendant" -> new BlackPendant();
             case "Magnum Shield" -> new MagnumShield();
-            case "Sword Of Dark Destruction" -> new SwordOfDarkDestruction();
-            case "United WeStand" -> new UnitedWeStand();
-            case "Closed Forest" -> new ClosedForest();
+            case "Sword of dark destruction" -> new SwordOfDarkDestruction();
+            case "United We Stand" -> new UnitedWeStand();
+            case "ClosedForest" -> new ClosedForest();
             case "Umiiruka" -> new FieldSpell("Umiiruka", "Increase the ATK of all WATER monsters by 500 points and decrease " +
                     "their DEF by 400 points.", new HashMap<Monster.MonsterType, Integer>() {{
                 put(Monster.MonsterType.AQUA, 500);

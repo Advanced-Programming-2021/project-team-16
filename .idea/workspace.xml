@@ -6,16 +6,26 @@
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/decks_json.txt" beforeDir="false" afterPath="$PROJECT_DIR$/decks_json.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/DeckMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/DeckMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/UpdateStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/UpdateStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Deck.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/person/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/AI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/person/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/Enums.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Enums.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/DeckMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/DeckMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Deck.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Deck.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/Card.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/person/AI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/person/AI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/person/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/person/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/person/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/person/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/CommandProcessor$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/CommandProcessor$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/CommandProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/CommandProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/Enums$DeckMenuCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums$DeckMenuCommands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/Show.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Show.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users_json.txt" beforeDir="false" afterPath="$PROJECT_DIR$/users_json.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -193,13 +203,6 @@
       <workItem from="1620825787801" duration="2377000" />
       <workItem from="1620897452283" duration="23213000" />
       <workItem from="1620897452283" duration="32234000" />
-    </task>
-    <task id="LOCAL-00008" summary="changes">
-      <created>1618584252661</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1618584252661</updated>
     </task>
     <task id="LOCAL-00009" summary="2 monsters + changes in Board &amp; Game">
       <created>1618588313040</created>
@@ -537,7 +540,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621101654322</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="debug">
+      <created>1621179564171</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1621179564171</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -556,7 +566,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="work on spells and some detail changes" />
     <MESSAGE value="attack -&gt; Texchanger" />
     <MESSAGE value="login completed" />
     <MESSAGE value="profile and scoreboard completed" />
@@ -581,7 +590,8 @@
     <MESSAGE value="sort" />
     <MESSAGE value="changes" />
     <MESSAGE value="deck changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="deck changes" />
+    <MESSAGE value="debug" />
+    <option name="LAST_COMMIT_MESSAGE" value="debug" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
