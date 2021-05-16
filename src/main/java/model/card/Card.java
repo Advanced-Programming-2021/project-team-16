@@ -25,7 +25,7 @@ public abstract class Card implements Comparable<Card> {
 
     public static Card make(String cardName) {
         //... all cards in update status except Monster(...)
-        Card card = switch (cardName) {
+        return switch (cardName) {
             case "Command Knight" -> new CommandKnight();
             case "Yomi Ship" -> new GraveYardEffectMonster("Yomi Ship", "If this card is destroyed by battle and sent to the GY: " +
                     "Destroy the monster that destroyed this card.", 1700, Monster.MonsterType.AQUA, 3, 800,
@@ -116,7 +116,6 @@ public abstract class Card implements Comparable<Card> {
             case "TrapHole" -> new TrapHole();
             default -> Monster.clone((Monster) getCardByName(cardName));
         };
-        return card;
     }
 
     public int getPrice() {
@@ -130,6 +129,7 @@ public abstract class Card implements Comparable<Card> {
         for (Card card : cards) if (card.getName().equals(this.getName())) return;
         cards.add(this);
     }
+
 
     public static Card getCardByName(String name) {
         for (Card card : cards) {

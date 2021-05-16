@@ -7,10 +7,7 @@ import model.card.Card;
 import model.person.AI;
 import model.person.User;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +28,7 @@ public class CommandProcessor {
     }
 
     public static void login() {
+        System.out.print("welcome to duel links!\n");
         HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.matches(Enums.LoginCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.matches(Enums.LoginCommands.LOGIN.getRegex())) {
@@ -57,28 +55,14 @@ public class CommandProcessor {
             if (command.matches(Enums.MainMenuCommands.ENTER_MENU.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.MainMenuCommands.ENTER_MENU.getRegex());
                 if (matcher.find()) {
-                    if (matcher.group(1).equals("Login")) {
-                        login();
-                    }
-                    if (matcher.group(1).equals("Duel")) {
-                        gameMenu();                                      //same as duel?
-                    }
-                    if (matcher.group(1).equals("Deck")) {
-                        deckMenu();
-                    }
-                    if (matcher.group(1).equals("Scoreboard")) {
-                        scoreboard();
-                    }
-                    if (matcher.group(1).equals("Profile")) {
-                        profile();
-                    }
-                    if (matcher.group(1).equals("Shop")) {
-                        shop();
-                    }
-                    if (matcher.group(1).equals("ImportAndExport")) {
-                        importExportMenu();
-                    } else {
-                        System.out.println("invalid command");
+                    switch (matcher.group(1)) {
+                        case "Duel" -> gameMenu();
+                        case "Deck" -> deckMenu();
+                        case "Scoreboard" -> scoreboard();
+                        case "Profile" -> profile();
+                        case "Shop" -> shop();
+                        case "ImportAndExport" -> importExportMenu();
+                        default -> System.out.println("invalid command");
                     }
                 }
             } else if (command.equals(Enums.MainMenuCommands.SHOW_CURRENT.getRegex())) {
@@ -117,37 +101,33 @@ public class CommandProcessor {
             if (command.matches(Enums.DeckMenuCommands.CREATE_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.CREATE_DECK.getRegex());
                 if (matcher.find())
-                    System.out.println(DeckMenu.create(matcher.group(1)));
+                    System.out.println(DeckMenu.create(matcher.group(1).toLowerCase(Locale.ROOT)));
             } else if (command.matches(Enums.DeckMenuCommands.DELETE_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.DELETE_DECK.getRegex());
                 if (matcher.find())
-                    System.out.println(DeckMenu.delete(matcher.group(1)));
-            } else if (command.matches((Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex()))) {
-                data = getCommandData(command);
-                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), true));
-            } else if (command.matches(Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())) {
-                data = getCommandData(command);
-                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), false));
-            } else if (command.matches(Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())) {
-                data = getCommandData(command);
-                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), true));
-            } else if (command.matches(Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())) {
-                data = getCommandData(command);
-                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), false));
+                    System.out.println(DeckMenu.delete(matcher.group(1).toLowerCase(Locale.ROOT)));
+            } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex())).find()) {
+                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2).toLowerCase(Locale.ROOT), true));
+            } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())).find()) {
+                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2).toLowerCase(Locale.ROOT), false));
+            } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())).find()) {
+                System.out.println(DeckMenu.removeCardFromDeck(matcher.group(1), matcher.group(2).toLowerCase(Locale.ROOT), true));
+            } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())).find()) {
+                System.out.println(DeckMenu.removeCardFromDeck(matcher.group(1), matcher.group(2).toLowerCase(Locale.ROOT), false));
             } else if (command.matches(Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex());
                 if (matcher.find())
-                    System.out.println(DeckMenu.activate(matcher.group(1)));
+                    System.out.println(DeckMenu.activate(matcher.group(1).toLowerCase(Locale.ROOT)));
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_ALL_DECKS.getRegex())) {
                 Show.showAllDecks();
             } else if (command.matches(Enums.DeckMenuCommands.SHOW_MAIN_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_MAIN_DECK.getRegex());
                 if (matcher.find())
-                    Show.showMainDeck(matcher.group(1));
+                    Show.showMainDeck(matcher.group(1).toLowerCase(Locale.ROOT));
             } else if (command.matches(Enums.DeckMenuCommands.SHOW_SIDE_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_SIDE_DECK.getRegex());
                 if (matcher.find())
-                    Show.showSideDeck(matcher.group(1));
+                    Show.showSideDeck(matcher.group(1).toLowerCase(Locale.ROOT));
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_DECK_CARDS.getRegex())) {
                 System.out.println(DeckMenu.showUsersCards());
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_CURRENT.getRegex())) {
@@ -162,6 +142,11 @@ public class CommandProcessor {
     }
 
     private static void profile() {
+        User user = MainMenu.getCurrentUser();
+        System.out.println("username: " + user.getUsername());
+        System.out.println("nick name: " + user.getNickname());
+        System.out.println("score: " + user.getScore());
+        System.out.println("money: " + user.getMoney());
         HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.ProfileCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.equals(Enums.ProfileCommands.SHOW_CURRENT.getRegex()))

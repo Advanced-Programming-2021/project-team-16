@@ -19,7 +19,7 @@ public class AI extends Player {
     public AI() {
         super(null);
         board = new Board(Deck.getRandomMainDeck());
-        user = new User("AI", "", "ai", 0, 0, new ArrayList<>(), new ArrayList<>(), "");
+        user = new User("AI", "", "ai");
     }
 
     public void playMainPhase() {
@@ -30,22 +30,22 @@ public class AI extends Player {
     public void setOrSummon() {
         Game game = GameMenu.getCurrentGame();
         Card[] hand = board.getHand();
-        ArrayList<Integer> notTriedIndexes = new ArrayList<>();
+        ArrayList<Integer> monsterIndexes = new ArrayList<>();
         for (int i = 0; i < hand.length; i++) {
-            if (hand[i] instanceof Monster) notTriedIndexes.add(i);
+            if (hand[i] instanceof Monster) monsterIndexes.add(i);
         }
-        for (int i = notTriedIndexes.size() - 1; i > 0; i--)
+        for (int i = monsterIndexes.size() - 1; i > 0; i--)
             for (int j = 0; j < i; j++)
-                if (((Monster) hand[notTriedIndexes.get(j)]).getLevel() < ((Monster) hand[notTriedIndexes.get(j + 1)]).getLevel())
-                    Collections.swap(notTriedIndexes, j, j + 1);
-        for (Integer notTriedIndex : notTriedIndexes) {
+                if (((Monster) hand[monsterIndexes.get(j)]).getLevel() < ((Monster) hand[monsterIndexes.get(j + 1)]).getLevel())
+                    Collections.swap(monsterIndexes, j, j + 1);
+        for (Integer monsterIndex : monsterIndexes) {
             if (game.hasSummonedOrSet()) break;
-            game.selectCard(Board.Zone.HAND, notTriedIndex, false);
+            game.selectCard(Board.Zone.HAND, monsterIndex, false);
             game.summon();
         }
         for (int i = 0; i < hand.length; i++) {
             if (game.hasSummonedOrSet()) break;
-            if (hand[i] != null && hand[i] instanceof Trap) {
+            if (hand[i] instanceof Trap) {
                 game.selectCard(Board.Zone.HAND, i, false);
                 game.set();
             }

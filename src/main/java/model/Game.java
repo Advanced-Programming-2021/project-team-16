@@ -22,13 +22,13 @@ public class Game {
     private Card selectedCard;
     private Board.Zone selectedZone;
     private int selectedZoneIndex;
-    private boolean isSelectedCardForRival = false; //TODO : tasir dadane in tooye tavabe
+    private boolean isSelectedCardForRival = false;
     private Player currentPlayer;
     private Player rival;
     private Player winner;
     private Player loser;
     private Phase currentPhase;
-    private boolean hasSummonedOrSet; //TODO : tasir dadane in tooye tavabe
+    private boolean hasSummonedOrSet;
     private ArrayList<Card> setInThisPhase = new ArrayList<>();
 
     public Game(Player player1, Player player2, int round) {
