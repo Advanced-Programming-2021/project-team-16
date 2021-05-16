@@ -322,7 +322,7 @@ public class Game {
                 if (selectedCard instanceof BeastKingBarbaros) {
                     if (CommandProcessor.yesNoQuestion("do you want to normally set" + selectedCard.getName() + "? (this will make it's ATK 1900)"))
                         ((BeastKingBarbaros) selectedCard).normalSummonOrSet();
-                    else if (CommandProcessor.yesNoQuestion("do tou want to special summon it?"))
+                    else if (CommandProcessor.yesNoQuestion("do you want to special summon it?"))
                         return specialSummon();
                     else return "set cancelled";
                 } else if (CommandProcessor.yesNoQuestion("you can't normally set this. do you want to special summon?"))

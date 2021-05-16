@@ -8,7 +8,6 @@ public class Scoreboard {
         User.sort(User.getAllUsers());
         Show.showScoreBoard(User.getAllUsers());
     }
-
     public static String menuName() {
         return "Scoreboard Menu";
     }

@@ -37,7 +37,7 @@ public class User {
 
     public static void sort(ArrayList<User> users) {
         boolean change = true;
-        for (int i = users.size(); i > 0 && change; i--) {
+        for (int i = users.size() - 1; i > 0 && change; i--) {
             change = false;
             for (int j = 0; j < i; j++)
                 if (users.get(j).score < users.get(j + 1).score ||
