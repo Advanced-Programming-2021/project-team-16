@@ -4,6 +4,7 @@ import controller.GameMenu;
 import controller.MainMenu;
 import model.Board;
 import model.Deck;
+import model.Game;
 import model.Phase;
 import model.card.Card;
 import model.card.monster.Monster;
@@ -59,12 +60,28 @@ public class Show {
         int rate = 1;
         System.out.println(rate + "-" + users.get(0).toString());
         for (int i = 2; i <= users.size(); i++) {
-            if (users.get(i - 1).getMoney() != users.get(i - 2).getMoney())
+            if (users.get(i - 1).getScore() != users.get(i - 2).getScore())
                 rate = i;
             System.out.println(rate + "-" + users.get(i - 1).toString());
         }
     }
 
+
+    public static void showGraveYard() {
+        Game game = GameMenu.getCurrentGame();
+        ArrayList<Card> currentGrave = game.getCurrentPlayer().getBoard().getGrave();
+        ArrayList<Card> rival = game.getRival().getBoard().getGrave();
+        if (currentGrave.size() == 0) System.out.println("your graveyard is empty");
+        else {
+            System.out.println("your graveyard:");
+            Show.showCardArray(game.getCurrentPlayer().getBoard().getGrave());
+        }
+        if (rival.size() == 0) System.out.println("rival's graveyard is empty");
+        else {
+            System.out.println("rival's graveyard:");
+            Show.showCardArray(game.getRival().getBoard().getGrave());
+        }
+    }
 
     public static void showMainDeck(String deckName) {
 

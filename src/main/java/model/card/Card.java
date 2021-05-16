@@ -24,7 +24,6 @@ public abstract class Card implements Comparable<Card> {
     public Random random = new Random();
 
     public static Card make(String cardName) {
-        //... all cards in update status except Monster(...)
         return switch (cardName) {
             case "Command Knight" -> new CommandKnight();
             case "Yomi Ship" -> new GraveYardEffectMonster("Yomi Ship", "If this card is destroyed by battle and sent to the GY: " +

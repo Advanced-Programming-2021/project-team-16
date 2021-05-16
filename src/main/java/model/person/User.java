@@ -14,7 +14,6 @@ public class User {
     private String nickname;
     private int money;
     private int score;
-    private int gameScore;
     private ArrayList<Deck> decks = new ArrayList<>();
     private Deck activeDeck;
     private ArrayList<String> cardNames = new ArrayList<>();
@@ -25,13 +24,9 @@ public class User {
 
     public User(String username, String password, String nickname) {
         this.money = 100000;
-//        this.score = score;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
-//        this.cardNames = cardNames;
-//        this.decks = decks;
-//        this.activeDeck = activeDeck;
         users.add(this);
     }
 
@@ -92,9 +87,6 @@ public class User {
         this.score += amount;
     }
 
-    public void increaseGameScore(int amount) {
-        this.gameScore += amount;
-    }
 
     public void setPassword(String newPass) {
         this.password = newPass;
@@ -104,9 +96,6 @@ public class User {
         this.nickname = newNickname;
     }
 
-    public void setGameScore(int amount) {
-        this.gameScore = amount;
-    }
 
     public String getUsername() {
         return username;
@@ -124,9 +113,6 @@ public class User {
         return money;
     }
 
-    public int getGameScore() {
-        return gameScore;
-    }
 
 
     public ArrayList<Deck> getDecks() {

@@ -1,14 +1,15 @@
 package model.card.monster;
 
 import controller.GameMenu;
+import model.Board;
 import model.Game;
-import model.card.Card;
+import model.card.Activatable;
 import model.person.Player;
+import view.CommandProcessor;
 
 import java.util.ArrayList;
 
-public class Scanner extends Monster {
-    private Card replacement;
+public class Scanner extends Monster implements Activatable {
     private int monsterZoneIndex;
     private Player player;
     private static ArrayList<Scanner> activatedScanners = new ArrayList<>();
@@ -22,16 +23,18 @@ public class Scanner extends Monster {
     }
 
 
-    public String setReplacement(String replacementName, int monsterZoneIndex) {
+    public String action() {
         Game game = GameMenu.getCurrentGame();
-        Card replacement = getCardByName(replacementName);
-        if (!(replacement instanceof Monster)) return "This is not a monster.";
-        ArrayList<Card> rivalGrave = game.getRival().getBoard().getGrave();
-        if (!rivalGrave.contains(replacement)) return "This card is not in rival's graveyard.";
-        this.replacement = replacement;
+        Board board = game.getRival().getBoard();
+        if (!board.doesGraveHaveMonster() || game.getCurrentPlayer().getBoard().isZoneFull(Board.Zone.MONSTER))
+            return "there is no way you could special summon a monster";
+        int monsterZoneIndex = game.getSelectedZoneIndex();
+        int replacementIndex = CommandProcessor.getMonsterFromGrave(false);
+        if (replacementIndex == -1) return "cancelled";
+        Monster replacement = (Monster) game.getRival().getBoard().getCardByIndexAndZone(replacementIndex, Board.Zone.GRAVE);
         this.player = game.getCurrentPlayer();
         this.monsterZoneIndex = monsterZoneIndex;
-        game.getCurrentPlayer().getBoard().getMonsterZone()[monsterZoneIndex] = (Monster) replacement;
+        game.getCurrentPlayer().getBoard().getMonsterZone()[monsterZoneIndex] = replacement;
         activatedScanners.add(this);
         return "Replaced successfully.";
     }
