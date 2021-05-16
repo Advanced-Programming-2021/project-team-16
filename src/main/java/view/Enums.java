@@ -143,7 +143,7 @@ public class Enums {
     }
 
     public enum GameMenuCommands {
-        DUEL("duel --new (--second-player (\\w+) --rounds (\\d+) |--rounds (\\d+) --second-player (\\w+))"),
+        DUEL("duel --new (--second-player (\\w+) --rounds (\\d+)|--rounds (\\d+) --second-player (\\w+))"),
         AI_DUEL("duel --new (--ai --rounds (\\d+)|--rounds (\\d+) --ai)"),
         SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.+)"),
