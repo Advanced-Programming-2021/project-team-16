@@ -13,6 +13,7 @@
         <maven.compiler.target>15</maven.compiler.target>
     </properties>
 
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -21,6 +22,11 @@
                 <version>5.7.1</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.opencsv</groupId>
+                <artifactId>opencsv</artifactId>
+                <version>5.4</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -38,7 +44,6 @@
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 
     <build>

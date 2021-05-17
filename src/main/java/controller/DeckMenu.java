@@ -5,11 +5,12 @@ import model.card.Card;
 import view.Show;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class DeckMenu {
     public static String create(String name) {
 
-        if (MainMenu.getCurrentUser().getDeckByName(name) != null) {
+        if (MainMenu.getCurrentUser().getDeckByName(name.toLowerCase(Locale.ROOT)) != null) {
             return "deck with name " + name + " already exists";
         } else {
             Deck deck = new Deck(name);
