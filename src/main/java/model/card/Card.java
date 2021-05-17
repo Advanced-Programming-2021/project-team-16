@@ -39,7 +39,7 @@ public abstract class Card implements Comparable<Card> {
                     "Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute" +
                     " from the field or your hand.", 10200, Monster.MonsterType.AQUARITUAL, 7, 2550, 2500,
                     Card.getCardByName("Turtle Oath"), 8);
-            case "Man Eater Bug" -> new ManEaterBug();
+            case "Man-Eater Bug" -> new ManEaterBug();
             case "Gate Guardian" -> new GateGuardian();
             case "Scanner" -> new Scanner();
             case "Marshmallon" -> new Marshmallon();
@@ -47,11 +47,11 @@ public abstract class Card implements Comparable<Card> {
             case "Texchanger" -> new Texchanger();
             case "The Calculator" -> new TheCalculator();
             case "Mirage Dragon" -> new MirageDragon();
-            case "Herald Of Creation" -> new HeraldOfCreation();
+            case "Herald of Creation" -> new HeraldOfCreation();
             case "Exploder Dragon" -> new GraveYardEffectMonster("Exploder Dragon", "If this card is destroyed by battle and sent to the" +
                     " Graveyard: Destroy the monster that destroyed it. Neither player takes any battle damage from attacks" +
                     " involving this attacking card.", 1000, Monster.MonsterType.DRAGON, 3, 1000, 0, false);
-            case "Terratiger The Empowered Warrior" -> new TerratigerTheEmpoweredWarrior();
+            case "Terratiger, the Empowered Warrior" -> new TerratigerTheEmpoweredWarrior();
             case "The Tricky" -> new TheTricky();
             case "Advanced Ritual Art" -> new AdvancedRitualArt();
             case "Change of Heart" -> new ChangeOfHeart();
@@ -77,7 +77,7 @@ public abstract class Card implements Comparable<Card> {
                     "their DEF by 400 points.", new HashMap<Monster.MonsterType, Integer>() {{
                 put(Monster.MonsterType.AQUA, 500);
             }},
-                    new HashMap<Monster.MonsterType, Integer>() {{
+                    new HashMap<>() {{
                         put(Monster.MonsterType.AQUA, -400);
                     }});
             case "Forest" -> new FieldSpell("Forest", "All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.",
@@ -86,33 +86,33 @@ public abstract class Card implements Comparable<Card> {
                         put(Monster.MonsterType.BEAST_WARRIOR, 200);
                         put(Monster.MonsterType.INSECT, 200);
                     }},
-                    new HashMap<Monster.MonsterType, Integer>() {{
+                    new HashMap<>() {{
                         put(Monster.MonsterType.BEAST, 200);
                         put(Monster.MonsterType.BEAST_WARRIOR, 200);
                         put(Monster.MonsterType.INSECT, 200);
                     }});
             case "Yami" -> new FieldSpell("Yami", "All Fiend and Spellcaster monsters on the field gain 200 ATK/DEF, also " +
                     "all Fairy monsters on the field lose 200 ATK/DEF.",
-                    new HashMap<Monster.MonsterType, Integer>() {{
+                    new HashMap<>() {{
                         put(Monster.MonsterType.FIEND, 200);
                         put(Monster.MonsterType.SPELL_CASTER, 200);
                         put(Monster.MonsterType.FAIRY, -200);
                     }},
-                    new HashMap<Monster.MonsterType, Integer>() {{
+                    new HashMap<>() {{
                         put(Monster.MonsterType.FIEND, 200);
                         put(Monster.MonsterType.SPELL_CASTER, 200);
                         put(Monster.MonsterType.FAIRY, -200);
                     }});
-            case "Call Of The Haunted" -> new CallOfTheHaunted();
-            case "Magic Cylinder" -> new MagicCylinder();
-            case "Magic Jammer" -> new MagicJammer();
-            case "Mind Crush" -> new MindCrush();
-            case "Mirror Force" -> new MirrorForce();
-            case "Negate Attack" -> new NegateAttack();
-            case "Solemn Warning" -> new SolemnWarning();
-            case "Time Seal" -> new TimeSeal();
-            case "Torrential Tribute" -> new TorrentialTribute();
-            case "Trap Hole" -> new TrapHole();
+            case "CallOfTheHaunted" -> new CallOfTheHaunted();
+            case "MagicCylinder" -> new MagicCylinder();
+            case "MagicJammer" -> new MagicJammer();
+            case "MindCrush" -> new MindCrush();
+            case "MirrorForce" -> new MirrorForce();
+            case "NegateAttack" -> new NegateAttack();
+            case "SolemnWarning" -> new SolemnWarning();
+            case "TimeSeal" -> new TimeSeal();
+            case "TorrentialTribute" -> new TorrentialTribute();
+            case "TrapHole" -> new TrapHole();
             default -> Monster.clone((Monster) getCardByName(cardName));
         };
     }

@@ -39,7 +39,7 @@ public class Show {
             System.out.println("Level: " + monster.getLevel());
             System.out.println("Type: " + monster.getMonsterType());
             System.out.println("ATK: " + monster.getATK());
-            System.out.println("DEF" + monster.getDEF());
+            System.out.println("DEF: " + monster.getDEF());
             System.out.println("Description: " + monster.getDescription());
         } else if (card instanceof Spell) {
             Spell spell = (Spell) card;

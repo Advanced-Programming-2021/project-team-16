@@ -134,7 +134,7 @@ public class CommandProcessor {
                 DeckMenu.showUsersCards();
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_CURRENT.getRegex())) {
                 System.out.println(DeckMenu.menuName());
-            } else if (command.equals(Enums.DeckMenuCommands.ENTER_MENU.getRegex()))
+            } else if (command.matches(Enums.DeckMenuCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
             else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_CARD.getRegex())).find())
                 Show.showSingleCard(matcher.group(1));
@@ -153,7 +153,7 @@ public class CommandProcessor {
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.ProfileCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.equals(Enums.ProfileCommands.SHOW_CURRENT.getRegex()))
                 System.out.println(Profile.menuName());
-            else if (command.equals(Enums.ProfileCommands.ENTER_MENU.getRegex()))
+            else if (command.matches(Enums.ProfileCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
             else if (command.matches(Enums.ProfileCommands.CHANGE_NICKNAME.getRegex())) {
                 data = getCommandData(command);
@@ -170,7 +170,7 @@ public class CommandProcessor {
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.GameMenuCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.equals(Enums.GameMenuCommands.SHOW_CURRENT.getRegex()))
                 System.out.println(GameMenu.menuName());
-            else if (command.equals(Enums.GameMenuCommands.ENTER_MENU.getRegex()))
+            else if (command.matches(Enums.GameMenuCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
             else if (command.matches(Enums.GameMenuCommands.DUEL.getRegex())) {
                 data = getCommandData(command);

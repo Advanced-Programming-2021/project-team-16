@@ -197,7 +197,7 @@ public class UpdateStatus {
                 "their DEF by 400 points.", new HashMap<Monster.MonsterType, Integer>() {{
             put(Monster.MonsterType.AQUA, 500);
         }},
-                new HashMap<Monster.MonsterType, Integer>() {{
+                new HashMap<>() {{
                     put(Monster.MonsterType.AQUA, -400);
                 }});
         new FieldSpell("Forest", "All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.",
@@ -206,19 +206,19 @@ public class UpdateStatus {
                     put(Monster.MonsterType.BEAST_WARRIOR, 200);
                     put(Monster.MonsterType.INSECT, 200);
                 }},
-                new HashMap<Monster.MonsterType, Integer>() {{
+                new HashMap<>() {{
                     put(Monster.MonsterType.BEAST, 200);
                     put(Monster.MonsterType.BEAST_WARRIOR, 200);
                     put(Monster.MonsterType.INSECT, 200);
                 }});
         new FieldSpell("Yami", "All Fiend and Spellcaster monsters on the field gain 200 ATK/DEF, also " +
                 "all Fairy monsters on the field lose 200 ATK/DEF.",
-                new HashMap<Monster.MonsterType, Integer>() {{
+                new HashMap<>() {{
                     put(Monster.MonsterType.FIEND, 200);
                     put(Monster.MonsterType.SPELL_CASTER, 200);
                     put(Monster.MonsterType.FAIRY, -200);
                 }},
-                new HashMap<Monster.MonsterType, Integer>() {{
+                new HashMap<>() {{
                     put(Monster.MonsterType.FIEND, 200);
                     put(Monster.MonsterType.SPELL_CASTER, 200);
                     put(Monster.MonsterType.FAIRY, -200);

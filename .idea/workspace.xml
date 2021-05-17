@@ -4,17 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
+    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="made a user,debugged cards">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/BeastKingBarbaros.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/BeastKingBarbaros.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/DarkHole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/DarkHole.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/HarpiesFeatherDuster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/HarpiesFeatherDuster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/MessengerOfPeace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/MessengerOfPeace.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Raigeki.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/Raigeki.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/Spell.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/Spell.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/UtilActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/UtilActions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/CommandKnight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/CommandKnight.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/DeckMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/DeckMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Login.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/Scoreboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Scoreboard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Deck.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Deck.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/Card.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/person/AI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/person/AI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/person/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/person/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/person/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/person/User.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/CommandProcessor$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/CommandProcessor$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/CommandProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/CommandProcessor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/Enums$DeckMenuCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums$DeckMenuCommands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/Enums$GameMenuCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums$GameMenuCommands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/Show.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Show.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,6 +99,19 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="YuGiOh" />
@@ -178,8 +205,13 @@
       <workItem from="1620825787801" duration="2377000" />
       <workItem from="1620897452283" duration="23213000" />
       <workItem from="1620897452283" duration="32234000" />
-      <workItem from="1621166194214" duration="26905000" />
-      <workItem from="1621238237066" duration="3297000" />
+    </task>
+    <task id="LOCAL-00010" summary="2 monsters">
+      <created>1618595569571</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1618595569571</updated>
     </task>
     <task id="LOCAL-00011" summary="changes in GraveYardEffectMonster">
       <created>1618598341468</created>
@@ -503,28 +535,21 @@
       <option name="project" value="LOCAL" />
       <updated>1621101654322</updated>
     </task>
-    <task id="LOCAL-00057" summary="deck changes">
-      <created>1621108137188</created>
+    <task id="LOCAL-00057" summary="debug">
+      <created>1621179564171</created>
       <option name="number" value="00057" />
       <option name="presentableId" value="LOCAL-00057" />
       <option name="project" value="LOCAL" />
-      <updated>1621108137189</updated>
+      <updated>1621179564171</updated>
     </task>
-    <task id="LOCAL-00058" summary="many changes">
-      <created>1621194229628</created>
+    <task id="LOCAL-00058" summary="made a user,debugged cards">
+      <created>1621188405817</created>
       <option name="number" value="00058" />
       <option name="presentableId" value="LOCAL-00058" />
       <option name="project" value="LOCAL" />
-      <updated>1621194229628</updated>
+      <updated>1621188405817</updated>
     </task>
-    <task id="LOCAL-00059" summary="many changes">
-      <created>1621194318361</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1621194318361</updated>
-    </task>
-    <option name="localTasksCounter" value="60" />
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -543,7 +568,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="attack -&gt; Texchanger" />
     <MESSAGE value="login completed" />
     <MESSAGE value="profile and scoreboard completed" />
     <MESSAGE value="getCommandData" />
@@ -567,8 +591,9 @@
     <MESSAGE value="sort" />
     <MESSAGE value="changes" />
     <MESSAGE value="deck changes" />
-    <MESSAGE value="many changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="many changes" />
+    <MESSAGE value="debug" />
+    <MESSAGE value="made a user,debugged cards" />
+    <option name="LAST_COMMIT_MESSAGE" value="made a user,debugged cards" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

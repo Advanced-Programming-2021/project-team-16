@@ -60,12 +60,6 @@ public class Board {
         return -1;
     }
 
-    public int howManyMonsters() {
-        int numberOfMonsters = 0;
-        for (Monster monster : monsterZone) if (monster != null) numberOfMonsters++;
-        return numberOfMonsters;
-    }
-
     public int getIndexOfCard(String cardName, Zone zone) {
         //zone = monster | spell&trap
         if (zone == Zone.MONSTER)
