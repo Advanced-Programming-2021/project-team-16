@@ -20,6 +20,7 @@ import java.util.Map;
 
 
 public class Game {
+    private int round;
     private Card selectedCard;
     private Board.Zone selectedZone;
     private int selectedZoneIndex;
@@ -36,6 +37,11 @@ public class Game {
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
         this.rival = player1;
+        this.round = round;
+
+    }
+
+    public void play() {
         if (round == 1) {
             while (winner == null) {
                 run(rival, currentPlayer);
@@ -44,15 +50,13 @@ public class Game {
 
         } else {
             HashMap<Player, Integer> winnerAndLp = new HashMap<>();
-            this.currentPlayer = player2;
-            this.rival = player1;
             int currentRound = 0;
             while (getMatchWinner(winnerAndLp) == null) {
                 currentRound++;
                 Show.showImportantGameMessage("round " + currentRound);
                 winner = null;
-                player1.setLP(8000);
-                player2.setLP(8000);
+                currentPlayer.setLP(8000);
+                rival.setLP(8000);
                 while (winner == null) {
                     run(rival, currentPlayer);
                 }
@@ -61,7 +65,7 @@ public class Game {
                 winnerAndLp.put(winner, winner.getLP());
             }
             winner = getMatchWinner(winnerAndLp);
-            loser = (winner == player1) ? player2 : player1;
+            loser = (winner == currentPlayer) ? rival : currentPlayer;
             int maxLp = 0;
             for (Map.Entry<Player, Integer> player : winnerAndLp.entrySet()) {
                 if (player.getKey() == winner && maxLp < player.getValue()) maxLp = player.getValue();
