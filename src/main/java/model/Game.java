@@ -104,9 +104,6 @@ public class Game {
             if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
         for (Card card : rival.getBoard().getSpellAndTrapZone())
             if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
-        //ring of defence
-        //negate attack
-        selectedCard = null;
         setCurrentPhase(Phase.DRAW);
         Show.showGameMessage(drawCard());
         if (didSbWin()) return;
@@ -379,6 +376,11 @@ public class Game {
         if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
         if (currentPhase != Phase.BATTLE) return "you can’t do this action in this phase";
         if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
+        if (attacking.getATK() >= 1500) {
+            for (Card card : rival.getBoard().getSpellAndTrapZone())
+                if (card instanceof MessengerOfPeace && ((MessengerOfPeace) card).isActivated())
+                    return ((MessengerOfPeace) card).getMessage();
+        }
         if (monsterNumber == -1) return attackDirectly();
         Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
         if (attacked instanceof Texchanger && !((Texchanger) attacked).isAttacked()) {
@@ -566,10 +568,12 @@ public class Game {
                 }
             }
             case FIELD_SPELL -> {
-                if (position == Board.CardPosition.ACTIVATED)
+                if (position == Board.CardPosition.ACTIVATED) {
                     ((FieldSpell) card).action(false);
+                    if (rival.getBoard().getFieldSpell().isActivated())
+                        removeCardFromZone(rival.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, rival.getBoard());
+                }
                 removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
-                removeCardFromZone(rival.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, rival.getBoard());
                 board.setFieldSpell(((FieldSpell) card));
             }
             case SPELL_AND_TRAP -> {
@@ -599,6 +603,7 @@ public class Game {
             case FIELD_SPELL -> {
                 if (card != null && ((FieldSpell) card).isActivated()) ((FieldSpell) card).action(true);
                 board.setFieldSpell(null);
+                putCardInZone(card, Board.Zone.GRAVE, null, board);
             }
             default -> {
                 ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();

@@ -6,7 +6,6 @@ import model.Game;
 import model.card.monster.Monster;
 
 public class DarkHole extends Spell {
-    private boolean isAtivated = false;
 
     public DarkHole() {
         super("Dark Hole", "Spell", SpellType.NORMAL
@@ -18,21 +17,14 @@ public class DarkHole extends Spell {
         Board board = game.getCurrentPlayer().getBoard();
         for (int index = 0; index < board.getMonsterZone().length; index++) {
             Monster monster = board.getMonsterZone()[index];
-            if (monster != null) game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
-            game.removeCardFromZone(monster, Board.Zone.MONSTER, index, board);
+            if (monster != null) {
+                game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
+                game.removeCardFromZone(monster, Board.Zone.MONSTER, index, board);
+            }
         }
-        board = game.getRival().getBoard();
-        for (int index = 0; index < board.getMonsterZone().length; index++) {
-            Monster monster = board.getMonsterZone()[index];
-            if (monster != null) game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
-            game.removeCardFromZone(monster, Board.Zone.MONSTER, index, board);
-        }
-        isAtivated = true;
-        super.action();
-        return null;
+        UtilActions.removeRivalCards(Board.Zone.MONSTER);
+        return super.action() + "and all monsters are destroyed";
+
     }
 
-    public boolean isActivated() {
-        return isAtivated;
-    }
 }

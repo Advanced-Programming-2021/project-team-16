@@ -68,7 +68,7 @@ public class Spell extends Card implements Activatable {
             } else
                 game.putCardInZone(game.getSelectedCard(), Board.Zone.GRAVE, Board.CardPosition.ACTIVATED, game.getCurrentPlayer().getBoard());
         }
-        return null;
+        return this.getName() + " activated ";
     }
 
     public boolean isActivated() {

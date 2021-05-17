@@ -20,4 +20,23 @@ public class UtilActions {
         }
         return null;
     }
+
+    public static void removeRivalCards(Board.Zone zone) {
+        Card[] cards;
+        Game game = GameMenu.getCurrentGame();
+        Board board = game.getRival().getBoard();
+        if (zone == Board.Zone.MONSTER) cards = board.getMonsterZone();
+        else if (zone == Board.Zone.SPELL_AND_TRAP) cards = board.getSpellAndTrapZone();
+        else if (zone == Board.Zone.FIELD_SPELL) {
+            game.removeCardFromZone(board.getFieldSpell(), Board.Zone.FIELD_SPELL, 0, board);
+            return;
+        } else return;
+        for (int index = 0; index < cards.length; index++) {
+            Card card = cards[index];
+            if (card != null) {
+                game.putCardInZone(card, Board.Zone.GRAVE, null, board);
+                game.removeCardFromZone(card, Board.Zone.MONSTER, index, board);
+            }
+        }
+    }
 }

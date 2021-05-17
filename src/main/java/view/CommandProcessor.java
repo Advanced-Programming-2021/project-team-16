@@ -96,7 +96,6 @@ public class CommandProcessor {
     }
 
     private static void deckMenu() {
-        HashMap<String, String> data;
         Matcher matcher;
         String command = scanner.nextLine().trim();
         while (!command.equals(Enums.DeckMenuCommands.EXIT.getRegex())) {
@@ -281,9 +280,9 @@ public class CommandProcessor {
                 System.out.println(Enums.GAME_HELP_BATTLE);
             else System.out.println("invalid command");
             Show.showBoard();
-            game.setSelectedCard(null);
             if (game.didSbWin()) return;
         }
+        game.setSelectedCard(null);
     }
 
 
@@ -433,11 +432,13 @@ public class CommandProcessor {
                         error = "this index is empty";
                 }
                 if (error == null)
-                    for (int i = 0; i < indexes.length; i++)
+                    for (int i = 0; i < indexes.length; i++) {
                         if (indexes[i] == -1) {
                             indexes[i] = index;
                             break;
-                        } else System.out.println(error);
+                        }
+                    }
+                else System.out.println(error);
             } else System.out.println("invalid command.");
         }
         return indexes;

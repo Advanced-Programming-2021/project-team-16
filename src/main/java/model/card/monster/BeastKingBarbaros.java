@@ -3,7 +3,7 @@ package model.card.monster;
 import controller.GameMenu;
 import model.Board;
 import model.Game;
-import model.card.Card;
+import model.card.spell.UtilActions;
 
 public class BeastKingBarbaros extends Monster implements specialSummonable {
     public BeastKingBarbaros() {
@@ -23,20 +23,9 @@ public class BeastKingBarbaros extends Monster implements specialSummonable {
         Board board = game.getCurrentPlayer().getBoard();
         game.removeCardFromZone(this, Board.Zone.HAND, handZoneIndexOfThis, board);
         game.putCardInZone(this, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-        board = game.getRival().getBoard();
-        for (int monsterZoneIndexx = 0; monsterZoneIndexx < board.getMonsterZone().length; monsterZoneIndexx++) {
-            Monster monster = board.getMonsterZone()[monsterZoneIndexx];
-            if (monster != null) game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
-            game.removeCardFromZone(monster, Board.Zone.MONSTER, monsterZoneIndexx, board);
-        }
-        for (int spellAndTrapZoneIndex = 0; spellAndTrapZoneIndex < board.getSpellAndTrapZone().length; spellAndTrapZoneIndex++) {
-            Card card = board.getMonsterZone()[spellAndTrapZoneIndex];
-            if (card != null) game.putCardInZone(card, Board.Zone.GRAVE, null, board);
-            game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, spellAndTrapZoneIndex, board);
-        }
-        Card fieldSpell = board.getFieldSpell();
-        game.removeCardFromZone(fieldSpell, Board.Zone.FIELD_SPELL, 0, board);
-        if (fieldSpell != null) game.putCardInZone(fieldSpell, Board.Zone.GRAVE, null, board);
+        UtilActions.removeRivalCards(Board.Zone.MONSTER);
+        UtilActions.removeRivalCards(Board.Zone.SPELL_AND_TRAP);
+        UtilActions.removeRivalCards(Board.Zone.FIELD_SPELL);
         return this.name + " special summoned successfully";
     }
 }
