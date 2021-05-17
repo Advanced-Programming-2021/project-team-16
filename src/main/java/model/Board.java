@@ -95,6 +95,12 @@ public class Board {
         return n;
     }
 
+    public int getNumberOfSpelAndTraps() {
+        int n = 0;
+        for (Card card : spellAndTrapZone) if (card != null) n++;
+        return n;
+    }
+
     public int getNumberOfHandCards() {
         int n = 0;
         for (Card card : hand) if (card != null) n++;

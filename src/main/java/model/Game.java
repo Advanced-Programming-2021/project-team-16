@@ -194,7 +194,7 @@ public class Game {
         Card[] cards = board.getSpellAndTrapZone();
         for (int i = 0; i < cards.length; i++) {
             if (cards[i] instanceof MessengerOfPeace) {
-                if (!(currentPlayer instanceof AI && currentPlayer.getLP() < 200) &&
+                if (!(currentPlayer instanceof AI && currentPlayer.getLP() <= 900) &&
                         CommandProcessor.yesNoQuestion("Do you want to to pay 100 LP to keep Messenger of peace?"))
                     currentPlayer.decreaseLP(100);
                 else {
