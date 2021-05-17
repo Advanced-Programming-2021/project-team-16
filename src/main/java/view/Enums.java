@@ -64,7 +64,7 @@ public class Enums {
         DELETE_DECK("deck delete (.*)"),
         SET_ACTIVE_DECK("deck set-activate (.*)"),
         ADD_CARD_TO_MAIN("deck add-card --card (.+) --deck (.+)"),
-        ADD_CARD_TO_SIDE("deck add-card --card (.+) --deck (.+) --side"),
+        ADD_CARD_TO_SIDE("deck add-card --card (.+) --deck (.+) --(side)"),
         RM_CARD_FROM_MAIN("deck rm-card --card (.+) --deck (.+)"),
         RM_CARD_FROM_SIDE("deck rm-card --card (.+) --deck (.+) --side"),
         SHOW_ALL_DECKS("deck show --all"),

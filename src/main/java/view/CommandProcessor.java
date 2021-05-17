@@ -109,9 +109,9 @@ public class CommandProcessor {
                 if (matcher.find())
                     System.out.println(DeckMenu.delete(matcher.group(1)));
             } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex())).find()) {
-                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2), true));
+                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2), matcher));
             } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())).find()) {
-                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2), false));
+                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2), matcher));
             } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())).find()) {
                 System.out.println(DeckMenu.removeCardFromDeck(matcher.group(1), matcher.group(2), true));
             } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())).find()) {
