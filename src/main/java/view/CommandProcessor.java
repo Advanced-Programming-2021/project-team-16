@@ -285,7 +285,15 @@ public class CommandProcessor {
             else if (command.equals(Enums.GameCommands.HELP_BATTLE.getRegex()))
                 System.out.println(Enums.GAME_HELP_BATTLE);
             else System.out.println("invalid command");
-            Show.showBoard();
+            if (
+                    command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()) ||
+                            command.matches(Enums.GameCommands.SUMMON.getRegex()) ||
+                            command.matches(Enums.GameCommands.SET.getRegex()) ||
+                            command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex()) ||
+                            command.matches(Enums.GameCommands.ATTACK.getRegex()) ||
+                            command.matches(Enums.GameCommands.FLIP_SUMMON.getRegex()) ||
+                            command.matches(Enums.GameCommands.SET_POSITION.getRegex())
+            ) Show.showBoard();
             if (game.didSbWin()) return;
         }
         game.setSelectedCard(null);
