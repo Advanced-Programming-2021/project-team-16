@@ -11,7 +11,7 @@ public class CommandKnight extends Monster {
     public CommandKnight() {
         super("Command Knight", "All Warrior-Type monsters you control gain 400 ATK. If you control another" +
                         " monster, monsters your opponent controls cannot target this card for an attack.", 2100
-                , MonsterType.WARRIOR, 4, 1000, 1000);
+                , MonsterType.WARRIOR, 4, 1200, 1900);
     }
 
 
