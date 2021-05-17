@@ -4,43 +4,40 @@ import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
+import view.CommandProcessor;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TwinTwisters extends Spell {
-    private boolean isAtivated = false;
     public TwinTwisters() {
         super("Twin Twisters", "Spell", SpellType.QUICK_PLAY
                 , "Discard 1 card, then target up to 2 Spells/Traps on the field; destroy them.", "Unlimited", 3500);
     }
 
-    /**
-     * @param index index of your card you want to remove from your hand
-     * @param cards spell or traps to remove
-     */
 
-    public String action(int index, Card... cards) {
+    public String action() {
         Game game = GameMenu.getCurrentGame();
-        if (game.getCurrentPlayer().getBoard().getHand()[index] == null) {
-            return "This index is empty!";
+        Board board = game.getRival().getBoard();
+        Card[] cards = board.getSpellAndTrapZone();
+        ArrayList<Card> spells = new ArrayList<>();
+        HashMap<Card, Integer> spellsWithIndex = new HashMap<>();
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] != null) {
+                spells.add(cards[i]);
+                spellsWithIndex.put(cards[i], i);
+            }
         }
-        if (cards.length > 2) {
-            return "You can't choose more than 2 cards!";
+        if (spells.size() < 1)
+            return "you can't activate this (no spells and traps to throw away)";
+        int[] tributes = CommandProcessor.getTribute(1, false);
+        if (tributes == null) return "cancelled";
+        if (UtilActions.getSpellIndexAndThrowAway(spells, spellsWithIndex, tributes[0]) != null) return "cancelled";
+        if (spells.size() != 0) {
+            if (CommandProcessor.yesNoQuestion("do you want to choose another spell or trap to throw away?"))
+                UtilActions.getSpellIndexAndThrowAway(spells, spellsWithIndex, -1);
         }
-        if (cards.length == 0) {
-            return "You should pick at least 1 card!";
-        }
-
-        game.removeCardFromZone(game.getCurrentPlayer().getBoard().getHand()[index], Board.Zone.HAND, index, game.getCurrentPlayer().getBoard());
-        for (Card card : cards) {
-            game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, 0, game.getCurrentPlayer().getBoard());
-            game.removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, 0, game.getRival().getBoard());
-        }
-        isAtivated = true;
-        super.action();
-        return "Removed!";
-
+        return super.action() + "and cards are Removed!";
     }
 
-    public boolean isActivated() {
-        return isAtivated;
-    }
 }

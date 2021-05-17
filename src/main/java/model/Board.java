@@ -89,9 +89,15 @@ public class Board {
         return null;
     }
 
-    public int getNumberOfMonstersInMonsterZone() {
+    public int getNumberOfMonsters() {
         int n = 0;
         for (Monster monster : monsterZone) if (monster != null) n++;
+        return n;
+    }
+
+    public int getNumberOfSpellsAndTraps() {
+        int n = 0;
+        for (Card card : spellAndTrapZone) if (card != null) n++;
         return n;
     }
 

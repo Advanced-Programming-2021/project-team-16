@@ -4,42 +4,35 @@ import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
-import model.card.trap.Trap;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MysticalSpaceTyphoon extends Spell {
-    private boolean isAtivated = false;
 
     public MysticalSpaceTyphoon() {
         super("Mystical space typhoon", "Spell", SpellType.QUICK_PLAY
                 , "Target 1 Spell/Trap on the field; destroy that target.", "Unlimited", 3500);
     }
 
-    public String action(Card spellOrTrap, int zoneIndex) {
+    public String action() {
         Game game = GameMenu.getCurrentGame();
-        if (!(spellOrTrap instanceof Spell) && !(spellOrTrap instanceof Trap))
-            return "This is not a spell or trap class";
-        Card[] currSpellNTrap = game.getCurrentPlayer().getBoard().getSpellAndTrapZone();
-        Board board = game.getCurrentPlayer().getBoard();
-        Card[] rivSpellNTrap = game.getRival().getBoard().getSpellAndTrapZone();
-        Board rivBoard = game.getRival().getBoard();
-        if (!(currSpellNTrap[zoneIndex] == spellOrTrap || rivSpellNTrap[zoneIndex] == spellOrTrap))
-            return "given card is neither in rival's spell and trap zone nor current player's.";
-        if (currSpellNTrap[zoneIndex] == spellOrTrap) {
-            game.removeCardFromZone(spellOrTrap, Board.Zone.SPELL_AND_TRAP, zoneIndex, board);
-            game.putCardInZone(spellOrTrap, Board.Zone.GRAVE, null, board);
+        Board board = game.getRival().getBoard();
+        Card[] cards = board.getSpellAndTrapZone();
+        ArrayList<Card> spells = new ArrayList<>();
+        HashMap<Card, Integer> spellsWithIndex = new HashMap<>();
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] != null) {
+                spells.add(cards[i]);
+                spellsWithIndex.put(cards[i], i);
+            }
         }
-        if (rivSpellNTrap[zoneIndex] == spellOrTrap) {
-            game.removeCardFromZone(spellOrTrap, Board.Zone.SPELL_AND_TRAP, zoneIndex, rivBoard);
-            game.putCardInZone(spellOrTrap, Board.Zone.GRAVE, null, rivBoard);
-        }
-        isAtivated = true;
-        super.action();
-        return "Target was destroyed successfully.";
+        if (spells.size() < 1)
+            return "you can't activate this (no spells and traps to throw away)";
+        if (UtilActions.getSpellIndexAndThrowAway(spells, spellsWithIndex, -1) != null) return "cancelled";
+        return super.action() + "Target was destroyed successfully.";
     }
 
-    public boolean isActivated() {
-        return isAtivated;
-    }
 }
 
 
