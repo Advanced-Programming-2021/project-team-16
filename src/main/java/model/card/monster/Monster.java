@@ -72,4 +72,12 @@ public class Monster extends Card {
         if (monster == null) return null;
         return new Monster(monster.name, monster.description, monster.price, monster.monsterType, monster.level, monster.ATK, monster.DEF);
     }
+
+    public static boolean isMonsterNormal(Monster monster) {
+        return !(monster instanceof RitualMonster) && !(monster instanceof CommandKnight)
+                && !(monster instanceof GraveYardEffectMonster) && !(monster instanceof HeraldOfCreation)
+                && !(monster instanceof ManEaterBug) && !(monster instanceof Marshmallon) && !(monster instanceof MirageDragon) &&
+                !(monster instanceof Scanner) && !(monster instanceof specialSummonable) && !(monster instanceof Suijin) &&
+                !(monster instanceof Terratiger) && !(monster instanceof Texchanger) && !(monster instanceof TheCalculator);
+    }
 }

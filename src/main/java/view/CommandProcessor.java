@@ -255,11 +255,16 @@ public class CommandProcessor {
                     index = Integer.parseInt(matcher.group(1));
                     if (index < 1 || index > 5) isIndexValid = false;
                 }
-                if (isIndexValid) System.out.println(game.attack(index));
-                else System.out.println("index is not valid");
-            } else if (command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex()))
-                System.out.println(game.attack(-1));
-            else if (command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()))
+                if (isIndexValid) {
+                    String result = game.attack(index);
+                    System.out.println(result);
+                    if (result.equals("NegateAttack activated and battle phase has ended")) break;
+                } else System.out.println("index is not valid");
+            } else if (command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex())) {
+                String result = game.attack(-1);
+                System.out.println(result);
+                if (result.equals("NegateAttack activated and battle phase has ended")) break;
+            } else if (command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()))
                 System.out.println(game.activeEffect());
             else if (command.matches(Enums.GameCommands.SHOW_GRAVE.getRegex())) {
                 Show.showGraveYard();
@@ -332,16 +337,22 @@ public class CommandProcessor {
 
 
     public static String getCardName(String whyDoYouNidThis) {
+        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) {
+            Random random = new Random();
+            ArrayList<Card> allCards = Card.getCards();
+            Card card = allCards.get(random.nextInt(allCards.size()));
+            return card.getName();
+        }
         System.out.println(whyDoYouNidThis);
         return scanner.nextLine();
     }
 
     public static int getMonsterFromGrave(boolean isMyGrave) {
         Game game = GameMenu.getCurrentGame();
-        ArrayList<Card> grave = isMyGrave ?
-                game.getCurrentPlayer().getBoard().getGrave() : game.getRival().getBoard().getGrave();
         if (game.getCurrentPlayer() instanceof AI)
             return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getMonsterFromGrave(isMyGrave);
+        ArrayList<Card> grave = isMyGrave ?
+                game.getCurrentPlayer().getBoard().getGrave() : game.getRival().getBoard().getGrave();
         String graveOwner = isMyGrave ? "your" : "rival's";
         Show.showCardArray(grave);
         System.out.println("choose an index from " + graveOwner + " grave");

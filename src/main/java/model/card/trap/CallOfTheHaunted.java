@@ -1,11 +1,11 @@
 package model.card.trap;
 
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
-import model.card.Card;
 import model.card.monster.Monster;
-import model.person.AI;
+import view.CommandProcessor;
 
 public class CallOfTheHaunted extends Trap {
     public CallOfTheHaunted() {
@@ -14,30 +14,17 @@ public class CallOfTheHaunted extends Trap {
                 " destroy that monster. When that monster is destroyed, destroy this card.", "Unlimited", 3500);
     }
 
-    public String action(Game game, String monsterName) {// dar tabe attack takmil shavad.  va inke az grave random niyaze ya card ruyi bardashte mishe?
-
+    public String action() {
+        Game game = GameMenu.getCurrentGame();
         Board board = game.getCurrentPlayer().getBoard();
-        Card monster = getCardByName(monsterName);
-        if (board.isZoneFull(Board.Zone.MONSTER)) {
-            return "monsterZone is full!";
-        } else if ((monster instanceof Monster)/* && (board.getGrave()!= null)*/) { //////?
-            game.removeCardFromZone(monster, Board.Zone.GRAVE, game.getSelectedZoneIndex(), board);
-            game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-        }
-
-        return "summoned successfully!";
+        if (!board.doesGraveHaveMonster()) return "can't activate this. (no monster in grave)";
+        if (board.isZoneFull(Board.Zone.MONSTER))
+            return "can't activate this. monsterZone is full";
+        int index = CommandProcessor.getMonsterFromGrave(true);
+        if (index == -1) return "cancelled";
+        Monster monster = (Monster) board.getCardByIndexAndZone(index, Board.Zone.GRAVE);
+        game.removeCardFromZone(monster, Board.Zone.GRAVE, index, board);
+        game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+        return super.action(game.getSelectedZoneIndex()) + "and " + monster.getName() + " summoned successfully!";
     }
-
-    public void actionForAI(Game game, Card monster) {
-        Board board = game.getCurrentPlayer().getBoard();
-        if (game.getCurrentPlayer() instanceof AI) {
-            if (board.getGrave() != null && !board.isZoneFull(Board.Zone.MONSTER)) {
-                if (monster instanceof Monster) {
-                    game.removeCardFromZone(monster, Board.Zone.GRAVE, game.getSelectedZoneIndex(), board);
-                    game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-                }
-            }
-        }
-    }
-
 }

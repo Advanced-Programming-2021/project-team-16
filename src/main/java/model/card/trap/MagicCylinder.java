@@ -1,47 +1,27 @@
 package model.card.trap;
 
+import controller.GameMenu;
 import model.Board;
 import model.Game;
-import model.card.Card;
 import model.card.monster.Monster;
-import model.card.spell.RingOfDefense;
 
 public class MagicCylinder extends Trap {
     public MagicCylinder() {
         super("MagicCylinder", "Trap", TrapType.NORMAL, "When an opponent's monster declares an attack: Target the attacking monster; negate the attack, and if you do, inflict damage to your opponent equal to its ATK.", "Unlimited", 2000);
     }
 
-    boolean done = false;
-    int damageAmount = 0;
 
-    public String action(Game game) { //attack
+    public String action(int myIndex) {
+        Game game = GameMenu.getCurrentGame();
         Board board = game.getRival().getBoard();
-        Card card = game.getSelectedCard();
+        Monster monster = (Monster) game.getSelectedCard();
+        game.removeCardFromZone(monster, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);
+        game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
+        //ring of defence
+        game.getRival().decreaseLP(monster.getATK());
+        return super.action(myIndex) + "and rival monster was removed and rival's Lp decreased";
 
-        if (card instanceof Monster) {
-            game.putCardInZone(card, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
-            // game.removeCardFromZone(card, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);???
-            done = true;
-        }
-        if (done = true) {
-
-            assert card instanceof Monster;
-            game.getRival().decreaseLP(((Monster) card).getATK());
-            damageAmount = ((Monster) card).getATK();
-            Card[] rivalSpells = game.getRival().getBoard().getSpellAndTrapZone();
-            for (int i = 0; i < rivalSpells.length; i++) {
-                if (rivalSpells[i] instanceof RingOfDefense) {
-                    RingOfDefense ringOfDefense = new RingOfDefense();
-                    ringOfDefense.action();
-                }
-            }
-
-        }
-        return "done!";
     }
 
-    public int getDamageAmount() {
-        return damageAmount;
-    }
 }
 

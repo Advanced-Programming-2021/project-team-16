@@ -15,6 +15,7 @@ public class GameMenu {
         Player player2 = user2 == null ? new AI() : new Player(user2);
         if ((new Random()).nextBoolean()) setCurrentGame(new Game(player1, player2, round));
         else setCurrentGame(new Game(player2, player1, round));
+        currentGame.play();
     }
 
 
