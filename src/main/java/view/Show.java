@@ -152,8 +152,6 @@ public class Show {
             else validation = "invalid";
             System.out.println(activeDeck.getName() + ":  main deck " + activeDeck.getMainDeckCards().size()
                     + ", side deck" + activeDeck.getSideDeckCards().size() + ", " + validation);
-
-
         }
         System.out.println("Other decks:");
         if (hasActiveDeck) {

@@ -178,6 +178,7 @@ public class CommandProcessor {
                 User firstUser = MainMenu.getCurrentUser();
                 String error = null;
                 if (secondUser == null) error = "there is no player with this username";
+                else if (secondUser == firstUser) error = "you can't play with yourself";
                 else if (firstUser.getActiveDeck() == null) error = firstUser.getUsername() + " has no active deck";
                 else if (secondUser.getActiveDeck() == null) error = secondUser.getUsername() + " has no active deck";
                 else if (!firstUser.getActiveDeck().isDeckValid())

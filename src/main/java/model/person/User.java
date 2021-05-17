@@ -4,7 +4,6 @@ import model.Deck;
 import model.card.Card;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import static java.util.Collections.swap;
 
@@ -122,7 +121,7 @@ public class User {
 
     public Deck getDeckByName(String name) {
         for (Deck deck : decks) {
-            if (deck.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT)))
+            if (deck.getName().equalsIgnoreCase(name))
                 return deck;
         }
         return null;
