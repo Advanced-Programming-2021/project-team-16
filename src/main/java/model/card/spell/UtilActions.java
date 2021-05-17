@@ -4,6 +4,10 @@ import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
+import view.CommandProcessor;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UtilActions {
     public static String drawCardsForCurrentPlayer(int numberOfCards) {
@@ -38,5 +42,23 @@ public class UtilActions {
                 game.removeCardFromZone(card, Board.Zone.MONSTER, index, board);
             }
         }
+    }
+
+    public static String getSpellIndexAndThrowAway(ArrayList<Card> spells, HashMap<Card, Integer> spellsWithIndex, int handIndexTribute) {
+        Game game = GameMenu.getCurrentGame();
+        Board rivalBoard = game.getRival().getBoard();
+        Board myBoard = game.getCurrentPlayer().getBoard();
+        int spellIndex;
+        spellIndex = CommandProcessor.getIndexOfCardArray(spells, "throw away spell or trap from rival's board");
+        if (spellIndex == -1) return "cancelled";
+        if (handIndexTribute != -1) {
+            game.putCardInZone(myBoard.getCardByIndexAndZone(handIndexTribute, Board.Zone.HAND), Board.Zone.GRAVE, null, myBoard);
+            game.removeCardFromZone(myBoard.getCardByIndexAndZone(handIndexTribute, Board.Zone.HAND), Board.Zone.HAND, handIndexTribute, myBoard);
+        }
+        spellsWithIndex.remove(spells.get(spellIndex));
+        spells.remove(spellIndex);
+        game.putCardInZone(spells.get(spellIndex), Board.Zone.GRAVE, null, rivalBoard);
+        game.removeCardFromZone(spells.get(spellIndex), Board.Zone.SPELL_AND_TRAP, spellsWithIndex.get(spells.get(spellIndex)), rivalBoard);
+        return null;
     }
 }

@@ -31,7 +31,7 @@ public class Game {
     private Player loser;
     private Phase currentPhase;
     private boolean hasSummonedOrSet;
-    private ArrayList<Card> setInThisPhase = new ArrayList<>();
+    private ArrayList<Card> setInThisTurn = new ArrayList<>();
     private ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
 
     public Game(Player player1, Player player2, int round) {
@@ -84,7 +84,7 @@ public class Game {
     }
 
     private void run(Player me, Player rival) {
-        setInThisPhase.clear();
+        setInThisTurn.clear();
         positionChangedInThisTurn.clear();
         hasSummonedOrSet = false;
         this.currentPlayer = me;
@@ -108,19 +108,7 @@ public class Game {
         Show.showGameMessage(drawCard());
         if (didSbWin()) return;
         setCurrentPhase(Phase.STANDBY);
-        Board currBoard = currentPlayer.getBoard();
-        Card[] cards = currBoard.getSpellAndTrapZone();
-        for (int i = 0; i < cards.length; i++) {
-            if (cards[i] instanceof MessengerOfPeace) {
-                if (currentPlayer instanceof AI) currentPlayer.decreaseLP(100);
-                else if (CommandProcessor.yesNoQuestion("Do you want to to pay 100 LP to keep Messenger of peace?"))
-                    currentPlayer.decreaseLP(100);
-                else {
-                    putCardInZone(cards[i], Board.Zone.GRAVE, null, currBoard);
-                    removeCardFromZone(cards[i], Board.Zone.SPELL_AND_TRAP, i, currBoard);
-                }
-            }
-        }
+        doStandByActions();
         setCurrentPhase(Phase.MAIN_1);
         if (currentPlayer instanceof AI) ((AI) currentPlayer).playMainPhase();
         else CommandProcessor.game();
@@ -196,6 +184,22 @@ public class Game {
         return "new card added to the hand : " + drewCard.getName();
     }
 
+    private void doStandByActions() {
+        Board board = currentPlayer.getBoard();
+        Card[] cards = board.getSpellAndTrapZone();
+        for (int i = 0; i < cards.length; i++) {
+            if (cards[i] instanceof MessengerOfPeace) {
+                if (!(currentPlayer instanceof AI && currentPlayer.getLP() < 200) &&
+                        CommandProcessor.yesNoQuestion("Do you want to to pay 100 LP to keep Messenger of peace?"))
+                    currentPlayer.decreaseLP(100);
+                else {
+                    putCardInZone(cards[i], Board.Zone.GRAVE, null, board);
+                    removeCardFromZone(cards[i], Board.Zone.SPELL_AND_TRAP, i, board);
+                }
+            }
+        }
+    }
+
 
     private String endRound() {
 
@@ -233,13 +237,14 @@ public class Game {
             } else if (CommandProcessor.yesNoQuestion("you can't normally set this. do you want to special summon it?"))
                 return specialSummon();
         }
+        if (selectedCard instanceof RitualMonster) return "you can't normally summon a ritual monster";
         int numberOfTributes = switch (((Monster) selectedCard).getLevel()) {
             case 5, 6 -> 1;
             case 7, 8, 9 -> 2;
             default -> 0;
         };
         if (numberOfTributes != 0) {
-            if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < numberOfTributes)
+            if (currentPlayer.getBoard().getNumberOfMonsters() < numberOfTributes)
                 return "there are not enough cards for tribute";
             int[] tributeIndexes = CommandProcessor.getTribute(numberOfTributes, true);
             if (tributeIndexes == null) return "summon cancelled";
@@ -254,11 +259,11 @@ public class Game {
 
     private String specialSummon() {
         if (selectedCard instanceof BeastKingBarbaros) {
-            if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < 3)
+            if (currentPlayer.getBoard().getNumberOfMonsters() < 3)
                 return "there is no way you could special summon this monster";
             return ((BeastKingBarbaros) selectedCard).specialSummon(CommandProcessor.getTribute(3, true), selectedZoneIndex);
         } else if (selectedCard instanceof GateGuardian) {
-            if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < 3)
+            if (currentPlayer.getBoard().getNumberOfMonsters() < 3)
                 return "there is no way you could special summon this monster";
             return ((GateGuardian) selectedCard).specialSummon(CommandProcessor.getTribute(3, true), selectedZoneIndex);
         } else if (selectedCard instanceof TheTricky) {
@@ -274,11 +279,6 @@ public class Game {
                 return ((TheTricky) selectedCard).specialSummon(index[0], selectedZoneIndex);
             }
         } else return "this card can not be special summoned";
-    }
-
-    private String ritualSummon() {
-        //TODO
-        return "this card can not be ritual summoned";
     }
 
     public String set() {
@@ -300,13 +300,14 @@ public class Game {
                 } else if (CommandProcessor.yesNoQuestion("you can't normally set this. do you want to special summon?"))
                     return specialSummon();
             }
+            if (selectedCard instanceof RitualMonster) return "you can't normally summon a ritual monster";
             int numberOfTributes = switch (((Monster) selectedCard).getLevel()) {
                 case 5, 6 -> 1;
                 case 7, 8, 9 -> 2;
                 default -> 0;
             };
             if (numberOfTributes != 0) {
-                if (currentPlayer.getBoard().getNumberOfMonstersInMonsterZone() < numberOfTributes)
+                if (currentPlayer.getBoard().getNumberOfMonsters() < numberOfTributes)
                     return "there are not enough cards for tribute";
                 int[] tributeIndexes = CommandProcessor.getTribute(numberOfTributes, true);
                 if (tributeIndexes == null) return "set cancelled";
@@ -315,9 +316,8 @@ public class Game {
             removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
             putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
             hasSummonedOrSet = true;
-            setInThisPhase.add(selectedCard);
+            setInThisTurn.add(selectedCard);
             positionChangedInThisTurn.add(selectedCard);
-            return "set successfully";
         } else {
             if (selectedCard instanceof Spell) {
                 switch (((Spell) selectedCard).getSpellType()) {
@@ -334,9 +334,9 @@ public class Game {
             removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
             hasSummonedOrSet = true;
             if (selectedCard instanceof Spell && ((Spell) selectedCard).getSpellType() == Spell.SpellType.QUICK_PLAY)
-                setInThisPhase.add(selectedCard);
-            return "set successfully";
+                setInThisTurn.add(selectedCard);
         }
+        return "set successfully";
     }
 
     public String flipSummon() {
@@ -346,7 +346,7 @@ public class Game {
         if (getCurrentPhase() != Phase.MAIN_1 && getCurrentPhase() != Phase.MAIN_2)
             return "you can’t do this action in this phase";
         if (currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] != Board.CardPosition.HIDE_DEF
-                || setInThisPhase.contains(selectedCard))
+                || setInThisTurn.contains(selectedCard))
             return "you can’t flip summon this card";
         currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] = Board.CardPosition.ATK;
         positionChangedInThisTurn.add(selectedCard);
@@ -643,14 +643,6 @@ public class Game {
 
     public void setSelectedCard(Card selectedCard) {
         this.selectedCard = selectedCard;
-    }
-
-    public void setSelectedZone(Board.Zone selectedZone) {
-        this.selectedZone = selectedZone;
-    }
-
-    public void setSelectedZoneIndex(int selectedZoneIndex) {
-        this.selectedZoneIndex = selectedZoneIndex;
     }
 
     public Board.Zone getSelectedZone() {

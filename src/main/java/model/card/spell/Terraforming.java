@@ -23,7 +23,7 @@ public class Terraforming extends Spell {
         ArrayList<Card> fieldSpells = new ArrayList<>();
         for (Card card : board.getDeck()) if (card instanceof FieldSpell) fieldSpells.add(card);
         if (fieldSpells.size() == 0) return "you can't activate this. (there is no field spell in your deck)";
-        int fieldSpellIndex = CommandProcessor.getIndexOfCardArray(fieldSpells);
+        int fieldSpellIndex = CommandProcessor.getIndexOfCardArray(fieldSpells, "bring field spell from deck to hand");
         if (fieldSpellIndex == -1) return "cancelled";
         Card fieldSpell = fieldSpells.get(fieldSpellIndex);
         game.putCardInZone(fieldSpell, Board.Zone.HAND, null, board);

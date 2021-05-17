@@ -362,9 +362,10 @@ public class CommandProcessor {
         return -1;
     }
 
-    public static int getIndexOfCardArray(ArrayList<Card> cards) {
+
+    public static int getIndexOfCardArray(ArrayList<Card> cards, String goal) {
         if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) return 0;
-        System.out.println("choose an index from these cards: ");
+        System.out.println("choose an index from these cards: " + goal);
         Show.showCardArray(cards);
         String command = scanner.nextLine().trim();
         int index = -1;
@@ -407,7 +408,8 @@ public class CommandProcessor {
         if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) {
             return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getTribute(numberOfTributes, isFromMonsterZone);
         }
-        System.out.println("please enter " + numberOfTributes + " index(es) for tribute");
+        String fromWhere = isFromMonsterZone ? "monster zone" : "hand";
+        System.out.println("please enter " + numberOfTributes + " index(es) for tribute from your " + fromWhere);
         int[] indexes = new int[numberOfTributes];
         Arrays.fill(indexes, -1);
         String command;
