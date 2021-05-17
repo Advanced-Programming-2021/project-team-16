@@ -60,16 +60,20 @@ public class Enums {
 
     public enum DeckMenuCommands {
         SHOW_CARD("card show (.*)"),
-        CREATE_DECK("deck create (\\w+)"),
-        DELETE_DECK("deck delete (\\w+)"),
-        SET_ACTIVE_DECK("deck set-activate (\\w+)"),
-        ADD_CARD_TO_MAIN("deck add-card --card (.+) --deck (\\w+)"),
-        ADD_CARD_TO_SIDE("deck add-card --card (.+) --deck (\\w+) --side"),
-        RM_CARD_FROM_MAIN("deck rm-card --card (.+) --deck (\\w+)"),
-        RM_CARD_FROM_SIDE("deck rm-card --card (.+) --deck (\\w+) --side"),
+        CREATE_DECK("deck create (.*)"),
+        DELETE_DECK("deck delete (.*)"),
+        SET_ACTIVE_DECK("deck set-activate (.*)"),
+        ADD_CARD_TO_MAIN("deck add-card (--card (.+) --deck (.+)|--deck (.+) --card (.+))"),
+        ADD_CARD_TO_SIDE("deck add-card (--card (.+) --deck (.+) --side|--deck (.+) --side --card (.+)|" +
+                "--side --card (.+) --deck (.+)|--side --deck (.+) --card (.+)|--card (.+) --side --deck (.+)|" +
+                "--deck (.+) --card (.+) --side)"),
+        RM_CARD_FROM_MAIN("deck rm-card (--card (.+) --deck (.+)|--deck (.+) --card (.+))"),
+        RM_CARD_FROM_SIDE("deck rm-card (--card (.+) --deck (.+) --side|--deck (.+) --side --card (.+)|" +
+                "--side --card (.+) --deck (.+)|--side --deck (.+) --card (.+)|--card (.+) --side --deck (.+)|" +
+                "--deck (.+) --card (.+) --side)"),
         SHOW_ALL_DECKS("deck show --all"),
-        SHOW_MAIN_DECK("deck show --deck-name (\\w+)"),
-        SHOW_SIDE_DECK("deck show --deck-name (\\w+) --side"),
+        SHOW_MAIN_DECK("deck show --deck-name (.+)"),
+        SHOW_SIDE_DECK("deck show (--deck-name (.+) --side|--deck-name (.+) --side)"),
         SHOW_DECK_CARDS("deck show --cards"),
         ENTER_MENU("menu enter (.*)"),
         SHOW_CURRENT("menu show-current"),

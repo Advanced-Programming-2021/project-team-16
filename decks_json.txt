@@ -1,1 +1,1 @@
-[{"name":"hi","mainCardNames":[],"sideCardNames":[]}]
+[{"name":"hi","mainCardNames":[],"sideCardNames":[]},{"name":"first","mainCardNames":[],"sideCardNames":[]}]
