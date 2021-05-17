@@ -29,6 +29,26 @@ public class AI extends Player {
 
     public void setOrSummon() {
         Game game = GameMenu.getCurrentGame();
+        if (board.getNumberOfMonsters() < 3) tryToSummonMonster();
+        if (!game.hasSummonedOrSet() && board.getNumberOfSpelAndTraps() < 3) tryToSetTrap();
+        if (!game.hasSummonedOrSet() && board.getNumberOfMonsters() >= 3) tryToSummonMonster();
+        if (!game.hasSummonedOrSet() && board.getNumberOfMonsters() >= 3) tryToSetTrap();
+    }
+
+    private void tryToSetTrap() {
+        Game game = GameMenu.getCurrentGame();
+        Card[] hand = board.getHand();
+        for (int i = 0; i < hand.length; i++) {
+            if (game.hasSummonedOrSet()) break;
+            if (hand[i] instanceof Trap) {
+                game.selectCard(Board.Zone.HAND, i, false);
+                game.set();
+            }
+        }
+    }
+
+    private void tryToSummonMonster() {
+        Game game = GameMenu.getCurrentGame();
         Card[] hand = board.getHand();
         ArrayList<Integer> monsterIndexes = new ArrayList<>();
         for (int i = 0; i < hand.length; i++) {
@@ -42,13 +62,6 @@ public class AI extends Player {
             if (game.hasSummonedOrSet()) break;
             game.selectCard(Board.Zone.HAND, monsterIndex, false);
             game.summon();
-        }
-        for (int i = 0; i < hand.length; i++) {
-            if (game.hasSummonedOrSet()) break;
-            if (hand[i] instanceof Trap) {
-                game.selectCard(Board.Zone.HAND, i, false);
-                game.set();
-            }
         }
     }
 
