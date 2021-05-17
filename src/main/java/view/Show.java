@@ -156,31 +156,30 @@ public class Show {
 
         }
         System.out.println("Other decks:");
-        if (hasActiveDeck) {
-            ArrayList<Deck> otherDecks = user.getDecks();
-            if (otherDecks != null)
-                otherDecks.remove(user.getActiveDeck());
-            if (otherDecks != null) {
-                Deck.sort(otherDecks);
-                for (Deck userDeck : otherDecks) {
-                    if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
-                    else validation = "invalid";
-                    System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
-                            ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
-                }
-            }
-        } else {
-            if (userDecks != null) {
-                Deck.sort(userDecks);
-                for (Deck userDeck : userDecks) {
-                    if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
-                    else validation = "invalid";
-                    System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
-                            ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
-                }
+//        if (hasActiveDeck) {
+//            if (userDecks != null) {
+//                ArrayList<Deck> otherDecks = new ArrayList<>(userDecks);
+//                otherDecks.remove(user.getActiveDeck());
+//                Deck.sort(otherDecks);
+//                for (Deck userDeck : otherDecks) {
+//                    if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
+//                    else validation = "invalid";
+//                    System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
+//                            ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
+//                }
+//            }
+//        } else {
+        if (userDecks != null) {
+            Deck.sort(userDecks);
+            for (Deck userDeck : userDecks) {
+                if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
+                else validation = "invalid";
+                System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
+                        ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
             }
         }
     }
+    // }
 
     public static void showBoard() {
         Board board = GameMenu.getCurrentGame().getCurrentPlayer().getBoard();

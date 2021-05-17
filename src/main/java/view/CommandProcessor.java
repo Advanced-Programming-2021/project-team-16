@@ -109,9 +109,9 @@ public class CommandProcessor {
                 if (matcher.find())
                     System.out.println(DeckMenu.delete(matcher.group(1)));
             } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex())).find()) {
-                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2), true));
+                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2).trim(), matcher));
             } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())).find()) {
-                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2), false));
+                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2), matcher));
             } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())).find()) {
                 System.out.println(DeckMenu.removeCardFromDeck(matcher.group(1), matcher.group(2), true));
             } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())).find()) {
@@ -125,7 +125,7 @@ public class CommandProcessor {
             } else if (command.matches(Enums.DeckMenuCommands.SHOW_MAIN_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_MAIN_DECK.getRegex());
                 if (matcher.find())
-                    Show.showMainDeck(matcher.group(1).toLowerCase(Locale.ROOT));
+                    Show.showMainDeck(matcher.group(1));
             } else if (command.matches(Enums.DeckMenuCommands.SHOW_SIDE_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_SIDE_DECK.getRegex());
                 if (matcher.find())

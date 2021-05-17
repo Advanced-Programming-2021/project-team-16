@@ -122,7 +122,7 @@ public class User {
 
     public Deck getDeckByName(String name) {
         for (Deck deck : decks) {
-            if (deck.getName().toLowerCase(Locale.ROOT).equals(name.trim().toLowerCase(Locale.ROOT)))
+            if (deck.getName().toLowerCase(Locale.ROOT).equals(name.toLowerCase(Locale.ROOT)))
                 return deck;
         }
         return null;
