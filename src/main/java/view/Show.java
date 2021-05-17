@@ -269,7 +269,6 @@ public class Show {
         }
         System.out.println();
         System.out.println("  \t\t\t\t\t\t" + dn);
-        System.out.print("\t");
         for (int i = 0; i < board.getHand().length; i++) {
             if (board.getHand()[i] != null)
                 System.out.print("c\t");
