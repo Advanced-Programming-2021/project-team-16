@@ -6,7 +6,6 @@ import view.Show;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.regex.Matcher;
 
 public class DeckMenu {
     public static String create(String name) {
@@ -52,14 +51,14 @@ public class DeckMenu {
 
     }
 
-    public static String addCardToDeck(String cardName, String deckName, Matcher matcher) {
+    public static String addCardToDeck(String cardName, String deckName, boolean isMain) {
         Card card = Card.getCardByName(cardName);
 
 
         if (!MainMenu.getCurrentUser().hasCard(cardName)) return "card with name " + cardName + " does not exist";
         if (MainMenu.getCurrentUser().getDeckByName(deckName) == null)
             return "deck with name " + deckName + " does not exist";
-        if (matcher.groupCount() == 2) {
+        if (isMain) {
             if (MainMenu.getCurrentUser().getDeckByName(deckName).MainIsFull()) return "main deck is full";
             if (MainMenu.getCurrentUser().getDeckByName(deckName).isLimited(card))
                 return "there are already three cards with name " + cardName + " in deck " + deckName;
