@@ -63,17 +63,13 @@ public class Enums {
         CREATE_DECK("deck create (.*)"),
         DELETE_DECK("deck delete (.*)"),
         SET_ACTIVE_DECK("deck set-activate (.*)"),
-        ADD_CARD_TO_MAIN("deck add-card (--card (.+) --deck (.+)|--deck (.+) --card (.+))"),
-        ADD_CARD_TO_SIDE("deck add-card (--card (.+) --deck (.+) --side|--deck (.+) --side --card (.+)|" +
-                "--side --card (.+) --deck (.+)|--side --deck (.+) --card (.+)|--card (.+) --side --deck (.+)|" +
-                "--deck (.+) --card (.+) --side)"),
-        RM_CARD_FROM_MAIN("deck rm-card (--card (.+) --deck (.+)|--deck (.+) --card (.+))"),
-        RM_CARD_FROM_SIDE("deck rm-card (--card (.+) --deck (.+) --side|--deck (.+) --side --card (.+)|" +
-                "--side --card (.+) --deck (.+)|--side --deck (.+) --card (.+)|--card (.+) --side --deck (.+)|" +
-                "--deck (.+) --card (.+) --side)"),
+        ADD_CARD_TO_MAIN("deck add-card --card (.+) --deck (.+)"),
+        ADD_CARD_TO_SIDE("deck add-card --card (.+) --deck (.+) --side"),
+        RM_CARD_FROM_MAIN("deck rm-card --card (.+) --deck (.+)"),
+        RM_CARD_FROM_SIDE("deck rm-card --card (.+) --deck (.+) --side"),
         SHOW_ALL_DECKS("deck show --all"),
         SHOW_MAIN_DECK("deck show --deck-name (.+)"),
-        SHOW_SIDE_DECK("deck show (--deck-name (.+) --side|--deck-name (.+) --side)"),
+        SHOW_SIDE_DECK("deck show --deck-name (.+) --side"),
         SHOW_DECK_CARDS("deck show --cards"),
         ENTER_MENU("menu enter (.*)"),
         SHOW_CURRENT("menu show-current"),
