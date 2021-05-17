@@ -1,23 +1,25 @@
 package model.card.spell;
 
-import model.Game;
+import controller.GameMenu;
 import model.person.Player;
 
 public class SpellAbsorption extends Spell {
-    private boolean isAtivated = false;
+
+    Player owner;
 
     public SpellAbsorption() {
         super("Spell Absorption", "Spell", SpellType.CONTINUES
                 , "Each time a Spell Card is activated, gain 500 Life Points immediately after it resolves.", "Unlimited", 4000);
     }
 
-    public void action(Game game, Player player) {
-
-        player.increaseLP(500);
-        isAtivated = true;
+    public String action() {
+        owner = GameMenu.getCurrentGame().getCurrentPlayer();
+        super.action();
+        return this.name + " is activated";
     }
 
-    public boolean isActivated() {
-        return isAtivated;
+    public void increaseLP() {
+        owner.increaseLP(500);
     }
+
 }

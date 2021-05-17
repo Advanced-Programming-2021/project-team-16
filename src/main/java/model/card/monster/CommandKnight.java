@@ -1,6 +1,7 @@
 package model.card.monster;
 
 import controller.GameMenu;
+import model.Board;
 import model.Game;
 import model.card.Card;
 
@@ -15,20 +16,23 @@ public class CommandKnight extends Monster {
     }
 
 
-    public void action() {
+    public void action(boolean isUndo) {
         Game game = GameMenu.getCurrentGame();
-        for (Card card : Card.getCards()) {
-            if (card instanceof Monster) ((Monster) card).ATK += 400;
-        }
+        changeATK(game.getCurrentPlayer().getBoard(), isUndo);
         doneAction = true;
     }
 
-    public void undoAction() {
-        Game game = GameMenu.getCurrentGame();
-        for (Card card : Card.getCards()) {
-            if (card instanceof Monster) ((Monster) card).ATK -= 400;
-        }
-        doneAction = false;
+
+    private void changeATK(Board board, boolean isUndo) {
+        for (Card card : board.getDeck()) changeATK(card, isUndo);
+        for (Card card : board.getGrave()) changeATK(card, isUndo);
+        for (Monster monster : board.getMonsterZone()) changeATK(monster, isUndo);
+        for (Card card : board.getHand()) changeATK(card, isUndo);
+    }
+
+    private void changeATK(Card card, boolean isUndo) {
+        int deltaATK = isUndo ? -400 : 400;
+        if (card instanceof Monster) ((Monster) card).increaseATK(deltaATK);
     }
 
     public boolean hasDoneAction() {

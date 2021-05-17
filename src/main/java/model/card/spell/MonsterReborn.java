@@ -3,68 +3,39 @@ package model.card.spell;
 import controller.GameMenu;
 import model.Board;
 import model.Game;
-import model.card.Card;
 import model.card.monster.Monster;
+import view.CommandProcessor;
 
-import java.util.ArrayList;
-
-import static model.Board.CardPosition.*;
 
 public class MonsterReborn extends Spell {
-    private boolean isAtivated = false;
 
     public MonsterReborn() {
         super("Monster Reborn", "Spell", SpellType.NORMAL
                 , "Target 1 monster in either GY; Special Summon it.", "Limited", 2500);
     }
 
-    public String action(String player, String monstername, Board.CardPosition position) {
+    public String action() {
         Game game = GameMenu.getCurrentGame();
-        Card monster = getCardByName(monstername);
-        if ("current".equalsIgnoreCase(player)) {
-            Board board = game.getCurrentPlayer().getBoard();
-            ArrayList<Card> grave = board.getGrave();
-            if (!grave.contains(monster)) return "This card is not in your graveyard.";
-            if (!(monster instanceof Monster)) return "This is not a monster.";
-            if (board.isZoneFull(Board.Zone.MONSTER)) return "Monster zone is full.";
-            if (position == HIDE_DEF) return "you can only set position as attack or reveal defence";
-            if (position == ATK) {
-
-                game.putCardInZone(monster, Board.Zone.MONSTER, ATK, board);
-                game.removeCardFromZone(monster, Board.Zone.GRAVE, 0, board);
-            }
-            if (position == REVEAL_DEF) {
-                game.putCardInZone(monster, Board.Zone.MONSTER, REVEAL_DEF, board);
-                game.removeCardFromZone(monster, Board.Zone.GRAVE, 0, board);
-            }
-
-        }
-        if ("rival".equalsIgnoreCase(player)) {
-
-            Board board = game.getRival().getBoard();
-            ArrayList<Card> grave = board.getGrave();
-            if (!grave.contains(monster)) return "This card is not in rival's graveyard.";
-            if (!(monster instanceof Monster)) return "This is not a monster.";
-            if (board.isZoneFull(Board.Zone.MONSTER)) return "Monster zone is full.";
-            if (position == HIDE_DEF) return "you can only set position as attack or reveal defence";
-            if (position == ATK) {
-
-                game.putCardInZone(monster, Board.Zone.MONSTER, ATK, board);
-                game.removeCardFromZone(monster, Board.Zone.GRAVE, 0, board);
-            }
-            if (position == REVEAL_DEF) {
-                game.putCardInZone(monster, Board.Zone.MONSTER, REVEAL_DEF, board);
-                game.removeCardFromZone(monster, Board.Zone.GRAVE, 0, board);
-            }
-        }
-        isAtivated = true;
+        Board board = game.getCurrentPlayer().getBoard();
+        if ((!board.doesGraveHaveMonster() && !game.getRival().getBoard().doesGraveHaveMonster()) ||
+                board.isZoneFull(Board.Zone.MONSTER))
+            return "there is no way you could special summon a monster";
+        boolean isMyGrave = CommandProcessor.yesNoQuestion("""
+                you can special summon a monster.
+                do you want to choose it from your graveyard?
+                (no means you want to choose it from rival's graveyard)""");
+        int graveIndex = CommandProcessor.getMonsterFromGrave(isMyGrave);
+        if (graveIndex == -1) return "cancelled";
+        board = isMyGrave ? game.getCurrentPlayer().getBoard() : game.getRival().getBoard();
+        Monster monster = (Monster) board.getCardByIndexAndZone(graveIndex, Board.Zone.GRAVE);
+        game.putCardInZone(monster, Board.Zone.HAND, null, board);
+        game.removeCardFromZone(monster, Board.Zone.GRAVE, graveIndex, board);
         super.action();
-        return monstername + " special summoned successfully!";
-
+        return "spell activated and special summoned " + monster.getName() + " successfully";
     }
 
     public boolean isActivated() {
-        return isAtivated;
+        return isActivated;
     }
 }
 

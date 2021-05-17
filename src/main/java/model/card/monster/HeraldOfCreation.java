@@ -3,11 +3,12 @@ package model.card.monster;
 import controller.GameMenu;
 import model.Board;
 import model.Game;
+import model.card.Activatable;
 import model.card.Card;
+import view.CommandProcessor;
 
-import java.util.ArrayList;
 
-public class HeraldOfCreation extends Monster {
+public class HeraldOfCreation extends Monster implements Activatable {
     boolean isUsed;
 
     public HeraldOfCreation() {
@@ -16,20 +17,24 @@ public class HeraldOfCreation extends Monster {
                 2700, MonsterType.SPELL_CASTER, 4, 1800, 600);
     }
 
-    public String action(int indexOfHandZone, String monsterName) {
+    public String action() {
+        if (isUsed) return "you can activate Herald of Creation once in a turn";
         Game game = GameMenu.getCurrentGame();
-        Card monster = getCardByName(monsterName);
-        if (!(monster instanceof Monster)) return "This is not a monster.";
         Board board = game.getCurrentPlayer().getBoard();
-        ArrayList<Card> grave = board.getGrave();
-        if (!grave.contains(monster)) return "This card is not in your graveyard.";
-        if (((Monster) monster).getLevel() < 7) return "The level can't be lower than 7.";
+        if (!board.doesGraveHaveMonster() || board.isZoneFull(Board.Zone.MONSTER))
+            return "there is no way you could special summon a monster";
+        int[] tributes = CommandProcessor.getTribute(1, false);
+        if (tributes == null) return "cancelled";
+        int indexOfHandZone = tributes[0];
+        int graveIndex = CommandProcessor.getMonsterFromGrave(true);
+        if (graveIndex == -1) return "cancelled";
+        Monster monster = (Monster) board.getCardByIndexAndZone(graveIndex, Board.Zone.GRAVE);
+        if (monster.getLevel() < 7) return "The level can't be lower than 7.";
         Card[] handZone = board.getHand();
         game.putCardInZone(handZone[indexOfHandZone], Board.Zone.GRAVE, null, board);
-        game.putCardInZone(monster, Board.Zone.HAND, null, board);
-        game.removeCardFromZone(monster, Board.Zone.GRAVE, 0, board);
+        game.removeCardFromZone(handZone[indexOfHandZone], Board.Zone.HAND, indexOfHandZone, board);
         isUsed = true;
-        return monsterName + " came into your hand successfully.";
+        return "special summoned " + monster.getName() + " successfully";
     }
 
     public void setUsed(boolean isUsed) {

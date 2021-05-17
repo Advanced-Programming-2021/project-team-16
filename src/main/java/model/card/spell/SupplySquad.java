@@ -1,13 +1,13 @@
 package model.card.spell;
 
 import controller.GameMenu;
-import model.Board;
-import model.Deck;
-import model.Game;
-import model.card.Card;
+import model.person.Player;
+import view.CommandProcessor;
 
 public class SupplySquad extends Spell {
-    private boolean isAtivated = false;
+    Player owner;
+    boolean isUsedInThisTurn = false;
+
     public SupplySquad() {
         super("Supply Squad", "Spell", SpellType.CONTINUES
                 , "Once per turn, if a monster(s) you control is " +
@@ -16,20 +16,32 @@ public class SupplySquad extends Spell {
 
 
     public String action() {
-
-        Game game = GameMenu.getCurrentGame();
-        Board board = game.getCurrentPlayer().getBoard();
-        Deck deck = game.getCurrentPlayer().getUser().getActiveDeck();
-        Card card = deck.drawOneCard(game, board);
-        if (card == null)
-            return null;
-        game.putCardInZone(card, Board.Zone.HAND, null, board);
-        isAtivated = true;
+        owner = GameMenu.getCurrentGame().getCurrentPlayer();
         super.action();
         return "Supply squad's effect was activated";
     }
 
-    public boolean isActivated() {
-        return isAtivated;
+    public String draw() {
+        String message;
+        if (CommandProcessor.yesNoQuestion("do you want to activate " + this.name + "?")) {
+            message = UtilActions.drawCardsForCurrentPlayer(1);
+            if (message == null) {
+                isUsedInThisTurn = true;
+                return "spell activated";
+            } else return message;
+        }
+        return "";
+    }
+
+    public Player getOwner() {
+        return owner;
+    }
+
+    public boolean isUsedInThisTurn() {
+        return isUsedInThisTurn;
+    }
+
+    public void setUsedInThisTurn(boolean usedInThisTurn) {
+        isUsedInThisTurn = usedInThisTurn;
     }
 }
