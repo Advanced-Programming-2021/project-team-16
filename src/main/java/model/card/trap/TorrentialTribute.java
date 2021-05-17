@@ -1,8 +1,6 @@
 package model.card.trap;
 
-import model.Board;
-import model.Game;
-import model.card.monster.Monster;
+import model.card.spell.UtilActions;
 
 public class TorrentialTribute extends Trap {
     public TorrentialTribute() {
@@ -10,19 +8,8 @@ public class TorrentialTribute extends Trap {
     }
 
 
-    public String action(Game game) {
-
-        Monster[] monsterZone = game.getCurrentPlayer().getBoard().getMonsterZone();
-        for (int i = 0; i < monsterZone.length; i++) {
-            Monster monster = monsterZone[i];
-            game.removeCardFromZone(monster, Board.Zone.MONSTER, i, game.getCurrentPlayer().getBoard());
-        }
-        monsterZone = game.getRival().getBoard().getMonsterZone();
-        for (int i = 0; i < monsterZone.length; i++) {
-            Monster monster = monsterZone[i];
-            game.removeCardFromZone(monster, Board.Zone.MONSTER, i, game.getRival().getBoard());
-        }
-
-        return "remove monsters successfully";
+    public String action(int myIndex) {
+        UtilActions.removeAllMonsters();
+        return super.action(myIndex) + "and removed all monsters";
     }
 }

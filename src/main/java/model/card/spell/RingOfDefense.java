@@ -1,11 +1,6 @@
 package model.card.spell;
 
-import controller.GameMenu;
-import model.Game;
-import model.card.trap.MagicCylinder;
-
 public class RingOfDefense extends Spell {
-    private boolean isAtivated = false;
 
     public RingOfDefense() {
         super("Ring of defense", "Spell", SpellType.QUICK_PLAY
@@ -13,17 +8,7 @@ public class RingOfDefense extends Spell {
     }
 
     public String action() {
-        Game game = GameMenu.getCurrentGame();
-        MagicCylinder magicCylinder = new MagicCylinder();
-        if (magicCylinder.getDamageAmount() != 0) {
-            game.getRival().increaseLP(magicCylinder.getDamageAmount());
-        }
-        isAtivated = true;
-        super.action();
-        return null;
+        return super.action();
     }
 
-    public boolean isActivated() {
-        return isAtivated;
-    }
 }

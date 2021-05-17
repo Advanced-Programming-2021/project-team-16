@@ -51,7 +51,7 @@ public abstract class Card implements Comparable<Card> {
             case "Exploder Dragon" -> new GraveYardEffectMonster("Exploder Dragon", "If this card is destroyed by battle and sent to the" +
                     " Graveyard: Destroy the monster that destroyed it. Neither player takes any battle damage from attacks" +
                     " involving this attacking card.", 1000, Monster.MonsterType.DRAGON, 3, 1000, 0, false);
-            case "Terratiger, the Empowered Warrior" -> new TerratigerTheEmpoweredWarrior();
+            case "Terratiger, the Empowered Warrior" -> new Terratiger();
             case "The Tricky" -> new TheTricky();
             case "Advanced Ritual Art" -> new AdvancedRitualArt();
             case "Change of Heart" -> new ChangeOfHeart();

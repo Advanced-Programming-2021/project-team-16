@@ -7,8 +7,7 @@ import model.card.spell.MessengerOfPeace;
 import model.card.spell.Spell;
 import model.card.spell.SupplySquad;
 import model.card.spell.fieldspells.FieldSpell;
-import model.card.trap.TimeSeal;
-import model.card.trap.TorrentialTribute;
+import model.card.trap.*;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
@@ -150,7 +149,10 @@ public class Game {
         Player player = isSelectedCardForRival ? rival : currentPlayer;
         selectedCard = player.getBoard().getCardByIndexAndZone(index, zone);
         if (selectedCard == null) return "no card found in the given position";
-        if (selectedZone == Board.Zone.MONSTER && selectedCard instanceof Activatable && (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2))
+        if (!isSelectedCardForRival && ((selectedZone == Board.Zone.MONSTER && selectedCard instanceof Activatable &&
+                (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2)) ||
+                (selectedZone == Board.Zone.SPELL_AND_TRAP && selectedCard instanceof Trap && selectedCard instanceof Activatable
+                        && !setInThisTurn.contains(selectedCard) && !MirageDragon.isOn(false))))
             if (CommandProcessor.yesNoQuestion("do you want to use " + selectedCard.getName() + " effect?"))
                 Show.showGameMessage(((Activatable) selectedCard).action());
         return "card selected";
@@ -171,11 +173,14 @@ public class Game {
             return "You can't draw any card";
         }
         Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
-        for (int i = 0; i < spellAndTrapZone.length; i++) {
-            Card card = spellAndTrapZone[i];
-            if (card instanceof TimeSeal) {
-                removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, i, rival.getBoard());
-                return "You can't draw card because enemy has Time seal.";
+        if (!MirageDragon.isOn(true)) {
+            for (int i = 0; i < spellAndTrapZone.length; i++) {
+                Card card = spellAndTrapZone[i];
+                if (card instanceof TimeSeal) {
+                    removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, i, rival.getBoard());
+                    putCardInZone(card, Board.Zone.GRAVE, null, rival.getBoard());
+                    return "You can't draw card because enemy has Time seal.";
+                }
             }
         }
         Card drewCard = currentPlayer.getBoard().getCardByIndexAndZone(currentPlayer.getBoard().getDeck().size() - 1, Board.Zone.DECK);
@@ -254,8 +259,14 @@ public class Game {
         putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
         hasSummonedOrSet = true;
         positionChangedInThisTurn.add(selectedCard);
+        if (selectedCard instanceof Terratiger) {
+            Show.showGameMessage("summoned successfully");
+            return ((Terratiger) selectedCard).action();
+        }
+        if (checkForTraps("summon")) return "rival's trap activated";
         return "summoned successfully";
     }
+
 
     private String specialSummon() {
         if (selectedCard instanceof BeastKingBarbaros) {
@@ -300,7 +311,7 @@ public class Game {
                 } else if (CommandProcessor.yesNoQuestion("you can't normally set this. do you want to special summon?"))
                     return specialSummon();
             }
-            if (selectedCard instanceof RitualMonster) return "you can't normally summon a ritual monster";
+            if (selectedCard instanceof RitualMonster) return "you can't normally set a ritual monster";
             int numberOfTributes = switch (((Monster) selectedCard).getLevel()) {
                 case 5, 6 -> 1;
                 case 7, 8, 9 -> 2;
@@ -333,8 +344,7 @@ public class Game {
                 putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
             removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
             hasSummonedOrSet = true;
-            if (selectedCard instanceof Spell && ((Spell) selectedCard).getSpellType() == Spell.SpellType.QUICK_PLAY)
-                setInThisTurn.add(selectedCard);
+            setInThisTurn.add(selectedCard);
         }
         return "set successfully";
     }
@@ -350,6 +360,11 @@ public class Game {
             return "you can’t flip summon this card";
         currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] = Board.CardPosition.ATK;
         positionChangedInThisTurn.add(selectedCard);
+        if (selectedCard instanceof ManEaterBug) {
+            Show.showGameMessage("flip summoned successfully");
+            return ((ManEaterBug) selectedCard).action();
+        }
+        if (checkForTraps("summon")) return "rival's trap activated";
         return "flip summoned successfully";
     }
 
@@ -376,6 +391,8 @@ public class Game {
         if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
         if (currentPhase != Phase.BATTLE) return "you can’t do this action in this phase";
         if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
+        boolean trapErrorHappened = checkForTraps("attack");
+        if (trapErrorHappened) return "rival's trap was activated. attack is cancelled";
         if (attacking.getATK() >= 1500) {
             for (Card card : rival.getBoard().getSpellAndTrapZone())
                 if (card instanceof MessengerOfPeace && ((MessengerOfPeace) card).isActivated())
@@ -481,6 +498,32 @@ public class Game {
         }
     }
 
+    private boolean checkForTraps(String state) {
+        if (MirageDragon.isOn(true)) return false;
+        boolean error = false;
+        boolean trapExists;
+        Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
+        for (int i = 0; i < spellAndTrapZone.length; i++) {
+            Card card = spellAndTrapZone[i];
+            if (card instanceof Trap) {
+                if (state.equals("attack"))
+                    trapExists = card instanceof MagicCylinder || card instanceof NegateAttack || card instanceof MirrorForce;
+                else if (state.equals("summon"))
+                    trapExists = (card instanceof TrapHole && ((Monster) selectedCard).getATK() >= 1000) || card instanceof TorrentialTribute;
+                else trapExists = card instanceof MagicJammer;
+                if (trapExists) {
+                    changeTurn();
+                    if (CommandProcessor.yesNoQuestion("do you want to activate " + card.getName())) {
+                        Show.showGameMessage(((Trap) card).action(i));
+                        error = ((Trap) card).isActivated();
+                    }
+                    changeTurn();
+                }
+            }
+        }
+        return error;
+    }
+
     public String attackDirectly() {
         for (Monster monster : rival.getBoard().getMonsterZone()) {
             if (monster != null) return "you can’t attack the opponent directly";
@@ -497,21 +540,15 @@ public class Game {
             return "you can’t activate an effect on this turn";
         if (((Spell) selectedCard).isActivated()) return "you have already activated this card";
         if (selectedCard instanceof FieldSpell) {
+            if (checkForTraps("active-effect")) return "rival's trap activated and cancelled the activation";
             putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.ACTIVATED, currentPlayer.getBoard());
             return "field spell activated";
         }
         if (selectedZone == Board.Zone.HAND && currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP) &&
                 ((Spell) selectedCard).getSpellType() != Spell.SpellType.QUICK_PLAY)
             return "spell card zone is full";
+        if (checkForTraps("active-effect")) return "rival's trap activated and cancelled the activation";
         return ((Spell) selectedCard).action();
-//        if (selectedCard instanceof HarpiesFeatherDuster) ((HarpiesFeatherDuster) selectedCard).action();
-//        if (selectedCard instanceof DarkHole) ((DarkHole) selectedCard).action();
-//        if (selectedCard instanceof PotOfGreed) ((PotOfGreed) selectedCard).action();
-//        if (selectedCard instanceof Raigeki) ((Raigeki) selectedCard).action();
-//        if (selectedCard instanceof RingOfDefense) ((RingOfDefense) selectedCard).action();
-//        if (selectedCard instanceof SupplySquad) ((SupplySquad) selectedCard).action();
-//        if (selectedCard instanceof SwordsOfRevealingLight) ((SwordsOfRevealingLight) selectedCard).action();
-        //if(selectedCard instanceof ChangeOfHeart) ((ChangeOfHeart) selectedCard).action()
 
 
     }
@@ -551,21 +588,6 @@ public class Game {
                 board.getCardPositions()[0][index] = position;
                 if (position != Board.CardPosition.HIDE_DEF && card instanceof CommandKnight)
                     if (!((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(false);
-                Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
-                for (Card c : spellAndTrapZone) {
-                    if (c instanceof TorrentialTribute) {
-                        if (rival.askPlayerToActive(c))
-                            ((TorrentialTribute) c).action(this);
-                        return;
-                    }
-                }
-                spellAndTrapZone = currentPlayer.getBoard().getSpellAndTrapZone();
-                for (Card c : spellAndTrapZone) {
-                    if (c instanceof TorrentialTribute) {
-                        ((TorrentialTribute) c).action(this);
-                        return;
-                    }
-                }
             }
             case FIELD_SPELL -> {
                 if (position == Board.CardPosition.ACTIVATED) {

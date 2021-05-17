@@ -164,7 +164,7 @@ public class UpdateStatus {
                 "IMPORTANT: Capturing the \"\"Wattaildragon\"\" is forbidden by the Ancient Rules and is a Level 6 " +
                 "offense, the minimum sentence for which is imprisonment for no less than 2500 heliocycles.\"",
                 5800, Monster.MonsterType.DRAGON, 6, 2500, 1000);
-        new TerratigerTheEmpoweredWarrior();
+        new Terratiger();
         new TheTricky();
         new Monster("Spiral Serpent", "When huge whirlpools lay cities asunder, it is the hunger of this " +
                 "sea serpent at work. No one has ever escaped its dreaded Spiral Wave to accurately describe the terror " +
