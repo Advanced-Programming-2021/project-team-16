@@ -4,34 +4,32 @@ import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
+import model.card.spell.fieldspells.FieldSpell;
+import view.CommandProcessor;
 
 import java.util.ArrayList;
 
 public class Terraforming extends Spell {
-    private boolean isAtivated = false;
 
     public Terraforming() {
         super("Terraforming", "Spell", SpellType.NORMAL
                 , "Add 1 Field Spell from your Deck to your hand.", "Limited", 2500);
     }
 
-    public String action(String spellname) {
+    public String action() {
         Game game = GameMenu.getCurrentGame();
-        Card card = getCardByName(spellname);
         Board board = game.getCurrentPlayer().getBoard();
-        ArrayList<Card> deck = board.getDeck();
-
-        if (!deck.contains(card)) return "Your deck doesn't contain this card!";
-        assert card != null;
-        if (((Spell) card).getSpellType() != SpellType.FIELD) return "This is not a field spell card!";
-        game.putCardInZone(card, Board.Zone.HAND, null, board);
-        game.removeCardFromZone(card, Board.Zone.DECK, 0, board);
-        isAtivated = true;
+        if (board.isZoneFull(Board.Zone.HAND)) return "you can't activate this. (your hand is full)";
+        ArrayList<Card> fieldSpells = new ArrayList<>();
+        for (Card card : board.getDeck()) if (card instanceof FieldSpell) fieldSpells.add(card);
+        if (fieldSpells.size() == 0) return "you can't activate this. (there is no field spell in your deck)";
+        int fieldSpellIndex = CommandProcessor.getIndexOfCardArray(fieldSpells);
+        if (fieldSpellIndex == -1) return "cancelled";
+        Card fieldSpell = fieldSpells.get(fieldSpellIndex);
+        game.putCardInZone(fieldSpell, Board.Zone.HAND, null, board);
+        game.removeCardFromZone(fieldSpell, Board.Zone.DECK, 0, board);
         super.action();
-        return "Card was added to your hand successfully!";
+        return "spell activated and " + fieldSpell.getName() + " was added to your hand successfully!";
     }
 
-    public boolean isActivated() {
-        return isAtivated;
-    }
 }

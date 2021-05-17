@@ -1,12 +1,8 @@
 package model.card.spell;
 
-import controller.GameMenu;
 import model.Board;
-import model.Game;
-import model.card.monster.Monster;
 
 public class Raigeki extends Spell {
-    private boolean isAtivated = false;
 
     public Raigeki() {
         super("Raigeki", "Spell", SpellType.NORMAL
@@ -14,20 +10,9 @@ public class Raigeki extends Spell {
     }
 
     public String action() {
-        Game game = GameMenu.getCurrentGame();
-        Board board = game.getRival().getBoard();
-        for (int index = 0; index < board.getMonsterZone().length; index++) {
-            Monster monster = board.getMonsterZone()[index];
-            if (monster != null)
-                game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
-            game.removeCardFromZone(monster, Board.Zone.MONSTER, index, board);
-            isAtivated = true;
-            super.action();
-        }
-        return null;
+        UtilActions.removeRivalCards(Board.Zone.MONSTER);
+        return super.action() + "and all rival's monsters are destroyed";
     }
 
-    public boolean isActivated() {
-        return isAtivated;
-    }
+
 }

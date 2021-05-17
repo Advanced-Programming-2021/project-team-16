@@ -2,9 +2,7 @@ package model.card.spell;
 
 import controller.GameMenu;
 import model.Board;
-import model.Deck;
 import model.Game;
-import model.card.Card;
 
 public class PotOfGreed extends Spell {
     private boolean isAtivated = false;
@@ -16,17 +14,11 @@ public class PotOfGreed extends Spell {
 
     public String action() {
         Game game = GameMenu.getCurrentGame();
-        for (int i = 0; i < 2; i++) {
-            Board board = game.getCurrentPlayer().getBoard();
-            Deck deck = game.getCurrentPlayer().getUser().getActiveDeck();
-            Card card = deck.drawOneCard(game, board);
-            if (card == null)
-                return null;
-            game.putCardInZone(card, Board.Zone.HAND, null, board);
-            isAtivated = true;
-            super.action();
-        }
-        return null;
+        Board board = game.getCurrentPlayer().getBoard();
+        String error = UtilActions.drawCardsForCurrentPlayer(2);
+        if (error != null) return error;
+        super.action();
+        return "spell activated and 2 cards where added to your hand";
     }
 
     public boolean isActivated() {

@@ -17,13 +17,18 @@ public class Board {
     private CardPosition[][] cardPositions = new CardPosition[2][5];
     // first row-> monster zone
     // second row -> spell and trap
-    private FieldSpell fieldSpell;
+    private FieldSpell fieldSpell = null;
     private boolean[] didMonsterAttack = new boolean[5];
 
 
     public Board(ArrayList<Card> deck) {
-        this.deck.addAll(deck);
+        this.deck = deck;
         Collections.shuffle(this.deck);
+    }
+
+    public Card getCardFromGrave(String name) {
+        for (int i = grave.size() - 1; i >= 0; i--) if (grave.get(i).getName().equals(name)) return grave.get(i);
+        return null;
     }
 
     public boolean isZoneFull(Zone zone) {
@@ -53,12 +58,6 @@ public class Board {
             if (zoneCards[i] == null) return i;
         }
         return -1;
-    }
-
-    public int howManyMonsters() {
-        int numberOfMonsters = 0;
-        for (Monster monster : monsterZone) if (monster != null) numberOfMonsters++;
-        return numberOfMonsters;
     }
 
     public int getIndexOfCard(String cardName, Zone zone) {
@@ -94,6 +93,11 @@ public class Board {
         int n = 0;
         for (Monster monster : monsterZone) if (monster != null) n++;
         return n;
+    }
+
+    public boolean doesGraveHaveMonster() {
+        for (Card card : grave) if (card instanceof Monster) return true;
+        return false;
     }
 
     public ArrayList<Card> getDeck() {

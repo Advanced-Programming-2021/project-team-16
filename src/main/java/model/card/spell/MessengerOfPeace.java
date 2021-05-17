@@ -1,12 +1,6 @@
 package model.card.spell;
 
-import controller.GameMenu;
-import model.Game;
-import model.card.monster.Monster;
-
 public class MessengerOfPeace extends Spell {
-    boolean monsterCantAttack;
-    private boolean isAtivated = false;
 
     public MessengerOfPeace() {
         super("Messenger of peace", "Spell", SpellType.CONTINUES
@@ -14,15 +8,12 @@ public class MessengerOfPeace extends Spell {
                         " Once per turn, during your Standby Phase, pay 100 LP or destroy this card.", "Unlimited", 4000);
     }
 
-    public String action(Monster monster) {
-        Game game = GameMenu.getCurrentGame();
-        if (monster.getATK() >= 1500) monsterCantAttack = true;
-        isAtivated = true;
-        super.action();
-        return null;
+    public String action() {
+        return super.action();
     }
 
-    public boolean isActivated() {
-        return isAtivated;
+    public String getMessage() {
+        return "you can't attack with this card because rival has " + this.getName();
     }
+
 }

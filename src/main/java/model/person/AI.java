@@ -220,19 +220,29 @@ public class AI extends Player {
         return null;
     }
 
-    public Monster getMonsterFromGrave(boolean isMyGrave) {
+    public int getMonsterFromGrave(boolean isMyGrave) {
         Monster mostLeveledMonster = null;
+        int mostLeveledMonsterIndex = -1;
         Board board = isMyGrave ? getBoard() : GameMenu.getCurrentGame().getRival().getBoard();
-        for (Card card : board.getGrave())
-            if (card instanceof Monster) {
+        ArrayList<Card> grave = board.getGrave();
+        for (int i = 0, graveSize = grave.size(); i < graveSize; i++) {
+            Card card = grave.get(i);
+            if (grave.get(i) instanceof Monster) {
                 mostLeveledMonster = (Monster) card;
+                mostLeveledMonsterIndex = i;
                 break;
             }
-        if (mostLeveledMonster == null) return null;
-        for (Card card : board.getGrave())
-            if (card instanceof Monster) if (((Monster) card).getLevel() > mostLeveledMonster.getLevel())
+        }
+        if (mostLeveledMonster == null) return -1;
+        ArrayList<Card> boardGrave = board.getGrave();
+        for (int i = 0, boardGraveSize = boardGrave.size(); i < boardGraveSize; i++) {
+            Card card = boardGrave.get(i);
+            if (card instanceof Monster) if (((Monster) card).getLevel() > mostLeveledMonster.getLevel()) {
                 mostLeveledMonster = (Monster) card;
-        return mostLeveledMonster;
+                mostLeveledMonsterIndex = i;
+            }
+        }
+        return mostLeveledMonsterIndex;
     }
 
 }

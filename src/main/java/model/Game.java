@@ -1,12 +1,14 @@
 package model;
 
+import model.card.Activatable;
 import model.card.Card;
 import model.card.monster.*;
-import model.card.spell.*;
+import model.card.spell.MessengerOfPeace;
+import model.card.spell.Spell;
+import model.card.spell.SupplySquad;
 import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.TimeSeal;
 import model.card.trap.TorrentialTribute;
-import model.card.trap.Trap;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
@@ -30,6 +32,7 @@ public class Game {
     private Phase currentPhase;
     private boolean hasSummonedOrSet;
     private ArrayList<Card> setInThisPhase = new ArrayList<>();
+    private ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -44,9 +47,6 @@ public class Game {
             HashMap<Player, Integer> winnerAndLp = new HashMap<>();
             this.currentPlayer = player2;
             this.rival = player1;
-            player1.getUser().setGameScore(0);
-            player2.getUser().setGameScore(0);
-
             int currentRound = 0;
             while (getMatchWinner(winnerAndLp) == null) {
                 currentRound++;
@@ -58,16 +58,7 @@ public class Game {
                     run(rival, currentPlayer);
                 }
                 Show.showImportantGameMessage(winner.getUser().getUsername() + " won the game and the score is: 1000-0");
-                winner.getUser().increaseGameScore(1000);
-                int winnerGameScore = winner.getUser().getGameScore();
-                int loserGameScore = loser.getUser().getGameScore();
-                if (winnerGameScore == 2000 && loserGameScore == 0) {
-                    int maxLp = 0;
-                    for (Map.Entry<Player, Integer> player : winnerAndLp.entrySet()) {
-                        if (player.getKey() == winner && maxLp < player.getValue()) maxLp = player.getValue();
-                    }
-                    Show.showGameMessage(endMatch(maxLp));
-                }
+                winner.increaseGameScore(1000);
                 winnerAndLp.put(winner, winner.getLP());
             }
             winner = getMatchWinner(winnerAndLp);
@@ -94,6 +85,7 @@ public class Game {
 
     private void run(Player me, Player rival) {
         setInThisPhase.clear();
+        positionChangedInThisTurn.clear();
         hasSummonedOrSet = false;
         this.currentPlayer = me;
         this.rival = rival;
@@ -107,10 +99,11 @@ public class Game {
         for (Monster monster : monsters) if (monster instanceof Texchanger) ((Texchanger) monster).setAttacked(false);
         //scanner
         Scanner.undo();
-        //spell absorbtion
-        //ring of defence
-        //negate attack
-        selectedCard = null;
+        //Supply Squad
+        for (Card card : currentPlayer.getBoard().getSpellAndTrapZone())
+            if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
+        for (Card card : rival.getBoard().getSpellAndTrapZone())
+            if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
         setCurrentPhase(Phase.DRAW);
         Show.showGameMessage(drawCard());
         if (didSbWin()) return;
@@ -166,36 +159,13 @@ public class Game {
         this.isSelectedCardForRival = isSelectedCardForRival;
         this.selectedZone = zone;
         this.selectedZoneIndex = index;
-        if (isSelectedCardForRival) this.selectedCard = rival.getBoard().getCardByIndexAndZone(index, zone);
-        else {
-            this.selectedCard = currentPlayer.getBoard().getCardByIndexAndZone(index, zone);
-            if (selectedCard instanceof HeraldOfCreation)
-                if (CommandProcessor.yesNoQuestion("Do you want to use Herald of Creation?")) {
-                    HeraldOfCreation heraldOfCreation = (HeraldOfCreation) selectedCard;
-                    int[] tributes = CommandProcessor.getTribute(1, false);
-                    if (tributes == null) Show.showGameMessage("cancelled");
-                    else {
-                        if (currentPlayer instanceof AI) {
-                            Monster cardFromGrave = ((AI) currentPlayer).getMonsterFromGrave(true);
-                            Show.showGameMessage(heraldOfCreation.action(tributes[0], cardFromGrave.getName()));
-                        } else
-                            Show.showGameMessage(heraldOfCreation.action(tributes[0], CommandProcessor.getCardName(
-                                    "say a card name in graveyard for special summon")));
-                    }
-                }
-            if (selectedCard instanceof Scanner)
-                if (CommandProcessor.yesNoQuestion("Do you want to use Scanner?")) {
-                    Scanner scanner = (Scanner) selectedCard;
-                    if (currentPlayer instanceof AI) {
-                        Monster cardFromGrave = ((AI) currentPlayer).getMonsterFromGrave(true);
-                        Show.showGameMessage(scanner.setReplacement(((AI) currentPlayer).getMonsterFromGrave(false).getName(), index));
-                    }
-                    Show.showGameMessage(scanner.setReplacement(CommandProcessor.getCardName(
-                            "Enter the name of the monster witch you want to replace with Scanner"), index));
-                }
-        }
+        Player player = isSelectedCardForRival ? rival : currentPlayer;
+        selectedCard = player.getBoard().getCardByIndexAndZone(index, zone);
         if (selectedCard == null) return "no card found in the given position";
-        else return "card selected";
+        if (selectedZone == Board.Zone.MONSTER && selectedCard instanceof Activatable && (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2))
+            if (CommandProcessor.yesNoQuestion("do you want to use " + selectedCard.getName() + " effect?"))
+                Show.showGameMessage(((Activatable) selectedCard).action());
+        return "card selected";
 
     }
 
@@ -220,11 +190,12 @@ public class Game {
                 return "You can't draw card because enemy has Time seal.";
             }
         }
-        Card drewCard = currentPlayer.getBoard().getCardByIndexAndZone(0, Board.Zone.DECK);
+        Card drewCard = currentPlayer.getBoard().getCardByIndexAndZone(currentPlayer.getBoard().getDeck().size() - 1, Board.Zone.DECK);
         removeCardFromZone(drewCard, Board.Zone.DECK, 0, currentPlayer.getBoard());
         putCardInZone(drewCard, Board.Zone.HAND, null, currentPlayer.getBoard());
         return "new card added to the hand : " + drewCard.getName();
     }
+
 
     private String endRound() {
 
@@ -242,7 +213,7 @@ public class Game {
         winner.getUser().increaseMoney(3000 + (3 * maxLp));
         loser.getUser().increaseMoney(300);
 
-        return winner.getUser().getUsername() + "won the whole match with score: " + winner.getUser().getGameScore() + "-" + loser.getUser().getGameScore();
+        return winner.getUser().getUsername() + "won the whole match with score: " + winner.getGameScore() + "-" + loser.getGameScore();
     }
 
     public String summon() {
@@ -277,6 +248,7 @@ public class Game {
         removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
         putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
         hasSummonedOrSet = true;
+        positionChangedInThisTurn.add(selectedCard);
         return "summoned successfully";
     }
 
@@ -344,17 +316,27 @@ public class Game {
             putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
             hasSummonedOrSet = true;
             setInThisPhase.add(selectedCard);
+            positionChangedInThisTurn.add(selectedCard);
             return "set successfully";
-        }
-        if (selectedCard instanceof Spell || selectedCard instanceof Trap) {
-            if (currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP))
-                return "spell card zone is full";
+        } else {
+            if (selectedCard instanceof Spell) {
+                switch (((Spell) selectedCard).getSpellType()) {
+                    case RITUAL, NORMAL -> {
+                        return "you can't set this. just activate it";
+                    }
+                }
+            }
+            if (selectedCard instanceof FieldSpell)
+                putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
+            else if (currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP)) return "spell card zone is full";
+            else
+                putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
             removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
-            putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.HIDE_DEF, currentPlayer.getBoard());
             hasSummonedOrSet = true;
+            if (selectedCard instanceof Spell && ((Spell) selectedCard).getSpellType() == Spell.SpellType.QUICK_PLAY)
+                setInThisPhase.add(selectedCard);
             return "set successfully";
         }
-        return "not successful";
     }
 
     public String flipSummon() {
@@ -367,7 +349,23 @@ public class Game {
                 || setInThisPhase.contains(selectedCard))
             return "you can’t flip summon this card";
         currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] = Board.CardPosition.ATK;
+        positionChangedInThisTurn.add(selectedCard);
         return "flip summoned successfully";
+    }
+
+    public String setMonsterPosition(boolean isAttack) {
+        if (selectedCard == null) return "no card is selected yet";
+        if (selectedZone != Board.Zone.MONSTER) return "you can’t change this card position";
+        if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2)
+            return "you can’t do this action in this phase";
+        Board.CardPosition position = isAttack ? Board.CardPosition.ATK : Board.CardPosition.REVEAL_DEF;
+        if (currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] == position)
+            return "this card is already in the wanted position";
+        if (positionChangedInThisTurn.contains(selectedCard))
+            return "you already changed this card position in this turn";
+        currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] = position;
+        positionChangedInThisTurn.add(selectedCard);
+        return "monster card position changed successfully";
     }
 
     public String attack(int monsterNumber) {
@@ -378,6 +376,11 @@ public class Game {
         if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
         if (currentPhase != Phase.BATTLE) return "you can’t do this action in this phase";
         if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
+        if (attacking.getATK() >= 1500) {
+            for (Card card : rival.getBoard().getSpellAndTrapZone())
+                if (card instanceof MessengerOfPeace && ((MessengerOfPeace) card).isActivated())
+                    return ((MessengerOfPeace) card).getMessage();
+        }
         if (monsterNumber == -1) return attackDirectly();
         Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
         if (attacked instanceof Texchanger && !((Texchanger) attacked).isAttacked()) {
@@ -492,32 +495,24 @@ public class Game {
         if (!(selectedCard instanceof Spell)) return "activate effect is only for spell cards.";
         if (getCurrentPhase() != Phase.MAIN_1 && getCurrentPhase() != Phase.MAIN_2)
             return "you can’t activate an effect on this turn";
-        if (((Spell) selectedCard).getCondition() == Spell.Conditions.ACTIVATED)
-            return "you have already activated this card";
-        if (selectedZone == Board.Zone.HAND && currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP)
-                && ((Spell) selectedCard).getSpellType() != Spell.SpellType.FIELD)
-            return "spell card zone is full";
-        //TODO: preparation stuff
-        if (selectedCard instanceof HarpiesFeatherDuster) ((HarpiesFeatherDuster) selectedCard).action();
-        if (selectedCard instanceof DarkHole) ((DarkHole) selectedCard).action();
-        if (selectedCard instanceof PotOfGreed) ((PotOfGreed) selectedCard).action();
-        if (selectedCard instanceof Raigeki) ((Raigeki) selectedCard).action();
-        if (selectedCard instanceof RingOfDefense) ((RingOfDefense) selectedCard).action();
-        if (selectedCard instanceof SupplySquad) ((SupplySquad) selectedCard).action();
-        if (selectedCard instanceof SwordsOfRevealingLight) ((SwordsOfRevealingLight) selectedCard).action();
-        //if(selectedCard instanceof ChangeOfHeart) ((ChangeOfHeart) selectedCard).action()
-        if (((Spell) selectedCard).getSpellType() == Spell.SpellType.FIELD) {
-            if (currentPlayer.getBoard().isZoneFull(Board.Zone.FIELD_SPELL)) {
-                putCardInZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.GRAVE, null, currentPlayer.getBoard());
-                removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
-            }
+        if (((Spell) selectedCard).isActivated()) return "you have already activated this card";
+        if (selectedCard instanceof FieldSpell) {
             putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.ACTIVATED, currentPlayer.getBoard());
-            removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, getCurrentPlayer().getBoard());
-            return "spell activated";
+            return "field spell activated";
         }
-        putCardInZone(selectedCard, Board.Zone.SPELL_AND_TRAP, Board.CardPosition.ACTIVATED, getCurrentPlayer().getBoard());
-        removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, getCurrentPlayer().getBoard());
-        return "spell activated";
+        if (selectedZone == Board.Zone.HAND && currentPlayer.getBoard().isZoneFull(Board.Zone.SPELL_AND_TRAP) &&
+                ((Spell) selectedCard).getSpellType() != Spell.SpellType.QUICK_PLAY)
+            return "spell card zone is full";
+        return ((Spell) selectedCard).action();
+//        if (selectedCard instanceof HarpiesFeatherDuster) ((HarpiesFeatherDuster) selectedCard).action();
+//        if (selectedCard instanceof DarkHole) ((DarkHole) selectedCard).action();
+//        if (selectedCard instanceof PotOfGreed) ((PotOfGreed) selectedCard).action();
+//        if (selectedCard instanceof Raigeki) ((Raigeki) selectedCard).action();
+//        if (selectedCard instanceof RingOfDefense) ((RingOfDefense) selectedCard).action();
+//        if (selectedCard instanceof SupplySquad) ((SupplySquad) selectedCard).action();
+//        if (selectedCard instanceof SwordsOfRevealingLight) ((SwordsOfRevealingLight) selectedCard).action();
+        //if(selectedCard instanceof ChangeOfHeart) ((ChangeOfHeart) selectedCard).action()
+
 
     }
 
@@ -541,10 +536,6 @@ public class Game {
         return currentPhase;
     }
 
-    public Board.Zone getSelectedZone() {
-        return selectedZone;
-    }
-
     public int getSelectedZoneIndex() {
         return selectedZoneIndex;
     }
@@ -559,7 +550,7 @@ public class Game {
                 board.getMonsterZone()[index] = (Monster) card;
                 board.getCardPositions()[0][index] = position;
                 if (position != Board.CardPosition.HIDE_DEF && card instanceof CommandKnight)
-                    if (!((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action();
+                    if (!((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(false);
                 Card[] spellAndTrapZone = rival.getBoard().getSpellAndTrapZone();
                 for (Card c : spellAndTrapZone) {
                     if (c instanceof TorrentialTribute) {
@@ -577,10 +568,12 @@ public class Game {
                 }
             }
             case FIELD_SPELL -> {
-                if (position == Board.CardPosition.ACTIVATED)
+                if (position == Board.CardPosition.ACTIVATED) {
                     ((FieldSpell) card).action(false);
+                    if (rival.getBoard().getFieldSpell().isActivated())
+                        removeCardFromZone(rival.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, rival.getBoard());
+                }
                 removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
-                removeCardFromZone(rival.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, rival.getBoard());
                 board.setFieldSpell(((FieldSpell) card));
             }
             case SPELL_AND_TRAP -> {
@@ -596,21 +589,26 @@ public class Game {
             case MONSTER -> {
                 board.getMonsterZone()[zoneIndex] = null;
                 if (card instanceof CommandKnight)
-                    if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).undoAction();
+                    if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(true);
                 for (Card spell : board.getSpellAndTrapZone())
-                    if (spell instanceof SupplySquad)
-                        ((SupplySquad) spell).action();
+                    if (spell instanceof SupplySquad && ((SupplySquad) spell).isActivated() && !((SupplySquad) spell).isUsedInThisTurn()) {
+                        boolean needToChangeTurn = ((SupplySquad) spell).getOwner() != currentPlayer;
+                        if (needToChangeTurn) changeTurn();
+                        Show.showGameMessage(((SupplySquad) spell).draw());
+                        if (needToChangeTurn) changeTurn();
+                    }
             }
             case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[zoneIndex] = null;
             case HAND -> board.getHand()[zoneIndex] = null;
             case FIELD_SPELL -> {
                 if (card != null && ((FieldSpell) card).isActivated()) ((FieldSpell) card).action(true);
                 board.setFieldSpell(null);
+                putCardInZone(card, Board.Zone.GRAVE, null, board);
             }
             default -> {
                 ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();
                 for (int i = thisZone.size() - 1; i >= 0; i--)
-                    if (thisZone.get(i) == card) {
+                    if (thisZone.get(i).equals(card)) {
                         thisZone.remove(i);
                         break;
                     }
@@ -625,7 +623,8 @@ public class Game {
     }
 
     public void changeTurn() {
-        Show.showImportantGameMessage("it's " + rival.getUser().getNickname() + "’s turn");
+        Show.showImportantGameMessage("now it will be " + rival.getUser().getNickname() + "’s turn");
+        Show.showBoard();
         Player temp = currentPlayer;
         currentPlayer = rival;
         rival = temp;
@@ -654,7 +653,19 @@ public class Game {
         this.selectedZoneIndex = selectedZoneIndex;
     }
 
+    public Board.Zone getSelectedZone() {
+        return selectedZone;
+    }
+
     public boolean hasSummonedOrSet() {
         return hasSummonedOrSet;
+    }
+
+    public void setHasSummonedOrSet(boolean hasSummonedOrSet) {
+        this.hasSummonedOrSet = hasSummonedOrSet;
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 }

@@ -166,10 +166,22 @@ public class Enums {
     }
 
     public enum GameCommands {
+        SUMMON("summon"),
+        SET("set"),
+        ATTACK("attack (\\d+)"),
+        ATTACK_DIRECT("attack direct"),
+        ACTIVE_EFFECT("activate effect"),
+        FLIP_SUMMON("flip-summon"),
+        SET_POSITION("set --position (attack|defense)"),
+        SHOW_GRAVE("show graveyard"),
+        SHOW_SELECTED("card show --selected"),
+        SURRENDER("surrender"),
         SELECT_CARD("select --(\\w+) (\\d+)?( --opponent)?"),
         DESELECT_CARD("select -d"),
         SHOW_CARD("card show (.*)"),
-        END_PHASE("end-phase");
+        END_PHASE("end-phase"), //-> pay attention :)
+        HELP_MAIN("help-main"),
+        HELP_BATTLE("help-battle");
         private final String regex;
 
         public String getRegex() {
@@ -177,6 +189,51 @@ public class Enums {
         }
 
         GameCommands(String regex) {
+            this.regex = regex;
+        }
+    }
+
+    public static final String GAME_HELP_MAIN = """
+            select --monster <number> (--opponent)
+            select --spell <number> (--opponent)
+            select --hand <number>
+            select --field (--opponent)
+            select -d
+            card show --selected
+            card show <card name>
+            summon
+            set
+            flip-summon
+            set --position (attack|defense)
+            activate effect
+            show graveyard
+            surrender
+            end-phase
+            """;
+    public static final String GAME_HELP_BATTLE = """
+            select --monster <number> (--opponent)
+            select -d
+            card show --selected
+            card show <card name>
+            attack <number of rival's monster>
+            attack direct
+            show graveyard
+            surrender
+            end-phase
+            """;
+
+    public enum Cheat {
+        INCREASE_LP("increase --LP (\\d+)"),
+        INCREASE_MONEY("increase --money (\\d+)"),
+        WIN_DUEL("duel set-winner"),
+        SET_AND_SUMMON_AGAIN("not summon/set yet");
+        private final String regex;
+
+        public String getRegex() {
+            return regex;
+        }
+
+        Cheat(String regex) {
             this.regex = regex;
         }
     }

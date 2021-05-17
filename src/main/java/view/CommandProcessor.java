@@ -4,6 +4,7 @@ import controller.*;
 import model.Board;
 import model.Game;
 import model.card.Card;
+import model.card.monster.Monster;
 import model.person.AI;
 import model.person.User;
 
@@ -87,13 +88,14 @@ public class CommandProcessor {
             else if (command.equals(Enums.ShopCommands.SHOW_CURRENT.getRegex())) System.out.println(Shop.menuName());
             else if (command.matches(Enums.ShopCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
+            else if ((matcher = getCommandMatcher(command, Enums.Cheat.INCREASE_MONEY.getRegex())).find())
+                MainMenu.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
             else System.out.println("invalid command!");
             command = scanner.nextLine().trim();
         }
     }
 
     private static void deckMenu() {
-        HashMap<String, String> data;
         Matcher matcher;
         String command = scanner.nextLine().trim();
         while (!command.equals(Enums.DeckMenuCommands.EXIT.getRegex())) {
@@ -212,8 +214,6 @@ public class CommandProcessor {
         boolean isSelectedCardForOpponent;
         Matcher matcher;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.GameCommands.END_PHASE.getRegex()); command = scanner.nextLine().trim()) {
-            Show.showBoard();
-            game.setSelectedCard(null);
             if ((matcher = Pattern.compile(Enums.GameCommands.SELECT_CARD.getRegex()).matcher(command)).find()) {
                 isSelectedCardForOpponent = matcher.group(3) != null;
                 boolean isSelectionValid = true;
@@ -241,10 +241,13 @@ public class CommandProcessor {
                 else if (!isSelectionValid) System.out.println("invalid selection");
                 else System.out.println(game.selectCard(zone, index - 1, isSelectedCardForOpponent));
             } else if (command.equals(Enums.GameCommands.DESELECT_CARD.getRegex())) System.out.println(game.deselect());
-            else if (command.equals("summon")) System.out.println(game.summon());
-            else if (command.equals("set")) System.out.println(game.set());
-            else if (command.equals("flip-summon")) System.out.println(game.flipSummon());
-            else if ((matcher = Pattern.compile("attack (\\d+)").matcher(command)).find()) {
+            else if (command.equals(Enums.GameCommands.SUMMON.getRegex())) System.out.println(game.summon());
+            else if (command.equals(Enums.GameCommands.SET.getRegex())) System.out.println(game.set());
+            else if (command.equals(Enums.GameCommands.FLIP_SUMMON.getRegex())) System.out.println(game.flipSummon());
+            else if ((matcher = Pattern.compile(Enums.GameCommands.SET_POSITION.getRegex()).matcher(command)).find()) {
+                boolean isAttack = matcher.group(1).equals("attack");
+                System.out.println(game.setMonsterPosition(isAttack));
+            } else if ((matcher = Pattern.compile(Enums.GameCommands.ATTACK.getRegex()).matcher(command)).find()) {
                 boolean isIndexValid = true;
                 int index = -1;
                 if (matcher.group(1).length() > 3) isIndexValid = false;
@@ -254,32 +257,33 @@ public class CommandProcessor {
                 }
                 if (isIndexValid) System.out.println(game.attack(index));
                 else System.out.println("index is not valid");
-            } else if (command.matches("attack\\sdirect")) System.out.println(game.attack(-1));
-            else if (command.matches("activate\\seffect")) System.out.println(game.activeEffect());
-            else if (command.matches("show\\sgraveyard")) {
-                ArrayList<Card> currentGrave = game.getCurrentPlayer().getBoard().getGrave();
-                ArrayList<Card> rival = game.getRival().getBoard().getGrave();
-                if (currentGrave.size() == 0) System.out.println("your graveyard empty");
-                else {
-                    System.out.println("your graveyard:");
-                    Show.showCardArray(game.getCurrentPlayer().getBoard().getGrave());
-                }
-                if (rival.size() == 0) System.out.println("rival's graveyard empty");
-                else {
-                    System.out.println("rival's graveyard:");
-                    Show.showCardArray(game.getRival().getBoard().getGrave());
-                }
+            } else if (command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex()))
+                System.out.println(game.attack(-1));
+            else if (command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()))
+                System.out.println(game.activeEffect());
+            else if (command.matches(Enums.GameCommands.SHOW_GRAVE.getRegex())) {
+                Show.showGraveYard();
                 while (!scanner.nextLine().trim().equals("back"))
                     System.out.println("use \"back\" command for exiting");
-            } else if (command.matches("card\\sshow\\s--selected")) System.out.println(game.showSelectedCard());
-            else if (command.equals("surrender")) game.surrendered();
+            } else if (command.matches(Enums.GameCommands.SHOW_SELECTED.getRegex()))
+                System.out.println(game.showSelectedCard());
+            else if (command.equals(Enums.GameCommands.SURRENDER.getRegex())) game.surrendered();
             else if ((matcher = getCommandMatcher(command, Enums.GameCommands.SHOW_CARD.getRegex())).find())
                 Show.showSingleCard(matcher.group(1));
+            else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_LP.getRegex()).matcher(command)).find())
+                game.getCurrentPlayer().increaseLP(Integer.parseInt(matcher.group(1)));
+            else if (command.equals(Enums.Cheat.WIN_DUEL.getRegex()))
+                game.setWinner(game.getCurrentPlayer());
+            else if (command.equals(Enums.Cheat.SET_AND_SUMMON_AGAIN.getRegex())) game.setHasSummonedOrSet(false);
+            else if (command.equals(Enums.GameCommands.HELP_MAIN.getRegex())) System.out.println(Enums.GAME_HELP_MAIN);
+            else if (command.equals(Enums.GameCommands.HELP_BATTLE.getRegex()))
+                System.out.println(Enums.GAME_HELP_BATTLE);
             else System.out.println("invalid command");
+            Show.showBoard();
             if (game.didSbWin()) return;
         }
+        game.setSelectedCard(null);
     }
-
 
 
     private static void scoreboard() {
@@ -332,6 +336,53 @@ public class CommandProcessor {
         return scanner.nextLine();
     }
 
+    public static int getMonsterFromGrave(boolean isMyGrave) {
+        Game game = GameMenu.getCurrentGame();
+        ArrayList<Card> grave = isMyGrave ?
+                game.getCurrentPlayer().getBoard().getGrave() : game.getRival().getBoard().getGrave();
+        if (game.getCurrentPlayer() instanceof AI)
+            return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getMonsterFromGrave(isMyGrave);
+        String graveOwner = isMyGrave ? "your" : "rival's";
+        Show.showCardArray(grave);
+        System.out.println("choose an index from " + graveOwner + " grave");
+        String command = scanner.nextLine().trim();
+        int index = -1;
+        while (!command.equals("cancel")) {
+            String error = null;
+            if (!command.matches("\\d+")) error = "invalid command";
+            else {
+                index = Integer.parseInt(command);
+                if (grave.size() < index || index == 0) error = "invalid index";
+                else if (!(grave.get(index) instanceof Monster)) error = "this is not a monster";
+            }
+            if (error == null) return index - 1;
+            System.out.println(error + ". please try again or \"cancel\" the operation");
+            command = scanner.nextLine().trim();
+        }
+        return -1;
+    }
+
+    public static int getIndexOfCardArray(ArrayList<Card> cards) {
+        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) return 0;
+        System.out.println("choose an index from these cards: ");
+        Show.showCardArray(cards);
+        String command = scanner.nextLine().trim();
+        int index = -1;
+        while (!command.equals("cancel")) {
+            String error = null;
+            if (!command.matches("\\d+")) error = "invalid command";
+            else {
+                index = Integer.parseInt(command);
+                if (cards.size() < index || index == 0) error = "invalid index";
+            }
+            if (error == null) return index - 1;
+            System.out.println(error + ". please try again or \"cancel\" the operation");
+            command = scanner.nextLine().trim();
+        }
+        return -1;
+
+    }
+
     public static Board.Zone getZone() {
         if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) return Board.Zone.HAND;
         String zoneName = scanner.nextLine();
@@ -381,11 +432,13 @@ public class CommandProcessor {
                         error = "this index is empty";
                 }
                 if (error == null)
-                    for (int i = 0; i < indexes.length; i++)
+                    for (int i = 0; i < indexes.length; i++) {
                         if (indexes[i] == -1) {
                             indexes[i] = index;
                             break;
-                        } else System.out.println(error);
+                        }
+                    }
+                else System.out.println(error);
             } else System.out.println("invalid command.");
         }
         return indexes;
