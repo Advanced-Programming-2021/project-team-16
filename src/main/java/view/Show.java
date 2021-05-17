@@ -204,12 +204,12 @@ public class Show {
         Board.CardPosition[][] rivalBoars = boardR.getCardPositions();
         String rivalNickname = GameMenu.getCurrentGame().getRival().getUser().getNickname();
         int rivalLP = GameMenu.getCurrentGame().getRival().getLP();
-        System.out.println(rivalNickname + ":" + rivalLP);
+        System.out.println("\t\t" + rivalNickname + ":" + rivalLP);
         System.out.print("\t");
         for (int i = 0; i < boardR.getHand().length; i++) {
-            if (boardR.getHand()[i] != null)
-                System.out.println("c\t");
+            System.out.print("c\t");
         }
+        System.out.println();
         System.out.println(dnR);
         System.out.print("\t");
         for (int i = 0; i < boardR.getSpellAndTrapZone().length; i++) {
@@ -220,8 +220,9 @@ public class Show {
                 spellAndTrapZone = "H";
             }
             if (boardR.getSpellAndTrapZone()[i] == null) spellAndTrapZone = "E";
-            System.out.println(spellAndTrapZone + "\t");
+            System.out.print(spellAndTrapZone + "\t");
         }
+        System.out.println();
         System.out.print("\t");
         for (int i = 0; i < boardR.getMonsterZone().length; i++) {
             if (rivalBoars[1][i] == Board.CardPosition.REVEAL_DEF) {
@@ -234,8 +235,9 @@ public class Show {
                 monsterCardZone = "OO";
             }
             if (boardR.getMonsterZone()[i] == null) monsterCardZone = "E";
-            System.out.println(monsterCardZone + "\t");
+            System.out.print(monsterCardZone + "\t");
         }
+        System.out.println();
         System.out.println(gyR + "\t\t\t\t\t\t" + fz + "\n\n");
         System.out.println("--------------------------\n\n");
         System.out.println(fz + "\t\t\t\t\t\t" + gy);
@@ -251,8 +253,9 @@ public class Show {
                 monsterCardZone = "OO";
             }
             if (board.getMonsterZone()[i] == null) monsterCardZone = "E";
-            System.out.println(monsterCardZone + "\t");
+            System.out.print(monsterCardZone + "\t");
         }
+        System.out.println();
         System.out.print("\t");
         for (int i = 0; i < board.getSpellAndTrapZone().length; i++) {
             if (myBoard[1][i] == Board.CardPosition.ACTIVATED) {
@@ -262,17 +265,19 @@ public class Show {
                 spellAndTrapZone = "H";
             }
             if (board.getSpellAndTrapZone()[i] == null) spellAndTrapZone = "E";
-            System.out.println(spellAndTrapZone + "\t");
+            System.out.print(spellAndTrapZone + "\t");
         }
+        System.out.println();
         System.out.println("  \t\t\t\t\t\t" + dn);
         System.out.print("\t");
         for (int i = 0; i < board.getHand().length; i++) {
             if (board.getHand()[i] != null)
-                System.out.println("c\t");
+                System.out.print("c\t");
         }
+        System.out.println();
         String playerNickname = GameMenu.getCurrentGame().getCurrentPlayer().getUser().getNickname();
         int playerLP = GameMenu.getCurrentGame().getCurrentPlayer().getLP();
-        System.out.println(playerNickname + ":" + playerLP);
+        System.out.println("\t\t" + playerNickname + ":" + playerLP);
     }
 
     public static void showGameMessage(String gameMessage) {
