@@ -268,7 +268,8 @@ public class Show {
         System.out.println("  \t\t\t\t\t\t" + dn);
         System.out.print("\t");
         for (int i = 0; i < board.getHand().length; i++) {
-            System.out.println("c\t");
+            if (board.getHand()[i] != null)
+                System.out.println("c\t");
         }
         String playerNickname = GameMenu.getCurrentGame().getCurrentPlayer().getUser().getNickname();
         int playerLP = GameMenu.getCurrentGame().getCurrentPlayer().getLP();

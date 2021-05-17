@@ -144,6 +144,14 @@ public class Board {
         this.fieldSpell = fieldSpell;
     }
 
+    public void refreshHand() {
+        ArrayList<Card> cards = new ArrayList<>(Arrays.asList(hand));
+        Arrays.fill(hand, null);
+        for (int i = 0; i < cards.size(); i++) {
+            hand[i] = cards.get(i);
+        }
+    }
+
 
     public enum CardPosition {
         HIDE_DEF,

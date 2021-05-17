@@ -6,17 +6,30 @@
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/person/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Show.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/DeckMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/DeckMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/GameMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/GameMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Login.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/Scoreboard.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Scoreboard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/UpdateStatus.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/UpdateStatus.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Board$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Board$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Board$CardPosition.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Board$CardPosition.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Board$Zone.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Board$Zone.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Game$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/Card$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/Card$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/Card$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/Card$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/Card$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/Card$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/Card$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/Card$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/Card$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/Card$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/Card$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/Card$6.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/Card.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/BeastKingBarbaros.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/BeastKingBarbaros.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/CommandKnight.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/CommandKnight.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/HeraldOfCreation.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/HeraldOfCreation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/ManEaterBug.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/ManEaterBug.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/MirageDragon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/MirageDragon.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/Monster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/Monster.class" afterDir="false" />
@@ -27,6 +40,7 @@
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/DarkHole.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/DarkHole.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/HarpiesFeatherDuster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/HarpiesFeatherDuster.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/MessengerOfPeace.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/MessengerOfPeace.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/MonsterReborn.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/MonsterReborn.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/MysticalSpaceTyphoon.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/MysticalSpaceTyphoon.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/PotOfGreed.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/PotOfGreed.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/Raigeki.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/Raigeki.class" afterDir="false" />
@@ -54,6 +68,8 @@
       <change beforePath="$PROJECT_DIR$/target/classes/view/CommandProcessor$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/CommandProcessor$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/CommandProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/CommandProcessor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/Enums$DeckMenuCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums$DeckMenuCommands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/Enums$GameCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums$GameCommands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/view/Enums.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/Show.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Show.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Test.class" afterDir="false" />
     </list>
@@ -232,13 +248,6 @@
       <workItem from="1620825787801" duration="2377000" />
       <workItem from="1620897452283" duration="23213000" />
       <workItem from="1620897452283" duration="32234000" />
-    </task>
-    <task id="LOCAL-00014" summary="2 monsters">
-      <created>1618659861149</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1618659861149</updated>
     </task>
     <task id="LOCAL-00015" summary="2 monsters">
       <created>1618660958647</created>
@@ -576,7 +585,14 @@
       <option name="project" value="LOCAL" />
       <updated>1621269821879</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="error fixed">
+      <created>1621271983527</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1621271983528</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -595,7 +611,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="getCommandData" />
     <MESSAGE value="gameMenu" />
     <MESSAGE value="select &amp; deselect commands" />
     <MESSAGE value="Additions &amp; Changes" />
@@ -620,7 +635,8 @@
     <MESSAGE value="made a user,debugged cards" />
     <MESSAGE value="README.md" />
     <MESSAGE value="csv" />
-    <option name="LAST_COMMIT_MESSAGE" value="csv" />
+    <MESSAGE value="error fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="error fixed" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

@@ -583,7 +583,9 @@ public class Game {
 
     public void putCardInZone(Card card, Board.Zone zone, Board.CardPosition position, Board board) {
         switch (zone) {
-            case HAND -> board.getHand()[board.getFirstEmptyIndexOfZone(Board.Zone.HAND)] = card;
+            case HAND -> {
+                board.getHand()[board.getFirstEmptyIndexOfZone(Board.Zone.HAND)] = card;
+            }
             case GRAVE -> board.getGrave().add(card);
             case DECK -> board.getDeck().add(card);
             case MONSTER -> {
@@ -625,7 +627,10 @@ public class Game {
                     }
             }
             case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[zoneIndex] = null;
-            case HAND -> board.getHand()[zoneIndex] = null;
+            case HAND -> {
+                board.getHand()[zoneIndex] = null;
+                board.refreshHand();
+            }
             case FIELD_SPELL -> {
                 if (card != null && ((FieldSpell) card).isActivated()) ((FieldSpell) card).action(true);
                 board.setFieldSpell(null);
