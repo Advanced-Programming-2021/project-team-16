@@ -577,7 +577,7 @@ public class Game {
             case FIELD_SPELL -> {
                 if (position == Board.CardPosition.ACTIVATED) {
                     ((FieldSpell) card).action(false);
-                    if (rival.getBoard().getFieldSpell().isActivated())
+                    if (rival.getBoard().getFieldSpell() != null && rival.getBoard().getFieldSpell().isActivated())
                         removeCardFromZone(rival.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, rival.getBoard());
                 }
                 removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
