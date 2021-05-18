@@ -294,7 +294,10 @@ public class CommandProcessor {
                             command.matches(Enums.GameCommands.ATTACK.getRegex()) ||
                             command.matches(Enums.GameCommands.FLIP_SUMMON.getRegex()) ||
                             command.matches(Enums.GameCommands.SET_POSITION.getRegex())
-            ) Show.showBoard();
+            ) {
+                game.deselect();
+                Show.showBoard();
+            }
             if (game.didSbWin()) return;
         }
         game.setSelectedCard(null);

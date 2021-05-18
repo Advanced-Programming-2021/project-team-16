@@ -25,6 +25,7 @@ public class AI extends Player {
     public void playMainPhase() {
         setOrSummon();
         activeEffect();
+        GameMenu.getCurrentGame().deselect();
     }
 
     public void setOrSummon() {
@@ -127,10 +128,14 @@ public class AI extends Player {
                         rivalMonsterIndex = i;
                     }
                 }
-            if (myMonsters[myMonsterIndex].getATK() < minATKOrDEF) return;
+            if (myMonsters[myMonsterIndex].getATK() < minATKOrDEF) {
+                GameMenu.getCurrentGame().deselect();
+                return;
+            }
             game.attack(rivalMonsterIndex);
             myMonsterIndex = getMyMonsterIndex();
         }
+        GameMenu.getCurrentGame().deselect();
     }
 
     private int getMyMonsterIndex() {
