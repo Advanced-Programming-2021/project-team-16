@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Board {
-    private ArrayList<Card> deck = new ArrayList<>();
+    private ArrayList<Card> deck;
     private ArrayList<Card> grave = new ArrayList<>();
     private Monster[] monsterZone = new Monster[5];
     private Card[] spellAndTrapZone = new Card[5];

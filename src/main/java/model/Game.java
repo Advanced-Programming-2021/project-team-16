@@ -637,14 +637,8 @@ public class Game {
                 board.setFieldSpell(null);
                 putCardInZone(card, Board.Zone.GRAVE, null, board);
             }
-            default -> {
-                ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();
-                for (int i = thisZone.size() - 1; i >= 0; i--)
-                    if (thisZone.get(i).equals(card)) {
-                        thisZone.remove(i);
-                        break;
-                    }
-            }
+            case GRAVE -> board.getGrave().remove(card);
+            case DECK -> board.getDeck().remove(card);
         }
     }
 
