@@ -213,7 +213,7 @@ public class Game {
         winner.getUser().increaseMoney(3000 + (3 * maxLp));
         loser.getUser().increaseMoney(300);
 
-        return winner.getUser().getUsername() + "won the whole match with score: " + winner.getGameScore() + "-" + loser.getGameScore();
+        return winner.getUser().getUsername() + " won the whole match with score: " + winner.getGameScore() + "-" + loser.getGameScore();
     }
 
     public String summon() {
