@@ -30,7 +30,7 @@ public class AI extends Player {
     public void setOrSummon() {
         Game game = GameMenu.getCurrentGame();
         if (board.getNumberOfMonsters() < 3) tryToSummonMonster();
-        if (!game.hasSummonedOrSet() && board.getNumberOfSpelAndTraps() < 3) tryToSetTrap();
+        if (!game.hasSummonedOrSet() && board.getNumberOfSpellAndTraps() < 3) tryToSetTrap();
         if (!game.hasSummonedOrSet() && board.getNumberOfMonsters() >= 3) tryToSummonMonster();
         if (!game.hasSummonedOrSet() && board.getNumberOfMonsters() >= 3) tryToSetTrap();
     }
@@ -74,7 +74,7 @@ public class AI extends Player {
             Card card = myHand[i];
             shouldActive = false;
             if (card instanceof Spell) {
-                if (card instanceof HarpiesFeatherDuster && rivalBoard.getNumberOfSpelAndTraps() >= 2)
+                if (card instanceof HarpiesFeatherDuster && rivalBoard.getNumberOfSpellAndTraps() >= 2)
                     shouldActive = true;
                 else if (card instanceof DarkHole && board.getNumberOfMonsters() < rivalBoard.getNumberOfMonsters())
                     shouldActive = true;
@@ -86,9 +86,9 @@ public class AI extends Player {
                 else if (card instanceof Terraforming && board.getFieldSpell() == null) shouldActive = true;
                 else if (card instanceof SpellAbsorption) shouldActive = true;
                 else if (card instanceof MessengerOfPeace && LP >= 900) shouldActive = true;
-                else if (card instanceof TwinTwisters && board.getNumberOfHandCards() > 1 && rivalBoard.getNumberOfSpelAndTraps() >= 2)
+                else if (card instanceof TwinTwisters && board.getNumberOfHandCards() > 1 && rivalBoard.getNumberOfSpellAndTraps() >= 2)
                     shouldActive = true;
-                else if (card instanceof MysticalSpaceTyphoon && rivalBoard.getNumberOfSpelAndTraps() != 0)
+                else if (card instanceof MysticalSpaceTyphoon && rivalBoard.getNumberOfSpellAndTraps() != 0)
                     shouldActive = true;
                 else if (card instanceof FieldSpell && (rivalBoard.getFieldSpell() != null || board.getFieldSpell() == null))
                     shouldActive = true;

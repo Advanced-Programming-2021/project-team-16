@@ -1,9 +1,8 @@
-package model.card.spell;
+package model.card;
 
 import controller.GameMenu;
 import model.Board;
 import model.Game;
-import model.card.Card;
 import model.card.monster.Monster;
 import view.CommandProcessor;
 

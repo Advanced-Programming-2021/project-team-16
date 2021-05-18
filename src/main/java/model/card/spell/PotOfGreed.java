@@ -3,6 +3,7 @@ package model.card.spell;
 import controller.GameMenu;
 import model.Board;
 import model.Game;
+import model.card.UtilActions;
 
 public class PotOfGreed extends Spell {
     private boolean isAtivated = false;

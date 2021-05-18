@@ -14,9 +14,9 @@ public class User {
     private String nickname;
     private int money;
     private int score;
-    private ArrayList<Deck> decks = new ArrayList<>();
+    private final ArrayList<Deck> decks = new ArrayList<>();
     private Deck activeDeck;
-    private ArrayList<String> cardNames = new ArrayList<>();
+    private final ArrayList<String> cardNames = new ArrayList<>();
 
     public static ArrayList<User> getAllUsers() {
         return users;

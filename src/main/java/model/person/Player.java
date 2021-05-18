@@ -9,12 +9,13 @@ public class Player {
     protected User user;
     protected int LP;
     protected Board board;
-    private int gameScore = 0;
+    private int gameScore;
 
 
     public Player(User user) {
         this.user = user;
         LP = 8000;
+        gameScore = 0;
         if (user != null) {
             ArrayList<Card> cards = new ArrayList<>();
             for (String cardName : user.getActiveDeck().getMainDeck()) cards.add(Card.make(cardName));
@@ -49,9 +50,6 @@ public class Player {
         this.LP = LP;
     }
 
-    public void setGameScore(int amount) {
-        this.gameScore = amount;
-    }
 
     public void increaseGameScore(int amount) {
         this.gameScore += amount;
@@ -61,9 +59,5 @@ public class Player {
         return gameScore;
     }
 
-    public boolean askPlayerToActive(Card c) {
-        System.out.println("Do U Want to Call " + c.getName());
-        return false;
-    }
 
 }

@@ -20,7 +20,7 @@ import java.util.Map;
 
 
 public class Game {
-    private int round;
+    private final int round;
     private Card selectedCard;
     private Board.Zone selectedZone;
     private int selectedZoneIndex;
@@ -31,8 +31,8 @@ public class Game {
     private Player loser;
     private Phase currentPhase;
     private boolean hasSummonedOrSet;
-    private ArrayList<Card> setInThisTurn = new ArrayList<>();
-    private ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
+    private final ArrayList<Card> setInThisTurn = new ArrayList<>();
+    private final ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -584,9 +584,7 @@ public class Game {
 
     public void putCardInZone(Card card, Board.Zone zone, Board.CardPosition position, Board board) {
         switch (zone) {
-            case HAND -> {
-                board.getHand()[board.getFirstEmptyIndexOfZone(Board.Zone.HAND)] = card;
-            }
+            case HAND -> board.getHand()[board.getFirstEmptyIndexOfZone(Board.Zone.HAND)] = card;
             case GRAVE -> board.getGrave().add(card);
             case DECK -> board.getDeck().add(card);
             case MONSTER -> {

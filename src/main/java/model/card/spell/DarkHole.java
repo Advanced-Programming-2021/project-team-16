@@ -1,5 +1,7 @@
 package model.card.spell;
 
+import model.card.UtilActions;
+
 public class DarkHole extends Spell {
 
     public DarkHole() {

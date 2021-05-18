@@ -9,16 +9,16 @@ import java.util.Arrays;
 import java.util.Collections;
 
 public class Board {
-    private ArrayList<Card> deck;
-    private ArrayList<Card> grave = new ArrayList<>();
-    private Monster[] monsterZone = new Monster[5];
-    private Card[] spellAndTrapZone = new Card[5];
-    private Card[] hand = new Card[6];
-    private CardPosition[][] cardPositions = new CardPosition[2][5];
+    private final ArrayList<Card> deck;
+    private final ArrayList<Card> grave = new ArrayList<>();
+    private final Monster[] monsterZone = new Monster[5];
+    private final Card[] spellAndTrapZone = new Card[5];
+    private final Card[] hand = new Card[6];
+    private final CardPosition[][] cardPositions = new CardPosition[2][5];
     // first row-> monster zone
     // second row -> spell and trap
     private FieldSpell fieldSpell = null;
-    private boolean[] didMonsterAttack = new boolean[5];
+    private final boolean[] didMonsterAttack = new boolean[5];
 
 
     public Board(ArrayList<Card> deck) {
@@ -26,10 +26,6 @@ public class Board {
         Collections.shuffle(this.deck);
     }
 
-    public Card getCardFromGrave(String name) {
-        for (int i = grave.size() - 1; i >= 0; i--) if (grave.get(i).getName().equals(name)) return grave.get(i);
-        return null;
-    }
 
     public boolean isZoneFull(Zone zone) {
         Card[] zoneCards = new Card[0];
@@ -96,7 +92,7 @@ public class Board {
         return n;
     }
 
-    public int getNumberOfSpelAndTraps() {
+    public int getNumberOfSpellAndTraps() {
         int n = 0;
         for (Card card : spellAndTrapZone) if (card != null) n++;
         return n;
