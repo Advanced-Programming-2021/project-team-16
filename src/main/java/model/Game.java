@@ -33,6 +33,7 @@ public class Game {
     private boolean hasSummonedOrSet;
     private final ArrayList<Card> setInThisTurn = new ArrayList<>();
     private final ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
+    private boolean hasAttackDirectInThisTurn;
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -87,6 +88,7 @@ public class Game {
     }
 
     private void run(Player me, Player rival) {
+        hasAttackDirectInThisTurn = false;
         setInThisTurn.clear();
         positionChangedInThisTurn.clear();
         hasSummonedOrSet = false;
@@ -110,9 +112,11 @@ public class Game {
             if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
         setCurrentPhase(Phase.DRAW);
         Show.showGameMessage(drawCard());
+        Show.showBoard();
         if (didSbWin()) return;
         setCurrentPhase(Phase.STANDBY);
         doStandByActions();
+        Show.showBoard();
         setCurrentPhase(Phase.MAIN_1);
         if (currentPlayer instanceof AI) ((AI) currentPlayer).playMainPhase();
         else CommandProcessor.game();
@@ -506,9 +510,9 @@ public class Game {
     }
 
     public String attackDirectly() {
-        for (Monster monster : rival.getBoard().getMonsterZone()) {
-            if (monster != null) return "you can’t attack the opponent directly";
-        }
+        hasAttackDirectInThisTurn = true;
+        if (rival.getBoard().getNumberOfMonsters() != 0) return "you can’t attack the opponent directly";
+        currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex] = true;
         int lp = ((Monster) selectedCard).getATK();
         rival.decreaseLP(lp);
         return "you opponent receives " + lp + " battle damage";
@@ -573,7 +577,7 @@ public class Game {
             case FIELD_SPELL -> {
                 if (position == Board.CardPosition.ACTIVATED) {
                     ((FieldSpell) card).action(false);
-                    if (rival.getBoard().getFieldSpell().isActivated())
+                    if (rival.getBoard().getFieldSpell() != null && rival.getBoard().getFieldSpell().isActivated())
                         removeCardFromZone(rival.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, rival.getBoard());
                 }
                 removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
@@ -659,5 +663,9 @@ public class Game {
 
     public void setWinner(Player winner) {
         this.winner = winner;
+    }
+
+    public boolean isHasAttackDirectInThisTurn() {
+        return hasAttackDirectInThisTurn;
     }
 }

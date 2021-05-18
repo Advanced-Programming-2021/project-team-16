@@ -175,7 +175,7 @@ public class Enums {
         SELECT_CARD("select --(\\w+) (\\d+)?( --opponent)?"),
         DESELECT_CARD("select -d"),
         SHOW_CARD("card show (.*)"),
-        END_PHASE("end-phase"), //-> pay attention :)
+        END_PHASE("next phase"), //-> pay attention :)
         HELP_MAIN("help-main"),
         HELP_BATTLE("help-battle");
         private final String regex;
