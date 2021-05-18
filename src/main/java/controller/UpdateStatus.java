@@ -2,7 +2,6 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import model.Deck;
 import model.card.Card;
 import model.card.monster.*;
 import model.card.spell.*;
@@ -26,13 +25,11 @@ import java.util.List;
 public class UpdateStatus {
     public static void beforeRun() {
         makeAllCards();
-        makeDecks();
         makeUsers();
     }
 
     public static void afterRun() {
         saveUsers();
-        saveDecks();
     }
 
 
@@ -40,27 +37,6 @@ public class UpdateStatus {
         makeAllMonsters();
         makeAllSpells();
         makeAllTraps();
-    }
-
-    private static void makeDecks() {
-        try {
-            String jsonUsers = new String(Files.readAllBytes(Paths.get("decks_json.txt")));
-            ArrayList<Deck> decks = new Gson().fromJson(jsonUsers, new TypeToken<List<Deck>>() {
-            }.getType());
-            Deck.setDecks(decks);
-        } catch (IOException e) {
-            System.out.println("error");
-        }
-    }
-
-    private static void saveDecks() {
-        try {
-            FileWriter writer = new FileWriter("decks_json.txt");
-            writer.write(new Gson().toJson(Deck.getAllDecks()));
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("error");
-        }
     }
 
     public static void saveUsers() {

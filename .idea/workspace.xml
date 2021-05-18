@@ -4,8 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
+    <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/Suijin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/Suijin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/monster/Texchanger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/monster/Texchanger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/card/spell/MessengerOfPeace.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/card/spell/MessengerOfPeace.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/decks_json.txt" beforeDir="false" afterPath="$PROJECT_DIR$/decks_json.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Show.java" afterDir="false" />
@@ -35,6 +39,7 @@
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/Monster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/Monster.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/RitualMonster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/RitualMonster.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/Scanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/Scanner.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/TerratigerTheEmpoweredWarrior.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/AdvancedRitualArt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/AdvancedRitualArt.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/DarkHole.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/DarkHole.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/HarpiesFeatherDuster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/HarpiesFeatherDuster.class" afterDir="false" />
@@ -44,6 +49,7 @@
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/PotOfGreed.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/PotOfGreed.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/Raigeki.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/Raigeki.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/RingOfDefense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/RingOfDefense.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/Spell$Conditions.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/Spell$SpellType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/Spell$SpellType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/Spell.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/Spell.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/SpellAbsorption.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/SpellAbsorption.class" afterDir="false" />
@@ -69,7 +75,7 @@
       <change beforePath="$PROJECT_DIR$/target/classes/view/Enums$GameCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums$GameCommands.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/Enums.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/Show.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Show.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users_json.txt" beforeDir="false" afterPath="$PROJECT_DIR$/users_json.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Test.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,19 +146,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="YuGiOh" />
@@ -246,6 +239,8 @@
       <workItem from="1620825787801" duration="2377000" />
       <workItem from="1620897452283" duration="23213000" />
       <workItem from="1620897452283" duration="32234000" />
+      <workItem from="1621329894104" duration="2991000" />
+      <workItem from="1621350180790" duration="4974000" />
     </task>
     <task id="LOCAL-00019" summary="gitignore">
       <created>1618756559628</created>
@@ -583,6 +578,35 @@
       <option name="project" value="LOCAL" />
       <updated>1621274349932</updated>
     </task>
+    <task id="LOCAL-00067" summary="error fixed">
+      <created>1621274879448</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1621274879448</updated>
+    </task>
+    <task id="LOCAL-00068" summary="json">
+      <created>1621332241512</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1621332241512</updated>
+    </task>
+    <task id="LOCAL-00069" summary="edit">
+      <created>1621332465800</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1621332465800</updated>
+    </task>
+    <task id="LOCAL-00070" summary="edit">
+      <created>1621339617648</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1621339617648</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <task id="LOCAL-00067" summary="json">
       <created>1621328501342</created>
       <option name="number" value="00067" />
@@ -609,7 +633,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="select &amp; deselect commands" />
     <MESSAGE value="Additions &amp; Changes" />
     <MESSAGE value="game commands completed" />
     <MESSAGE value="maven" />
@@ -634,7 +657,8 @@
     <MESSAGE value="csv" />
     <MESSAGE value="error fixed" />
     <MESSAGE value="json" />
-    <option name="LAST_COMMIT_MESSAGE" value="json" />
+    <MESSAGE value="edit" />
+    <option name="LAST_COMMIT_MESSAGE" value="edit" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -645,11 +669,6 @@
           <properties class="java.lang.UnsupportedOperationException" package="java.lang" />
           <option name="timeStamp" value="2" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/controller/DeckMenu.java</url>
-          <line>55</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

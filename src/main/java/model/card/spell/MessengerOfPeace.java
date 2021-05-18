@@ -1,5 +1,11 @@
 package model.card.spell;
 
+import controller.GameMenu;
+import model.Board;
+import model.Game;
+import model.card.Card;
+import model.card.monster.Monster;
+
 public class MessengerOfPeace extends Spell {
 
     public MessengerOfPeace() {
@@ -12,8 +18,20 @@ public class MessengerOfPeace extends Spell {
         return super.action();
     }
 
-    public String getMessage() {
-        return "you can't attack with this card because rival has " + this.getName();
+    public static boolean canBeActivated() {
+        Game game = GameMenu.getCurrentGame();
+        Monster attacking = (Monster) game.getSelectedCard();
+        Board rivalBoard = game.getRival().getBoard();
+        if (attacking.getATK() >= 1500) {
+            Card[] spellAndTrapZone = rivalBoard.getSpellAndTrapZone();
+            for (Card card : spellAndTrapZone)
+                if (card instanceof MessengerOfPeace && ((MessengerOfPeace) card).isActivated()) return true;
+        }
+        return false;
+    }
+
+    public static String getActivationMessage() {
+        return "you can't attack with this card because rival has Messenger of peace";
     }
 
 }

@@ -1,6 +1,7 @@
 package model.card.spell;
 
 import model.Board;
+import model.card.UtilActions;
 
 public class Raigeki extends Spell {
 

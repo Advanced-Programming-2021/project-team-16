@@ -3,7 +3,7 @@ package model.card.monster;
 import controller.GameMenu;
 import model.Board;
 import model.Game;
-import model.card.spell.UtilActions;
+import model.card.UtilActions;
 
 public class BeastKingBarbaros extends Monster implements specialSummonable {
     public BeastKingBarbaros() {

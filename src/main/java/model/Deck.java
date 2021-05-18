@@ -7,11 +7,11 @@ import java.util.Comparator;
 import java.util.Random;
 
 public class Deck {
-    private String name;
+    private final String name;
 
     private static ArrayList<Deck> decks = new ArrayList<>();
-    private ArrayList<String> mainCardNames = new ArrayList<>();
-    private ArrayList<String> sideCardNames = new ArrayList<>();
+    private final ArrayList<String> mainCardNames = new ArrayList<>();
+    private final ArrayList<String> sideCardNames = new ArrayList<>();
 
     public Deck(String name) {
         this.name = name;
@@ -25,13 +25,6 @@ public class Deck {
         Random random = new Random();
         for (int i = 0; i < 45; i++) randomDeck.add(cards.get(random.nextInt(numberOfCards)));
         return randomDeck;
-    }
-
-    public static Deck getDeckByName(String name) {
-        for (Deck deck : decks) {
-            if (deck.name.equals(name)) return deck;
-        }
-        return null;
     }
 
     public void addCardToSideDeck(Card card) {

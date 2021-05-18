@@ -20,7 +20,7 @@ import java.util.Map;
 
 
 public class Game {
-    private int round;
+    private final int round;
     private Card selectedCard;
     private Board.Zone selectedZone;
     private int selectedZoneIndex;
@@ -31,8 +31,8 @@ public class Game {
     private Player loser;
     private Phase currentPhase;
     private boolean hasSummonedOrSet;
-    private ArrayList<Card> setInThisTurn = new ArrayList<>();
-    private ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
+    private final ArrayList<Card> setInThisTurn = new ArrayList<>();
+    private final ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -100,7 +100,7 @@ public class Game {
         for (Monster monster : monsters)
             if (monster instanceof HeraldOfCreation) ((HeraldOfCreation) monster).setUsed(false);
         //texchanger
-        for (Monster monster : monsters) if (monster instanceof Texchanger) ((Texchanger) monster).setAttacked(false);
+        for (Monster monster : monsters) if (monster instanceof Texchanger) ((Texchanger) monster).setUsed(false);
         //scanner
         Scanner.undo();
         //Supply Squad
@@ -398,56 +398,33 @@ public class Game {
         if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
         boolean trapErrorHappened = checkForTraps("attack");
         if (trapErrorHappened) return "rival's trap was activated. attack is cancelled";
-        if (attacking.getATK() >= 1500) {
-            for (Card card : rival.getBoard().getSpellAndTrapZone())
-                if (card instanceof MessengerOfPeace && ((MessengerOfPeace) card).isActivated())
-                    return ((MessengerOfPeace) card).getMessage();
-        }
+        if (MessengerOfPeace.canBeActivated()) return MessengerOfPeace.getActivationMessage();
         if (monsterNumber == -1) return attackDirectly();
         Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
-        if (attacked instanceof Texchanger && !((Texchanger) attacked).isAttacked()) {
-            changeTurn();
-            if (currentPlayer instanceof AI) {
-                for (Card card : currentPlayer.getBoard().getDeck())
-                    if (card instanceof Monster && ((Monster) card).getMonsterType() == Monster.MonsterType.CYBERSE) {
-                        Show.showGameMessage(((Texchanger) attacked).specialSummonACyberseMonster(card, Board.Zone.DECK, 0));
-                        break;
-                    }
-                changeTurn();
-                return "texchanger cancelled the attack";
-            }
-            Show.showGameMessage("choose zone for the cyberse monster that you want to tribute (deck, graveyard or hand)");
-            Board.Zone zone = CommandProcessor.getZone();
-            int cardIndex = -1;
-            Card card = null;
-            if (zone == Board.Zone.HAND) {
-                Show.showGameMessage("choose hand index");
-                int[] tribute = CommandProcessor.getTribute(1, false);
-                if (tribute == null) Show.showGameMessage("special summon cancelled");
-                else cardIndex = tribute[0];
-                card = currentPlayer.getBoard().getHand()[cardIndex];
-            } else if (zone == Board.Zone.DECK || zone == Board.Zone.GRAVE) {
-                cardIndex = currentPlayer.getBoard().getIndexOfCard(CommandProcessor.getCardName("Enter the card's name"), zone);
-                card = currentPlayer.getBoard().getCardByIndexAndZone(cardIndex, zone);
-                if (card == null) Show.showGameMessage("no card with this name in the zone");
-            } else Show.showGameMessage("zone is not valid. special summon cancelled");
-            if (card != null)
-                Show.showGameMessage(((Texchanger) attacked).specialSummonACyberseMonster(card, zone, cardIndex));
-            changeTurn();
-            return "texchanger cancelled the attack";
-        }
         if (attacked == null) return "there is no card to attack here";
         if (attacked instanceof CommandKnight && ((CommandKnight) attacked).hasDoneAction()) {
             for (Monster monster : rival.getBoard().getMonsterZone()) {
                 if (!(monster instanceof CommandKnight) && monster != null)
                     return "You can't attack command knight while other monsters are available";
             }
+        } else if (attacked instanceof Texchanger && !((Texchanger) attacked).isUsed()) {
+            changeTurn();
+            if (CommandProcessor.yesNoQuestion("texchanger is activated. do you want to special summon a cyberse monster?"))
+                Show.showGameMessage(((Texchanger) attacked).doAction());
+            changeTurn();
+            return "attack was cancelled (you attacked texchanger)";
         }
         int deltaLP;
         Board.CardPosition attackedPosition = rival.getBoard().getCardPositions()[0][monsterNumber];
         currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex] = true;
-        if (attacked instanceof Suijin && !((Suijin) attacked).isUsedUp() && attackedPosition != Board.CardPosition.HIDE_DEF)
-            return ((Suijin) attacked).action(attackedPosition);
+        if (attacked instanceof Suijin && !((Suijin) attacked).isUsedUp() && attackedPosition != Board.CardPosition.HIDE_DEF) {
+            changeTurn();
+            String result = null;
+            if (CommandProcessor.yesNoQuestion("do you want to activate suijin?"))
+                result = ((Suijin) attacked).action(attackedPosition);
+            changeTurn();
+            if (result != null) return result;
+        }
         if (attackedPosition == Board.CardPosition.ATK) {
             deltaLP = attacking.getATK() - attacked.getATK();
             if (deltaLP > 0) {
@@ -498,7 +475,6 @@ public class Game {
                 result = "opponent’s monster card was " + attacked.getName() + " and " + result;
                 if (attacked instanceof Marshmallon) return ((Marshmallon) attacked).action(monsterNumber);
             }
-
             return result;
         }
     }
@@ -584,9 +560,7 @@ public class Game {
 
     public void putCardInZone(Card card, Board.Zone zone, Board.CardPosition position, Board board) {
         switch (zone) {
-            case HAND -> {
-                board.getHand()[board.getFirstEmptyIndexOfZone(Board.Zone.HAND)] = card;
-            }
+            case HAND -> board.getHand()[board.getFirstEmptyIndexOfZone(Board.Zone.HAND)] = card;
             case GRAVE -> board.getGrave().add(card);
             case DECK -> board.getDeck().add(card);
             case MONSTER -> {
@@ -637,14 +611,8 @@ public class Game {
                 board.setFieldSpell(null);
                 putCardInZone(card, Board.Zone.GRAVE, null, board);
             }
-            default -> {
-                ArrayList<Card> thisZone = (zone == Board.Zone.GRAVE) ? board.getGrave() : board.getDeck();
-                for (int i = thisZone.size() - 1; i >= 0; i--)
-                    if (thisZone.get(i).equals(card)) {
-                        thisZone.remove(i);
-                        break;
-                    }
-            }
+            case GRAVE -> board.getGrave().remove(card);
+            case DECK -> board.getDeck().remove(card);
         }
     }
 

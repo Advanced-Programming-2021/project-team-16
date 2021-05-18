@@ -1,6 +1,7 @@
 package model.card.spell;
 
 import controller.GameMenu;
+import model.card.UtilActions;
 import model.person.Player;
 import view.CommandProcessor;
 

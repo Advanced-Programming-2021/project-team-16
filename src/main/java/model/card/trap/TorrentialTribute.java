@@ -1,6 +1,6 @@
 package model.card.trap;
 
-import model.card.spell.UtilActions;
+import model.card.UtilActions;
 
 public class TorrentialTribute extends Trap {
     public TorrentialTribute() {
