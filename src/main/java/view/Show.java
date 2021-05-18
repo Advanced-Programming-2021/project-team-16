@@ -214,10 +214,10 @@ public class Show {
         System.out.println(dnR);
         System.out.print("\t");
         for (int i = 0; i < boardR.getSpellAndTrapZone().length; i++) {
-            if (rivalBoars[0][i] == Board.CardPosition.ACTIVATED) {
+            if (rivalBoars[1][i] == Board.CardPosition.ACTIVATED) {
                 spellAndTrapZone = "O";
             }
-            if (rivalBoars[0][i] == Board.CardPosition.HIDE_DEF) {
+            if (rivalBoars[1][i] == Board.CardPosition.HIDE_DEF) {
                 spellAndTrapZone = "H";
             }
             if (boardR.getSpellAndTrapZone()[i] == null) spellAndTrapZone = "E";
@@ -226,13 +226,13 @@ public class Show {
         System.out.println();
         System.out.print("\t");
         for (int i = 0; i < boardR.getMonsterZone().length; i++) {
-            if (rivalBoars[1][i] == Board.CardPosition.REVEAL_DEF) {
+            if (rivalBoars[0][i] == Board.CardPosition.REVEAL_DEF) {
                 monsterCardZone = "DO";
             }
-            if (rivalBoars[1][i] == Board.CardPosition.HIDE_DEF) {
+            if (rivalBoars[0][i] == Board.CardPosition.HIDE_DEF) {
                 monsterCardZone = "DH";
             }
-            if (rivalBoars[1][i] == Board.CardPosition.ATK) {
+            if (rivalBoars[0][i] == Board.CardPosition.ATK) {
                 monsterCardZone = "OO";
             }
             if (boardR.getMonsterZone()[i] == null) monsterCardZone = "E";
