@@ -95,7 +95,6 @@ public class Game {
         this.currentPlayer = me;
         this.rival = rival;
         Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
-        Show.showBoard();
         currentPlayer.getBoard().noMonsterAttacked();
         Monster[] monsters = currentPlayer.getBoard().getMonsterZone();
         //herald of creation
@@ -112,7 +111,6 @@ public class Game {
             if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
         setCurrentPhase(Phase.DRAW);
         Show.showGameMessage(drawCard());
-        Show.showBoard();
         if (didSbWin()) return;
         setCurrentPhase(Phase.STANDBY);
         doStandByActions();

@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import model.Deck;
 import model.card.Card;
 import model.card.monster.*;
 import model.card.spell.*;
@@ -54,6 +55,14 @@ public class UpdateStatus {
             String jsonUsers = new String(Files.readAllBytes(Paths.get("users_json.txt")));
             ArrayList<User> users = new Gson().fromJson(jsonUsers, new TypeToken<List<User>>() {
             }.getType());
+            for (User user : users) {
+                Deck fakeActiveDeck = null;
+                String activeDeckName = user.getActiveDeck().getName();
+                for (Deck deck : user.getDecks())
+                    if (deck.getName().equals(activeDeckName)) fakeActiveDeck = deck;
+                user.getDecks().remove(fakeActiveDeck);
+                user.getDecks().add(user.getActiveDeck());
+            }
             User.setUsers(users);
         } catch (IOException e) {
             System.out.println("error");
