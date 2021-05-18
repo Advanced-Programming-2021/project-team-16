@@ -149,4 +149,4 @@ public class Main {
 //deck add-card --card Scanner --deck DonyasDeck
 //deck add-card --card MindCrush --deck DonyasDeck
 //deck add-card --card Terraforming --deck DonyasDeck
-
+//duel --new --second-player Donya --rounds
