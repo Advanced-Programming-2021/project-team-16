@@ -10,6 +10,7 @@ public class Main {
     }
 }
 
+//duel --new --ai --rounds 3
 //user login --username Donya --password 1234asd
 //   shop buy Baby dragon                                       :1600
 //   shop buy Baby dragon                                       :1600
