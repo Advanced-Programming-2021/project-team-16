@@ -85,6 +85,7 @@ public class Board {
         if (zone == Zone.SPELL_AND_TRAP) return spellAndTrapZone[zoneIndex];
         if (zone == Zone.GRAVE) return grave.get(zoneIndex);
         if (zone == Zone.DECK) return deck.get(zoneIndex);
+        if (zone == Zone.HAND) return hand[zoneIndex];
 
         return null;
     }

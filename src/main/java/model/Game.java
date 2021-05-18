@@ -93,6 +93,7 @@ public class Game {
         this.currentPlayer = me;
         this.rival = rival;
         Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
+        Show.showBoard();
         currentPlayer.getBoard().noMonsterAttacked();
         Monster[] monsters = currentPlayer.getBoard().getMonsterZone();
         //herald of creation
