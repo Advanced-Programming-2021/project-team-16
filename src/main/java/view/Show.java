@@ -207,7 +207,8 @@ public class Show {
         System.out.println("\t\t" + rivalNickname + ":" + rivalLP);
         System.out.print("\t");
         for (int i = 0; i < boardR.getHand().length; i++) {
-            System.out.print("c\t");
+            if (boardR.getHand()[i] != null)
+                System.out.print("c\t");
         }
         System.out.println();
         System.out.println(dnR);
