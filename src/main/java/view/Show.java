@@ -67,20 +67,12 @@ public class Show {
     }
 
 
-    public static void showGraveYard() {
+    public static void showGraveYard(String opponent) {
         Game game = GameMenu.getCurrentGame();
-        ArrayList<Card> currentGrave = game.getCurrentPlayer().getBoard().getGrave();
-        ArrayList<Card> rival = game.getRival().getBoard().getGrave();
-        if (currentGrave.size() == 0) System.out.println("your graveyard is empty");
-        else {
-            System.out.println("your graveyard:");
-            Show.showCardArray(game.getCurrentPlayer().getBoard().getGrave());
-        }
-        if (rival.size() == 0) System.out.println("rival's graveyard is empty");
-        else {
-            System.out.println("rival's graveyard:");
-            Show.showCardArray(game.getRival().getBoard().getGrave());
-        }
+        Board board = opponent == null ? game.getCurrentPlayer().getBoard() : game.getRival().getBoard();
+        ArrayList<Card> grave = board.getGrave();
+        if (grave.isEmpty()) System.out.println("graveyard is empty");
+        else Show.showCardArray(grave);
     }
 
     public static void showMainDeck(String deckName) {
@@ -94,7 +86,6 @@ public class Show {
             ArrayList<Card> monsters = new ArrayList<>();
             ArrayList<Card> spellAndTrap = new ArrayList<>();
             for (String mainDeckCard : mainDeckCards) {
-
                 if (Card.getCardByName(mainDeckCard) instanceof Monster) monsters.add(Card.getCardByName(mainDeckCard));
                 else spellAndTrap.add(Card.getCardByName(mainDeckCard));
             }

@@ -155,6 +155,7 @@ public class AI extends Player {
 
 
     public int[] getTribute(int numberOfTributes, boolean isFromMonsterZone) {
+        Game game = GameMenu.getCurrentGame();
         if (isFromMonsterZone) {
             Monster[] monsters = board.getMonsterZone();
             int[] indexes = new int[numberOfTributes];
@@ -173,7 +174,12 @@ public class AI extends Player {
             return indexes;
         } else {
             Card[] cards = board.getHand();
-            for (int i = 0; i < cards.length; i++) if (cards[i] != null) return new int[]{i};
+            for (int i = 0; i < cards.length; i++) {
+                if (cards[i] != null) {
+                    if (game.getSelectedZone() == Board.Zone.HAND && game.getSelectedZoneIndex() == i) continue;
+                    return new int[]{i};
+                }
+            }
         }
         return null;
     }

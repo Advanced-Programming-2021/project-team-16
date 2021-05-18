@@ -418,10 +418,10 @@ public class Game {
                     if (attacked instanceof GraveYardEffectMonster)
                         return ((GraveYardEffectMonster) attacked).action(monsterNumber);
                     rival.decreaseLP(deltaLP);
-                    return "your opponent’s monster is destroyed and your opponent receives" + deltaLP + " battle damage";
+                    return "your opponent’s monster is destroyed and your opponent receives " + deltaLP + " battle damage";
                 } else {
                     rival.decreaseLP(deltaLP);
-                    return "you can't destroy marshmallon and your opponent receives" + deltaLP + " battle damage";
+                    return "you can't destroy marshmallon and your opponent receives " + deltaLP + " battle damage";
                 }
             } else if (deltaLP == 0) {
                 removeCardFromZone(attacking, Board.Zone.MONSTER, selectedZoneIndex, currentPlayer.getBoard());
