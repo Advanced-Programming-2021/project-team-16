@@ -32,6 +32,8 @@ public class Game {
     private final ArrayList<Card> setInThisTurn = new ArrayList<>();
     private final ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
     private boolean hasAttackDirectInThisTurn;
+    private boolean isItFirstTurn = true;
+    private boolean hasSurrendered = false;
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -44,12 +46,13 @@ public class Game {
         if (round == 1) {
             while (winner == null) {
                 run(rival, currentPlayer);
+                isItFirstTurn = false;
             }
             Show.showGameMessage(endRound());
 
         } else {
             int currentRound = 0;
-            while (getMatchWinner() == null) {
+            while (getMatchWinner() == null && !hasSurrendered) {
                 currentRound++;
                 Show.showImportantGameMessage("round " + currentRound);
                 winner = null;
@@ -60,7 +63,7 @@ public class Game {
                 winner.won();
             }
             loser = (winner == currentPlayer) ? rival : currentPlayer;
-            Show.showGameMessage(endMatch(winner.getMaxLp()));
+            Show.showGameMessage(endMatch());
         }
         User.getAllUsers().remove(User.getUserByUsername("AI"));
     }
@@ -104,8 +107,10 @@ public class Game {
         else CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.BATTLE);
-        if (currentPlayer instanceof AI) ((AI) currentPlayer).playBattlePhase();
-        else CommandProcessor.game();
+        if (!isItFirstTurn) {
+            if (currentPlayer instanceof AI) ((AI) currentPlayer).playBattlePhase();
+            else CommandProcessor.game();
+        } else Show.showGameMessage("you can't use battle phase in the first turn of the game.");
         if (didSbWin()) return;
         setCurrentPhase(Phase.MAIN_2);
         if (currentPlayer instanceof AI) ((AI) currentPlayer).playMainPhase();
@@ -208,7 +213,8 @@ public class Game {
 
     }
 
-    private String endMatch(int maxLp) {
+    private String endMatch() {
+        int maxLp = winner.getMaxLp();
         winner.getUser().increaseScore(3000);
         winner.getUser().increaseMoney(3000 + (3 * maxLp));
         loser.getUser().increaseMoney(300);
@@ -520,6 +526,7 @@ public class Game {
 
     public void surrendered() {
         winner = rival;
+        hasSurrendered = true;
     }
 
     public Card getSelectedCard() {
@@ -645,7 +652,7 @@ public class Game {
         this.winner = winner;
     }
 
-    public boolean isHasAttackDirectInThisTurn() {
+    public boolean hasAttackDirectInThisTurn() {
         return hasAttackDirectInThisTurn;
     }
 }
