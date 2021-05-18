@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/model/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/decks_json.txt" beforeDir="false" afterPath="$PROJECT_DIR$/decks_json.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/DeckMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/DeckMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/GameMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/GameMenu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/Login.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/Login.class" afterDir="false" />
@@ -33,7 +34,6 @@
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/Monster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/Monster.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/RitualMonster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/RitualMonster.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/Scanner.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/monster/Scanner.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/card/monster/TerratigerTheEmpoweredWarrior.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/AdvancedRitualArt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/AdvancedRitualArt.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/DarkHole.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/DarkHole.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/HarpiesFeatherDuster.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/HarpiesFeatherDuster.class" afterDir="false" />
@@ -43,7 +43,6 @@
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/PotOfGreed.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/PotOfGreed.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/Raigeki.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/Raigeki.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/RingOfDefense.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/RingOfDefense.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/Spell$Conditions.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/Spell$SpellType.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/Spell$SpellType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/Spell.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/Spell.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/model/card/spell/SpellAbsorption.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/model/card/spell/SpellAbsorption.class" afterDir="false" />
@@ -69,7 +68,7 @@
       <change beforePath="$PROJECT_DIR$/target/classes/view/Enums$GameCommands.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums$GameCommands.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/Enums.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Enums.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/view/Show.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/view/Show.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Test.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Test.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users_json.txt" beforeDir="false" afterPath="$PROJECT_DIR$/users_json.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,13 +139,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="YuGiOh" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -156,6 +148,13 @@
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="YuGiOh" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -609,7 +608,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="gameMenu" />
     <MESSAGE value="select &amp; deselect commands" />
     <MESSAGE value="Additions &amp; Changes" />
     <MESSAGE value="game commands completed" />
@@ -634,7 +632,8 @@
     <MESSAGE value="README.md" />
     <MESSAGE value="csv" />
     <MESSAGE value="error fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="error fixed" />
+    <MESSAGE value="json" />
+    <option name="LAST_COMMIT_MESSAGE" value="json" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
