@@ -17,10 +17,10 @@ public class Suijin extends Monster {
     public String action(Board.CardPosition position) {
         Game game = GameMenu.getCurrentGame();
         int lpDamage = position == Board.CardPosition.ATK ? ATK : DEF;
-        game.getCurrentPlayer().decreaseLP(lpDamage);
+        game.getRival().decreaseLP(lpDamage);
         isUsedUp = true;
-        game.removeCardFromZone(game.getSelectedCard(), Board.Zone.MONSTER, game.getSelectedZoneIndex(), game.getCurrentPlayer().getBoard());
-        game.putCardInZone(game.getSelectedCard(), Board.Zone.GRAVE, null, game.getCurrentPlayer().getBoard());
+        game.removeCardFromZone(game.getSelectedCard(), Board.Zone.MONSTER, game.getSelectedZoneIndex(), game.getRival().getBoard());
+        game.putCardInZone(game.getSelectedCard(), Board.Zone.GRAVE, null, game.getRival().getBoard());
         return "You attacked a suijin and Your monster card is destroyed and you received " + lpDamage + " battle damage";
     }
 
