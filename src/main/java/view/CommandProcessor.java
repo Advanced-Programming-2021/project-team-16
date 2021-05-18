@@ -257,11 +257,12 @@ public class CommandProcessor {
                     if (index < 1 || index > 5) isIndexValid = false;
                 }
                 if (isIndexValid) {
-                    String result = game.attack(index);
+                    String result = game.attack(index - 1);
                     System.out.println(result);
                     if (result.equals("NegateAttack activated and battle phase has ended")) break;
                 } else System.out.println("index is not valid");
             } else if (command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex())) {
+                //if (game.isHasAttackDirectInThisTurn()) System.out.println("you have already attacked directly in this turn");
                 String result = game.attack(-1);
                 System.out.println(result);
                 if (result.equals("NegateAttack activated and battle phase has ended")) break;
