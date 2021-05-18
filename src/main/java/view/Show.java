@@ -82,22 +82,7 @@ public class Show {
         if (user.getDeckByName(deckName) != null) {
             System.out.println("Deck: " + deckName);
             System.out.println("Main deck:");
-            ArrayList<String> mainDeckCards = userDeck.getMainDeckCards();
-            ArrayList<Card> monsters = new ArrayList<>();
-            ArrayList<Card> spellAndTrap = new ArrayList<>();
-            for (String mainDeckCard : mainDeckCards) {
-                if (Card.getCardByName(mainDeckCard) instanceof Monster) monsters.add(Card.getCardByName(mainDeckCard));
-                else spellAndTrap.add(Card.getCardByName(mainDeckCard));
-            }
-            Card.sort(monsters);
-            System.out.println("Monsters:");
-            for (Card monster : monsters) {
-                System.out.println(monster.desToString());
-            }
-            System.out.println("Spell and Traps:");
-            for (Card card : spellAndTrap) {
-                System.out.println(card.desToString());
-            }
+            showCardsInDeck(userDeck.getMainDeckCards());
         } else System.out.println("deck with name " + deckName + " does not exist");
 
     }
@@ -108,25 +93,28 @@ public class Show {
         if (user.getDeckByName(deckName) != null) {
             System.out.println("Deck: " + deckName);
             System.out.println("Side deck:");
-            ArrayList<String> sideDeckCards = userDeck.getSideDeckCards();
-            ArrayList<Card> monsters = new ArrayList<>();
-            ArrayList<Card> spellAndTrap = new ArrayList<>();
-            for (String sideDeckCard : sideDeckCards) {
-                if (Card.getCardByName(sideDeckCard) instanceof Monster) monsters.add(Card.getCardByName(sideDeckCard));
-                else spellAndTrap.add(Card.getCardByName(sideDeckCard));
-            }
-            Card.sort(monsters);
-            Card.sort(spellAndTrap);
-            System.out.println("Monsters:");
-            for (Card monster : monsters) {
-                System.out.println(monster.desToString());
-            }
-            System.out.println("Spell and Traps:");
-            for (Card card : spellAndTrap) {
-                System.out.println(card.desToString());
-            }
+            Show.showCardsInDeck(userDeck.getSideDeckCards());
         } else System.out.println("deck with name " + deckName + " does not exist");
 
+    }
+
+    private static void showCardsInDeck(ArrayList<String> deckCards) {
+        ArrayList<Card> monsters = new ArrayList<>();
+        ArrayList<Card> spellAndTrap = new ArrayList<>();
+        for (String sideDeckCard : deckCards) {
+            if (Card.getCardByName(sideDeckCard) instanceof Monster) monsters.add(Card.getCardByName(sideDeckCard));
+            else spellAndTrap.add(Card.getCardByName(sideDeckCard));
+        }
+        Card.sort(monsters);
+        Card.sort(spellAndTrap);
+        System.out.println("Monsters:");
+        for (Card monster : monsters) {
+            System.out.println(monster.desToString());
+        }
+        System.out.println("Spell and Traps:");
+        for (Card card : spellAndTrap) {
+            System.out.println(card.desToString());
+        }
     }
 
     public static void showAllDecks() {
