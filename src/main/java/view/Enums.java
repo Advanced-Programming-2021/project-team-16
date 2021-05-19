@@ -169,13 +169,13 @@ public class Enums {
         ACTIVE_EFFECT("activate effect"),
         FLIP_SUMMON("flip-summon"),
         SET_POSITION("set --position (attack|defense)"),
-        SHOW_GRAVE("show graveyard"),
+        SHOW_GRAVE("show graveyard( --opponent)"),
         SHOW_SELECTED("card show --selected"),
         SURRENDER("surrender"),
         SELECT_CARD("select --(\\w+) (\\d+)?( --opponent)?"),
         DESELECT_CARD("select -d"),
         SHOW_CARD("card show (.*)"),
-        END_PHASE("next phase"), //-> pay attention :)
+        END_PHASE("next phase"),
         HELP_MAIN("help-main"),
         HELP_BATTLE("help-battle");
         private final String regex;

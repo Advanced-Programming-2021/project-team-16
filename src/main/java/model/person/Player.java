@@ -10,6 +10,8 @@ public class Player {
     protected int LP;
     protected Board board;
     private int gameScore;
+    private int maxLp = 0;
+    private int winningRounds = 0;
 
 
     public Player(User user) {
@@ -28,6 +30,14 @@ public class Player {
         if (LP > amount)
             LP -= amount;
         else LP = 0;
+    }
+
+    public void won() {
+        if (LP > maxLp) maxLp = LP;
+        winningRounds++;
+        increaseGameScore(1000);
+
+
     }
 
     public void increaseLP(int amount) {
@@ -59,5 +69,16 @@ public class Player {
         return gameScore;
     }
 
+    public int getMaxLp() {
+        return maxLp;
+    }
 
+    public int getWinningRounds() {
+        return winningRounds;
+    }
+
+    @Override
+    public String toString() {
+        return user.getNickname() + ": " + LP;
+    }
 }

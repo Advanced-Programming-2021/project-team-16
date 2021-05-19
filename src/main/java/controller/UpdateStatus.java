@@ -2,6 +2,7 @@ package controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import model.Deck;
 import model.card.Card;
 import model.card.monster.*;
 import model.card.spell.*;
@@ -54,6 +55,16 @@ public class UpdateStatus {
             String jsonUsers = new String(Files.readAllBytes(Paths.get("users_json.txt")));
             ArrayList<User> users = new Gson().fromJson(jsonUsers, new TypeToken<List<User>>() {
             }.getType());
+            for (User user : users) {
+                Deck fakeActiveDeck = null;
+                if (user.getActiveDeck() != null) {
+                    String activeDeckName = user.getActiveDeck().getName();
+                    for (Deck deck : user.getDecks())
+                        if (deck.getName().equals(activeDeckName)) fakeActiveDeck = deck;
+                    user.getDecks().remove(fakeActiveDeck);
+                    user.getDecks().add(user.getActiveDeck());
+                }
+            }
             User.setUsers(users);
         } catch (IOException e) {
             System.out.println("error");
@@ -170,14 +181,14 @@ public class UpdateStatus {
         new UnitedWeStand();
         new ClosedForest();
         new FieldSpell("Umiiruka", "Increase the ATK of all WATER monsters by 500 points and decrease " +
-                "their DEF by 400 points.", new HashMap<Monster.MonsterType, Integer>() {{
+                "their DEF by 400 points.", new HashMap<>() {{
             put(Monster.MonsterType.AQUA, 500);
         }},
                 new HashMap<>() {{
                     put(Monster.MonsterType.AQUA, -400);
                 }});
         new FieldSpell("Forest", "All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.",
-                new HashMap<Monster.MonsterType, Integer>() {{
+                new HashMap<>() {{
                     put(Monster.MonsterType.BEAST, 200);
                     put(Monster.MonsterType.BEAST_WARRIOR, 200);
                     put(Monster.MonsterType.INSECT, 200);

@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="77151185-6be9-4f83-8309-4b563da7dabf" name="Default Changelist" comment="edit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/model/person/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/view/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/Show.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/model/person/AI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/model/person/AI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/view/CommandProcessor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
@@ -129,6 +131,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="extract.method.default.visibility" value="private" />
     <property name="jdk.selected.JAVA_MODULE" value="15" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
@@ -157,17 +160,6 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="YuGiOh" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -259,56 +251,8 @@
       <workItem from="1620897452283" duration="23213000" />
       <workItem from="1620897452283" duration="32234000" />
       <workItem from="1621329894104" duration="2991000" />
-      <workItem from="1621350180790" duration="8953000" />
-    </task>
-    <task id="LOCAL-00026" summary="finished equip spells">
-      <created>1619265080801</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1619265080801</updated>
-    </task>
-    <task id="LOCAL-00027" summary="attack -&gt; Texchanger">
-      <created>1619553638162</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1619553638162</updated>
-    </task>
-    <task id="LOCAL-00028" summary="changes">
-      <created>1619814833365</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1619814833365</updated>
-    </task>
-    <task id="LOCAL-00029" summary="changes">
-      <created>1619965009118</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1619965009118</updated>
-    </task>
-    <task id="LOCAL-00030" summary="login completed">
-      <created>1619979827566</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1619979827566</updated>
-    </task>
-    <task id="LOCAL-00031" summary="profile and scoreboard completed">
-      <created>1619986526035</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1619986526035</updated>
-    </task>
-    <task id="LOCAL-00032" summary="getCommandData">
-      <created>1620068208371</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1620068208371</updated>
+      <workItem from="1621350180790" duration="16902000" />
+      <workItem from="1621397602907" duration="2821000" />
     </task>
     <task id="LOCAL-00033" summary="gameMenu">
       <created>1620078021519</created>
@@ -604,6 +548,56 @@
       <option name="project" value="LOCAL" />
       <updated>1621357812728</updated>
     </task>
+    <task id="LOCAL-00075" summary="edit">
+      <created>1621359310969</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1621359310969</updated>
+    </task>
+    <task id="LOCAL-00076" summary="edit">
+      <created>1621360772792</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1621360772792</updated>
+    </task>
+    <task id="LOCAL-00077" summary="edit">
+      <created>1621364155171</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1621364155171</updated>
+    </task>
+    <task id="LOCAL-00078" summary="edit">
+      <created>1621364254343</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1621364254343</updated>
+    </task>
+    <task id="LOCAL-00079" summary="edit">
+      <created>1621366021015</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1621366021015</updated>
+    </task>
+    <task id="LOCAL-00080" summary="edit">
+      <created>1621366780953</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1621366780953</updated>
+    </task>
+    <task id="LOCAL-00081" summary="edit">
+      <created>1621367302171</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1621367302171</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <option name="localTasksCounter" value="75" />
     <option name="localTasksCounter" value="69" />
     <servers />

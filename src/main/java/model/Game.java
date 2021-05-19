@@ -15,8 +15,6 @@ import view.CommandProcessor;
 import view.Show;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class Game {
@@ -34,6 +32,8 @@ public class Game {
     private final ArrayList<Card> setInThisTurn = new ArrayList<>();
     private final ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
     private boolean hasAttackDirectInThisTurn;
+    private boolean isItFirstTurn = true;
+    private boolean hasSurrendered = false;
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -46,44 +46,31 @@ public class Game {
         if (round == 1) {
             while (winner == null) {
                 run(rival, currentPlayer);
+                isItFirstTurn = false;
             }
             Show.showGameMessage(endRound());
 
         } else {
-            HashMap<Player, Integer> winnerAndLp = new HashMap<>();
             int currentRound = 0;
-            while (getMatchWinner(winnerAndLp) == null) {
+            while (getMatchWinner() == null && !hasSurrendered) {
                 currentRound++;
                 Show.showImportantGameMessage("round " + currentRound);
                 winner = null;
                 currentPlayer.setLP(8000);
                 rival.setLP(8000);
-                while (winner == null) {
-                    run(rival, currentPlayer);
-                }
+                while (winner == null) run(rival, currentPlayer);
                 Show.showImportantGameMessage(winner.getUser().getUsername() + " won the game and the score is: 1000-0");
-                winner.increaseGameScore(1000);
-                winnerAndLp.put(winner, winner.getLP());
+                winner.won();
             }
-            winner = getMatchWinner(winnerAndLp);
             loser = (winner == currentPlayer) ? rival : currentPlayer;
-            int maxLp = 0;
-            for (Map.Entry<Player, Integer> player : winnerAndLp.entrySet()) {
-                if (player.getKey() == winner && maxLp < player.getValue()) maxLp = player.getValue();
-            }
-            Show.showGameMessage(endMatch(maxLp));
+            Show.showGameMessage(endMatch());
         }
         User.getAllUsers().remove(User.getUserByUsername("AI"));
     }
 
-    private Player getMatchWinner(HashMap<Player, Integer> winnerAndLp) {
-        int count1 = 0, count2 = 0;
-        for (Map.Entry<Player, Integer> winner : winnerAndLp.entrySet()) {
-            if (winner.getKey() == currentPlayer) count1++;
-            else count2++;
-        }
-        if (count1 == 2) return currentPlayer;
-        if (count2 == 2) return rival;
+    private Player getMatchWinner() {
+        if (currentPlayer.getWinningRounds() == 2) return currentPlayer;
+        if (rival.getWinningRounds() == 2) return rival;
         return null;
     }
 
@@ -95,7 +82,6 @@ public class Game {
         this.currentPlayer = me;
         this.rival = rival;
         Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
-        Show.showBoard();
         currentPlayer.getBoard().noMonsterAttacked();
         Monster[] monsters = currentPlayer.getBoard().getMonsterZone();
         //herald of creation
@@ -112,7 +98,6 @@ public class Game {
             if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
         setCurrentPhase(Phase.DRAW);
         Show.showGameMessage(drawCard());
-        Show.showBoard();
         if (didSbWin()) return;
         setCurrentPhase(Phase.STANDBY);
         doStandByActions();
@@ -122,8 +107,10 @@ public class Game {
         else CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.BATTLE);
-        if (currentPlayer instanceof AI) ((AI) currentPlayer).playBattlePhase();
-        else CommandProcessor.game();
+        if (!isItFirstTurn) {
+            if (currentPlayer instanceof AI) ((AI) currentPlayer).playBattlePhase();
+            else CommandProcessor.game();
+        } else Show.showGameMessage("you can't use battle phase in the first turn of the game.");
         if (didSbWin()) return;
         setCurrentPhase(Phase.MAIN_2);
         if (currentPlayer instanceof AI) ((AI) currentPlayer).playMainPhase();
@@ -226,12 +213,13 @@ public class Game {
 
     }
 
-    private String endMatch(int maxLp) {
+    private String endMatch() {
+        int maxLp = winner.getMaxLp();
         winner.getUser().increaseScore(3000);
         winner.getUser().increaseMoney(3000 + (3 * maxLp));
         loser.getUser().increaseMoney(300);
 
-        return winner.getUser().getUsername() + "won the whole match with score: " + winner.getGameScore() + "-" + loser.getGameScore();
+        return winner.getUser().getUsername() + " won the whole match with score: " + winner.getGameScore() + "-" + loser.getGameScore();
     }
 
     public String summon() {
@@ -287,15 +275,13 @@ public class Game {
                 return "there is no way you could special summon this monster";
             return ((GateGuardian) selectedCard).specialSummon(CommandProcessor.getTribute(3, true), selectedZoneIndex);
         } else if (selectedCard instanceof TheTricky) {
-            int numberOfHandCards = 0;
-            for (Card card : currentPlayer.getBoard().getHand())
-                if (card != null && card != selectedCard) numberOfHandCards++;
-            if (numberOfHandCards == 0) return "there is no way you could special summon this monster";
+            if (currentPlayer.getBoard().getNumberOfHandCards() < 2)
+                return "there is no way you could special summon this monster";
             else {
                 int[] index;
-
                 index = CommandProcessor.getTribute(1, false);
                 if (index == null) return "special summon cancelled";
+                if (index[0] == selectedZoneIndex) return "choose another card. you can't tribute this for itself";
                 return ((TheTricky) selectedCard).specialSummon(index[0], selectedZoneIndex);
             }
         } else return "this card can not be special summoned";
@@ -438,10 +424,10 @@ public class Game {
                     if (attacked instanceof GraveYardEffectMonster)
                         return ((GraveYardEffectMonster) attacked).action(monsterNumber);
                     rival.decreaseLP(deltaLP);
-                    return "your opponent’s monster is destroyed and your opponent receives" + deltaLP + " battle damage";
+                    return "your opponent’s monster is destroyed and your opponent receives " + deltaLP + " battle damage";
                 } else {
                     rival.decreaseLP(deltaLP);
-                    return "you can't destroy marshmallon and your opponent receives" + deltaLP + " battle damage";
+                    return "you can't destroy marshmallon and your opponent receives " + deltaLP + " battle damage";
                 }
             } else if (deltaLP == 0) {
                 removeCardFromZone(attacking, Board.Zone.MONSTER, selectedZoneIndex, currentPlayer.getBoard());
@@ -540,6 +526,7 @@ public class Game {
 
     public void surrendered() {
         winner = rival;
+        hasSurrendered = true;
     }
 
     public Card getSelectedCard() {
@@ -665,7 +652,7 @@ public class Game {
         this.winner = winner;
     }
 
-    public boolean isHasAttackDirectInThisTurn() {
+    public boolean hasAttackDirectInThisTurn() {
         return hasAttackDirectInThisTurn;
     }
 }

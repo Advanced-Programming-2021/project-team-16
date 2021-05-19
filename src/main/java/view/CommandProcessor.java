@@ -262,14 +262,13 @@ public class CommandProcessor {
                     if (result.equals("NegateAttack activated and battle phase has ended")) break;
                 } else System.out.println("index is not valid");
             } else if (command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex())) {
-                //if (game.isHasAttackDirectInThisTurn()) System.out.println("you have already attacked directly in this turn");
                 String result = game.attack(-1);
                 System.out.println(result);
                 if (result.equals("NegateAttack activated and battle phase has ended")) break;
             } else if (command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()))
                 System.out.println(game.activeEffect());
             else if (command.matches(Enums.GameCommands.SHOW_GRAVE.getRegex())) {
-                Show.showGraveYard();
+                Show.showGraveYard(matcher.group(1));
                 while (!scanner.nextLine().trim().equals("back"))
                     System.out.println("use \"back\" command for exiting");
             } else if (command.matches(Enums.GameCommands.SHOW_SELECTED.getRegex()))
