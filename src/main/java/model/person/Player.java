@@ -76,4 +76,9 @@ public class Player {
     public int getWinningRounds() {
         return winningRounds;
     }
+
+    @Override
+    public String toString() {
+        return user.getNickname() + ": " + LP;
+    }
 }
