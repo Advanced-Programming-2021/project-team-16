@@ -2,11 +2,13 @@ package controller;
 
 import model.Deck;
 import model.card.Card;
+import model.card.monster.Monster;
 import view.Show;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.regex.Matcher;
+import java.util.Objects;
+
 
 public class DeckMenu {
     public static String create(String name) {
@@ -29,12 +31,18 @@ public class DeckMenu {
             ArrayList<String> sideDeckCards = MainMenu.getCurrentUser().getDeckByName(name).getSideDeckCards();
             if (mainDeckCards != null) {
                 for (String mainDeckCard : mainDeckCards) {
-                    MainMenu.getCurrentUser().addCard(Card.getCardByName(mainDeckCard));
+
+                        
+                        MainMenu.getCurrentUser().addCard(Objects.requireNonNull(Card.getCardByName(mainDeckCard)));
+
                 }
             }
             if (sideDeckCards != null) {
                 for (String sideDeckCard : sideDeckCards) {
-                    MainMenu.getCurrentUser().addCard(Card.getCardByName(sideDeckCard));
+
+
+                        MainMenu.getCurrentUser().addCard(Objects.requireNonNull(Card.getCardByName(sideDeckCard)));
+
                 }
             }
             MainMenu.getCurrentUser().removeDeck(MainMenu.getCurrentUser().getDeckByName(name));
@@ -52,22 +60,24 @@ public class DeckMenu {
 
     }
 
-    public static String addCardToDeck(String cardName, String deckName, Matcher matcher) {
+    public static String addCardToDeck(String cardName, String deckName, boolean isMain) {
         Card card = Card.getCardByName(cardName);
 
 
         if (!MainMenu.getCurrentUser().hasCard(cardName)) return "card with name " + cardName + " does not exist";
         if (MainMenu.getCurrentUser().getDeckByName(deckName) == null)
             return "deck with name " + deckName + " does not exist";
-        if (matcher.groupCount() == 2) {
+        if (isMain) {
             if (MainMenu.getCurrentUser().getDeckByName(deckName).MainIsFull()) return "main deck is full";
             if (MainMenu.getCurrentUser().getDeckByName(deckName).isLimited(card))
                 return "there are already three cards with name " + cardName + " in deck " + deckName;
+            assert card != null;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToMainDeck(card);
         } else {
             if (MainMenu.getCurrentUser().getDeckByName(deckName).SideIsFull()) return "side deck is full";
             if (MainMenu.getCurrentUser().getDeckByName(deckName).isLimited(card))
                 return "there are already three cards with name " + cardName + " in deck " + deckName;
+            assert card != null;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToSideDeck(card);
         }
 
@@ -76,28 +86,47 @@ public class DeckMenu {
 
 
     public static String removeCardFromDeck(String cardName, String deckName, boolean isMain) {
+        boolean flag = false;
         Card card = Card.getCardByName(cardName);
-        if (!MainMenu.getCurrentUser().hasCard(cardName)) return "card with name " + cardName + " does not exist";
-        if (MainMenu.getCurrentUser().getDeckByName(deckName) == null)
+        Deck userDeck = MainMenu.getCurrentUser().getDeckByName(deckName);
+        if (userDeck == null)
             return "deck with name " + deckName + " does not exist";
+        ArrayList<String> mainDeckCards = userDeck.getMainDeckCards();
+        ArrayList<String> sideDeckCards = userDeck.getSideDeckCards();
+
         if (isMain) {
+            for (String mainDeckCard : mainDeckCards) {
+                if (Card.getCardByName(mainDeckCard) == card) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) return "card with name " + cardName + " does not exist in main deck";
             MainMenu.getCurrentUser().getDeckByName(deckName).removeCardFromMain(card);
         } else {
+            for (String sideDeckCard : sideDeckCards) {
+                if (Card.getCardByName(sideDeckCard) == card) {
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) return "card with name " + cardName + " does not exist in side deck";
             MainMenu.getCurrentUser().getDeckByName(deckName).removeCardFromSide(card);
+
         }
         return "card removed form deck successfully";
     }
-
-    public static void showUsersCards() {
-        ArrayList<Card> userCards = MainMenu.getCurrentUser().getCards();
-        if (userCards != null) {
-            Card.sort(userCards);
-            Show.showCardArray(userCards);
+        public static void showUsersCards() {
+            ArrayList<Card> userCards = MainMenu.getCurrentUser().getCards();
+            if (userCards != null) {
+                Card.sort(userCards);
+                Show.showCardArray(userCards);
+            }
         }
-    }
 
-    public static String menuName() {
-        return "Deck Menu";
+        public static String menuName () {
+            return "Deck Menu";
 
-    }
+        }
+
 }

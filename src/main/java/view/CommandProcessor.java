@@ -18,8 +18,8 @@ public class CommandProcessor {
 
     private static HashMap<String, String> getCommandData(String command) {
         HashMap<String, String> data = new HashMap<>();
-        Matcher matcher = Pattern.compile("--(\\S+) ([^\\s-]+)").matcher(command);
-        while (matcher.find()) data.put(matcher.group(1), matcher.group(2));
+        Matcher matcher = Pattern.compile("--(\\S+) ([^\\-]+)").matcher(command);
+        while (matcher.find()) data.put(matcher.group(1).trim(), matcher.group(2).trim());
         return data;
     }
 
@@ -97,6 +97,7 @@ public class CommandProcessor {
 
     private static void deckMenu() {
         Matcher matcher;
+        HashMap<String, String> data;
         String command = scanner.nextLine().trim();
         while (!command.equals(Enums.DeckMenuCommands.EXIT.getRegex())) {
 
@@ -108,15 +109,19 @@ public class CommandProcessor {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.DELETE_DECK.getRegex());
                 if (matcher.find())
                     System.out.println(DeckMenu.delete(matcher.group(1)));
-            } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex())).find()) {
-                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2).trim(), matcher));
-            } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())).find()) {
-                System.out.println(DeckMenu.addCardToDeck(matcher.group(1), matcher.group(2), matcher));
-            } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())).find()) {
-                System.out.println(DeckMenu.removeCardFromDeck(matcher.group(1), matcher.group(2), true));
-            } else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())).find()) {
-                System.out.println(DeckMenu.removeCardFromDeck(matcher.group(1), matcher.group(2), false));
-            } else if (command.matches(Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex())) {
+            }  else if ((getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())).find()) {
+                data = getCommandData(command);
+                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), false));
+            } else if ((getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex())).find()) {
+                data = getCommandData(command);
+                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), true));
+            }else if ((getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())).find()) {
+                data = getCommandData(command);
+                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), false));
+            }else if ((getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())).find()) {
+                data = getCommandData(command);
+                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), true));
+            }  else if (command.matches(Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex());
                 if (matcher.find())
                     System.out.println(DeckMenu.activate(matcher.group(1)));
@@ -323,7 +328,7 @@ public class CommandProcessor {
             if (command.matches(Enums.ImportExportCommands.IMPORT_CARD.getRegex())) {
                 Matcher matcher = getCommandMatcher(command, Enums.ImportExportCommands.IMPORT_CARD.getRegex());
                 if (matcher.find())
-                    ImportExport.importCard(Card.getCardByName(matcher.group(1)));    //TODO: change this to sout if necessary.
+                    ImportExport.importCard(Card.getCardByName(matcher.group(1)));
             } else if (command.matches(Enums.ImportExportCommands.EXPORT_CARD.getRegex())) {
                 Matcher matcher = getCommandMatcher(command, Enums.ImportExportCommands.EXPORT_CARD.getRegex());
                 if (matcher.find())

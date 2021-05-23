@@ -63,10 +63,14 @@ public class Enums {
         CREATE_DECK("deck create ([a-zA-Z ]+)"),
         DELETE_DECK("deck delete ([a-zA-Z ]+)"),
         SET_ACTIVE_DECK("deck set-activate (.*)"),
-        ADD_CARD_TO_MAIN("deck add-card --card (.+) --deck ([a-zA-Z ]+)$"),
-        ADD_CARD_TO_SIDE("deck add-card --card ([a-zA-Z ]+) --deck ([a-zA-Z ]+) --(side)"),
-        RM_CARD_FROM_MAIN("deck rm-card --card (.+) --deck ([a-zA-Z ]+)$"),
-        RM_CARD_FROM_SIDE("deck rm-card --card (.+) --deck ([a-zA-Z ]+) --(side)"),
+        ADD_CARD_TO_MAIN("deck add-card (--card (.+) --deck ([a-zA-Z ]+)$|--deck ([a-zA-Z ]+) --card (.+)$)"),
+        ADD_CARD_TO_SIDE("deck add-card (--card ([a-zA-Z ]+) --deck ([a-zA-Z ]+) --side|--card ([a-zA-Z ]+) --side --deck ([a-zA-Z ]+)|" +
+                "--deck ([a-zA-Z ]+) --card ([a-zA-Z ]+) --side|--deck ([a-zA-Z ]+) --side --card ([a-zA-Z ]+)|" +
+                "--side --deck ([a-zA-Z ]+) --card ([a-zA-Z ]+)|--side --card ([a-zA-Z ]+) --deck ([a-zA-Z ]+))"),
+        RM_CARD_FROM_MAIN("deck rm-card (--card (.+) --deck ([a-zA-Z ]+)$|--deck ([a-zA-Z ]+) --card (.+)$)"),
+        RM_CARD_FROM_SIDE("deck rm-card (--card ([a-zA-Z ]+) --deck ([a-zA-Z ]+) --side|--card ([a-zA-Z ]+) --side --deck ([a-zA-Z ]+)|" +
+                "--deck ([a-zA-Z ]+) --card ([a-zA-Z ]+) --side|--deck ([a-zA-Z ]+) --side --card ([a-zA-Z ]+)|" +
+                "--side --deck ([a-zA-Z ]+) --card ([a-zA-Z ]+)|--side --card ([a-zA-Z ]+) --deck ([a-zA-Z ]+))"),
         SHOW_ALL_DECKS("deck show --all"),
         SHOW_MAIN_DECK("deck show --deck-name ([a-zA-Z ]+)$"),
         SHOW_SIDE_DECK("deck show --deck-name ([a-zA-Z ]+) --side"),
