@@ -177,7 +177,8 @@ public class Enums {
         SHOW_CARD("card show (.*)"),
         END_PHASE("next phase"),
         HELP_MAIN("help-main"),
-        HELP_BATTLE("help-battle");
+        HELP_BATTLE("help-battle"),
+        ADD_CARD("add card (.*)");
         private final String regex;
 
         public String getRegex() {

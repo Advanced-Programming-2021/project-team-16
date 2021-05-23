@@ -284,6 +284,8 @@ public class CommandProcessor {
             else if (command.equals(Enums.GameCommands.HELP_MAIN.getRegex())) System.out.println(Enums.GAME_HELP_MAIN);
             else if (command.equals(Enums.GameCommands.HELP_BATTLE.getRegex()))
                 System.out.println(Enums.GAME_HELP_BATTLE);
+            else if((matcher = getCommandMatcher(command,Enums.GameCommands.ADD_CARD.getRegex())).find())
+                game.addCardToHand(matcher.group(1));
             else System.out.println("invalid command");
             if (
                     command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()) ||

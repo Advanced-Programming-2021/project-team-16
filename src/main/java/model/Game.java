@@ -1,5 +1,7 @@
 package model;
 
+import controller.GameMenu;
+import controller.MainMenu;
 import model.card.Activatable;
 import model.card.Card;
 import model.card.monster.*;
@@ -15,6 +17,7 @@ import view.CommandProcessor;
 import view.Show;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 
 
 public class Game {
@@ -654,5 +657,23 @@ public class Game {
 
     public boolean hasAttackDirectInThisTurn() {
         return hasAttackDirectInThisTurn;
+    }
+
+    public  void addCardToHand(String cardName){
+
+        Card card = Card.getCardByName(cardName);
+
+            if(card == null) {
+            System.out.println("there is no card with this name");
+            return;}
+            Game game = GameMenu.getCurrentGame();
+            Board board = game.getCurrentPlayer().getBoard();
+            if(board.isZoneFull(Board.Zone.HAND)){
+                System.out.println("hand is full");
+                return;}
+            game.putCardInZone(card, Board.Zone.HAND,null,board);
+             System.out.println("card added to hand successfully!");
+            Show.showBoard();
+
     }
 }
