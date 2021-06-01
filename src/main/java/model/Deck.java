@@ -3,7 +3,7 @@ package model;
 import model.card.Card;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.Random;
 
 public class Deck {
@@ -84,19 +84,13 @@ public class Deck {
     }
 
     public static void sort(ArrayList<Deck> decks) {
-        decks.sort(Comparator.comparing(o -> o.name));
-
+        for (int j = decks.size() - 1; j > 0; j--)
+            for (int i = 0; i < j; i++)
+                if (decks.get(i).name.compareTo(decks.get(i + 1).name) > 0) Collections.swap(decks, i, i + 1);
     }
 
     public String toString() {
         return name;
-    }
-
-    public Card drawOneCard(Game game, Board board) {
-
-        ArrayList<Card> deck = board.getDeck();
-        if (deck.isEmpty()) return null;
-        return deck.remove(deck.size() - 1);
     }
 
     public String getName() {
