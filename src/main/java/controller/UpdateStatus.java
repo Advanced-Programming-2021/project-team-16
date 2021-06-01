@@ -53,6 +53,7 @@ public class UpdateStatus {
     public static void makeUsers() {
         try {
             String jsonUsers = new String(Files.readAllBytes(Paths.get("users_json.txt")));
+
             ArrayList<User> users = new Gson().fromJson(jsonUsers, new TypeToken<List<User>>() {
             }.getType());
             for (User user : users) {
