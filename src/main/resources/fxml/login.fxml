@@ -9,36 +9,37 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="graphicview.LoginMenu"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="400.0" prefWidth="600.0"
+            style="-fx-font: 13 arial;">
     <center>
-    <GridPane vgap="10" hgap="40" alignment="CENTER">
+        <GridPane vgap="10" hgap="40" alignment="CENTER">
             <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="5">
                 <Label text="username"/>
                 <TextField fx:id="usernameLogin"/>
-            </HBox >
+            </HBox>
             <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="5">
                 <Label text="password"/>
                 <PasswordField fx:id="passwordLogin"/>
             </HBox>
-            <Button text="login" onMouseClicked="#login" GridPane.rowIndex="2" GridPane.columnIndex="0" />
-        <Label fx:id="loginError" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+            <Button text="login" onMouseClicked="#login" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+            <Label fx:id="loginError" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
 
 
             <HBox GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="5">
                 <Label text="username"/>
-                <TextField fx:id="usernameSignup" />
+                <TextField fx:id="usernameSignup"/>
             </HBox>
             <HBox GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="5">
                 <Label text="password"/>
                 <PasswordField fx:id="passwordSignup"/>
             </HBox>
             <HBox GridPane.rowIndex="2" GridPane.columnIndex="1" spacing="5">
-                <Label text="nickname" />
+                <Label text="nickname"/>
                 <TextField fx:id="nickname"/>
             </HBox>
-            <Button text="signup" onMouseClicked="#signup"  GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-        <Label fx:id="signupError" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
+            <Button text="signup" onMouseClicked="#signup" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label fx:id="signupError" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
 
-    </GridPane>
+        </GridPane>
     </center>
 </BorderPane>

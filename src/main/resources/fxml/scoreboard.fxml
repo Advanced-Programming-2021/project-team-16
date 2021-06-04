@@ -6,9 +6,15 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
-    <Label text="scoreboard"/>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          prefHeight="600.0" prefWidth="600.0"
+          fx:controller="graphicview.ScoreboardMenu"
+          alignment="CENTER"
+          style="-fx-font: 13 arial;" vgap="10" hgap="10"
+>
+    <Label text="#rate" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font: 15 arial;"/>
+    <Label text="nickname" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font: 15 arial;"/>
+    <Label text="score" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-font: 15 arial;"/>
 
-</AnchorPane>
+</GridPane>
