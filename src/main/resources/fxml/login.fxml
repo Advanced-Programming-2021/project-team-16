@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="graphicview.LoginMenu"
+            prefHeight="400.0" prefWidth="600.0">
+    <right>
+        <VBox alignment="CENTER">
+            <HBox alignment="CENTER">
+                <Label text="username:"/>
+                <TextField fx:id="username" text="enter your username"/>
+            </HBox >
+            <HBox alignment="CENTER">
+                <Label text="password:"/>
+                <TextField fx:id="password" text="enter your username"/>
+            </HBox>
+            <Button text="login" alignment="BASELINE_RIGHT" onMouseClicked="#login"/>
+
+        </VBox>
+    </right>
+
+    <left>
+        <VBox>
+            <HBox alignment="CENTER">
+                <Label text="username:"/>
+                <TextField fx:id="usernameSignup" text="enter your username"/>
+            </HBox>
+            <HBox alignment="CENTER">
+                <Label text="password:"/>
+                <TextField fx:id="passwordSignup" text="enter your username"/>
+            </HBox>
+            <HBox alignment="CENTER">
+                <Label text="password:"/>
+                <TextField fx:id="RePasswordSignup" text="enter your username"/>
+            </HBox>
+            <Button text="login" alignment="BASELINE_RIGHT" onMouseClicked="#signup"/>
+        </VBox>
+    </left>
+
+</BorderPane>

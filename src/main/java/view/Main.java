@@ -1,3 +1,4 @@
+package view;
 import controller.UpdateStatus;
 import view.CommandProcessor;
 
