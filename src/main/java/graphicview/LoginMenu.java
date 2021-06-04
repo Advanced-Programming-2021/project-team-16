@@ -1,20 +1,28 @@
 package graphicview;
 
 
+import controller.Login;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class LoginMenu extends Application {
-    public TextField username;
-    public TextField password;
+    public TextField usernameLogin;
+    public TextField passwordLogin;
     public TextField usernameSignup;
     public TextField passwordSignup;
-    public TextField RePasswordSignup;
+    public TextField nickname;
+    public Label loginError;
+    public Label signupError;
+    private static Stage mainStage;
+    private static Scene mainScene;
 
     public static void main(String[] args) {
         launch(args);
@@ -23,15 +31,25 @@ public class LoginMenu extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("YuGiOh!");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
-        stage.setScene(new Scene(root));
+        stage.setScene(mainScene = new Scene(root));
+        mainStage = stage;
         stage.show();
     }
 
-    public void login(MouseEvent mouseEvent) {
-        System.out.println(username);
+    public static Stage getMainStage() {
+        return mainStage;
     }
 
-    public void signup(MouseEvent mouseEvent) {
+    public static Scene getMainScene() {
+        return mainScene;
+    }
 
+    public void login() throws IOException {
+        loginError.setText(Login.login(usernameLogin.getText(), passwordLogin.getText()));
+        LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/scoreboard.fxml"))));
+    }
+
+    public void signup() {
+        signupError.setText(Login.signUp(usernameSignup.getText(),passwordSignup.getText(), nickname.getText()));
     }
 }

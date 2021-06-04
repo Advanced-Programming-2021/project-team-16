@@ -10,37 +10,35 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="graphicview.LoginMenu"
             prefHeight="400.0" prefWidth="600.0">
-    <right>
-        <VBox alignment="CENTER">
-            <HBox alignment="CENTER">
-                <Label text="username:"/>
-                <TextField fx:id="username" text="enter your username"/>
+    <center>
+    <GridPane vgap="10" hgap="40" alignment="CENTER">
+            <HBox GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="5">
+                <Label text="username"/>
+                <TextField fx:id="usernameLogin"/>
             </HBox >
-            <HBox alignment="CENTER">
-                <Label text="password:"/>
-                <TextField fx:id="password" text="enter your username"/>
+            <HBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="5">
+                <Label text="password"/>
+                <PasswordField fx:id="passwordLogin"/>
             </HBox>
-            <Button text="login" alignment="BASELINE_RIGHT" onMouseClicked="#login"/>
+            <Button text="login" onMouseClicked="#login" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+        <Label fx:id="loginError" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
 
-        </VBox>
-    </right>
 
-    <left>
-        <VBox>
-            <HBox alignment="CENTER">
-                <Label text="username:"/>
-                <TextField fx:id="usernameSignup" text="enter your username"/>
+            <HBox GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="5">
+                <Label text="username"/>
+                <TextField fx:id="usernameSignup" />
             </HBox>
-            <HBox alignment="CENTER">
-                <Label text="password:"/>
-                <TextField fx:id="passwordSignup" text="enter your username"/>
+            <HBox GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="5">
+                <Label text="password"/>
+                <PasswordField fx:id="passwordSignup"/>
             </HBox>
-            <HBox alignment="CENTER">
-                <Label text="password:"/>
-                <TextField fx:id="RePasswordSignup" text="enter your username"/>
+            <HBox GridPane.rowIndex="2" GridPane.columnIndex="1" spacing="5">
+                <Label text="nickname" />
+                <TextField fx:id="nickname"/>
             </HBox>
-            <Button text="login" alignment="BASELINE_RIGHT" onMouseClicked="#signup"/>
-        </VBox>
-    </left>
+            <Button text="signup" onMouseClicked="#signup"  GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label fx:id="signupError" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.columnSpan="2"/>
 
+    </GridPane>
+    </center>
 </BorderPane>

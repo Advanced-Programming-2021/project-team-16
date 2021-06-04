@@ -4,6 +4,7 @@ import model.person.User;
 
 public class Login {
     public static String signUp(String username, String password, String nickname) {
+        if (username.length() == 0) return "enter a username";
         if (User.getUserByUsername(username) != null)
             return "user with username " + username + " already exists";
         if (User.getUserByNickname(nickname) != null)
