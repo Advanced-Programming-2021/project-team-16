@@ -22,7 +22,6 @@ public class LoginMenu extends Application {
     public Label loginError;
     public Label signupError;
     private static Stage mainStage;
-    private static Scene mainScene;
 
     public static void main(String[] args) {
         launch(args);
@@ -31,22 +30,21 @@ public class LoginMenu extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle("YuGiOh!");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
-        stage.setScene(mainScene = new Scene(root));
+        stage.setScene(new Scene(root));
         mainStage = stage;
         stage.show();
+    }
+    public static void enterLoginMenu() throws IOException {
+        LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(LoginMenu.class.getResource("/fxml/login.fxml"))));
+
     }
 
     public static Stage getMainStage() {
         return mainStage;
     }
 
-    public static Scene getMainScene() {
-        return mainScene;
-    }
-
     public void login() throws IOException {
         loginError.setText(Login.login(usernameLogin.getText(), passwordLogin.getText()));
-        LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(getClass().getResource("/fxml/scoreboard.fxml"))));
     }
 
     public void signup() {
