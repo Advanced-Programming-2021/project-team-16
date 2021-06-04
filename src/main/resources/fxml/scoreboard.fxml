@@ -16,5 +16,7 @@
     <Label text="#rate" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font: 15 arial;"/>
     <Label text="nickname" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font: 15 arial;"/>
     <Label text="score" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-font: 15 arial;"/>
+    <Button text="back" GridPane.columnIndex="2" GridPane.rowIndex="22" style="-fx-font: 15 arial;"
+    onMouseClicked="#enterMainMenu"/>
 
 </GridPane>

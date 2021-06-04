@@ -6,6 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -50,5 +51,9 @@ public class ScoreboardMenu {
             scoreboardPane.add(nickname, 1, i);
             scoreboardPane.add(score, 2, i);
         }
+    }
+
+    public void enterMainMenu() {
+        //TODO
     }
 }
