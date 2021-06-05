@@ -48,8 +48,8 @@ public class LoginMenu extends Application {
         return mainStage;
     }
 
-    public void login() {
-        loginError.setText(Login.login(usernameLogin.getText(), passwordLogin.getText()));
+    public void login() throws IOException {
+       loginError.setText(Login.login(usernameLogin.getText(), passwordLogin.getText()));
         forTest();
     }
 
@@ -57,7 +57,7 @@ public class LoginMenu extends Application {
         signupError.setText(Login.signUp(usernameSignup.getText(), passwordSignup.getText(), nickname.getText()));
     }
 
-    private static void forTest() {
+    private static void forTest() throws IOException {
         User[] users = new User[30];
         for (int i = 0; i < 30; i++) {
             users[i] = new User("username" + i, "", "nickname" + i);
@@ -67,6 +67,6 @@ public class LoginMenu extends Application {
         users[1].increaseScore(19*100);
         MainMenu.setCurrentUser(users[25]);
         users[25].setActiveDeck(new Deck("deck26"));
-        DuelMenu.enterMenu();
+        graphicview.MainMenu.enterMenu();
     }
 }

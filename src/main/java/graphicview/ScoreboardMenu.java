@@ -54,6 +54,6 @@ public class ScoreboardMenu {
     }
 
     public void enterMainMenu() throws IOException {
-        graphicview.MainMenu.enterMainMenu();
+        graphicview.MainMenu.enterMenu();
     }
 }

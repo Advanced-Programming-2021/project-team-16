@@ -5,14 +5,13 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.MainMenu">
    <children>
-      <Button layoutX="237.0" layoutY="86.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="54.0" text="Duel" />
+      <Button layoutX="237.0" layoutY="86.0" mnemonicParsing="false" onAction="#duelButtonOnAction" prefHeight="32.0" prefWidth="54.0" text="Duel" />
       <Button fx:id="scoreboardButton" layoutX="226.0" layoutY="234.0" mnemonicParsing="false" onAction="#scoreboardButtonOnAction" prefHeight="32.0" prefWidth="82.0" text="scoreboard" />
-      <Button layoutX="237.0" layoutY="180.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="54.0" text="shop" />
-      <Button layoutX="233.0" layoutY="137.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="61.0" text="profile" />
+      <Button layoutX="237.0" layoutY="180.0" mnemonicParsing="false" onAction="#shopButtonOnAction" prefHeight="38.0" prefWidth="54.0" text="shop" />
+      <Button layoutX="233.0" layoutY="137.0" mnemonicParsing="false" onAction="#ProfileButtonOnAction" prefHeight="32.0" prefWidth="61.0" text="profile" />
       <Button fx:id="logoutButton" layoutX="245.0" layoutY="353.0" mnemonicParsing="false" onAction="#logoutButtonOnAction" text="log out" />
-      <Button layoutX="240.0" layoutY="271.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="54.0" text="deck" />
-      <Button layoutX="220.0" layoutY="313.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="93.0" text="import/export" />
+      <Button layoutX="240.0" layoutY="271.0" mnemonicParsing="false" onAction="#deckButtonOnAction" prefHeight="32.0" prefWidth="54.0" text="deck" />
+      <Button layoutX="220.0" layoutY="313.0" mnemonicParsing="false" onAction="#importButtonOnAction" prefHeight="32.0" prefWidth="93.0" text="import/export" />
       <Label layoutX="234.0" layoutY="31.0" text="Main menu" />
-      <Button layoutX="69.0" layoutY="61.0" mnemonicParsing="false" text="sss" />
    </children>
 </AnchorPane>

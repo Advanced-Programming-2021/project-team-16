@@ -8,19 +8,37 @@ import javafx.scene.Scene;
 import java.io.IOException;
 
 public class MainMenu {
-    public void scoreboardButtonOnAction(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/scoreboard.fxml"));
-        LoginMenu.getMainStage().getScene().setRoot(root);
+    public void scoreboardButtonOnAction(ActionEvent actionEvent) {
+        ScoreboardMenu.enterMenu();
     }
-    public static void enterMainMenu() throws IOException {
+    public static void enterMenu() throws IOException {
         LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(LoginMenu.class.getResource("/fxml/main.fxml"))));
 
     }
 
-    public void logoutButtonOnAction(ActionEvent actionEvent) {
+    public void logoutButtonOnAction(ActionEvent actionEvent) throws IOException {
+        controller.MainMenu.setCurrentUser(null);
+        LoginMenu.enterMenu();
     }
 
-    public void backButtonOnAction(ActionEvent actionEvent) {
 
+    public void deckButtonOnAction(ActionEvent actionEvent) throws IOException {
+        DeckMenu.enterMenu();
+    }
+
+    public void duelButtonOnAction(ActionEvent actionEvent) {
+        DuelMenu.enterMenu();
+    }
+
+    public void shopButtonOnAction(ActionEvent actionEvent) {
+        //TODO: ShopMenu.enterMenu();
+    }
+
+    public void ProfileButtonOnAction(ActionEvent actionEvent) {
+        //TODO: profileMenu.enterMenu();
+    }
+
+    public void importButtonOnAction(ActionEvent actionEvent) {
+        //TODO: importExport.enterMenu();
     }
 }
