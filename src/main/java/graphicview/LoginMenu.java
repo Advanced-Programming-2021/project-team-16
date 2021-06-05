@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import model.Deck;
 import model.person.User;
 
 import java.io.IOException;
@@ -38,7 +39,7 @@ public class LoginMenu extends Application {
         stage.show();
     }
 
-    public static void enterLoginMenu() throws IOException {
+    public static void enterMenu() throws IOException {
         LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(LoginMenu.class.getResource("/fxml/login.fxml"))));
 
     }
@@ -65,6 +66,7 @@ public class LoginMenu extends Application {
         users[0].increaseScore(20*100);
         users[1].increaseScore(19*100);
         MainMenu.setCurrentUser(users[25]);
-        ScoreboardMenu.enterMenu();
+        users[25].setActiveDeck(new Deck("deck26"));
+        DuelMenu.enterMenu();
     }
 }
