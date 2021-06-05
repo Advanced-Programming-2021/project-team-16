@@ -1,5 +1,8 @@
 package model.card;
 
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import model.card.monster.*;
 import model.card.spell.*;
 import model.card.spell.equipspells.BlackPendant;
@@ -21,7 +24,18 @@ public abstract class Card implements Comparable<Card> {
     protected String name;
     protected String description;
     protected int price;
-    public Random random = new Random();
+    protected Rectangle rectangle;
+
+
+    public Card(String name, String description, int price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.rectangle = new Rectangle();
+        rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/" + name + ".jpg").toExternalForm())));
+        for (Card card : cards) if (card.getName().equals(this.getName())) return;
+        cards.add(this);
+    }
 
     public static Card make(String cardName) {
         return switch (cardName) {
@@ -121,14 +135,6 @@ public abstract class Card implements Comparable<Card> {
         return price;
     }
 
-    public Card(String name, String description, int price) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        for (Card card : cards) if (card.getName().equals(this.getName())) return;
-        cards.add(this);
-    }
-
 
     public static Card getCardByName(String name) {
         for (Card card : cards) {
@@ -151,16 +157,6 @@ public abstract class Card implements Comparable<Card> {
         return cards;
     }
 
-    @Override
-    public int compareTo(Card other) {
-        return this.name.compareTo(other.name);
-    }
-
-    @Override
-    public String toString() {
-        return name + ": " + price;
-    }
-
     public String desToString() {
         return name + ": " + description;
     }
@@ -172,6 +168,20 @@ public abstract class Card implements Comparable<Card> {
 
     public String getDescription() {
         return description;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    @Override
+    public int compareTo(Card other) {
+        return this.name.compareTo(other.name);
+    }
+
+    @Override
+    public String toString() {
+        return name + ": " + price;
     }
 
     @Override

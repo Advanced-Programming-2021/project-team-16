@@ -69,10 +69,7 @@ public class User {
     }
 
     public void setActiveDeck(Deck deck) {
-        if (this.decks.contains(deck)) {
             this.activeDeck = deck;
-        }
-
     }
 
     public void increaseMoney(int amount) {

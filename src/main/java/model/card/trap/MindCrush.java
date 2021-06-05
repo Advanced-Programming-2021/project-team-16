@@ -7,10 +7,13 @@ import model.card.Activatable;
 import model.card.Card;
 import view.CommandProcessor;
 
+import java.util.Random;
+
 public class MindCrush extends Trap implements Activatable {
     public MindCrush() {
         super("MindCrush", "Trap", TrapType.NORMAL, "Declare 1 card name; if that card is in your opponent's hand, they must discard all copies of it, otherwise you discard 1 random card.", "Unlimited", 2000);
     }
+    private Random random = new Random();
 
     public String action() {
         Game game = GameMenu.getCurrentGame();

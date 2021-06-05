@@ -109,19 +109,19 @@ public class CommandProcessor {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.DELETE_DECK.getRegex());
                 if (matcher.find())
                     System.out.println(DeckMenu.delete(matcher.group(1)));
-            }  else if ((getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())).find()) {
+            } else if ((getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())).find()) {
                 data = getCommandData(command);
                 System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), false));
             } else if ((getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex())).find()) {
                 data = getCommandData(command);
                 System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), true));
-            }else if ((getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())).find()) {
+            } else if ((getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())).find()) {
                 data = getCommandData(command);
                 System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), false));
-            }else if ((getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())).find()) {
+            } else if ((getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())).find()) {
                 data = getCommandData(command);
                 System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), true));
-            }  else if (command.matches(Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex())) {
+            } else if (command.matches(Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex());
                 if (matcher.find())
                     System.out.println(DeckMenu.activate(matcher.group(1)));
@@ -180,32 +180,15 @@ public class CommandProcessor {
             else if (command.matches(Enums.GameMenuCommands.DUEL.getRegex())) {
                 data = getCommandData(command);
                 User secondUser = User.getUserByUsername(data.get("second-player"));
-                User firstUser = MainMenu.getCurrentUser();
-                String error = null;
-                if (secondUser == null) error = "there is no player with this username";
-                else if (secondUser == firstUser) error = "you can't play with yourself";
-                else if (firstUser.getActiveDeck() == null) error = firstUser.getUsername() + " has no active deck";
-                else if (secondUser.getActiveDeck() == null) error = secondUser.getUsername() + " has no active deck";
-                else if (!firstUser.getActiveDeck().isDeckValid())
-                    error = firstUser.getUsername() + "’s deck is invalid";
-                else if (!secondUser.getActiveDeck().isDeckValid())
-                    error = secondUser.getUsername() + "’s deck is invalid";
-                else if (!data.get("rounds").equals("1") && !data.get("rounds").equals("3"))
-                    error = "number of rounds is not supported";
+                String error = GameMenu.isDuelPossibleWithError(data.get("rounds"), secondUser,false);
                 if (error != null) System.out.println(error);
                 else {
                     System.out.println("duel started successfully");
                     GameMenu.duel(secondUser, Integer.parseInt(data.get("rounds")));
                 }
             } else if (command.matches(Enums.GameMenuCommands.AI_DUEL.getRegex())) {
-                User firstUser = MainMenu.getCurrentUser();
                 String rounds = getCommandData(command).get("rounds");
-                String error = null;
-                if (firstUser.getActiveDeck() == null) error = firstUser.getUsername() + " has no active deck";
-                else if (!firstUser.getActiveDeck().isDeckValid())
-                    error = firstUser.getUsername() + "’s deck is invalid";
-                else if (!rounds.equals("1") && !rounds.equals("3"))
-                    error = "number of rounds is not supported";
+                String error = GameMenu.isDuelPossibleWithError(rounds,null,true);
                 if (error != null) System.out.println(error);
                 else {
                     System.out.println("duel started successfully");
@@ -289,7 +272,7 @@ public class CommandProcessor {
             else if (command.equals(Enums.GameCommands.HELP_MAIN.getRegex())) System.out.println(Enums.GAME_HELP_MAIN);
             else if (command.equals(Enums.GameCommands.HELP_BATTLE.getRegex()))
                 System.out.println(Enums.GAME_HELP_BATTLE);
-            else if((matcher = getCommandMatcher(command,Enums.GameCommands.ADD_CARD.getRegex())).find())
+            else if ((matcher = getCommandMatcher(command, Enums.GameCommands.ADD_CARD.getRegex())).find())
                 game.addCardToHand(matcher.group(1));
             else System.out.println("invalid command");
             if (
