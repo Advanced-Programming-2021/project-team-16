@@ -53,7 +53,7 @@ public class ScoreboardMenu {
         }
     }
 
-    public void enterMainMenu() {
-        //TODO
+    public void enterMainMenu() throws IOException {
+        graphicview.MainMenu.enterMainMenu();
     }
 }
