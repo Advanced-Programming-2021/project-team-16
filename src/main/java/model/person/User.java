@@ -1,14 +1,19 @@
 package model.person;
 
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import model.Deck;
 import model.card.Card;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import static java.util.Collections.swap;
 
 public class User {
     private static ArrayList<User> users = new ArrayList<>();
+    private static final Random random = new Random();
     private final String username;
     private String password;
     private String nickname;
@@ -17,6 +22,7 @@ public class User {
     private final ArrayList<Deck> decks = new ArrayList<>();
     private Deck activeDeck;
     private final ArrayList<String> cardNames = new ArrayList<>();
+    private final Rectangle profilePicture =new Rectangle();
 
     public static ArrayList<User> getAllUsers() {
         return users;
@@ -27,6 +33,8 @@ public class User {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+        profilePicture.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource(
+                "/png/profile/Chara001.dds" + random.nextInt(38) + ".png" )))));
         users.add(this);
     }
 
@@ -70,6 +78,10 @@ public class User {
 
     public void setActiveDeck(Deck deck) {
             this.activeDeck = deck;
+    }
+
+    public Rectangle getProfilePicture() {
+        return profilePicture;
     }
 
     public void increaseMoney(int amount) {

@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -24,5 +21,7 @@
     <ChoiceBox fx:id="roundsWithAI" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
     <Button text="Duel With AI!" GridPane.rowIndex="4" GridPane.columnIndex="3" onMouseClicked="#duelWithAI"/>
     <Label fx:id="aiDuelError" GridPane.rowIndex="5" GridPane.columnIndex="2" GridPane.columnSpan="2"/>
+
+    <Button text="back" GridPane.rowIndex="10" GridPane.columnIndex="3" onMouseClicked="#enterMainMenu"/>
 
 </GridPane>

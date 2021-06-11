@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import model.person.User;
 
@@ -46,5 +47,9 @@ public class DuelMenu {
         String error = GameMenu.isDuelPossibleWithError(String.valueOf(roundsWithAI.getValue()), null,true);
         if (error != null) aiDuelError.setText(error);
         else GameView.startGame();
+    }
+
+    public void enterMainMenu() throws IOException {
+        graphicview.MainMenu.enterMenu();
     }
 }

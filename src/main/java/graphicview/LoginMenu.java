@@ -3,6 +3,7 @@ package graphicview;
 
 import controller.Login;
 import controller.MainMenu;
+import controller.UpdateStatus;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,9 +11,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Deck;
 import model.person.User;
+import view.CommandProcessor;
 
 import java.io.IOException;
 
@@ -27,7 +30,12 @@ public class LoginMenu extends Application {
     private static Stage mainStage;
 
     public static void main(String[] args) {
+        // test user :
+        new User("","","");
+
+        UpdateStatus.beforeRun();
         launch(args);
+        UpdateStatus.afterRun();
     }
 
     @Override
@@ -50,11 +58,16 @@ public class LoginMenu extends Application {
 
     public void login() throws IOException {
        loginError.setText(Login.login(usernameLogin.getText(), passwordLogin.getText()));
-        forTest();
+       loginError.setTextFill(Color.RED);
+        graphicview.MainMenu.enterMenu();
     }
 
     public void signup() {
-        signupError.setText(Login.signUp(usernameSignup.getText(), passwordSignup.getText(), nickname.getText()));
+        String result = Login.signUp(usernameSignup.getText(), passwordSignup.getText(), nickname.getText());
+        signupError.setText(result);
+        if (result.contains("success")) signupError.setTextFill(Color.GREEN);
+        else signupError.setTextFill(Color.RED);
+
     }
 
     private static void forTest() throws IOException {

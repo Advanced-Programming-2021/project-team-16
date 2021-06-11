@@ -35,7 +35,7 @@ public class MainMenu {
     }
 
     public void ProfileButtonOnAction(ActionEvent actionEvent) {
-        //TODO: profileMenu.enterMenu();
+        ProfileMenu.enterMenu();
     }
 
     public void importButtonOnAction(ActionEvent actionEvent) {

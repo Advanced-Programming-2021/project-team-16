@@ -39,7 +39,7 @@ public class ScoreboardMenu {
             nickname = new Label(users.get(i - 1).getNickname());
             score = new Label("" + users.get(i - 1).getScore());
             rateLabel = new Label(rate + "");
-            if (MainMenu.getCurrentUser() == users.get(i)) {
+            if (MainMenu.getCurrentUser() == users.get(i-1)) {
                 nickname.setTextFill(Color.GREEN);
                 score.setTextFill(Color.GREEN);
                 rateLabel.setTextFill(Color.GREEN);

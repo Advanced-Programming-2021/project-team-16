@@ -4,6 +4,7 @@ import model.person.User;
 
 public class Profile {
     public static String changeNickname(String newNickname) {
+        if (MainMenu.getCurrentUser().getNickname().equals(newNickname)) return "this is your current nickname";
         if (User.getUserByNickname(newNickname) != null)
             return "user with nickname " + newNickname + " already exists";
         MainMenu.getCurrentUser().setNickname(newNickname);

@@ -20,7 +20,7 @@ import java.util.Random;
 
 public abstract class Card implements Comparable<Card> {
 
-    private static ArrayList<Card> cards = new ArrayList<>();
+    private static final ArrayList<Card> cards = new ArrayList<>();
     protected String name;
     protected String description;
     protected int price;
@@ -32,7 +32,7 @@ public abstract class Card implements Comparable<Card> {
         this.description = description;
         this.price = price;
         this.rectangle = new Rectangle();
-        rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/" + name + ".jpg").toExternalForm())));
+        rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
         for (Card card : cards) if (card.getName().equals(this.getName())) return;
         cards.add(this);
     }
