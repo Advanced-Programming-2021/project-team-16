@@ -22,7 +22,7 @@ public class User {
     private final ArrayList<Deck> decks = new ArrayList<>();
     private Deck activeDeck;
     private final ArrayList<String> cardNames = new ArrayList<>();
-    private final Rectangle profilePicture =new Rectangle();
+    private final Rectangle avatarRec =new Rectangle();
 
     public static ArrayList<User> getAllUsers() {
         return users;
@@ -33,7 +33,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
-        profilePicture.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource(
+        avatarRec.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource(
                 "/png/profile/Chara001.dds" + random.nextInt(38) + ".png" )))));
         users.add(this);
     }
@@ -80,8 +80,8 @@ public class User {
             this.activeDeck = deck;
     }
 
-    public Rectangle getProfilePicture() {
-        return profilePicture;
+    public Rectangle getAvatarRec() {
+        return avatarRec;
     }
 
     public void increaseMoney(int amount) {

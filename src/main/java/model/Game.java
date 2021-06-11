@@ -37,15 +37,16 @@ public class Game {
     private boolean hasAttackDirectInThisTurn;
     private boolean isItFirstTurn = true;
     private boolean hasSurrendered = false;
+    private boolean isGraphical;
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
         this.rival = player1;
         this.round = round;
-
     }
 
-    public void play() {
+    public void playConsole() {
+        isGraphical = false;
         if (round == 1) {
             while (winner == null) {
                 run(rival, currentPlayer);
@@ -71,6 +72,9 @@ public class Game {
         User.getAllUsers().remove(User.getUserByUsername("AI"));
     }
 
+    public void playGraphical(){
+        isGraphical = true;
+    }
     private Player getMatchWinner() {
         if (currentPlayer.getWinningRounds() == 2) return currentPlayer;
         if (rival.getWinningRounds() == 2) return rival;
@@ -657,6 +661,10 @@ public class Game {
 
     public boolean hasAttackDirectInThisTurn() {
         return hasAttackDirectInThisTurn;
+    }
+
+    public boolean isGraphical() {
+        return isGraphical;
     }
 
     public  void addCardToHand(String cardName){

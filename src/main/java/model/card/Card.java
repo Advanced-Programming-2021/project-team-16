@@ -174,6 +174,13 @@ public abstract class Card implements Comparable<Card> {
         return rectangle;
     }
 
+    public void flip(boolean isUnknown) {
+        if (!isUnknown)
+            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+        else
+            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/Unknown.jpg").toExternalForm())));
+    }
+
     @Override
     public int compareTo(Card other) {
         return this.name.compareTo(other.name);

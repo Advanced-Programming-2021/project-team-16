@@ -10,12 +10,13 @@ import java.util.Random;
 public class GameMenu {
     private static Game currentGame;
 
-    public static void duel(User user2, int round) {
+    public static void duel(User user2, int round, boolean isGraphical) {
         Player player1 = new Player(MainMenu.getCurrentUser());
         Player player2 = user2 == null ? new AI() : new Player(user2);
         if ((new Random()).nextBoolean()) setCurrentGame(new Game(player1, player2, round));
         else setCurrentGame(new Game(player2, player1, round));
-        currentGame.play();
+        if (!isGraphical) currentGame.playConsole();
+        else currentGame.playGraphical();
     }
 
 
@@ -34,8 +35,8 @@ public class GameMenu {
     public static String isDuelPossibleWithError(String rounds, User secondUser, boolean isAI) {
         User firstUser = MainMenu.getCurrentUser();
         if (firstUser.getActiveDeck() == null) return "you have no active deck";
-//        if (!firstUser.getActiveDeck().isDeckValid())
-//            return  "your deck is invalid";
+        if (!firstUser.getActiveDeck().isDeckValid())
+            return "your deck is invalid";
         if (!isAI) {
             if (secondUser == null) return "there is no player with this username";
             if (secondUser == firstUser) return "you can't play with yourself";

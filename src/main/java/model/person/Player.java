@@ -1,5 +1,6 @@
 package model.person;
 
+import graphicview.GameView;
 import model.Board;
 import model.card.Card;
 
@@ -12,7 +13,7 @@ public class Player {
     private int gameScore;
     private int maxLp = 0;
     private int winningRounds = 0;
-
+    private GameView gameView;
 
     public Player(User user) {
         this.user = user;
@@ -75,6 +76,14 @@ public class Player {
 
     public int getWinningRounds() {
         return winningRounds;
+    }
+
+    public void setGameView(GameView gameView) {
+        this.gameView = gameView;
+    }
+
+    public GameView getGameView() {
+        return gameView;
     }
 
     @Override

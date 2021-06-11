@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
 import model.person.User;
 
 public class Profile {
@@ -21,9 +23,19 @@ public class Profile {
 
     }
 
+    public static String changeAvatar(String name){
+        User user = MainMenu.getCurrentUser();
+        try {
+            user.getAvatarRec().setFill(new ImagePattern(new Image(String.valueOf(Profile.class.getResource(
+                    "/png/profile/" + name )))));
+            return "your avatar changed successfully";
+        }catch (Exception e){
+            return "some thing went wrong!";
+        }
+
+    }
     public static String menuName() {
         return "Profile Menu";
-
     }
 
 }

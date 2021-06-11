@@ -33,9 +33,10 @@ public class LoginMenu extends Application {
         // test user :
         new User("","","");
 
-        UpdateStatus.beforeRun();
+        //TODO
+        //UpdateStatus.beforeRun();
         launch(args);
-        UpdateStatus.afterRun();
+        //UpdateStatus.afterRun();
     }
 
     @Override

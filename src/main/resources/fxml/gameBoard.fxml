@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.shape.Rectangle?>
+<GridPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="graphicview.GameView"
+          prefHeight="800.0" prefWidth="1400.0"
+          style="-fx-font: 13 arial;">
+
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="100" minWidth="280"
+          style="-fx-background-color: #ba8c5b" alignment="CENTER">
+
+        <HBox spacing="2">
+            <Rectangle fx:id="rivalAvatar" width="80" height="100"/>
+            <VBox spacing="2">
+                <Label fx:id="rivalUsername"/>
+                <Label fx:id="rivalNickname"/>
+                <HBox spacing="4">
+                    <Label text="LP" style="-fx-font: 15 arial;"/>
+                    <Label fx:id="rivalLP" style="-fx-font: 15 arial;"/>
+                </HBox>
+            </VBox>
+        </HBox>
+
+
+        <VBox>
+            <Rectangle fx:id="selectedCard" width="280" height="400" fill="black"/>
+            <Label fx:id="selectedCardDescription" lineSpacing="2" minWidth="140" minHeight="200" alignment="CENTER"
+            textFill="darkslategray" text="no card is selected yet."/>
+        </VBox>
+
+
+        <HBox spacing="2">
+            <Rectangle fx:id="myAvatar" width="80" height="100"/>
+            <VBox spacing="2">
+                <Label fx:id="myUsername"/>
+                <Label fx:id="myNickname"/>
+                <HBox spacing="4">
+                    <Label text="LP" style="-fx-font: 15 arial;"/>
+                    <Label fx:id="myLP" style="-fx-font: 20 arial;"/>
+                </HBox>
+            </VBox>
+        </HBox>
+    </VBox>
+
+
+
+</GridPane>

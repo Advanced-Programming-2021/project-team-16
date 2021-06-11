@@ -9,4 +9,12 @@ module YuGiOh {
     opens model.person to com.google.gson;
     opens model to com.google.gson;
     exports graphicview;
+    exports model;
+    exports model.person;
+    exports model.card;
+    exports model.card.monster;
+    exports model.card.spell;
+    exports model.card.spell.equipspells;
+    exports model.card.spell.fieldspells;
+    exports model.card.trap;
 }

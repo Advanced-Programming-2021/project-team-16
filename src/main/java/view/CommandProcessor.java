@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 
 
 public class CommandProcessor {
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     private static HashMap<String, String> getCommandData(String command) {
         HashMap<String, String> data = new HashMap<>();
@@ -180,19 +180,19 @@ public class CommandProcessor {
             else if (command.matches(Enums.GameMenuCommands.DUEL.getRegex())) {
                 data = getCommandData(command);
                 User secondUser = User.getUserByUsername(data.get("second-player"));
-                String error = GameMenu.isDuelPossibleWithError(data.get("rounds"), secondUser,false);
+                String error = GameMenu.isDuelPossibleWithError(data.get("rounds"), secondUser, false);
                 if (error != null) System.out.println(error);
                 else {
                     System.out.println("duel started successfully");
-                    GameMenu.duel(secondUser, Integer.parseInt(data.get("rounds")));
+                    GameMenu.duel(secondUser, Integer.parseInt(data.get("rounds")), false);
                 }
             } else if (command.matches(Enums.GameMenuCommands.AI_DUEL.getRegex())) {
                 String rounds = getCommandData(command).get("rounds");
-                String error = GameMenu.isDuelPossibleWithError(rounds,null,true);
+                String error = GameMenu.isDuelPossibleWithError(rounds, null, true);
                 if (error != null) System.out.println(error);
                 else {
                     System.out.println("duel started successfully");
-                    GameMenu.duel(null, Integer.parseInt(rounds));
+                    GameMenu.duel(null, Integer.parseInt(rounds), false);
                 }
             } else System.out.println("invalid command");
         }

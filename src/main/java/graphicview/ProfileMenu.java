@@ -6,7 +6,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.person.User;
@@ -18,11 +17,13 @@ public class ProfileMenu {
     public Label changeNicknameAlert;
     public TextField newNickname;
     public Label username;
-    public Rectangle profilePicture;
+    public Rectangle avatar;
     public Label nickname;
     public TextField newPass;
     public TextField oldPass;
     public Label changePassAlert;
+    public TextField avatarName;
+    public Label changeAvatarAlert;
 
     public static void enterMenu(){
         try {
@@ -37,14 +38,16 @@ public class ProfileMenu {
         User user = controller.MainMenu.getCurrentUser();
         nickname.setText("nickname : " + user.getNickname());
         username.setText("username : " + user.getUsername());
-        profilePicture.setFill(user.getProfilePicture().getFill());
+        avatar.setFill(user.getAvatarRec().getFill());
     }
 
     public void changeNickname() {
+        User user = controller.MainMenu.getCurrentUser();
         String result = Profile.changeNickname(newNickname.getText());
         changeNicknameAlert.setText(result);
         if (result.contains("success")) changeNicknameAlert.setTextFill(Color.GREEN);
         else changeNicknameAlert.setTextFill(Color.RED);
+        nickname.setText("nickname : " + user.getNickname());
     }
 
     public void changePass() {
@@ -56,5 +59,15 @@ public class ProfileMenu {
 
     public void enterMainMenu() throws IOException {
         MainMenu.enterMenu();
+    }
+
+    public void changeAvatar() {
+        User user = controller.MainMenu.getCurrentUser();
+        String result = Profile.changeAvatar(avatarName.getText());
+        changeAvatarAlert.setText(result);
+        if (result.contains("success")) changeAvatarAlert.setTextFill(Color.GREEN);
+        else changeAvatarAlert.setTextFill(Color.RED);
+        avatar.setFill(user.getAvatarRec().getFill());
+
     }
 }
