@@ -11,9 +11,9 @@
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="graphicview.GameView"
           prefHeight="800.0" prefWidth="1400.0"
-          style="-fx-font: 13 arial;">
+          style="-fx-font: 13 arial;" >
 
-    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="100" minWidth="280"
+    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="10" minWidth="280"
           style="-fx-background-color: #ba8c5b" alignment="CENTER">
 
         <HBox spacing="2">
@@ -50,5 +50,59 @@
     </VBox>
 
 
+
+
+    <GridPane fx:id="board" vgap="43" GridPane.rowIndex="0" GridPane.columnIndex="1" minHeight="800" minWidth="760">
+        <VBox minWidth="145" GridPane.rowIndex="0" GridPane.columnIndex="0">
+        </VBox >
+
+    <HBox fx:id="rivalHand"  spacing="15" GridPane.rowIndex="0" GridPane.columnIndex="1">
+        <Rectangle height="90" width="60" fill="black"/>
+        <Rectangle height="90" width="60" fill="black"/>
+        <Rectangle height="90" width="60" fill="black"/>
+        <Rectangle height="90" width="60" fill="black"/>
+        <Rectangle height="90" width="60" fill="black"/>
+        <Rectangle height="90" width="60" fill="black"/>
+    </HBox>
+
+    <HBox fx:id="rivalSpells"  spacing="35" GridPane.rowIndex="1" GridPane.columnIndex="1">
+        <Rectangle height="100" width="70" fill="black"/>
+        <Rectangle height="100" width="70" fill="black"/>
+        <Rectangle height="100" width="70" fill="black"/>
+        <Rectangle height="100" width="70" fill="black"/>
+        <Rectangle height="100" width="70" fill="black"/>
+    </HBox>
+
+    <HBox fx:id="rivalMonsters" spacing="35" GridPane.rowIndex="2" GridPane.columnIndex="1">
+        <Rectangle height="100" width="70" fill="black"/>
+        <Rectangle height="100" width="70" fill="black"/>
+        <Rectangle height="100" width="70" fill="black"/>
+        <Rectangle height="100" width="70" fill="black"/>
+        <Rectangle height="100" width="70" fill="black"/>
+    </HBox>
+        <HBox fx:id="myMonsters" spacing="35" GridPane.rowIndex="3" GridPane.columnIndex="1">
+            <Rectangle height="100" width="70" fill="black"/>
+            <Rectangle height="100" width="70" fill="black"/>
+            <Rectangle height="100" width="70" fill="black"/>
+            <Rectangle height="100" width="70" fill="black"/>
+            <Rectangle height="100" width="70" fill="black"/>
+        </HBox>
+        <HBox fx:id="mySpells"  spacing="35" GridPane.rowIndex="4" GridPane.columnIndex="1">
+            <Rectangle height="100" width="70" fill="black"/>
+            <Rectangle height="100" width="70" fill="black"/>
+            <Rectangle height="100" width="70" fill="black"/>
+            <Rectangle height="100" width="70" fill="black"/>
+            <Rectangle height="100" width="70" fill="black"/>
+        </HBox>
+        <HBox fx:id="myHand"  spacing="15" GridPane.rowIndex="5" GridPane.columnIndex="1">
+            <Rectangle height="90" width="60" fill="black"/>
+            <Rectangle height="90" width="60" fill="black"/>
+            <Rectangle height="90" width="60" fill="black"/>
+            <Rectangle height="90" width="60" fill="black"/>
+            <Rectangle height="90" width="60" fill="black"/>
+            <Rectangle height="90" width="60" fill="black"/>
+        </HBox>
+
+    </GridPane>
 
 </GridPane>

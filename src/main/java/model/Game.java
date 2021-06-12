@@ -2,6 +2,9 @@ package model;
 
 import controller.GameMenu;
 import controller.MainMenu;
+import javafx.animation.FadeTransition;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import model.card.Activatable;
 import model.card.Card;
 import model.card.monster.*;
@@ -22,6 +25,7 @@ import java.util.regex.Matcher;
 
 public class Game {
     private final int round;
+    private int currentRound = 0;
     private Card selectedCard;
     private Board.Zone selectedZone;
     private int selectedZoneIndex;
@@ -42,6 +46,8 @@ public class Game {
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
         this.rival = player1;
+        rival.setRival(currentPlayer);
+        currentPlayer.setRival(rival);
         this.round = round;
     }
 
@@ -55,7 +61,6 @@ public class Game {
             Show.showGameMessage(endRound());
 
         } else {
-            int currentRound = 0;
             while (getMatchWinner() == null && !hasSurrendered) {
                 currentRound++;
                 Show.showImportantGameMessage("round " + currentRound);
@@ -63,7 +68,7 @@ public class Game {
                 currentPlayer.setLP(8000);
                 rival.setLP(8000);
                 while (winner == null) run(rival, currentPlayer);
-                Show.showImportantGameMessage(winner.getUser().getUsername() + " won the game and the score is: 1000-0");
+                Show.showImportantGameMessage(winner.getUser().getUsername() + " won the round and the score is: 1000-0");
                 winner.won();
             }
             loser = (winner == currentPlayer) ? rival : currentPlayer;
@@ -72,13 +77,28 @@ public class Game {
         User.getAllUsers().remove(User.getUserByUsername("AI"));
     }
 
-    public void playGraphical(){
+    public void playGraphical() {
         isGraphical = true;
+        currentRound = 1;
     }
+
     private Player getMatchWinner() {
         if (currentPlayer.getWinningRounds() == 2) return currentPlayer;
         if (rival.getWinningRounds() == 2) return rival;
         return null;
+    }
+
+    public String getResultOfOneRound(Player loser) {
+        this.loser = loser;
+        winner = loser == currentPlayer ? rival : currentPlayer;
+        winner.won();
+        if (getMatchWinner() == null) {
+            currentRound++;
+            currentPlayer.setLP(8000);
+            rival.setLP(8000);
+            return winner.getUser().getUsername() + " won the round and the score is: 1000-0"
+                    + "\n                          round " + currentRound;
+        } else return endMatch();
     }
 
     private void run(Player me, Player rival) {
@@ -209,21 +229,21 @@ public class Game {
     }
 
 
-    private String endRound() {
+    public String endRound() {
 
+        loser = currentPlayer == winner ? rival : currentPlayer;
         winner.getUser().increaseScore(1000);
         winner.getUser().increaseMoney(1000 + winner.getLP());
         loser.getUser().increaseMoney(100);
-
         return winner.getUser().getUsername() + " won the game and the score is: 1000-0";
 
 
     }
 
-    private String endMatch() {
-        int maxLp = winner.getMaxLp();
+    public String endMatch() {
+
         winner.getUser().increaseScore(3000);
-        winner.getUser().increaseMoney(3000 + (3 * maxLp));
+        winner.getUser().increaseMoney(3000 + (3 * winner.getMaxLp()));
         loser.getUser().increaseMoney(300);
 
         return winner.getUser().getUsername() + " won the whole match with score: " + winner.getGameScore() + "-" + loser.getGameScore();
@@ -557,16 +577,28 @@ public class Game {
     }
 
     public void putCardInZone(Card card, Board.Zone zone, Board.CardPosition position, Board board) {
+        int index;
         switch (zone) {
-            case HAND -> board.getHand()[board.getFirstEmptyIndexOfZone(Board.Zone.HAND)] = card;
+            case HAND -> {
+                index = board.getFirstEmptyIndexOfZone(Board.Zone.HAND);
+                board.getHand()[index] = card;
+                card.setSide(false);
+                card.setSizes(true);
+                board.getGameView().myHand.getChildren().set(index, card);
+                board.getRivalGameView().rivalHand.getChildren().set(index, card);
+            }
             case GRAVE -> board.getGrave().add(card);
             case DECK -> board.getDeck().add(card);
             case MONSTER -> {
-                int index = board.getFirstEmptyIndexOfZone(Board.Zone.MONSTER);
+                index = board.getFirstEmptyIndexOfZone(Board.Zone.MONSTER);
                 board.getMonsterZone()[index] = (Monster) card;
                 board.getCardPositions()[0][index] = position;
                 if (position != Board.CardPosition.HIDE_DEF && card instanceof CommandKnight)
                     if (!((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(false);
+                card.setSide(position != Board.CardPosition.HIDE_DEF);
+                card.setSizes(false);
+                board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index,true), card);
+                board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index,false), card);
             }
             case FIELD_SPELL -> {
                 if (position == Board.CardPosition.ACTIVATED) {
@@ -578,17 +610,31 @@ public class Game {
                 board.setFieldSpell(((FieldSpell) card));
             }
             case SPELL_AND_TRAP -> {
-                int index = board.getFirstEmptyIndexOfZone(Board.Zone.SPELL_AND_TRAP);
+                index = board.getFirstEmptyIndexOfZone(Board.Zone.SPELL_AND_TRAP);
                 board.getSpellAndTrapZone()[index] = card;
                 board.getCardPositions()[1][index] = position;
+                card.setSide(position != Board.CardPosition.HIDE_DEF);
+                card.setSizes(false);
+                board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index,true), card);
+                board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index,false), card);
             }
         }
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), card);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
     }
 
-    public void removeCardFromZone(Card card, Board.Zone zone, int zoneIndex, Board board) {
+    public void removeCardFromZone(Card card, Board.Zone zone, int index, Board board) {
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), card);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.play();
         switch (zone) {
             case MONSTER -> {
-                board.getMonsterZone()[zoneIndex] = null;
+                board.getMonsterZone()[index] = null;
+                board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index,true),Card.getBlackRectangle(false));
+                board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index,false), Card.getBlackRectangle(false));
                 if (card instanceof CommandKnight)
                     if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(true);
                 for (Card spell : board.getSpellAndTrapZone())
@@ -599,9 +645,14 @@ public class Game {
                         if (needToChangeTurn) changeTurn();
                     }
             }
-            case SPELL_AND_TRAP -> board.getSpellAndTrapZone()[zoneIndex] = null;
+            case SPELL_AND_TRAP -> {
+                board.getSpellAndTrapZone()[index] = null;
+                board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index,true),Card.getBlackRectangle(false));
+                board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index,false), Card.getBlackRectangle(false));
+
+            }
             case HAND -> {
-                board.getHand()[zoneIndex] = null;
+                board.getHand()[index] = null;
                 board.refreshHand();
             }
             case FIELD_SPELL -> {
@@ -612,6 +663,18 @@ public class Game {
             case GRAVE -> board.getGrave().remove(card);
             case DECK -> board.getDeck().remove(card);
         }
+    }
+
+    public static int getGraphicalIndex(int nonGraphicalIndex, boolean isMyBoard){
+        int graphicalIndex = switch (nonGraphicalIndex) {
+            case 0 -> 2;
+            case 1 -> 3;
+            case 2 -> 1;
+            case 3 -> 4;
+            default -> 0;
+        };
+        if (!isMyBoard) graphicalIndex = 4 - graphicalIndex;
+        return graphicalIndex;
     }
 
 
@@ -667,21 +730,27 @@ public class Game {
         return isGraphical;
     }
 
-    public  void addCardToHand(String cardName){
+    public int getRound() {
+        return round;
+    }
+
+    public void addCardToHand(String cardName) {
 
         Card card = Card.getCardByName(cardName);
 
-            if(card == null) {
+        if (card == null) {
             System.out.println("there is no card with this name");
-            return;}
-            Game game = GameMenu.getCurrentGame();
-            Board board = game.getCurrentPlayer().getBoard();
-            if(board.isZoneFull(Board.Zone.HAND)){
-                System.out.println("hand is full");
-                return;}
-            game.putCardInZone(card, Board.Zone.HAND,null,board);
-             System.out.println("card added to hand successfully!");
-            Show.showBoard();
+            return;
+        }
+        Game game = GameMenu.getCurrentGame();
+        Board board = game.getCurrentPlayer().getBoard();
+        if (board.isZoneFull(Board.Zone.HAND)) {
+            System.out.println("hand is full");
+            return;
+        }
+        game.putCardInZone(card, Board.Zone.HAND, null, board);
+        System.out.println("card added to hand successfully!");
+        Show.showBoard();
 
     }
 }

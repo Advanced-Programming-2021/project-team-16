@@ -18,7 +18,7 @@ import java.util.Collections;
 public class AI extends Player {
     public AI() {
         super(null);
-        board = new Board(Deck.getRandomMainDeck());
+        board = new Board(Deck.getRandomMainDeck(),this);
         user = new User("AI", "", "ai");
     }
 

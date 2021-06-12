@@ -1,14 +1,17 @@
 package model;
 
+import graphicview.GameView;
 import model.card.Card;
 import model.card.monster.Monster;
 import model.card.spell.fieldspells.FieldSpell;
+import model.person.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
 public class Board {
+    private final Player player;
     private final ArrayList<Card> deck;
     private final ArrayList<Card> grave = new ArrayList<>();
     private final Monster[] monsterZone = new Monster[5];
@@ -21,9 +24,10 @@ public class Board {
     private final boolean[] didMonsterAttack = new boolean[5];
 
 
-    public Board(ArrayList<Card> deck) {
+    public Board(ArrayList<Card> deck,Player player) {
         this.deck = deck;
         Collections.shuffle(this.deck);
+        this.player = player;
     }
 
 
@@ -141,11 +145,27 @@ public class Board {
         this.fieldSpell = fieldSpell;
     }
 
+    public GameView getGameView(){
+        return player.getGameView();
+    }
+
+    public GameView getRivalGameView(){
+        return player.getRival().getGameView();
+    }
+
     public void refreshHand() {
         ArrayList<Card> cards = new ArrayList<>(Arrays.asList(hand));
         Arrays.fill(hand, null);
         for (int i = 0; i < cards.size(); i++) {
             hand[i] = cards.get(i);
+            if (hand[i] == null) {
+                getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
+                getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
+            }else {
+                getGameView().myHand.getChildren().set(i, hand[i]);
+                getRivalGameView().rivalHand.getChildren().set(i, hand[i]);
+            }
+
         }
     }
 

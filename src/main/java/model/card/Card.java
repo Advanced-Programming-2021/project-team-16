@@ -1,6 +1,7 @@
 package model.card;
 
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import model.card.monster.*;
@@ -18,7 +19,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Random;
 
-public abstract class Card implements Comparable<Card> {
+public abstract class Card extends Rectangle implements Comparable<Card> {
 
     private static final ArrayList<Card> cards = new ArrayList<>();
     protected String name;
@@ -33,6 +34,8 @@ public abstract class Card implements Comparable<Card> {
         this.price = price;
         this.rectangle = new Rectangle();
         rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+        rectangle.setHeight(120);
+        rectangle.setWidth(80);
         for (Card card : cards) if (card.getName().equals(this.getName())) return;
         cards.add(this);
     }
@@ -174,11 +177,36 @@ public abstract class Card implements Comparable<Card> {
         return rectangle;
     }
 
-    public void flip(boolean isUnknown) {
-        if (!isUnknown)
-            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+    public void setSide(boolean isToFace) {
+        if (isToFace)
+            setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
         else
-            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/Unknown.jpg").toExternalForm())));
+            setFill(new ImagePattern(new Image(getClass().getResource("/png/card/Unknown.jpg").toExternalForm())));
+    }
+
+    public void setSizes(boolean isHand){
+        if (isHand){
+            setWidth(60);
+            setHeight(90);
+        }
+        else {
+            setWidth(70);
+            setHeight(100);
+        }
+    }
+
+    public static Rectangle getBlackRectangle(boolean isHand){
+        Rectangle blackRec = new Rectangle();
+        blackRec.setFill(Color.BLACK);
+        if (isHand){
+            blackRec.setWidth(60);
+            blackRec.setHeight(90);
+        }
+        else {
+            blackRec.setWidth(70);
+            blackRec.setHeight(100);
+        }
+        return blackRec;
     }
 
     @Override

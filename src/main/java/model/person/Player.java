@@ -1,5 +1,6 @@
 package model.person;
 
+import controller.GameMenu;
 import graphicview.GameView;
 import model.Board;
 import model.card.Card;
@@ -7,6 +8,7 @@ import model.card.Card;
 import java.util.ArrayList;
 
 public class Player {
+    protected Player rival;
     protected User user;
     protected int LP;
     protected Board board;
@@ -17,20 +19,14 @@ public class Player {
 
     public Player(User user) {
         this.user = user;
-        LP = 8000;
+        setLP(8000);
         gameScore = 0;
         if (user != null) {
             ArrayList<Card> cards = new ArrayList<>();
             for (String cardName : user.getActiveDeck().getMainDeck()) cards.add(Card.make(cardName));
-            board = new Board(cards);
+            board = new Board(cards,this);
         }
 
-    }
-
-    public void decreaseLP(int amount) {
-        if (LP > amount)
-            LP -= amount;
-        else LP = 0;
     }
 
     public void won() {
@@ -41,8 +37,29 @@ public class Player {
 
     }
 
+    public void decreaseLP(int amount) {
+        if (LP > amount)
+            LP -= amount;
+        else {
+            LP = 0;
+            if (GameMenu.getCurrentGame().isGraphical()) gameView.doZeroLPAction();
+        }
+        changeGraphicLPs();
+    }
+
     public void increaseLP(int amount) {
         LP += amount;
+        changeGraphicLPs();
+    }
+
+    public void setLP(int LP) {
+        this.LP = LP;
+        changeGraphicLPs();
+    }
+
+    private void changeGraphicLPs(){
+        this.gameView.getMyLP().setText(String.valueOf(LP));
+        rival.gameView.getRivalLP().setText(String.valueOf(LP));
     }
 
     public int getLP() {
@@ -55,10 +72,6 @@ public class Player {
 
     public User getUser() {
         return user;
-    }
-
-    public void setLP(int LP) {
-        this.LP = LP;
     }
 
 
@@ -80,6 +93,14 @@ public class Player {
 
     public void setGameView(GameView gameView) {
         this.gameView = gameView;
+    }
+
+    public void setRival(Player rival) {
+        this.rival = rival;
+    }
+
+    public Player getRival() {
+        return rival;
     }
 
     public GameView getGameView() {

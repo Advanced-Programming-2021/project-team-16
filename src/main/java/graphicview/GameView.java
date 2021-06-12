@@ -2,20 +2,29 @@ package graphicview;
 
 import controller.GameMenu;
 import controller.MainMenu;
+import javafx.animation.FadeTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Game;
 import model.person.Player;
 import model.person.User;
 
 import java.io.IOException;
+
 
 public class GameView {
     private static Game game;
@@ -29,6 +38,13 @@ public class GameView {
     public Label myUsername;
     public Label rivalLP;
     public Label myNickname;
+    public GridPane board;
+    public HBox rivalHand;
+    public HBox rivalSpells;
+    public HBox rivalMonsters;
+    public HBox myMonsters;
+    public HBox mySpells;
+    public HBox myHand;
     private Player player;
     private Player rival;
     private Stage stage;
@@ -62,6 +78,9 @@ public class GameView {
         this.player = player;
         player.setGameView(this);
         this.rival = game.getCurrentPlayer() == player ? game.getRival() : game.getCurrentPlayer();
+        board.setBackground(new Background(new BackgroundFill(
+                new ImagePattern(new Image(getClass().getResource("/png/field/fie_normal.bmp").toExternalForm())),
+                CornerRadii.EMPTY, Insets.EMPTY)));
         myAvatar.setFill(player.getUser().getAvatarRec().getFill());
         myNickname.setText(player.getUser().getNickname());
         myUsername.setText(player.getUser().getUsername());
@@ -72,11 +91,43 @@ public class GameView {
         rivalLP.setText(String.valueOf(rival.getLP()));
     }
 
+    public void doZeroLPAction(){
+        if (game.getRound() == 1) endGame(game.endRound());
+        else {
+            String result = game.getResultOfOneRound(player);
+            if (result.contains("whole match")) endGame(result);
+        }
+    }
+    private void endGame(String result){
+        Popup popup = new Popup();
+        Label resultLabel = new Label(result);
+        resultLabel.setTextFill(Color.BROWN);
+        resultLabel.setStyle("-fx-font-size: 30");
+        popup.getContent().add(resultLabel);
+        popup.setAnchorX(400);
+        popup.setAnchorY(390);
+        resultLabel.setAlignment(Pos.CENTER);
+        popup.show(stage);
+        stage.getScene().getRoot().setOpacity(0.5);
+        stage.getScene().setOnMouseClicked(mouseEvent -> {
+            popup.hide();
+            stage.getScene().getRoot().setOpacity(1);
+            DuelMenu.enterMenu();
+        });
+    }
+
+    public Label getMyLP() {
+        return myLP;
+    }
+
+    public Label getRivalLP() {
+        return rivalLP;
+    }
+
     public static void forTest(){
         FXMLLoader loader = new FXMLLoader(ProfileMenu.class.getResource("/fxml/gameBoard.fxml"));
-        Parent firstBoard = null;
         try {
-            firstBoard = loader.load();
+            Parent firstBoard = loader.load();
             LoginMenu.getMainStage().setScene(new Scene(firstBoard));
             GameView thisView  = loader.getController();
             thisView.myAvatar.setFill(Color.GREEN);
@@ -87,10 +138,24 @@ public class GameView {
             thisView.rivalNickname.setText("rivalNickname");
             thisView.rivalUsername.setText("rival username");
             thisView.rivalLP.setText("7000");
+            thisView.board.setBackground(new Background(new BackgroundFill(
+                    new ImagePattern(new Image(GameView.class.getResource("/png/field/fie_normal.bmp").toExternalForm())),
+                    CornerRadii.EMPTY, Insets.EMPTY)));
+            thisView.stage = LoginMenu.getMainStage();
+            thisView.endGame("zizi won the game and the score is: 1000-0\n                          round 2");
+            Rectangle rectangle = new Rectangle();
+            rectangle.setFill(Color.RED);
+            rectangle.setWidth(60);
+            rectangle.setHeight(90);
+            thisView.rivalHand.getChildren().set(1,rectangle);
+            FadeTransition ft = new FadeTransition(Duration.millis(1000), rectangle);
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+            ft.play();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
+
 }
 
