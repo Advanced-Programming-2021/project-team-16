@@ -17,7 +17,6 @@ import model.card.trap.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Random;
 
 public abstract class Card extends Rectangle implements Comparable<Card> {
 
@@ -33,7 +32,11 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         this.description = description;
         this.price = price;
         this.rectangle = new Rectangle();
-        rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+        try {
+            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+        }catch (NullPointerException e){
+            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
+        }
         rectangle.setHeight(120);
         rectangle.setWidth(80);
         for (Card card : cards) if (card.getName().equals(this.getName())) return;

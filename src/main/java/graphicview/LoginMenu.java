@@ -10,12 +10,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.Deck;
 import model.person.User;
-import view.CommandProcessor;
 
 import java.io.IOException;
 
@@ -31,12 +29,11 @@ public class LoginMenu extends Application {
 
     public static void main(String[] args) {
         // test user :
-        new User("","","");
+        new User("", "", "");
 
-        //TODO
-        //UpdateStatus.beforeRun();
+        UpdateStatus.beforeRun();
         launch(args);
-        //UpdateStatus.afterRun();
+        UpdateStatus.afterRun();
     }
 
     @Override
@@ -57,9 +54,16 @@ public class LoginMenu extends Application {
         return mainStage;
     }
 
-    public void login() throws IOException {
-       loginError.setText(Login.login(usernameLogin.getText(), passwordLogin.getText()));
-       loginError.setTextFill(Color.RED);
+    private static void forTest() throws IOException {
+        User[] users = new User[30];
+        for (int i = 0; i < 30; i++) {
+            users[i] = new User("username" + i, "", "nickname" + i);
+            users[i].increaseScore(100 * i);
+        }
+        users[0].increaseScore(20 * 100);
+        users[1].increaseScore(19 * 100);
+        MainMenu.setCurrentUser(users[25]);
+        users[25].setActiveDeck(new Deck("deck26"));
         graphicview.MainMenu.enterMenu();
     }
 
@@ -71,16 +75,10 @@ public class LoginMenu extends Application {
 
     }
 
-    private static void forTest() throws IOException {
-        User[] users = new User[30];
-        for (int i = 0; i < 30; i++) {
-            users[i] = new User("username" + i, "", "nickname" + i);
-            users[i].increaseScore(100 * i);
-        }
-        users[0].increaseScore(20*100);
-        users[1].increaseScore(19*100);
-        MainMenu.setCurrentUser(users[25]);
-        users[25].setActiveDeck(new Deck("deck26"));
-        graphicview.MainMenu.enterMenu();
+    public void login() throws IOException {
+        String result = Login.login(usernameLogin.getText(), passwordLogin.getText());
+        loginError.setText(result);
+        loginError.setTextFill(Color.RED);
+        if (result.contains("success")) graphicview.MainMenu.enterMenu();
     }
 }

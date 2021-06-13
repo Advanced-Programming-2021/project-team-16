@@ -19,14 +19,13 @@ public class Player {
 
     public Player(User user) {
         this.user = user;
-        setLP(8000);
+        LP = 8000;
         gameScore = 0;
         if (user != null) {
             ArrayList<Card> cards = new ArrayList<>();
             for (String cardName : user.getActiveDeck().getMainDeck()) cards.add(Card.make(cardName));
             board = new Board(cards,this);
         }
-
     }
 
     public void won() {
@@ -42,7 +41,7 @@ public class Player {
             LP -= amount;
         else {
             LP = 0;
-            if (GameMenu.getCurrentGame().isGraphical()) gameView.doZeroLPAction();
+            if (GameMenu.getCurrentGame().isGraphical()) gameView.doLostAction();
         }
         changeGraphicLPs();
     }

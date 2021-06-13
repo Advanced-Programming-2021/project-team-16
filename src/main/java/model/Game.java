@@ -1,9 +1,7 @@
 package model;
 
 import controller.GameMenu;
-import controller.MainMenu;
 import javafx.animation.FadeTransition;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import model.card.Activatable;
 import model.card.Card;
@@ -20,7 +18,6 @@ import view.CommandProcessor;
 import view.Show;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
 
 
 public class Game {
@@ -55,7 +52,7 @@ public class Game {
         isGraphical = false;
         if (round == 1) {
             while (winner == null) {
-                run(rival, currentPlayer);
+                run();
                 isItFirstTurn = false;
             }
             Show.showGameMessage(endRound());
@@ -67,7 +64,7 @@ public class Game {
                 winner = null;
                 currentPlayer.setLP(8000);
                 rival.setLP(8000);
-                while (winner == null) run(rival, currentPlayer);
+                while (winner == null) run();
                 Show.showImportantGameMessage(winner.getUser().getUsername() + " won the round and the score is: 1000-0");
                 winner.won();
             }
@@ -81,6 +78,8 @@ public class Game {
         isGraphical = true;
         currentRound = 1;
     }
+
+
 
     private Player getMatchWinner() {
         if (currentPlayer.getWinningRounds() == 2) return currentPlayer;
@@ -101,28 +100,15 @@ public class Game {
         } else return endMatch();
     }
 
-    private void run(Player me, Player rival) {
-        hasAttackDirectInThisTurn = false;
-        setInThisTurn.clear();
-        positionChangedInThisTurn.clear();
-        hasSummonedOrSet = false;
-        this.currentPlayer = me;
-        this.rival = rival;
-        Show.showGameMessage("its " + me.getUser().getNickname() + "’s turn");
-        currentPlayer.getBoard().noMonsterAttacked();
-        Monster[] monsters = currentPlayer.getBoard().getMonsterZone();
-        //herald of creation
-        for (Monster monster : monsters)
-            if (monster instanceof HeraldOfCreation) ((HeraldOfCreation) monster).setUsed(false);
-        //texchanger
-        for (Monster monster : monsters) if (monster instanceof Texchanger) ((Texchanger) monster).setUsed(false);
-        //scanner
-        Scanner.undo();
-        //Supply Squad
-        for (Card card : currentPlayer.getBoard().getSpellAndTrapZone())
-            if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
-        for (Card card : rival.getBoard().getSpellAndTrapZone())
-            if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
+    public void runGraphical(){
+        doStartTurnActions();
+        setCurrentPhase(Phase.DRAW);
+        Show.showGameMessage(drawCard());
+        if (didSbWin()) currentPlayer.getGameView().doLostAction();
+    }
+
+    private void run() {
+        doStartTurnActions();
         setCurrentPhase(Phase.DRAW);
         Show.showGameMessage(drawCard());
         if (didSbWin()) return;
@@ -144,6 +130,31 @@ public class Game {
         else CommandProcessor.game();
         if (didSbWin()) return;
         setCurrentPhase(Phase.END);
+    }
+
+    private void doStartTurnActions(){
+        hasAttackDirectInThisTurn = false;
+        setInThisTurn.clear();
+        positionChangedInThisTurn.clear();
+        hasSummonedOrSet = false;
+        Player player = currentPlayer;
+        this.currentPlayer = rival;
+        this.rival = player;
+        currentPlayer.getBoard().noMonsterAttacked();
+        Monster[] monsters = currentPlayer.getBoard().getMonsterZone();
+        //herald of creation
+        for (Monster monster : monsters)
+            if (monster instanceof HeraldOfCreation) ((HeraldOfCreation) monster).setUsed(false);
+        //texchanger
+        for (Monster monster : monsters) if (monster instanceof Texchanger) ((Texchanger) monster).setUsed(false);
+        //scanner
+        Scanner.undo();
+        //Supply Squad
+        for (Card card : currentPlayer.getBoard().getSpellAndTrapZone())
+            if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
+        for (Card card : rival.getBoard().getSpellAndTrapZone())
+            if (card instanceof SupplySquad) ((SupplySquad) card).setUsedInThisTurn(false);
+        Show.showImportantGameMessage("its " + currentPlayer.getUser().getNickname() + "’s turn");
     }
 
     public boolean didSbWin() {

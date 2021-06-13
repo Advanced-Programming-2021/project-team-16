@@ -43,11 +43,11 @@ public class DuelMenu {
     }
 
     public void duelWithAI() {
-        GameView.forTest();
-//        String error = GameMenu.isDuelPossibleWithError(String.valueOf(roundsWithAI.getValue()), null,true);
-//        if (error != null) aiDuelError.setText(error);
-//        else GameView.startGame(Integer.parseInt(String.valueOf(roundsWithAI.getValue()))
-//                , null);
+        //GameView.forTest();
+        String error = GameMenu.isDuelPossibleWithError(String.valueOf(roundsWithAI.getValue()), null,true);
+        if (error != null) aiDuelError.setText(error);
+        else GameView.startGame(Integer.parseInt(String.valueOf(roundsWithAI.getValue()))
+                , null);
     }
 
     public void enterMainMenu() throws IOException {

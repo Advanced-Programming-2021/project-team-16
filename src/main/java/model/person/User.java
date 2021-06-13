@@ -22,7 +22,7 @@ public class User {
     private final ArrayList<Deck> decks = new ArrayList<>();
     private Deck activeDeck;
     private final ArrayList<String> cardNames = new ArrayList<>();
-    private final Rectangle avatarRec =new Rectangle();
+    private String avatarPath;
 
     public static ArrayList<User> getAllUsers() {
         return users;
@@ -33,8 +33,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
-        avatarRec.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource(
-                "/png/profile/Chara001.dds" + random.nextInt(38) + ".png" )))));
+        this.avatarPath = "/png/profile/Chara001.dds" + random.nextInt(38) + ".png";
         users.add(this);
     }
 
@@ -81,6 +80,9 @@ public class User {
     }
 
     public Rectangle getAvatarRec() {
+        Rectangle avatarRec =new Rectangle();
+        if (avatarPath == null) avatarPath = "/png/profile/Chara001.dds" + random.nextInt(38) + ".png";
+        avatarRec.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource(avatarPath)))));
         return avatarRec;
     }
 
