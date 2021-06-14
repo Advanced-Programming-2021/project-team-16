@@ -6,6 +6,7 @@ import javafx.animation.FadeTransition;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -29,10 +30,8 @@ public class GameView {
     public Label myLP;
     public Label rivalNickname;
     public Rectangle rivalAvatar;
-    public Label selectedCardDescription;
-    public Label rivalUsername;
     public Rectangle myAvatar;
-    public Rectangle selectedCard;
+    public Label rivalUsername;
     public Label myUsername;
     public Label rivalLP;
     public Label myNickname;
@@ -43,6 +42,8 @@ public class GameView {
     public HBox myMonsters;
     public HBox mySpells;
     public HBox myHand;
+    public Rectangle selectedCard;
+    public Label selectedCardDescription;
     private Player player;
     private Player rival;
     private Stage stage;
@@ -66,9 +67,29 @@ public class GameView {
             secondStage.setScene(new Scene(secondBoard));
             secondStage.show();
             ((GameView) loader.getController()).showBoard(secondPlayer, secondStage);
+            //starting game
+            game.runGraphical();
         } catch (IOException ignored) {
         }
         System.out.println("here!");
+    }
+
+    public static void hideNode(Node node){
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), node);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.play();
+    }
+
+    public static void showNode(Node node){
+        FadeTransition ft = new FadeTransition(Duration.millis(1000),node);
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+        ft.play();
+    }
+
+    public Stage getStage() {
+        return stage;
     }
 
     private void showBoard(Player player, Stage stage) {
@@ -87,39 +108,8 @@ public class GameView {
         rivalNickname.setText(rival.getUser().getNickname());
         rivalUsername.setText(rival.getUser().getUsername());
         rivalLP.setText(String.valueOf(rival.getLP()));
-    }
-
-    public static void forTest() {
-        FXMLLoader loader = new FXMLLoader(ProfileMenu.class.getResource("/fxml/gameBoard.fxml"));
-        try {
-            Parent firstBoard = loader.load();
-            LoginMenu.getMainStage().setScene(new Scene(firstBoard));
-            GameView thisView = loader.getController();
-            thisView.myAvatar.setFill(Color.GREEN);
-            thisView.myNickname.setText("myNickname");
-            thisView.myUsername.setText("my username");
-            thisView.myLP.setText("8000");
-            thisView.rivalAvatar.setFill(Color.RED);
-            thisView.rivalNickname.setText("rivalNickname");
-            thisView.rivalUsername.setText("rival username");
-            thisView.rivalLP.setText("7000");
-            thisView.board.setBackground(new Background(new BackgroundFill(
-                    new ImagePattern(new Image(GameView.class.getResource("/png/field/fie_normal.bmp").toExternalForm())),
-                    CornerRadii.EMPTY, Insets.EMPTY)));
-            thisView.stage = LoginMenu.getMainStage();
-            thisView.endGame("zizi won the game and the score is: 1000-0\n                          round 2");
-            Rectangle rectangle = new Rectangle();
-            rectangle.setFill(Color.RED);
-            rectangle.setWidth(60);
-            rectangle.setHeight(90);
-            thisView.rivalHand.getChildren().set(1, rectangle);
-            FadeTransition ft = new FadeTransition(Duration.millis(1000), rectangle);
-            ft.setFromValue(1.0);
-            ft.setToValue(0.0);
-            ft.play();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        selectedCardDescription.setWrapText(true);
+        selectedCardDescription.setMaxWidth(275);
     }
 
     public void doLostAction() {
@@ -158,12 +148,50 @@ public class GameView {
         resultLabel.setAlignment(Pos.CENTER);
         popup.show(stage);
         stage.getScene().getRoot().setOpacity(0.5);
-        stage.getScene().setOnMouseClicked(mouseEvent -> {
+        hideNode(resultLabel);
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), resultLabel);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.play();
+        ft.setOnFinished(actionEvent -> {
             popup.hide();
             stage.getScene().getRoot().setOpacity(1);
         });
 
     }
 
+
+    public static void forTest() {
+        FXMLLoader loader = new FXMLLoader(ProfileMenu.class.getResource("/fxml/gameBoard.fxml"));
+        try {
+            Parent firstBoard = loader.load();
+            LoginMenu.getMainStage().setScene(new Scene(firstBoard));
+            GameView thisView = loader.getController();
+            thisView.myAvatar.setFill(Color.GREEN);
+            thisView.myNickname.setText("myNickname");
+            thisView.myUsername.setText("my username");
+            thisView.myLP.setText("8000");
+            thisView.rivalAvatar.setFill(Color.RED);
+            thisView.rivalNickname.setText("rivalNickname");
+            thisView.rivalUsername.setText("rival username");
+            thisView.rivalLP.setText("7000");
+            thisView.board.setBackground(new Background(new BackgroundFill(
+                    new ImagePattern(new Image(GameView.class.getResource("/png/field/fie_normal.bmp").toExternalForm())),
+                    CornerRadii.EMPTY, Insets.EMPTY)));
+            thisView.stage = LoginMenu.getMainStage();
+            thisView.endGame("zizi won the game and the score is: 1000-0\n                          round 2");
+            Rectangle rectangle = new Rectangle();
+            rectangle.setFill(Color.RED);
+            rectangle.setWidth(60);
+            rectangle.setHeight(90);
+            thisView.rivalHand.getChildren().set(1, rectangle);
+            FadeTransition ft = new FadeTransition(Duration.millis(1000), rectangle);
+            ft.setFromValue(1.0);
+            ft.setToValue(0.0);
+            ft.play();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 

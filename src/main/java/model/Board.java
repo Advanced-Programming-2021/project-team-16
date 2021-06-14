@@ -1,5 +1,6 @@
 package model;
 
+import controller.GameMenu;
 import graphicview.GameView;
 import model.card.Card;
 import model.card.monster.Monster;
@@ -158,12 +159,18 @@ public class Board {
         Arrays.fill(hand, null);
         for (int i = 0; i < cards.size(); i++) {
             hand[i] = cards.get(i);
-            if (hand[i] == null) {
-                getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
-                getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
-            }else {
-                getGameView().myHand.getChildren().set(i, hand[i]);
-                getRivalGameView().rivalHand.getChildren().set(i, hand[i]);
+            if (GameMenu.getCurrentGame().isGraphical()) {
+                if (hand[i] == null) {
+                    getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
+                    getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
+                } else {
+                    Card card = hand[i];
+                    Card fakeCard = Card.make(card.getName());
+                    getGameView().myHand.getChildren().set(i, card);
+                    getRivalGameView().rivalHand.getChildren().set(i, fakeCard);
+                    GameMenu.getCurrentGame().setOnMouseClickedSelect(card,i,Zone.HAND,false);
+                    GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard,i,Zone.HAND,true);
+                }
             }
 
         }

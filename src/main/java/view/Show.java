@@ -8,8 +8,6 @@ import model.Game;
 import model.Phase;
 import model.card.Card;
 import model.card.monster.Monster;
-import model.card.spell.Spell;
-import model.card.trap.Trap;
 import model.person.User;
 
 import java.util.ArrayList;
@@ -35,27 +33,7 @@ public class Show {
     public static void showSingleCard(String cardName) {
         Card card = Card.getCardByName(cardName);
         if (card == null) System.out.println("no card with this name exists");
-        else if (card instanceof Monster) {
-            Monster monster = (Monster) card;
-            System.out.println("Name: " + monster.getName());
-            System.out.println("Level: " + monster.getLevel());
-            System.out.println("Type: " + monster.getMonsterType());
-            System.out.println("ATK: " + monster.getATK());
-            System.out.println("DEF: " + monster.getDEF());
-            System.out.println("Description: " + monster.getDescription());
-        } else if (card instanceof Spell) {
-            Spell spell = (Spell) card;
-            System.out.println("Name: " + spell.getName());
-            System.out.println("Spell");
-            System.out.println("Type: " + spell.getSpellType());
-            System.out.println("Description: " + spell.getDescription());
-        } else if (card instanceof Trap) {
-            Trap trap = (Trap) card;
-            System.out.println("Name: " + trap.getName());
-            System.out.println("Trap");
-            System.out.println("Type: " + trap.getTrapType());
-            System.out.println("Description: " + trap.getDescription());
-        }
+        else System.out.println(card.getCardProperties());
     }
 
     public static void showScoreBoard(ArrayList<User> users) {
