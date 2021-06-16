@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.*?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="graphicview.GameView"
           prefHeight="800.0" prefWidth="1400.0"
-          style="-fx-font: 13 arial;" >
+          style="-fx-font: 15 arial;" >
 
     <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="10" minWidth="280"
           style="-fx-background-color: #ba8c5b" alignment="CENTER">
@@ -19,11 +15,11 @@
         <HBox spacing="2">
             <Rectangle fx:id="rivalAvatar" width="80" height="100"/>
             <VBox spacing="2">
-                <Label fx:id="rivalUsername"/>
-                <Label fx:id="rivalNickname"/>
+                <Label fx:id="rivalUsername" style="-fx-font: 13 arial;"/>
+                <Label fx:id="rivalNickname" style="-fx-font: 17 arial;"/>
                 <HBox spacing="4">
-                    <Label text="LP" style="-fx-font: 15 arial;"/>
-                    <Label fx:id="rivalLP" style="-fx-font: 15 arial;"/>
+                    <Label text="LP" style="-fx-font: 20 arial;"/>
+                    <Label fx:id="rivalLP" style="-fx-font: 20 arial;"/>
                 </HBox>
             </VBox>
         </HBox>
@@ -39,10 +35,10 @@
         <HBox spacing="2">
             <Rectangle fx:id="myAvatar" width="80" height="100"/>
             <VBox spacing="2">
-                <Label fx:id="myUsername"/>
-                <Label fx:id="myNickname"/>
+                <Label fx:id="myUsername" style="-fx-font: 13 arial;"/>
+                <Label fx:id="myNickname" style="-fx-font: 17 arial;"/>
                 <HBox spacing="4">
-                    <Label text="LP" style="-fx-font: 15 arial;"/>
+                    <Label text="LP" style="-fx-font: 20 arial;"/>
                     <Label fx:id="myLP" style="-fx-font: 20 arial;"/>
                 </HBox>
             </VBox>
@@ -53,7 +49,8 @@
 
 
     <GridPane fx:id="board" vgap="43" GridPane.rowIndex="0" GridPane.columnIndex="1" minHeight="800" minWidth="760">
-        <VBox minWidth="145" GridPane.rowIndex="0" GridPane.columnIndex="0">
+        <VBox minWidth="145" minHeight="800" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="6" alignment="BOTTOM_CENTER">
+            <Button text="next phase" textFill="blue" onMouseClicked="#goToNextPhase"/>
         </VBox >
 
     <HBox fx:id="rivalHand"  spacing="15" GridPane.rowIndex="0" GridPane.columnIndex="1">

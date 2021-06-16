@@ -241,7 +241,7 @@ public class Show {
     }
 
     public static void showPhase(Phase phase) {
-        String message = "            phase:" + phase.getPhaseName();
+        String message = "phase:" + phase.getPhaseName();
         if (GameMenu.getCurrentGame().isGraphical())
             GameMenu.getCurrentGame().getCurrentPlayer().getGameView().showMessage(message, true);
         else System.out.println(message);

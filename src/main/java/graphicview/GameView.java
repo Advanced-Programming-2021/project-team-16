@@ -19,6 +19,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Game;
+import model.person.AI;
 import model.person.Player;
 import model.person.User;
 
@@ -47,6 +48,9 @@ public class GameView {
     private Player player;
     private Player rival;
     private Stage stage;
+    private final Popup popup = new Popup();
+    private final VBox popupVBox = new VBox();
+
 
     public static void startGame(Integer rounds, User user2) {
         GameMenu.duel(user2, rounds, true);
@@ -109,7 +113,12 @@ public class GameView {
         rivalUsername.setText(rival.getUser().getUsername());
         rivalLP.setText(String.valueOf(rival.getLP()));
         selectedCardDescription.setWrapText(true);
-        selectedCardDescription.setMaxWidth(275);
+        selectedCardDescription.setMaxWidth(279);
+        popup.setAnchorX(400);
+        popup.setAnchorY(390);
+        popup.getContent().add(popupVBox);
+        popupVBox.setSpacing(5);
+
     }
 
     public void doLostAction() {
@@ -118,14 +127,22 @@ public class GameView {
             String result = game.getResultOfOneRound(player);
             if (result.contains("whole match")) {
                 endGame(result);
-                rival.getGameView().endGame(result);
             }
         }
     }
 
     private void endGame(String result) {
         showMessage(result,true);
-        stage.getScene().setOnMouseClicked(mouseEvent -> DuelMenu.enterMenu());
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), stage.getScene().getRoot());
+        ft.setFromValue(1.0);
+        ft.setToValue(0.0);
+        ft.setDelay(Duration.seconds(1));
+        ft.setOnFinished(actionEvent -> {
+            Stage fakeStage = LoginMenu.getMainStage() == stage ? rival.getGameView().stage : stage;
+            fakeStage.close();
+            DuelMenu.enterMenu();
+        });
+        ft.play();
     }
 
     public Label getMyLP() {
@@ -137,29 +154,38 @@ public class GameView {
     }
 
     public void showMessage(String message, boolean isImportant) {
-        Popup popup = new Popup();
-        Label resultLabel = new Label(message);
-        resultLabel.setTextFill(Color.BROWN);
-        if (isImportant) resultLabel.setStyle("-fx-font-size: 30");
-        else resultLabel.setStyle("-fx-font-size: 20");
-        popup.getContent().add(resultLabel);
-        popup.setAnchorX(400);
-        popup.setAnchorY(390);
-        resultLabel.setAlignment(Pos.CENTER);
+        if (player instanceof AI) return;
+        Label label = new Label(message);
+        if (isImportant) {
+            label.setTextFill(Color.BROWN);
+            label.setStyle("-fx-font-size: 30");
+        }
+        else label.setStyle("-fx-font-size: 20");
+        label.setAlignment(Pos.CENTER);
+        popupVBox.getChildren().add(label);
         popup.show(stage);
         stage.getScene().getRoot().setOpacity(0.5);
-        hideNode(resultLabel);
-        FadeTransition ft = new FadeTransition(Duration.millis(1000), resultLabel);
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), label);
         ft.setFromValue(1.0);
         ft.setToValue(0.0);
+        ft.setDelay(Duration.millis(1000));
         ft.play();
         ft.setOnFinished(actionEvent -> {
-            popup.hide();
-            stage.getScene().getRoot().setOpacity(1);
+            popupVBox.getChildren().remove(((FadeTransition)actionEvent.getSource()).getNode());
+            if (popupVBox.getChildren().isEmpty()){
+                popup.hide();
+                stage.getScene().getRoot().setOpacity(1);
+            }
         });
+
 
     }
 
+
+    public void goToNextPhase() {
+        if (game.getRival() == player) showMessage("not your turn", false);
+        else game.goToNextPhase();
+    }
 
     public static void forTest() {
         FXMLLoader loader = new FXMLLoader(ProfileMenu.class.getResource("/fxml/gameBoard.fxml"));

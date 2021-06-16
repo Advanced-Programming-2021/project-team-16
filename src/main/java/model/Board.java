@@ -10,6 +10,7 @@ import model.person.Player;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
 public class Board {
     private final Player player;
@@ -25,7 +26,7 @@ public class Board {
     private final boolean[] didMonsterAttack = new boolean[5];
 
 
-    public Board(ArrayList<Card> deck,Player player) {
+    public Board(ArrayList<Card> deck, Player player) {
         this.deck = deck;
         Collections.shuffle(this.deck);
         this.player = player;
@@ -57,26 +58,6 @@ public class Board {
         }
         for (int i = 0; i < zoneCards.length; i++) {
             if (zoneCards[i] == null) return i;
-        }
-        return -1;
-    }
-
-    public int getIndexOfCard(String cardName, Zone zone) {
-        //zone = monster | spell&trap
-        if (zone == Zone.MONSTER)
-            for (int i = 0; i < monsterZone.length; i++) {
-                if (cardName.equals(monsterZone[i].getName())) return i;
-            }
-
-        else if (zone == Zone.SPELL_AND_TRAP) {
-            for (int i = 0; i < spellAndTrapZone.length; i++)
-                if (cardName.equals(spellAndTrapZone[i].getName())) return i;
-        } else if (zone == Zone.GRAVE) {
-            for (int i = 0; i < grave.size(); i++)
-                if (grave.get(i).getName().equals(cardName)) return i;
-        } else if (zone == Zone.DECK) {
-            for (int i = 0; i < deck.size(); i++)
-                if (deck.get(i).getName().equals(cardName)) return i;
         }
         return -1;
     }
@@ -144,36 +125,36 @@ public class Board {
 
     public void setFieldSpell(FieldSpell fieldSpell) {
         this.fieldSpell = fieldSpell;
+        //TODO: graphics
     }
 
-    public GameView getGameView(){
+    public GameView getGameView() {
         return player.getGameView();
     }
 
-    public GameView getRivalGameView(){
+    public GameView getRivalGameView() {
         return player.getRival().getGameView();
     }
 
     public void refreshHand() {
         ArrayList<Card> cards = new ArrayList<>(Arrays.asList(hand));
+        cards.removeIf(Objects::isNull);
         Arrays.fill(hand, null);
-        for (int i = 0; i < cards.size(); i++) {
-            hand[i] = cards.get(i);
-            if (GameMenu.getCurrentGame().isGraphical()) {
-                if (hand[i] == null) {
-                    getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
-                    getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
-                } else {
-                    Card card = hand[i];
-                    Card fakeCard = Card.make(card.getName());
-                    getGameView().myHand.getChildren().set(i, card);
-                    getRivalGameView().rivalHand.getChildren().set(i, fakeCard);
-                    GameMenu.getCurrentGame().setOnMouseClickedSelect(card,i,Zone.HAND,false);
-                    GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard,i,Zone.HAND,true);
-                }
+        for (int i = 0; i < cards.size(); i++) hand[i] = cards.get(i);
+        if (GameMenu.getCurrentGame().isGraphical()) for (int i = 0; i < hand.length; i++)
+            if (hand[i] == null) {
+                getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
+                getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
+            } else {
+                Card card = hand[i];
+                Card fakeCard = Card.make(card.getName());
+                fakeCard.setSizes(true);
+                fakeCard.setSide(false);
+                getGameView().myHand.getChildren().set(i, card);
+                getRivalGameView().rivalHand.getChildren().set(i, fakeCard);
+                GameMenu.getCurrentGame().setOnMouseClickedSelect(card, i, Zone.HAND, false);
+                GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard, i, Zone.HAND, true);
             }
-
-        }
     }
 
 

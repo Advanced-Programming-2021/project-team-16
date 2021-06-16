@@ -40,6 +40,7 @@ public class Player {
         if (LP > amount)
             LP -= amount;
         else {
+            GameMenu.getCurrentGame().setWinner(rival);
             LP = 0;
             if (GameMenu.getCurrentGame().isGraphical()) gameView.doLostAction();
         }
@@ -57,6 +58,7 @@ public class Player {
     }
 
     private void changeGraphicLPs(){
+        if (!GameMenu.getCurrentGame().isGraphical()) return;
         this.gameView.getMyLP().setText(String.valueOf(LP));
         rival.gameView.getRivalLP().setText(String.valueOf(LP));
     }

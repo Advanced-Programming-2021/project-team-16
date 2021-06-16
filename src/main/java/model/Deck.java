@@ -23,7 +23,7 @@ public class Deck {
         ArrayList<Card> cards = Card.getCards();
         int numberOfCards = cards.size();
         Random random = new Random();
-        for (int i = 0; i < 45; i++) randomDeck.add(cards.get(random.nextInt(numberOfCards)));
+        for (int i = 0; i < 45; i++) randomDeck.add(Card.make(cards.get(random.nextInt(numberOfCards)).getName()));
         return randomDeck;
     }
 

@@ -3,6 +3,7 @@ package model.card;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import model.card.monster.*;
 import model.card.spell.*;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 public abstract class Card extends Rectangle implements Comparable<Card> {
 
     private static final ArrayList<Card> cards = new ArrayList<>();
+    public static final Paint UNKNOWN_CARD_FILL = new ImagePattern(new Image(Card.class.getResource("/png/card/Unknown.jpg").toExternalForm()));
     protected String name;
     protected String description;
     protected int price;
@@ -182,9 +184,9 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
 
     public void setSide(boolean isToFace) {
         if (isToFace)
-            setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+            setFill(rectangle.getFill());
         else
-            setFill(new ImagePattern(new Image(getClass().getResource("/png/card/Unknown.jpg").toExternalForm())));
+            setFill(UNKNOWN_CARD_FILL);
     }
 
     public static Rectangle getBlackRectangle(boolean isHand) {
@@ -247,12 +249,5 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         return name + ": " + price;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Card)) return false;
-        Card card = (Card) o;
-        return name.equals(card.name);
-    }
 }
 
