@@ -45,6 +45,8 @@ public class GameView {
     public HBox myHand;
     public Rectangle selectedCard;
     public Label selectedCardDescription;
+    public Pane myFieldSpell;
+    public Pane rivalFieldSpell;
     private Player player;
     private Player rival;
     private Stage stage;
@@ -73,20 +75,21 @@ public class GameView {
             ((GameView) loader.getController()).showBoard(secondPlayer, secondStage);
             //starting game
             game.runGraphical();
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
         System.out.println("here!");
     }
 
-    public static void hideNode(Node node){
+    public static void hideNode(Node node) {
         FadeTransition ft = new FadeTransition(Duration.millis(1000), node);
         ft.setFromValue(1.0);
         ft.setToValue(0.0);
         ft.play();
     }
 
-    public static void showNode(Node node){
-        FadeTransition ft = new FadeTransition(Duration.millis(1000),node);
+    public static void showNode(Node node) {
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), node);
         ft.setFromValue(0.0);
         ft.setToValue(1.0);
         ft.play();
@@ -118,7 +121,6 @@ public class GameView {
         popup.setAnchorY(390);
         popup.getContent().add(popupVBox);
         popupVBox.setSpacing(5);
-
     }
 
     public void doLostAction() {
@@ -132,7 +134,7 @@ public class GameView {
     }
 
     private void endGame(String result) {
-        showMessage(result,true);
+        showMessage(result, true);
         FadeTransition ft = new FadeTransition(Duration.millis(1000), stage.getScene().getRoot());
         ft.setFromValue(1.0);
         ft.setToValue(0.0);
@@ -159,8 +161,7 @@ public class GameView {
         if (isImportant) {
             label.setTextFill(Color.BROWN);
             label.setStyle("-fx-font-size: 30");
-        }
-        else label.setStyle("-fx-font-size: 20");
+        } else label.setStyle("-fx-font-size: 20");
         label.setAlignment(Pos.CENTER);
         popupVBox.getChildren().add(label);
         popup.show(stage);
@@ -168,11 +169,11 @@ public class GameView {
         FadeTransition ft = new FadeTransition(Duration.millis(1000), label);
         ft.setFromValue(1.0);
         ft.setToValue(0.0);
-        ft.setDelay(Duration.millis(1000));
+        ft.setDelay(Duration.millis(popupVBox.getChildren().size() * 1000));
         ft.play();
         ft.setOnFinished(actionEvent -> {
-            popupVBox.getChildren().remove(((FadeTransition)actionEvent.getSource()).getNode());
-            if (popupVBox.getChildren().isEmpty()){
+            popupVBox.getChildren().remove(((FadeTransition) actionEvent.getSource()).getNode());
+            if (popupVBox.getChildren().isEmpty()) {
                 popup.hide();
                 stage.getScene().getRoot().setOpacity(1);
             }

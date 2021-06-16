@@ -152,6 +152,7 @@ public class Show {
 
     public static void showBoard() {
         Game game = GameMenu.getCurrentGame();
+        if (game.isGraphical()) return;
         Board rivalBoard = game.getRival().getBoard();
         String fz;
         int numOfHand;

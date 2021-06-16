@@ -157,8 +157,7 @@ public class Game {
                 if (isItFirstTurn) {
                     Show.showGameMessage("you can't use battle phase in the first turn of the game.");
                     goToNextPhase();
-                }
-                else if (currentPlayer instanceof AI) ((AI) currentPlayer).playBattlePhase();
+                } else if (currentPlayer instanceof AI) ((AI) currentPlayer).playBattlePhase();
             }
             case BATTLE -> {
                 setCurrentPhase(Phase.MAIN_2);
@@ -236,6 +235,10 @@ public class Game {
         selectedCard = null;
         this.selectedZone = null;
         this.selectedZoneIndex = -1;
+        if (isGraphical){
+            currentPlayer.getGameView().selectedCard.setFill(Color.BLACK);
+            currentPlayer.getGameView().selectedCardDescription.setText("no card is selected yet");
+        }
         return "card deselected";
     }
 
@@ -634,11 +637,13 @@ public class Game {
             case HAND -> {
                 index = board.getFirstEmptyIndexOfZone(Board.Zone.HAND);
                 board.getHand()[index] = card;
-                card.setSide(true);
-                fakeCard.setSide(false);
-                card.setSizes(true);
-                board.getGameView().myHand.getChildren().set(index, card);
-                board.getRivalGameView().rivalHand.getChildren().set(index, fakeCard);
+                if (isGraphical) {
+                    card.setSide(true);
+                    fakeCard.setSide(false);
+                    card.setSizes(true);
+                    board.getGameView().myHand.getChildren().set(index, card);
+                    board.getRivalGameView().rivalHand.getChildren().set(index, fakeCard);
+                }
             }
             case GRAVE -> board.getGrave().add(card);
             case DECK -> board.getDeck().add(card);
@@ -648,10 +653,12 @@ public class Game {
                 board.getCardPositions()[0][index] = position;
                 if (position != Board.CardPosition.HIDE_DEF && card instanceof CommandKnight)
                     if (!((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(false);
-                card.setSide(position != Board.CardPosition.HIDE_DEF);
-                card.setSizes(false);
-                board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), card);
-                board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), fakeCard);
+                if (isGraphical) {
+                    card.setSide(position != Board.CardPosition.HIDE_DEF);
+                    card.setSizes(false);
+                    board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), card);
+                    board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), fakeCard);
+                }
             }
             case FIELD_SPELL -> {
                 if (position == Board.CardPosition.ACTIVATED) {
@@ -661,26 +668,30 @@ public class Game {
                 }
                 if (currentPlayer.getBoard().getFieldSpell() != null)
                     removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
-                board.setFieldSpell(((FieldSpell) card));
+                board.setFieldSpell(((FieldSpell) card), fakeCard);
             }
             case SPELL_AND_TRAP -> {
                 index = board.getFirstEmptyIndexOfZone(Board.Zone.SPELL_AND_TRAP);
                 board.getSpellAndTrapZone()[index] = card;
                 board.getCardPositions()[1][index] = position;
-                card.setSide(position != Board.CardPosition.HIDE_DEF);
-                card.setSizes(false);
-                board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), card);
-                board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), fakeCard);
+                if (isGraphical) {
+                    card.setSide(position != Board.CardPosition.HIDE_DEF);
+                    card.setSizes(false);
+                    board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), card);
+                    board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), fakeCard);
+                }
             }
         }
-        if (zone == Board.Zone.HAND || zone == Board.Zone.MONSTER || zone == Board.Zone.SPELL_AND_TRAP || zone == Board.Zone.FIELD_SPELL) {
-            GameView.showNode(card);
-            if (zone != Board.Zone.HAND) fakeCard.setFill(card.getFill());
-            fakeCard.setWidth(card.getWidth());
-            fakeCard.setHeight(card.getHeight());
-            GameView.showNode(fakeCard);
-            setOnMouseClickedSelect(card, index, zone, false);
-            setOnMouseClickedSelect(fakeCard, index, zone, true);
+        if (isGraphical) {
+            if (zone == Board.Zone.HAND || zone == Board.Zone.MONSTER || zone == Board.Zone.SPELL_AND_TRAP || zone == Board.Zone.FIELD_SPELL) {
+                GameView.showNode(card);
+                if (zone != Board.Zone.HAND) fakeCard.setFill(card.getFill());
+                fakeCard.setWidth(card.getWidth());
+                fakeCard.setHeight(card.getHeight());
+                GameView.showNode(fakeCard);
+                setOnMouseClickedSelect(card, index, zone, false);
+                setOnMouseClickedSelect(fakeCard, index, zone, true);
+            }
         }
     }
 
@@ -697,14 +708,16 @@ public class Game {
     }
 
     public void removeCardFromZone(Card card, Board.Zone zone, int index, Board board) {
-        if (zone == Board.Zone.HAND || zone == Board.Zone.MONSTER || zone == Board.Zone.SPELL_AND_TRAP || zone == Board.Zone.FIELD_SPELL) {
-            GameView.hideNode(card);
-        }
+        if (isGraphical)
+            if (zone == Board.Zone.HAND || zone == Board.Zone.MONSTER || zone == Board.Zone.SPELL_AND_TRAP || zone == Board.Zone.FIELD_SPELL)
+                GameView.hideNode(card);
         switch (zone) {
             case MONSTER -> {
                 board.getMonsterZone()[index] = null;
-                board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
-                board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+                if (isGraphical) {
+                    board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
+                    board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+                }
                 if (card instanceof CommandKnight)
                     if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(true);
                 for (Card spell : board.getSpellAndTrapZone())
@@ -717,9 +730,10 @@ public class Game {
             }
             case SPELL_AND_TRAP -> {
                 board.getSpellAndTrapZone()[index] = null;
-                board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
-                board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
-
+                if (isGraphical) {
+                    board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
+                    board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+                }
             }
             case HAND -> {
                 board.getHand()[index] = null;
@@ -727,7 +741,7 @@ public class Game {
             }
             case FIELD_SPELL -> {
                 if (card != null && ((FieldSpell) card).isActivated()) ((FieldSpell) card).action(true);
-                board.setFieldSpell(null);
+                board.setFieldSpell(null, null);
                 assert card != null;
                 putCardInZone(card, Board.Zone.GRAVE, null, board);
             }
@@ -739,6 +753,7 @@ public class Game {
 
     public void setCurrentPhase(Phase currentPhase) {
         this.currentPhase = currentPhase;
+        deselect();
         if (currentPhase == Phase.END) isItFirstTurn = false;
         Show.showPhase(currentPhase);
     }

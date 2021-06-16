@@ -49,8 +49,20 @@
 
 
     <GridPane fx:id="board" vgap="43" GridPane.rowIndex="0" GridPane.columnIndex="1" minHeight="800" minWidth="760">
-        <VBox minWidth="145" minHeight="800" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="6" alignment="BOTTOM_CENTER">
+        <VBox minWidth="145" maxHeight="750" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="6"
+              alignment="BOTTOM_CENTER" spacing="70">
+            <BorderPane fx:id="myFieldSpell"><center>
+                <Rectangle height="100" width="70" fill="black"/>
+            </center></BorderPane>
             <Button text="next phase" textFill="blue" onMouseClicked="#goToNextPhase"/>
+        </VBox >
+
+        <VBox minHeight="800" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.rowSpan="5"
+              alignment="TOP_RIGHT">
+            <Pane minHeight="70"/>
+            <BorderPane fx:id="rivalFieldSpell" ><right>
+                <Rectangle height="100" width="70" fill="black"/>
+            </right></BorderPane>
         </VBox >
 
     <HBox fx:id="rivalHand"  spacing="15" GridPane.rowIndex="0" GridPane.columnIndex="1">
@@ -62,7 +74,7 @@
         <Rectangle height="90" width="60" fill="black"/>
     </HBox>
 
-    <HBox fx:id="rivalSpells"  spacing="35" GridPane.rowIndex="1" GridPane.columnIndex="1">
+    <HBox fx:id="rivalSpells"  spacing="35" GridPane.rowIndex="1" GridPane.columnIndex="1" minWidth="535">
         <Rectangle height="100" width="70" fill="black"/>
         <Rectangle height="100" width="70" fill="black"/>
         <Rectangle height="100" width="70" fill="black"/>

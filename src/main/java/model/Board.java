@@ -123,9 +123,19 @@ public class Board {
         return fieldSpell;
     }
 
-    public void setFieldSpell(FieldSpell fieldSpell) {
+    public void setFieldSpell(FieldSpell fieldSpell , Card fakeCard) {
         this.fieldSpell = fieldSpell;
-        //TODO: graphics
+        if (GameMenu.getCurrentGame().isGraphical()) {
+            if (fieldSpell == null) {
+                getGameView().myFieldSpell.getChildren().set(0, Card.getBlackRectangle(false));
+                getRivalGameView().rivalFieldSpell.getChildren().set(0, Card.getBlackRectangle(false));
+            } else {
+                getGameView().myFieldSpell.getChildren().set(0, fieldSpell);
+                getRivalGameView().rivalFieldSpell.getChildren().set(0, fakeCard);
+                fieldSpell.setSide(true);
+                fieldSpell.setSizes(false);
+            }
+        }
     }
 
     public GameView getGameView() {
