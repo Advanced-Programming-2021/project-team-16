@@ -638,9 +638,9 @@ public class Game {
                 index = board.getFirstEmptyIndexOfZone(Board.Zone.HAND);
                 board.getHand()[index] = card;
                 if (isGraphical) {
-                    card.setSide(true);
-                    fakeCard.setSide(false);
-                    card.setSizes(true);
+                  //  card.setSide(true);
+                  //  fakeCard.setSide(false);
+                  //  card.setSizes(true);
                     board.getGameView().myHand.getChildren().set(index, card);
                     board.getRivalGameView().rivalHand.getChildren().set(index, fakeCard);
                 }
@@ -654,8 +654,8 @@ public class Game {
                 if (position != Board.CardPosition.HIDE_DEF && card instanceof CommandKnight)
                     if (!((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(false);
                 if (isGraphical) {
-                    card.setSide(position != Board.CardPosition.HIDE_DEF);
-                    card.setSizes(false);
+                 //  card.setSide(position != Board.CardPosition.HIDE_DEF);
+                 //  card.setSizes(false);
                     board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), card);
                     board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), fakeCard);
                 }
@@ -668,15 +668,15 @@ public class Game {
                 }
                 if (currentPlayer.getBoard().getFieldSpell() != null)
                     removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
-                board.setFieldSpell(((FieldSpell) card), fakeCard);
+              //  board.setFieldSpell(((FieldSpell) card), fakeCard);
             }
             case SPELL_AND_TRAP -> {
                 index = board.getFirstEmptyIndexOfZone(Board.Zone.SPELL_AND_TRAP);
                 board.getSpellAndTrapZone()[index] = card;
                 board.getCardPositions()[1][index] = position;
                 if (isGraphical) {
-                    card.setSide(position != Board.CardPosition.HIDE_DEF);
-                    card.setSizes(false);
+              //     card.setSide(position != Board.CardPosition.HIDE_DEF);
+              //     card.setSizes(false);
                     board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), card);
                     board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), fakeCard);
                 }
@@ -714,10 +714,10 @@ public class Game {
         switch (zone) {
             case MONSTER -> {
                 board.getMonsterZone()[index] = null;
-                if (isGraphical) {
-                    board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
-                    board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
-                }
+            //   if (isGraphical) {
+            //       board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
+            //       board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+            //   }
                 if (card instanceof CommandKnight)
                     if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(true);
                 for (Card spell : board.getSpellAndTrapZone())
@@ -730,10 +730,10 @@ public class Game {
             }
             case SPELL_AND_TRAP -> {
                 board.getSpellAndTrapZone()[index] = null;
-                if (isGraphical) {
-                    board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
-                    board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
-                }
+              // if (isGraphical) {
+              //     board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
+              //     board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+              // }
             }
             case HAND -> {
                 board.getHand()[index] = null;
@@ -741,7 +741,7 @@ public class Game {
             }
             case FIELD_SPELL -> {
                 if (card != null && ((FieldSpell) card).isActivated()) ((FieldSpell) card).action(true);
-                board.setFieldSpell(null, null);
+              //  board.setFieldSpell(null, null);
                 assert card != null;
                 putCardInZone(card, Board.Zone.GRAVE, null, board);
             }
@@ -777,17 +777,17 @@ public class Game {
             }
             Show.showSingleCard(selectedCard.getName());
 
-        } else {
-            if ((selectedZone == Board.Zone.MONSTER && currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
-                    (selectedZone == Board.Zone.SPELL_AND_TRAP && currentPlayer.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF)) {
-                currentPlayer.getGameView().selectedCard.setFill(Card.UNKNOWN_CARD_FILL);
-                currentPlayer.getGameView().selectedCardDescription.setText("card is not visible");
-            } else {
-                currentPlayer.getGameView().selectedCard.setFill(selectedCard.getRectangle().getFill());
-                currentPlayer.getGameView().selectedCardDescription.setText(selectedCard.getCardProperties());
-            }
-
-        }
+        }// else {
+         //   if ((selectedZone == Board.Zone.MONSTER && currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
+         //           (selectedZone == Board.Zone.SPELL_AND_TRAP && currentPlayer.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF)) {
+         //       currentPlayer.getGameView().selectedCard.setFill(Card.UNKNOWN_CARD_FILL);
+         //       currentPlayer.getGameView().selectedCardDescription.setText("card is not visible");
+         //   } else {
+         //       currentPlayer.getGameView().selectedCard.setFill(selectedCard.getRectangle().getFill());
+         //       currentPlayer.getGameView().selectedCardDescription.setText(selectedCard.getCardProperties());
+         //   }
+//
+   //     }//
         return "";
     }
 
