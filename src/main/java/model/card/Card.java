@@ -1,5 +1,6 @@
 package model.card;
 
+import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -42,6 +43,8 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         rectangle.setHeight(120);
         rectangle.setWidth(80);
         for (Card card : cards) if (card.getName().equals(this.getName())) return;
+        setOnMouseEntered(mouseEvent -> setCursor(Cursor.HAND));
+        setOnMouseExited(mouseEvent -> setCursor(Cursor.DEFAULT));
         cards.add(this);
     }
 

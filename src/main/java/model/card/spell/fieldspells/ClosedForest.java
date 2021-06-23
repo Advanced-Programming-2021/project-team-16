@@ -21,6 +21,7 @@ public class ClosedForest extends FieldSpell {
         Game game = GameMenu.getCurrentGame();
         Board board = game.getCurrentPlayer().getBoard();
         if (!isUndo) {
+            numberOfGraveMonsters = 0;
             for (Card card : board.getGrave())
                 if (card instanceof Monster) numberOfGraveMonsters++;
             for (Card card : game.getRival().getBoard().getGrave())
@@ -30,15 +31,14 @@ public class ClosedForest extends FieldSpell {
         for (Card card : board.getGrave()) changeATK(card, isUndo);
         for (Monster monster : board.getMonsterZone()) changeATK(monster, isUndo);
         for (Card card : board.getHand()) changeATK(card, isUndo);
-        return this.name + " has made changes to all monsters";
+        return this.name + " has made changes to beast monsters";
     }
 
     private void changeATK(Card card, boolean isUndo) {
         int delta = numberOfGraveMonsters * 100;
-        if (card instanceof Monster && ((Monster) card).getMonsterType() == Monster.MonsterType.BEAST) {
-            if (isUndo) delta *= -1;
+        if (isUndo) delta *= -1;
+        if (card instanceof Monster && ((Monster) card).getMonsterType() == Monster.MonsterType.BEAST)
             ((Monster) card).increaseATK(delta);
-        }
     }
 
 }

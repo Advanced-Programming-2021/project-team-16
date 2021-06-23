@@ -27,6 +27,7 @@ public class UpdateStatus {
     public static void beforeRun() {
         makeAllCards();
         makeUsers();
+        removeAI();
     }
 
     public static void afterRun() {
@@ -72,6 +73,10 @@ public class UpdateStatus {
         }
     }
 
+
+    private static void removeAI() {
+        User.getAllUsers().removeIf(user -> user.getUsername().equals("AI"));
+    }
 
     public static void makeAllMonsters() {
         new CommandKnight();

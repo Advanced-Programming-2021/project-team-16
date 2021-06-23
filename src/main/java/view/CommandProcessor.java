@@ -255,7 +255,7 @@ public class CommandProcessor {
                 if (result.equals("NegateAttack activated and battle phase has ended")) break;
             } else if (command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()))
                 System.out.println(game.activeEffect());
-            else if (command.matches(Enums.GameCommands.SHOW_GRAVE.getRegex())) {
+            else if ((matcher = getCommandMatcher(command, Enums.GameCommands.SHOW_GRAVE.getRegex())).find()) {
                 Show.showGraveYard(matcher.group(1));
                 while (!scanner.nextLine().trim().equals("back"))
                     System.out.println("use \"back\" command for exiting");

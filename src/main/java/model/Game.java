@@ -1,6 +1,7 @@
 package model;
 
 import graphicview.GameView;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import model.card.Activatable;
 import model.card.Card;
@@ -215,6 +216,7 @@ public class Game {
 
 
     public String selectCard(Board.Zone zone, int index, boolean isSelectedCardForRival) {
+        if (selectedCard != null) selectedCard.setOpacity(1);
         this.isSelectedCardForRival = isSelectedCardForRival;
         this.selectedZone = zone;
         this.selectedZoneIndex = index;
@@ -227,17 +229,24 @@ public class Game {
                         && !setInThisTurn.contains(selectedCard) && !MirageDragon.isOn(false))))
             if (CommandProcessor.yesNoQuestion("do you want to use " + selectedCard.getName() + " effect?"))
                 Show.showGameMessage(((Activatable) selectedCard).action());
+            if (isGraphical){
+                selectedCard.setOpacity(0.5);
+                if (!isSelectedCardForRival)
+                    currentPlayer.getGameView().makeActionsVisible(selectedCard instanceof Monster, currentPhase != Phase.BATTLE);
+            }
         return "card selected";
     }
 
     public String deselect() {
         if (selectedCard == null) return "no card is selected yet";
+        selectedCard.setOpacity(1);
         selectedCard = null;
         this.selectedZone = null;
         this.selectedZoneIndex = -1;
-        if (isGraphical){
+        if (isGraphical) {
             currentPlayer.getGameView().selectedCard.setFill(Color.BLACK);
             currentPlayer.getGameView().selectedCardDescription.setText("no card is selected yet");
+            for (Node child : currentPlayer.getGameView().buttonsOfGameActions.getChildren()) child.setVisible(false);
         }
         return "card deselected";
     }
@@ -592,6 +601,8 @@ public class Game {
         if (((Spell) selectedCard).isActivated()) return "you have already activated this card";
         if (selectedCard instanceof FieldSpell) {
             if (checkForTraps("active-effect")) return "rival's trap activated and cancelled the activation";
+            if (selectedZone == Board.Zone.HAND)
+                removeCardFromZone(selectedCard, Board.Zone.HAND,selectedZoneIndex,currentPlayer.getBoard());
             putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.ACTIVATED, currentPlayer.getBoard());
             return "field spell activated";
         }

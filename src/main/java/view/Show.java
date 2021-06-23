@@ -154,9 +154,8 @@ public class Show {
         Game game = GameMenu.getCurrentGame();
         if (game.isGraphical()) return;
         Board rivalBoard = game.getRival().getBoard();
-        String fz;
+        String fieldZone;
         int numOfHand;
-        fz = rivalBoard.getFieldSpell() == null ? "E" : "O";
         System.out.println("\t\t" + game.getRival().toString());
         System.out.print("\t");
         numOfHand = rivalBoard.getNumberOfHandCards();
@@ -165,11 +164,12 @@ public class Show {
         System.out.println(rivalBoard.getDeck().size());
         printSpellZone(rivalBoard, true);
         printMonsterZone(rivalBoard, true);
-        System.out.println(rivalBoard.getGrave().size() + "\t\t\t\t\t\t" + fz + "\n\n");
+        fieldZone = rivalBoard.getFieldSpell() == null ? "E" : "O";
+        System.out.println(rivalBoard.getGrave().size() + "\t\t\t\t\t\t" + fieldZone + "\n\n");
         System.out.println("--------------------------\n\n");
         Board myBoard = game.getCurrentPlayer().getBoard();
-        fz = myBoard.getFieldSpell() == null ? "E" : "O";
-        System.out.println(fz + "\t\t\t\t\t\t" + myBoard.getGrave().size());
+        fieldZone = myBoard.getFieldSpell() == null ? "E" : "O";
+        System.out.println(fieldZone + "\t\t\t\t\t\t" + myBoard.getGrave().size());
         printMonsterZone(myBoard, false);
         printSpellZone(myBoard, false);
         System.out.println("  \t\t\t\t\t\t" + myBoard.getDeck().size());
@@ -189,7 +189,7 @@ public class Show {
         }
         System.out.print("\t");
         for (int i = 0; i < monsters.length; i++) {
-            if (board.getMonsterZone()[i] == null) monsterCardZone = "E";
+            if (monsters[i] == null) monsterCardZone = "E";
             else if (positions[i] == Board.CardPosition.REVEAL_DEF) monsterCardZone = "DO";
             else if (positions[i] == Board.CardPosition.HIDE_DEF) monsterCardZone = "DH";
             else monsterCardZone = "OO";
