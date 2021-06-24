@@ -64,7 +64,7 @@ public class Game {
                 currentPlayer.setLP(8000);
                 rival.setLP(8000);
                 while (winner == null) run();
-                Show.showImportantGameMessage(winner.getUser().getUsername() + " won the round and the score is: 1000-0");
+                Show.showImportantGameMessage(winner.getUser().getUsername() + " won the game and the score is: 1000-0");
                 winner.won();
             }
             loser = (winner == currentPlayer) ? rival : currentPlayer;
@@ -832,6 +832,21 @@ public class Game {
         Show.showBoard();
         return "card added to hand successfully!";
     }
+    public String removeCardFromHand(String cardName){
+        int handIndex = -1;
+        Card card = Card.make(cardName);
+        if (card == null) return "there is no card with this name";
+        Card[] hand = getCurrentPlayer().getBoard().getHand();
+        for (int i = 0; i < hand.length; i++) {
+            if(hand[i] == card)
+            { handIndex = i;
+            break;}
+
+        }
+        if(handIndex == -1) return "this card is not in your hand";
+        removeCardFromZone(card, Board.Zone.HAND,handIndex,getCurrentPlayer().getBoard());
+        return "card removed";
+        }
+    }
 
 
-}
