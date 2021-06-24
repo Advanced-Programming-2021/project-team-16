@@ -123,20 +123,20 @@ public class Board {
         return fieldSpell;
     }
 
-//    public void setFieldSpell(FieldSpell fieldSpell , Card fakeCard) {
-//        this.fieldSpell = fieldSpell;
-//        if (GameMenu.getCurrentGame().isGraphical()) {
-//            if (fieldSpell == null) {
-//                getGameView().myFieldSpell.getChildren().set(0, Card.getBlackRectangle(false));
-//                getRivalGameView().rivalFieldSpell.getChildren().set(0, Card.getBlackRectangle(false));
-//            } else {
-//                getGameView().myFieldSpell.getChildren().set(0, fieldSpell);
-//                getRivalGameView().rivalFieldSpell.getChildren().set(0, fakeCard);
-//                fieldSpell.setSide(true);
-//                fieldSpell.setSizes(false);
-//            }
-//        }
-//    }
+  public void setFieldSpell(FieldSpell fieldSpell , Card fakeCard) {
+      this.fieldSpell = fieldSpell;
+   //f (GameMenu.getCurrentGame().isGraphical()) {
+   //   if (fieldSpell == null) {
+   //       getGameView().myFieldSpell.getChildren().set(0, Card.getBlackRectangle(false));
+   //       getRivalGameView().rivalFieldSpell.getChildren().set(0, Card.getBlackRectangle(false));
+   //   } else {
+   //       getGameView().myFieldSpell.getChildren().set(0, fieldSpell);
+   //       getRivalGameView().rivalFieldSpell.getChildren().set(0, fakeCard);
+   //    //fieldSpell.setSide(true);
+   //    //fieldSpell.setSizes(false);
+   //   }
+   //
+  }
 
     public GameView getGameView() {
         return player.getGameView();
@@ -151,20 +151,20 @@ public class Board {
         cards.removeIf(Objects::isNull);
         Arrays.fill(hand, null);
         for (int i = 0; i < cards.size(); i++) hand[i] = cards.get(i);
-       //if (GameMenu.getCurrentGame().isGraphical()) for (int i = 0; i < hand.length; i++)
-       //    if (hand[i] == null) {
-       //        getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
-       //        getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
-       //    } else {
-       //        Card card = hand[i];
-       //        Card fakeCard = Card.make(card.getName());
-       //     //  fakeCard.setSizes(true);
-       //     //  fakeCard.setSide(false);
-       //        getGameView().myHand.getChildren().set(i, card);
-       //        getRivalGameView().rivalHand.getChildren().set(i, fakeCard);
-       //        GameMenu.getCurrentGame().setOnMouseClickedSelect(card, i, Zone.HAND, false);
-       //        GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard, i, Zone.HAND, true);
-       //    }
+   // (GameMenu.getCurrentGame().isGraphical()) for (int i = 0; i < hand.length; i++)
+   //  if (hand[i] == null) {
+   //      getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
+   //      getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
+   //  } else {
+   //      Card card = hand[i];
+   //      Card fakeCard = Card.make(card.getName());
+   //    fakeCard.setSizes(true);
+   //    fakeCard.setSide(false);
+   //      getGameView().myHand.getChildren().set(i, card);
+   //      getRivalGameView().rivalHand.getChildren().set(i, fakeCard);
+   //      GameMenu.getCurrentGame().setOnMouseClickedSelect(card, i, Zone.HAND, false);
+   //      GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard, i, Zone.HAND, true);
+   //  }
     }
 
 
