@@ -11,7 +11,7 @@ public class Enums {
         SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.*)"),
         EXIT("(menu exit|exit)");
-        private String regex;
+        private final String regex;
 
         public String getRegex() {
             return regex;
@@ -27,7 +27,7 @@ public class Enums {
         ENTER_MENU("menu enter (\\w+)"),
         LOGOUT("user logout"),
         EXIT("menu exit");
-        private String regex;
+        private final String regex;
 
         public String getRegex() {
             return regex;
@@ -80,7 +80,7 @@ public class Enums {
         EXIT("menu exit");
 
 
-        private String regex;
+        private final String regex;
 
         public String getRegex() {
             return regex;
@@ -98,7 +98,7 @@ public class Enums {
         ENTER_MENU("menu enter (.*)"),
         SHOW_CURRENT("menu show-current"),
         EXIT("menu exit");
-        private String regex;
+        private final String regex;
 
         public String getRegex() {
             return regex;
@@ -116,7 +116,7 @@ public class Enums {
         ENTER_MENU("menu enter (.*)"),
         EXIT("menu exit");
 
-        private String regex;
+        private final String regex;
 
         public String getRegex() {
             return regex;
@@ -154,7 +154,7 @@ public class Enums {
         EXIT("menu exit");
 
 
-        private String regex;
+        private final String regex;
 
         public String getRegex() {
             return regex;

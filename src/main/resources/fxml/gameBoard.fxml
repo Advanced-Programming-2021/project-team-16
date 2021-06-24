@@ -49,20 +49,31 @@
 
 
     <GridPane fx:id="board" vgap="43" GridPane.rowIndex="0" GridPane.columnIndex="1" minHeight="800" minWidth="760">
-        <VBox minWidth="145" maxHeight="750" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="6"
+        <VBox minWidth="145" maxHeight="780" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="6"
               alignment="BOTTOM_CENTER" spacing="70">
             <BorderPane fx:id="myFieldSpell"><center>
                 <Rectangle height="100" width="70" fill="black"/>
             </center></BorderPane>
             <Button text="next phase" textFill="blue" onMouseClicked="#goToNextPhase"/>
+            <Button text="show graveyard" onMouseClicked="#showGraveyard"/>
+            <Button text="surrender" onMouseClicked="#surrender"/>
         </VBox >
 
-        <VBox minHeight="800" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.rowSpan="5"
+        <VBox maxHeight="780" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.rowSpan="5"
               alignment="TOP_RIGHT">
             <Pane minHeight="70"/>
             <BorderPane fx:id="rivalFieldSpell" ><right>
                 <Rectangle height="100" width="70" fill="black"/>
             </right></BorderPane>
+            <Pane minHeight="510"/>
+            <VBox fx:id="buttonsOfGameActions" spacing="5">
+                <Button fx:id="summonButton" text="summon" onMouseClicked="#summon" visible="false"/>
+                <Button fx:id="setButton" text="set" onMouseClicked="#set"  visible="false"/>
+                <Button fx:id="flipButton" text="flip summon" onMouseClicked="#flipSummon"  visible="false"/>
+                <Button fx:id="activeEffectButton" text="activate effect" onMouseClicked="#activeEffect"  visible="false"/>
+                <Button fx:id="setPositionButton" text="change position" onMouseClicked="#changePosition"  visible="false"/>
+                <Button fx:id="attackButton" text="attack" onMouseClicked="#attack"  visible="false"/>
+            </VBox>
         </VBox >
 
     <HBox fx:id="rivalHand"  spacing="15" GridPane.rowIndex="0" GridPane.columnIndex="1">
