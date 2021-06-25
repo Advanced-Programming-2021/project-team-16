@@ -9,6 +9,8 @@ import model.card.monster.Monster;
 import model.card.monster.RitualMonster;
 import model.card.spell.*;
 import model.card.spell.fieldspells.FieldSpell;
+import model.card.trap.CallOfTheHaunted;
+import model.card.trap.MindCrush;
 import model.card.trap.Trap;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.Collections;
 public class AI extends Player {
     public AI() {
         super(null);
-        board = new Board(Deck.getRandomMainDeck(),this);
+        board = new Board(Deck.getRandomMainDeck(), this);
         user = new User("AI", "", "ai");
     }
 
@@ -59,7 +61,7 @@ public class AI extends Player {
         }
         for (int i = monsterIndexes.size() - 1; i > 0; i--)
             for (int j = 0; j < i; j++)
-                if (((Monster) hand[monsterIndexes.get(j)]).getLevel() < ((Monster) hand[monsterIndexes.get(j + 1)]).getLevel())
+                if (hand[monsterIndexes.get(j)].getLevel() < hand[monsterIndexes.get(j + 1)].getLevel())
                     Collections.swap(monsterIndexes, j, j + 1);
         for (Integer monsterIndex : monsterIndexes) {
             if (game.hasSummonedOrSet()) break;
@@ -73,7 +75,7 @@ public class AI extends Player {
         Card[] myHand = board.getHand();
         Board rivalBoard = game.getRival().getBoard();
         boolean shouldActive;
-        for (int i = 0; i < myHand.length; i++) {
+        for (int i = myHand.length - 1; i >= 0; i--) {
             Card card = myHand[i];
             shouldActive = false;
             if (card instanceof Spell) {
@@ -103,6 +105,16 @@ public class AI extends Player {
                 game.activeEffect();
             }
         }
+        for (int i = 0; i < board.getSpellAndTrapZone().length; i++) {
+            Card card = board.getSpellAndTrapZone()[i];
+            shouldActive = false;
+            if (card instanceof Trap) {
+                if (card instanceof CallOfTheHaunted && board.doesGraveHaveMonster() && board.getNumberOfMonsters() <= 3)
+                    shouldActive = true;
+                else if (card instanceof MindCrush && board.getNumberOfHandCards() > 2) shouldActive = true;
+            }
+            if (shouldActive) game.selectCard(Board.Zone.SPELL_AND_TRAP, i, false);
+        }
     }
 
     boolean doIHaveRitualMonster() {
@@ -130,7 +142,7 @@ public class AI extends Player {
                         rivalMonsterIndex = i;
                     }
                 }
-            if (myMonsters[myMonsterIndex].getATK() < minATKOrDEF && rivalMonsterIndex!=-1) {
+            if (myMonsters[myMonsterIndex].getATK() < minATKOrDEF && rivalMonsterIndex != -1) {
                 GameMenu.getCurrentGame().deselect();
                 if (game.isGraphical()) game.goToNextPhase();
                 return;
@@ -205,7 +217,7 @@ public class AI extends Player {
         ArrayList<Card> boardGrave = board.getGrave();
         for (int i = 0, boardGraveSize = boardGrave.size(); i < boardGraveSize; i++) {
             Card card = boardGrave.get(i);
-            if (card instanceof Monster) if (((Monster) card).getLevel() > mostLeveledMonster.getLevel()) {
+            if (card instanceof Monster) if (card.getLevel() > mostLeveledMonster.getLevel()) {
                 mostLeveledMonster = (Monster) card;
                 mostLeveledMonsterIndex = i;
             }
