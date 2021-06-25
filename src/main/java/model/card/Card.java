@@ -168,6 +168,8 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
   public String getDescription() {
       return description;
   }
+
+
     public int getLevel(){
         if(this instanceof Monster)
             return this.getLevel();
