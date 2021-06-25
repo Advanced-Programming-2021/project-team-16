@@ -17,7 +17,7 @@ public class MonsterReborn extends Spell {
     public String action() {
         Game game = GameMenu.getCurrentGame();
         Board board = game.getCurrentPlayer().getBoard();
-        if (board.isZoneFull(Board.Zone.HAND)) return "activation cancelled (hand is full)";
+        if (board.isZoneFull(Board.Zone.MONSTER)) return "activation cancelled (monster zone is full)";
         if ((!board.doesGraveHaveMonster() && !game.getRival().getBoard().doesGraveHaveMonster()) ||
                 board.isZoneFull(Board.Zone.MONSTER))
             return "there is no way you could special summon a monster";
@@ -30,7 +30,7 @@ public class MonsterReborn extends Spell {
         board = isMyGrave ? game.getCurrentPlayer().getBoard() : game.getRival().getBoard();
         Monster monster = (Monster) board.getCardByIndexAndZone(graveIndex, Board.Zone.GRAVE);
         game.removeCardFromZone(monster, Board.Zone.GRAVE, graveIndex, board);
-        game.putCardInZone(monster, Board.Zone.HAND, null, board);
+        game.putCardInZone(monster, Board.Zone.MONSTER, null, board);
         super.action();
         return "spell activated and special summoned " + monster.getName() + " successfully";
     }
