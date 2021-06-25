@@ -1,7 +1,11 @@
 package model.card;
 
 import javafx.scene.Cursor;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+import model.Game;
 import model.card.monster.*;
 import model.card.spell.*;
 import model.card.spell.equipspells.BlackPendant;
@@ -19,25 +23,26 @@ import java.util.HashMap;
 public abstract class Card extends Rectangle implements Comparable<Card> {
 
     private static final ArrayList<Card> cards = new ArrayList<>();
- //   public static final Paint UNKNOWN_CARD_FILL = new ImagePattern(new Image(Card.class.getResource("/png/card/Unknown.jpg").toExternalForm()));
+
+   // public static final Paint UNKNOWN_CARD_FILL = new ImagePattern(new Image(Card.class.getResource("/png/card/Unknown.jpg").toExternalForm()));
     protected String name;
     protected String description;
     protected int price;
- //   protected Rectangle rectangle;
+   protected Rectangle rectangle;
 
 
     public Card(String name, String description, int price) {
         this.name = name;
         this.description = description;
         this.price = price;
-    // this.rectangle = new Rectangle();
-    // try {
-    //     rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
-    // } catch (NullPointerException e) {
-    //     rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
-    // }
-    // rectangle.setHeight(120);
-    // rectangle.setWidth(80);
+     this.rectangle = new Rectangle();
+     try {
+         //rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+     } catch (NullPointerException e) {
+         rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
+    }
+     rectangle.setHeight(120);
+     rectangle.setWidth(80);
         for (Card card : cards) if (card.getName().equals(this.getName())) return;
         setOnMouseEntered(mouseEvent -> setCursor(Cursor.HAND));
         setOnMouseExited(mouseEvent -> setCursor(Cursor.DEFAULT));
@@ -176,40 +181,45 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
   public String getDescription() {
       return description;
   }
+    public int getLevel(){
+        if(this instanceof Monster)
+            return this.getLevel();
 
-  //  public Rectangle getRectangle() {
-  //      return rectangle;
-  //  }
-//
-  //  public void setSide(boolean isToFace) {
-  //      if (isToFace)
-  //          setFill(rectangle.getFill());
-  //      else
-  //          setFill(UNKNOWN_CARD_FILL);
-  //  }
-//
-  //  public static Rectangle getBlackRectangle(boolean isHand) {
-  //      Rectangle blackRec = new Rectangle();
-  //      blackRec.setFill(Color.BLACK);
-  //      if (isHand) {
-  //          blackRec.setWidth(60);
-  //          blackRec.setHeight(90);
-  //      } else {
-  //          blackRec.setWidth(70);
-  //          blackRec.setHeight(100);
-  //      }
-  //      return blackRec;
-  //  }
-//
-  //  public void setSizes(boolean isHand) {
-  //      if (isHand) {
-  //          setWidth(60);
-  //          setHeight(90);
-  //      } else {
-  //          setWidth(70);
-  //          setHeight(100);
-  //      }
-  //  }
+        return 0;
+    }
+    public Rectangle getRectangle() {
+       return rectangle;
+    }
+
+    public void setSide(boolean isToFace) {
+        if (isToFace)
+           setFill(rectangle.getFill());
+       // else
+          //  setFill(UNKNOWN_CARD_FILL);
+    }
+
+    public static Rectangle getBlackRectangle(boolean isHand) {
+        Rectangle blackRec = new Rectangle();
+       blackRec.setFill(Color.BLACK);
+        if (isHand) {
+           blackRec.setWidth(60);
+            blackRec.setHeight(90);
+        } else {
+            blackRec.setWidth(70);
+           blackRec.setHeight(100);
+        }
+        return blackRec;
+    }
+
+    public void setSizes(boolean isHand) {
+        if (isHand) {
+            setWidth(60);
+            setHeight(90);
+        } else {
+            setWidth(70);
+            setHeight(100);
+        }
+    }
 
     public String getCardProperties() {
         String properties;
