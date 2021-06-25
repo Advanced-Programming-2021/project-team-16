@@ -223,17 +223,20 @@ public class Game {
         Player player = isSelectedCardForRival ? rival : currentPlayer;
         selectedCard = player.getBoard().getCardByIndexAndZone(index, zone);
         if (selectedCard == null) return "no card found in the given position";
+        if (isGraphical) {
+            selectedCard.setOpacity(0.5);
+            if (!isSelectedCardForRival)
+                currentPlayer.getGameView().makeActionsVisible(selectedCard instanceof Monster, currentPhase != Phase.BATTLE);
+        }
         if (!isSelectedCardForRival && ((selectedZone == Board.Zone.MONSTER && selectedCard instanceof Activatable &&
                 (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2)) ||
                 (selectedZone == Board.Zone.SPELL_AND_TRAP && selectedCard instanceof Trap && selectedCard instanceof Activatable
-                        && !setInThisTurn.contains(selectedCard) && !MirageDragon.isOn(false))))
+                        && !setInThisTurn.contains(selectedCard) && !MirageDragon.isOn(false)))) {
+            Show.showGameMessage("card selected");
             if (CommandProcessor.yesNoQuestion("do you want to use " + selectedCard.getName() + " effect?"))
                 Show.showGameMessage(((Activatable) selectedCard).action());
-            if (isGraphical){
-                selectedCard.setOpacity(0.5);
-                if (!isSelectedCardForRival)
-                    currentPlayer.getGameView().makeActionsVisible(selectedCard instanceof Monster, currentPhase != Phase.BATTLE);
-            }
+            return "";
+        }
         return "card selected";
     }
 
@@ -329,7 +332,7 @@ public class Game {
                 return specialSummon();
         }
         if (selectedCard instanceof RitualMonster) return "you can't normally summon a ritual monster";
-        int numberOfTributes = switch (((Monster) selectedCard).getLevel()) {
+        int numberOfTributes = switch (selectedCard.getLevel()) {
             case 5, 6 -> 1;
             case 7, 8, 9 -> 2;
             default -> 0;
@@ -397,7 +400,7 @@ public class Game {
                     return specialSummon();
             }
             if (selectedCard instanceof RitualMonster) return "you can't normally set a ritual monster";
-            int numberOfTributes = switch (((Monster) selectedCard).getLevel()) {
+            int numberOfTributes = switch (selectedCard.getLevel()) {
                 case 5, 6 -> 1;
                 case 7, 8, 9 -> 2;
                 default -> 0;
@@ -604,7 +607,7 @@ public class Game {
         if (selectedCard instanceof FieldSpell) {
             if (checkForTraps("active-effect")) return "rival's trap activated and cancelled the activation";
             if (selectedZone == Board.Zone.HAND)
-                removeCardFromZone(selectedCard, Board.Zone.HAND,selectedZoneIndex,currentPlayer.getBoard());
+                removeCardFromZone(selectedCard, Board.Zone.HAND, selectedZoneIndex, currentPlayer.getBoard());
             putCardInZone(selectedCard, Board.Zone.FIELD_SPELL, Board.CardPosition.ACTIVATED, currentPlayer.getBoard());
             return "field spell activated";
         }
@@ -651,9 +654,9 @@ public class Game {
                 index = board.getFirstEmptyIndexOfZone(Board.Zone.HAND);
                 board.getHand()[index] = card;
                 if (isGraphical) {
-                  //  card.setSide(true);
-                  //  fakeCard.setSide(false);
-                  //  card.setSizes(true);
+                    //  card.setSide(true);
+                    //  fakeCard.setSide(false);
+                    //  card.setSizes(true);
                     board.getGameView().myHand.getChildren().set(index, card);
                     board.getRivalGameView().rivalHand.getChildren().set(index, fakeCard);
                 }
@@ -667,8 +670,8 @@ public class Game {
                 if (position != Board.CardPosition.HIDE_DEF && card instanceof CommandKnight)
                     if (!((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(false);
                 if (isGraphical) {
-                 //  card.setSide(position != Board.CardPosition.HIDE_DEF);
-                 //  card.setSizes(false);
+                    //  card.setSide(position != Board.CardPosition.HIDE_DEF);
+                    //  card.setSizes(false);
                     board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), card);
                     board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), fakeCard);
                 }
@@ -688,8 +691,8 @@ public class Game {
                 board.getSpellAndTrapZone()[index] = card;
                 board.getCardPositions()[1][index] = position;
                 if (isGraphical) {
-              //     card.setSide(position != Board.CardPosition.HIDE_DEF);
-              //     card.setSizes(false);
+                    //     card.setSide(position != Board.CardPosition.HIDE_DEF);
+                    //     card.setSizes(false);
                     board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), card);
                     board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), fakeCard);
                 }
@@ -727,10 +730,10 @@ public class Game {
         switch (zone) {
             case MONSTER -> {
                 board.getMonsterZone()[index] = null;
-            //   if (isGraphical) {
-            //       board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
-            //       board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
-            //   }
+                //   if (isGraphical) {
+                //       board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
+                //       board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+                //   }
                 if (card instanceof CommandKnight)
                     if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(true);
                 for (Card spell : board.getSpellAndTrapZone())
@@ -743,10 +746,10 @@ public class Game {
             }
             case SPELL_AND_TRAP -> {
                 board.getSpellAndTrapZone()[index] = null;
-             // if (isGraphical) {
-             //     board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
-             //     board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
-             // }
+                // if (isGraphical) {
+                //     board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
+                //     board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+                // }
             }
             case HAND -> {
                 board.getHand()[index] = null;
@@ -791,16 +794,16 @@ public class Game {
             Show.showSingleCard(selectedCard.getName());
 
         }// else {
-         //   if ((selectedZone == Board.Zone.MONSTER && rival.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
-         //           (selectedZone == Board.Zone.SPELL_AND_TRAP && rival.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF)) {
-         //       currentPlayer.getGameView().selectedCard.setFill(Card.UNKNOWN_CARD_FILL);
-         //       currentPlayer.getGameView().selectedCardDescription.setText("card is not visible");
-         //   } else {
-         //       currentPlayer.getGameView().selectedCard.setFill(selectedCard.getRectangle().getFill());
-         //       currentPlayer.getGameView().selectedCardDescription.setText(selectedCard.getCardProperties());
-         //   }
+        //   if ((selectedZone == Board.Zone.MONSTER && rival.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
+        //           (selectedZone == Board.Zone.SPELL_AND_TRAP && rival.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF)) {
+        //       currentPlayer.getGameView().selectedCard.setFill(Card.UNKNOWN_CARD_FILL);
+        //       currentPlayer.getGameView().selectedCardDescription.setText("card is not visible");
+        //   } else {
+        //       currentPlayer.getGameView().selectedCard.setFill(selectedCard.getRectangle().getFill());
+        //       currentPlayer.getGameView().selectedCardDescription.setText(selectedCard.getCardProperties());
+        //   }
 //
-   //     }//
+        //     }//
         return "";
     }
 
@@ -845,21 +848,23 @@ public class Game {
         Show.showBoard();
         return "card added to hand successfully!";
     }
-    public String removeCardFromHand(String cardName){
+
+    public String removeCardFromHand(String cardName) {
         int handIndex = -1;
         Card card = Card.make(cardName);
         if (card == null) return "there is no card with this name";
         Card[] hand = getCurrentPlayer().getBoard().getHand();
         for (int i = 0; i < hand.length; i++) {
-            if(hand[i] == card)
-            { handIndex = i;
-            break;}
+            if (hand[i] == card) {
+                handIndex = i;
+                break;
+            }
 
         }
-        if(handIndex == -1) return "this card is not in your hand";
-        removeCardFromZone(card, Board.Zone.HAND,handIndex,getCurrentPlayer().getBoard());
+        if (handIndex == -1) return "this card is not in your hand";
+        removeCardFromZone(card, Board.Zone.HAND, handIndex, getCurrentPlayer().getBoard());
         return "card removed";
-        }
     }
+}
 
 
