@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Scanner extends Monster implements Activatable {
     private int monsterZoneIndex;
     private Player player;
-    private static ArrayList<Scanner> activatedScanners = new ArrayList<>();
+    private static final ArrayList<Scanner> activatedScanners = new ArrayList<>();
 
     public Scanner() {
         super("Scanner", "Once per turn, you can select 1 of your opponent's monsters that is removed " +
@@ -31,7 +31,7 @@ public class Scanner extends Monster implements Activatable {
         int monsterZoneIndex = game.getSelectedZoneIndex();
         int replacementIndex = CommandProcessor.getMonsterFromGrave(false);
         if (replacementIndex == -1) return "cancelled";
-        Monster replacement = (Monster) game.getRival().getBoard().getCardByIndexAndZone(replacementIndex, Board.Zone.GRAVE);
+        Monster replacement = (Monster) board.getCardByIndexAndZone(replacementIndex, Board.Zone.GRAVE);
         this.player = game.getCurrentPlayer();
         this.monsterZoneIndex = monsterZoneIndex;
         game.getCurrentPlayer().getBoard().getMonsterZone()[monsterZoneIndex] = replacement;

@@ -112,6 +112,7 @@ public class Enums {
     public enum ProfileCommands {
         CHANGE_NICKNAME("profile change --nickname (\\w+)"),
         CHANGE_PASSWORD("profile change --password (--current (\\w+) --new (\\w+)|--new (\\w+) --current (\\w+))"),
+        CHANGE_USERNAME("profile change --username (\\w+)"),
         SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.*)"),
         EXIT("menu exit");
@@ -176,7 +177,7 @@ public class Enums {
         SHOW_GRAVE("show graveyard( --opponent)?"),
         SHOW_SELECTED("card show --selected"),
         SURRENDER("surrender"),
-        SELECT_CARD("select --(\\w+) (\\d+)?( --opponent)?"),
+        SELECT_CARD("select --(\\w+)(?: )(\\d+)?( --opponent)?"),
         DESELECT_CARD("select -d"),
         SHOW_CARD("card show (.*)"),
         END_PHASE("next phase"),

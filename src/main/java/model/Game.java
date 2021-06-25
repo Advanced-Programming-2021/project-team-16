@@ -282,8 +282,9 @@ public class Game {
                         CommandProcessor.yesNoQuestion("Do you want to to pay 100 LP to keep Messenger of peace?"))
                     currentPlayer.decreaseLP(100);
                 else {
-                    removeCardFromZone(cards[i], Board.Zone.SPELL_AND_TRAP, i, board);
-                    putCardInZone(cards[i], Board.Zone.GRAVE, null, board);
+                    Card card = cards[i];
+                    removeCardFromZone(card, Board.Zone.SPELL_AND_TRAP, i, board);
+                    putCardInZone(card, Board.Zone.GRAVE, null, board);
                 }
             }
         }
@@ -321,7 +322,7 @@ public class Game {
             if (selectedCard instanceof BeastKingBarbaros) {
                 if (CommandProcessor.yesNoQuestion("do you want to normally summon" + selectedCard.getName() + "? (this will make it's ATK 1900)"))
                     ((BeastKingBarbaros) selectedCard).normalSummonOrSet();
-                else if (CommandProcessor.yesNoQuestion("do tou want to special summon it?"))
+                else if (CommandProcessor.yesNoQuestion("do you want to special summon it?"))
                     return specialSummon();
                 else return "summon cancelled";
             } else if (CommandProcessor.yesNoQuestion("you can't normally set this. do you want to special summon it?"))
@@ -333,6 +334,7 @@ public class Game {
             case 7, 8, 9 -> 2;
             default -> 0;
         };
+        if (selectedCard instanceof BeastKingBarbaros) numberOfTributes = 0;
         if (numberOfTributes != 0) {
             if (currentPlayer.getBoard().getNumberOfMonsters() < numberOfTributes)
                 return "there are not enough cards for tribute";
@@ -781,16 +783,16 @@ public class Game {
         if (selectedCard == null) return "no card is selected yet";
         if (!isGraphical) {
             if (isSelectedCardForRival) {
-                if ((selectedZone == Board.Zone.MONSTER && currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
-                        (selectedZone == Board.Zone.SPELL_AND_TRAP && currentPlayer.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
+                if ((selectedZone == Board.Zone.MONSTER && rival.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
+                        (selectedZone == Board.Zone.SPELL_AND_TRAP && rival.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
                         (selectedZone == Board.Zone.HAND))
                     return "card is not visible";
             }
             Show.showSingleCard(selectedCard.getName());
 
         }// else {
-         //   if ((selectedZone == Board.Zone.MONSTER && currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
-         //           (selectedZone == Board.Zone.SPELL_AND_TRAP && currentPlayer.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF)) {
+         //   if ((selectedZone == Board.Zone.MONSTER && rival.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
+         //           (selectedZone == Board.Zone.SPELL_AND_TRAP && rival.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF)) {
          //       currentPlayer.getGameView().selectedCard.setFill(Card.UNKNOWN_CARD_FILL);
          //       currentPlayer.getGameView().selectedCardDescription.setText("card is not visible");
          //   } else {

@@ -5,6 +5,15 @@ import javafx.scene.paint.ImagePattern;
 import model.person.User;
 
 public class Profile {
+
+    public static String changeUsername(String newUsername) {
+        if (MainMenu.getCurrentUser().getUsername().equals(newUsername)) return "this is your current username";
+        if (User.getUserByUsername(newUsername) != null)
+            return "user with username " + newUsername + " already exists";
+        MainMenu.getCurrentUser().setUsername(newUsername);
+        return "username changed successfully!";
+    }
+
     public static String changeNickname(String newNickname) {
         if (MainMenu.getCurrentUser().getNickname().equals(newNickname)) return "this is your current nickname";
         if (User.getUserByNickname(newNickname) != null)

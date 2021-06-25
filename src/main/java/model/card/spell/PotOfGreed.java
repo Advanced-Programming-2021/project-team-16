@@ -1,12 +1,9 @@
 package model.card.spell;
 
-import controller.GameMenu;
-import model.Board;
-import model.Game;
 import model.card.UtilActions;
 
 public class PotOfGreed extends Spell {
-    private boolean isAtivated = false;
+    private final boolean isAtivated = false;
 
     public PotOfGreed() {
         super("Pot of Greed", "Spell", SpellType.NORMAL,
@@ -14,8 +11,6 @@ public class PotOfGreed extends Spell {
     }
 
     public String action() {
-        Game game = GameMenu.getCurrentGame();
-        Board board = game.getCurrentPlayer().getBoard();
         String error = UtilActions.drawCardsForCurrentPlayer(2);
         if (error != null) return error;
         super.action();

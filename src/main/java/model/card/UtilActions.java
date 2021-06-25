@@ -32,14 +32,15 @@ public class UtilActions {
         if (zone == Board.Zone.MONSTER) cards = board.getMonsterZone();
         else if (zone == Board.Zone.SPELL_AND_TRAP) cards = board.getSpellAndTrapZone();
         else if (zone == Board.Zone.FIELD_SPELL) {
-            game.removeCardFromZone(board.getFieldSpell(), Board.Zone.FIELD_SPELL, 0, board);
+            if (board.getFieldSpell() != null)
+                game.removeCardFromZone(board.getFieldSpell(), Board.Zone.FIELD_SPELL, 0, board);
             return;
         } else return;
         for (int index = 0; index < cards.length; index++) {
             Card card = cards[index];
             if (card != null) {
+                game.removeCardFromZone(card, zone, index, board);
                 game.putCardInZone(card, Board.Zone.GRAVE, null, board);
-                game.removeCardFromZone(card, Board.Zone.MONSTER, index, board);
             }
         }
     }
@@ -50,8 +51,8 @@ public class UtilActions {
         for (int index = 0; index < board.getMonsterZone().length; index++) {
             Monster monster = board.getMonsterZone()[index];
             if (monster != null) {
-                game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
                 game.removeCardFromZone(monster, Board.Zone.MONSTER, index, board);
+                game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
             }
         }
         UtilActions.removeRivalCards(Board.Zone.MONSTER);
@@ -65,13 +66,13 @@ public class UtilActions {
         spellIndex = CommandProcessor.getIndexOfCardArray(spells, "throw away spell or trap from rival's board");
         if (spellIndex == -1) return "cancelled";
         if (handIndexTribute != -1) {
-            game.putCardInZone(myBoard.getCardByIndexAndZone(handIndexTribute, Board.Zone.HAND), Board.Zone.GRAVE, null, myBoard);
             game.removeCardFromZone(myBoard.getCardByIndexAndZone(handIndexTribute, Board.Zone.HAND), Board.Zone.HAND, handIndexTribute, myBoard);
+            game.putCardInZone(myBoard.getCardByIndexAndZone(handIndexTribute, Board.Zone.HAND), Board.Zone.GRAVE, null, myBoard);
         }
+        game.removeCardFromZone(spells.get(spellIndex), Board.Zone.SPELL_AND_TRAP, spellsWithIndex.get(spells.get(spellIndex)), rivalBoard);
+        game.putCardInZone(spells.get(spellIndex), Board.Zone.GRAVE, null, rivalBoard);
         spellsWithIndex.remove(spells.get(spellIndex));
         spells.remove(spellIndex);
-        game.putCardInZone(spells.get(spellIndex), Board.Zone.GRAVE, null, rivalBoard);
-        game.removeCardFromZone(spells.get(spellIndex), Board.Zone.SPELL_AND_TRAP, spellsWithIndex.get(spells.get(spellIndex)), rivalBoard);
         return null;
     }
 }
