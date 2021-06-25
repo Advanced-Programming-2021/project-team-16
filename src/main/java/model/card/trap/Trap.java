@@ -23,14 +23,6 @@ public abstract class Trap extends Card {
     }
 
 
-    public String getIcon() {
-        return icon;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
     public Trap.TrapType getTrapType() {
         return trapType;
     }

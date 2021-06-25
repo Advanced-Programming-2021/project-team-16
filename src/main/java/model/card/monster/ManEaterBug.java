@@ -34,8 +34,8 @@ public class ManEaterBug extends Monster {
         int monsterZoneIndex = monstersWithIndex.get(monsters.get(index));
         Monster monster = board.getMonsterZone()[monsterZoneIndex];
         if (monster != null) {
-            game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
             game.removeCardFromZone(monster, Board.Zone.MONSTER, monsterZoneIndex, board);
+            game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
         }
         return this.getName() + "activated successfully";
     }

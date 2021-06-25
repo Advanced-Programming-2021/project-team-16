@@ -86,7 +86,7 @@ public class CommandProcessor {
                 System.out.println(Shop.buy(matcher.group(1)));
             else if (command.equals(Enums.ShopCommands.SHOW_ALL_CARDS.getRegex())) Show.showCardsInShop();
             else if ((matcher = getCommandMatcher(command, Enums.ShopCommands.SHOW_CARD.getRegex())).find())
-                Show.showSingleCard(matcher.group(1));
+                Show.showSingleCard(Card.getCardByName(matcher.group(1)));
             else if (command.equals(Enums.ShopCommands.SHOW_CURRENT.getRegex())) System.out.println(Shop.menuName());
             else if (command.matches(Enums.ShopCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
@@ -145,7 +145,7 @@ public class CommandProcessor {
             } else if (command.matches(Enums.DeckMenuCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
             else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_CARD.getRegex())).find())
-                Show.showSingleCard(matcher.group(1));
+                Show.showSingleCard(Card.getCardByName(matcher.group(1)));
             else if (command.equals("help")) System.out.println(Enums.DECK_HELP);
             else System.out.println("invalid command!");
             command = scanner.nextLine().trim();
@@ -254,14 +254,18 @@ public class CommandProcessor {
                     if (index < 1 || index > 5) isIndexValid = false;
                 }
                 if (isIndexValid) {
-                    String result = game.attack(index - 1);
-                    System.out.println(result);
-                    if (result.equals("NegateAttack activated and battle phase has ended")) break;
+                   System.out.println(game.attack(index - 1));
+                    if (game.hasBattlePhaseEnded()){
+                        game.setBattlePhaseEnded(false);
+                        break;
+                    }
                 } else System.out.println("index is not valid");
             } else if (command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex())) {
-                String result = game.attack(-1);
-                System.out.println(result);
-                if (result.equals("NegateAttack activated and battle phase has ended")) break;
+                System.out.println(game.attack(-1));
+                if (game.hasBattlePhaseEnded()){
+                    game.setBattlePhaseEnded(false);
+                    break;
+                }
             } else if (command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()))
                 System.out.println(game.activeEffect());
             else if ((matcher = getCommandMatcher(command, Enums.GameCommands.SHOW_GRAVE.getRegex())).find()) {
@@ -272,7 +276,7 @@ public class CommandProcessor {
                 System.out.println(game.showSelectedCard());
             else if (command.equals(Enums.GameCommands.SURRENDER.getRegex())) game.surrendered();
             else if ((matcher = getCommandMatcher(command, Enums.GameCommands.SHOW_CARD.getRegex())).find())
-                Show.showSingleCard(matcher.group(1));
+                Show.showSingleCard(Card.getCardByName(matcher.group(1)));
             else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_LP.getRegex()).matcher(command)).find())
                 game.getCurrentPlayer().increaseLP(Integer.parseInt(matcher.group(1)));
             else if (command.equals(Enums.Cheat.WIN_DUEL.getRegex()))

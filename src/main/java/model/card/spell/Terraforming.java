@@ -26,8 +26,8 @@ public class Terraforming extends Spell {
         int fieldSpellIndex = CommandProcessor.getIndexOfCardArray(fieldSpells, "bring field spell from deck to hand");
         if (fieldSpellIndex == -1) return "cancelled";
         Card fieldSpell = fieldSpells.get(fieldSpellIndex);
-        game.putCardInZone(fieldSpell, Board.Zone.HAND, null, board);
         game.removeCardFromZone(fieldSpell, Board.Zone.DECK, 0, board);
+        game.putCardInZone(fieldSpell, Board.Zone.HAND, null, board);
         super.action();
         return "spell activated and " + fieldSpell.getName() + " was added to your hand successfully!";
     }

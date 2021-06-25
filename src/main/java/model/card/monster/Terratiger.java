@@ -19,12 +19,13 @@ public class Terratiger extends Monster {
     public String action() {
         Game game = GameMenu.getCurrentGame();
         Board board = game.getCurrentPlayer().getBoard();
+        if (board.isZoneFull(Board.Zone.MONSTER)) return "activation cancelled (monster zone is full)";
         Card[] hand = board.getHand();
         ArrayList<Card> monsters = new ArrayList<>();
         HashMap<Card, Integer> monstersWithIndex = new HashMap<>();
         for (int i = 0; i < hand.length; i++) {
             Card card = hand[i];
-            if (card instanceof Monster && ((Monster) card).getLevel() <= 4 && isMonsterNormal((Monster) card)) {
+            if (card instanceof Monster && card.getLevel() <= 4 && isMonsterNormal((Monster) card)) {
                 monsters.add(card);
                 monstersWithIndex.put(card, i);
             }
@@ -36,8 +37,8 @@ public class Terratiger extends Monster {
         if (index == -1) return "cancelled";
         int handIndex = monstersWithIndex.get(monsters.get(index));
         Monster monster = board.getMonsterZone()[handIndex];
-        game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.REVEAL_DEF, board);
         game.removeCardFromZone(monster, Board.Zone.HAND, handIndex, board);
+        game.putCardInZone(monster, Board.Zone.MONSTER, Board.CardPosition.REVEAL_DEF, board);
         return this.getName() + "activated successfully and " + monster.getName() + " summoned successfully";
     }
 }

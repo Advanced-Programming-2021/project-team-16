@@ -9,9 +9,7 @@ import model.card.monster.Monster;
 import model.card.monster.RitualMonster;
 import model.card.spell.*;
 import model.card.spell.fieldspells.FieldSpell;
-import model.card.trap.CallOfTheHaunted;
-import model.card.trap.MindCrush;
-import model.card.trap.Trap;
+import model.card.trap.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,15 +35,31 @@ public class AI extends Player {
         if (board.getNumberOfMonsters() < 3) tryToSummonMonster();
         if (!game.hasSummonedOrSet() && board.getNumberOfSpellAndTraps() < 3) tryToSetTrap();
         if (!game.hasSummonedOrSet() && board.getNumberOfMonsters() >= 3) tryToSummonMonster();
-        if (!game.hasSummonedOrSet() && board.getNumberOfMonsters() >= 3) tryToSetTrap();
+        if (!game.hasSummonedOrSet() && board.getNumberOfSpellAndTraps() >= 3) tryToSetTrap();
     }
 
     private void tryToSetTrap() {
         Game game = GameMenu.getCurrentGame();
+        Board rivalBoard = rival.getBoard();
         Card[] hand = board.getHand();
+        boolean shouldSet;
         for (int i = 0; i < hand.length; i++) {
             if (game.hasSummonedOrSet()) break;
-            if (hand[i] instanceof Trap) {
+            shouldSet = false;
+            Card card = hand[i];
+            if (card instanceof Trap) {
+                if (card instanceof MagicJammer &&
+                        rivalBoard.getNumberOfSpellAndTraps()+rivalBoard.getNumberOfHandCards() > 3
+                && board.getNumberOfHandCards() > 1) shouldSet = true;
+                if (card instanceof NegateAttack && rivalBoard.getNumberOfMonsters() > 1) shouldSet = true;
+                if (card instanceof TimeSeal && rivalBoard.getNumberOfHandCards() < 2) shouldSet = true;
+                if (card instanceof TorrentialTribute && board.getNumberOfMonsters() < rivalBoard.getNumberOfMonsters())
+                    shouldSet = true;
+                if (card instanceof TrapHole && rivalBoard.getNumberOfMonsters() > 1) shouldSet = true;
+                if (card instanceof MirrorForce && rivalBoard.getNumberOfMonsters() > 1) shouldSet = true;
+                if (card instanceof MagicCylinder && rivalBoard.getNumberOfMonsters() != 0) shouldSet = true;
+            }
+            if (shouldSet){
                 game.selectCard(Board.Zone.HAND, i, false);
                 game.set();
             }

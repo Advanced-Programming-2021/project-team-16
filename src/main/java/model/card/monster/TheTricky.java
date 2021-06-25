@@ -16,10 +16,10 @@ public class TheTricky extends Monster implements specialSummonable {
         Board board = game.getCurrentPlayer().getBoard();
         Card card = board.getHand()[handIndexOfTribute];
         if (card == null) return "empty hand index";
-        game.putCardInZone(card, Board.Zone.GRAVE, null, board);
         game.removeCardFromZone(card, Board.Zone.HAND, handIndexOfTribute, board);
-        game.putCardInZone(this, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
+        game.putCardInZone(card, Board.Zone.GRAVE, null, board);
         game.removeCardFromZone(this, Board.Zone.HAND, handIndexOfThis, board);
+        game.putCardInZone(this, Board.Zone.MONSTER, Board.CardPosition.ATK, board);
         return this.getName() + "special summoned successfully";
 
     }

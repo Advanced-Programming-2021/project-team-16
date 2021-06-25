@@ -38,6 +38,7 @@ public class Game {
     private boolean isItFirstTurn = true;
     private boolean hasSurrendered = false;
     private boolean isGraphical;
+    private boolean hasBattlePhaseEnded = false;
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -385,9 +386,9 @@ public class Game {
         if (selectedZone != Board.Zone.HAND) return "you can’t set this card";
         if (currentPhase != Phase.MAIN_1 && currentPhase != Phase.MAIN_2)
             return "you can’t do this action in this phase";
+        if (hasSummonedOrSet) return "you already summoned/set on this turn";
         if (selectedCard instanceof Monster) {
             if (currentPlayer.getBoard().isZoneFull(Board.Zone.MONSTER)) return "monster card zone is full";
-            if (hasSummonedOrSet) return "you already summoned/set on this turn";
             if (selectedCard instanceof specialSummonable) {
                 if (selectedCard instanceof BeastKingBarbaros) {
                     if (CommandProcessor.yesNoQuestion("do you want to normally set" + selectedCard.getName() + "? (this will make it's ATK 1900)"))
@@ -404,6 +405,7 @@ public class Game {
                 case 7, 8, 9 -> 2;
                 default -> 0;
             };
+            if (selectedCard instanceof BeastKingBarbaros) numberOfTributes = 0;
             if (numberOfTributes != 0) {
                 if (currentPlayer.getBoard().getNumberOfMonsters() < numberOfTributes)
                     return "there are not enough cards for tribute";
@@ -479,8 +481,7 @@ public class Game {
         if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
         if (currentPhase != Phase.BATTLE) return "you can’t do this action in this phase";
         if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
-        boolean trapErrorHappened = checkForTraps("attack");
-        if (trapErrorHappened) return "rival's trap was activated. attack is cancelled";
+        if (checkForTraps("attack")) return "rival's trap was activated. attack is cancelled";
         if (MessengerOfPeace.canBeActivated()) return MessengerOfPeace.getActivationMessage();
         if (monsterNumber == -1) return attackDirectly();
         Monster attacked = rival.getBoard().getMonsterZone()[monsterNumber];
@@ -584,6 +585,7 @@ public class Game {
                     changeTurn();
                 }
             }
+            if (error) break;
         }
         return error;
     }
@@ -643,6 +645,13 @@ public class Game {
         return selectedZoneIndex;
     }
 
+    public void setBattlePhaseEnded(boolean battlePhaseEnded) {
+        this.hasBattlePhaseEnded = battlePhaseEnded;
+    }
+
+    public boolean hasBattlePhaseEnded() {
+        return hasBattlePhaseEnded;
+    }
 
     public void putCardInZone(Card card, Board.Zone zone, Board.CardPosition position, Board board) {
         int index = 0;
@@ -789,7 +798,7 @@ public class Game {
                         (selectedZone == Board.Zone.HAND))
                     return "card is not visible";
             }
-            Show.showSingleCard(selectedCard.getName());
+            Show.showSingleCard(selectedCard);
 
         }// else {
         //   if ((selectedZone == Board.Zone.MONSTER && rival.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||

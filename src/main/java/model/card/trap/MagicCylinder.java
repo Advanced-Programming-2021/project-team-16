@@ -17,7 +17,6 @@ public class MagicCylinder extends Trap {
         Monster monster = (Monster) game.getSelectedCard();
         game.removeCardFromZone(monster, Board.Zone.MONSTER, game.getSelectedZoneIndex(), board);
         game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
-        //ring of defence
         game.getRival().decreaseLP(monster.getATK());
         return super.action(myIndex) + "and rival monster was removed and rival's Lp decreased";
 

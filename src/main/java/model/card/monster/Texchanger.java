@@ -21,9 +21,10 @@ public class Texchanger extends Monster {
     public String doAction() {
         isUsed = true;
         Game game = GameMenu.getCurrentGame();
+        Board board = game.getCurrentPlayer().getBoard();
+        if (board.isZoneFull(Board.Zone.MONSTER)) return "no way you can special summon.(monster zone is full)";
         ArrayList<MonsterWithIndexAndZone> monsterWithIndexAndZones = new ArrayList<>();
         ArrayList<Card> cyberseMonsters = new ArrayList<>();
-        Board board = game.getCurrentPlayer().getBoard();
         int handNum, graveNum;
         for (int i = 0; i < board.getHand().length; i++)
             addCybersesToArray(monsterWithIndexAndZones, cyberseMonsters, i, board.getHand()[i], Board.Zone.HAND);

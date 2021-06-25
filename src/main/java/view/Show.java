@@ -30,8 +30,7 @@ public class Show {
         }
     }
 
-    public static void showSingleCard(String cardName) {
-        Card card = Card.getCardByName(cardName);
+    public static void showSingleCard(Card card) {
         if (card == null) System.out.println("no card with this name exists");
         else System.out.println(card.getCardProperties());
     }

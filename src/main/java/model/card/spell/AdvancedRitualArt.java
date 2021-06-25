@@ -20,6 +20,7 @@ public class AdvancedRitualArt extends Spell {
     public String action() {
         Game game = GameMenu.getCurrentGame();
         Board board = game.getCurrentPlayer().getBoard();
+        if (board.isZoneFull(Board.Zone.MONSTER)) return "activation cancelled (monster zone is full)";
         Card[] hand = board.getHand();
         ArrayList<Card> ritualMonsters = new ArrayList<>();
         HashMap<Card, Integer> ritualsWithIndex = new HashMap<>();

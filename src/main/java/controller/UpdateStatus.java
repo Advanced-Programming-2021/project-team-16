@@ -59,8 +59,7 @@ public class UpdateStatus {
                     String activeDeckName = user.getActiveDeck().getName();
                     for (Deck deck : user.getDecks())
                         if (deck.getName().equals(activeDeckName)) fakeActiveDeck = deck;
-                    user.getDecks().remove(fakeActiveDeck);
-                    user.getDecks().add(user.getActiveDeck());
+                    user.setActiveDeck(fakeActiveDeck);
                 }
             }
             User.setUsers(users);
