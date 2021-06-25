@@ -235,6 +235,7 @@ public class Game {
             Show.showGameMessage("card selected");
             if (CommandProcessor.yesNoQuestion("do you want to use " + selectedCard.getName() + " effect?"))
                 Show.showGameMessage(((Activatable) selectedCard).action());
+            Show.showBoard();
             return "";
         }
         return "card selected";
