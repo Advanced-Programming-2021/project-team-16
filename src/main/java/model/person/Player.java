@@ -23,7 +23,10 @@ public class Player {
         gameScore = 0;
         if (user != null) {
             ArrayList<Card> cards = new ArrayList<>();
-            for (String cardName : user.getActiveDeck().getMainDeck()) cards.add(Card.make(cardName));
+            for (String cardName : user.getActiveDeck().getMainDeck()) {
+                Card card = Card.make(cardName);
+                if (card != null) cards.add(card);
+            }
             board = new Board(cards,this);
         }
     }
