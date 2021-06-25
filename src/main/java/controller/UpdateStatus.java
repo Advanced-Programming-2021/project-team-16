@@ -6,10 +6,6 @@ import model.Deck;
 import model.card.Card;
 import model.card.monster.*;
 import model.card.spell.*;
-import model.card.spell.equipspells.BlackPendant;
-import model.card.spell.equipspells.MagnumShield;
-import model.card.spell.equipspells.SwordOfDarkDestruction;
-import model.card.spell.equipspells.UnitedWeStand;
 import model.card.spell.fieldspells.ClosedForest;
 import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.*;
@@ -167,7 +163,6 @@ public class UpdateStatus {
 
     public static void makeAllSpells() {
         new AdvancedRitualArt();
-        new ChangeOfHeart();
         new DarkHole();
         new HarpiesFeatherDuster();
         new MessengerOfPeace();
@@ -175,16 +170,10 @@ public class UpdateStatus {
         new MysticalSpaceTyphoon();
         new PotOfGreed();
         new Raigeki();
-        new RingOfDefense();
         new SpellAbsorption();
         new SupplySquad();
-        new SwordsOfRevealingLight();
         new Terraforming();
         new TwinTwisters();
-        new BlackPendant();
-        new MagnumShield();
-        new SwordOfDarkDestruction();
-        new UnitedWeStand();
         new ClosedForest();
         new FieldSpell("Umiiruka", "Increase the ATK of all WATER monsters by 500 points and decrease " +
                 "their DEF by 400 points.", new HashMap<>() {{
@@ -225,7 +214,6 @@ public class UpdateStatus {
         new MindCrush();
         new MirrorForce();
         new NegateAttack();
-        new SolemnWarning();
         new TimeSeal();
         new TorrentialTribute();
         new TrapHole();

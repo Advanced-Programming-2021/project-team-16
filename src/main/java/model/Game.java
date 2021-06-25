@@ -35,7 +35,6 @@ public class Game {
     private boolean hasSummonedOrSet;
     private final ArrayList<Card> setInThisTurn = new ArrayList<>();
     private final ArrayList<Card> positionChangedInThisTurn = new ArrayList<>();
-    private boolean hasAttackDirectInThisTurn;
     private boolean isItFirstTurn = true;
     private boolean hasSurrendered = false;
     private boolean isGraphical;
@@ -176,7 +175,6 @@ public class Game {
         this.currentPlayer = rival;
         this.rival = player;
         Show.showImportantGameMessage("its " + currentPlayer.getUser().getNickname() + "’s turn");
-        hasAttackDirectInThisTurn = false;
         setInThisTurn.clear();
         positionChangedInThisTurn.clear();
         hasSummonedOrSet = false;
@@ -591,7 +589,6 @@ public class Game {
     }
 
     public String attackDirectly() {
-        hasAttackDirectInThisTurn = true;
         if (rival.getBoard().getNumberOfMonsters() != 0) return "you can’t attack the opponent directly";
         currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex] = true;
         int lp = ((Monster) selectedCard).getATK();
@@ -826,10 +823,6 @@ public class Game {
 
     public void setWinner(Player winner) {
         this.winner = winner;
-    }
-
-    public boolean hasAttackDirectInThisTurn() {
-        return hasAttackDirectInThisTurn;
     }
 
     public boolean isGraphical() {

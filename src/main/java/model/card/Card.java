@@ -5,13 +5,8 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import model.Game;
 import model.card.monster.*;
 import model.card.spell.*;
-import model.card.spell.equipspells.BlackPendant;
-import model.card.spell.equipspells.MagnumShield;
-import model.card.spell.equipspells.SwordOfDarkDestruction;
-import model.card.spell.equipspells.UnitedWeStand;
 import model.card.spell.fieldspells.ClosedForest;
 import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.*;
@@ -80,7 +75,6 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
             case "Terratiger, the Empowered Warrior" -> new Terratiger();
             case "The Tricky" -> new TheTricky();
             case "Advanced Ritual Art" -> new AdvancedRitualArt();
-            case "Change of Heart" -> new ChangeOfHeart();
             case "Dark Hole" -> new DarkHole();
             case "Harpie's Feather Duster" -> new HarpiesFeatherDuster();
             case "Messenger of peace" -> new MessengerOfPeace();
@@ -88,26 +82,20 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
             case "Mystical space typhoon" -> new MysticalSpaceTyphoon();
             case "Pot of Greed" -> new PotOfGreed();
             case "Raigeki" -> new Raigeki();
-            case "Ring of defense" -> new RingOfDefense();
             case "Spell Absorption" -> new SpellAbsorption();
             case "Supply Squad" -> new SupplySquad();
-            case "Swords of Revealing Light" -> new SwordsOfRevealingLight();
             case "Terraforming" -> new Terraforming();
             case "Twin Twisters" -> new TwinTwisters();
-            case "Black Pendant" -> new BlackPendant();
-            case "Magnum Shield" -> new MagnumShield();
-            case "Sword of dark destruction" -> new SwordOfDarkDestruction();
-            case "United We Stand" -> new UnitedWeStand();
             case "ClosedForest" -> new ClosedForest();
             case "Umiiruka" -> new FieldSpell("Umiiruka", "Increase the ATK of all WATER monsters by 500 points and decrease " +
-                    "their DEF by 400 points.", new HashMap<Monster.MonsterType, Integer>() {{
+                    "their DEF by 400 points.", new HashMap<>() {{
                 put(Monster.MonsterType.AQUA, 500);
             }},
                     new HashMap<>() {{
                         put(Monster.MonsterType.AQUA, -400);
                     }});
             case "Forest" -> new FieldSpell("Forest", "All Insect, Beast, Plant, and Beast-Warrior monsters on the field gain 200 ATK/DEF.",
-                    new HashMap<Monster.MonsterType, Integer>() {{
+                    new HashMap<>() {{
                         put(Monster.MonsterType.BEAST, 200);
                         put(Monster.MonsterType.BEAST_WARRIOR, 200);
                         put(Monster.MonsterType.INSECT, 200);
@@ -135,7 +123,6 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
             case "MindCrush" -> new MindCrush();
             case "MirrorForce" -> new MirrorForce();
             case "NegateAttack" -> new NegateAttack();
-            case "SolemnWarning" -> new SolemnWarning();
             case "TimeSeal" -> new TimeSeal();
             case "TorrentialTribute" -> new TorrentialTribute();
             case "TrapHole" -> new TrapHole();
