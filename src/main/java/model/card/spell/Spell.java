@@ -3,10 +3,9 @@ package model.card.spell;
 import controller.GameMenu;
 import model.Board;
 import model.Game;
-import model.card.Activatable;
 import model.card.Card;
 
-public class Spell extends Card implements Activatable {
+public class Spell extends Card {
     protected SpellType spellType;
     protected String icon;
     protected String status;

@@ -163,7 +163,10 @@ public class CommandProcessor {
             else if (command.matches(Enums.ProfileCommands.CHANGE_NICKNAME.getRegex())) {
                 data = getCommandData(command);
                 System.out.println(Profile.changeNickname(data.get("nickname")));
-            } else if (command.matches(Enums.ProfileCommands.CHANGE_PASSWORD.getRegex())) {
+            } else if (command.matches(Enums.ProfileCommands.CHANGE_USERNAME.getRegex())) {
+                data = getCommandData(command);
+                System.out.println(Profile.changeUsername(data.get("username")));
+            }else if (command.matches(Enums.ProfileCommands.CHANGE_PASSWORD.getRegex())) {
                 data = getCommandData(command);
                 System.out.println(Profile.changePassword(data.get("current"), data.get("new")));
             } else System.out.println("invalid command");
@@ -366,11 +369,11 @@ public class CommandProcessor {
             String error = null;
             if (!command.matches("\\d+")) error = "invalid command";
             else {
-                index = Integer.parseInt(command);
-                if (grave.size() < index || index == 0) error = "invalid index";
+                index = Integer.parseInt(command) - 1;
+                if (grave.size() <= index || index < 0) error = "invalid index";
                 else if (!(grave.get(index) instanceof Monster)) error = "this is not a monster";
             }
-            if (error == null) return index - 1;
+            if (error == null) return index;
             System.out.println(error + ". please try again or \"cancel\" the operation");
             command = scanner.nextLine().trim();
         }

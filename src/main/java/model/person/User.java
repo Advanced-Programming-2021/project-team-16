@@ -14,7 +14,7 @@ import static java.util.Collections.swap;
 public class User {
     private static ArrayList<User> users = new ArrayList<>();
     private static final Random random = new Random();
-    private final String username;
+    private  String username;
     private String password;
     private String nickname;
     private int money;
@@ -107,6 +107,9 @@ public class User {
         this.nickname = newNickname;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getUsername() {
         return username;
@@ -174,6 +177,7 @@ public class User {
     public static void setUsers(ArrayList<User> users) {
         User.users = users;
     }
+
 
     @Override
     public String toString() {

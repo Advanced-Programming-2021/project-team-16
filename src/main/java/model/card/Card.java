@@ -1,10 +1,6 @@
 package model.card;
 
 import javafx.scene.Cursor;
-import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import model.card.monster.*;
 import model.card.spell.*;
@@ -234,7 +230,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         } else {
             Trap trap = (Trap) this;
             properties = "Name: " + trap.getName() + "\n" +
-                    "Spell" + "\n" +
+                    "Trap" + "\n" +
                     "Type: " + trap.getTrapType() + "\n" +
                     "Description: " + trap.getDescription();
         }
