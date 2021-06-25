@@ -26,7 +26,10 @@ public class Show {
 
     public static void showCardArray(ArrayList<Card> cards) {
         for (int i = 1; i <= cards.size(); i++) {
-            System.out.println(i + ". " + cards.get(i - 1).getName()  + " (level " + cards.get(i - 1).getLevel() + ")"+ ": " + cards.get(i - 1).getDescription());
+            if(cards.get(i-1) instanceof Monster)
+                System.out.println(i + ". " + cards.get(i - 1).getName()  + " (level " + cards.get(i - 1).getLevel() + ")"+ ": " + cards.get(i - 1).getDescription());
+            else
+                System.out.println(i + ". " + cards.get(i - 1).getName()  + ": " + cards.get(i - 1).getDescription());
         }
     }
 
