@@ -597,7 +597,7 @@ public class Game {
         if (selectedCard == null) return "no card is selected yet";
         if (!(selectedCard instanceof Spell)) return "activate effect is only for spell cards.";
         if (getCurrentPhase() != Phase.MAIN_1 && getCurrentPhase() != Phase.MAIN_2)
-            return "you can’t activate an effect on this turn";
+            return "you can’t activate an effect on this phase";
         if (((Spell) selectedCard).isActivated()) return "you have already activated this card";
         if (selectedCard instanceof FieldSpell) {
             if (checkForTraps("active-effect")) return "rival's trap activated and cancelled the activation";
