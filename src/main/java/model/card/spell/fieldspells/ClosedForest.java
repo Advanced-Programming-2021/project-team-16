@@ -24,8 +24,7 @@ public class ClosedForest extends FieldSpell {
             numberOfGraveMonsters = 0;
             for (Card card : board.getGrave())
                 if (card instanceof Monster) numberOfGraveMonsters++;
-            for (Card card : game.getRival().getBoard().getGrave())
-                if (card instanceof Monster) numberOfGraveMonsters++;
+
         }
         for (Card card : board.getDeck()) changeATK(card, isUndo);
         for (Card card : board.getGrave()) changeATK(card, isUndo);

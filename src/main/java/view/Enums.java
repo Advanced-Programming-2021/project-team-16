@@ -183,7 +183,8 @@ public class Enums {
         END_PHASE("next phase"),
         HELP_MAIN("help-main"),
         HELP_BATTLE("help-battle"),
-        ADD_CARD("add card (.*)");
+        ADD_CARD("add card (.*)"),
+        RM_CARD("rm card (.*)");
         private final String regex;
 
         public String getRegex() {
