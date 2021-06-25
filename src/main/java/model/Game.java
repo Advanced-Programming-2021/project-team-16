@@ -349,11 +349,12 @@ public class Game {
         putCardInZone(selectedCard, Board.Zone.MONSTER, Board.CardPosition.ATK, currentPlayer.getBoard());
         hasSummonedOrSet = true;
         positionChangedInThisTurn.add(selectedCard);
+        if (checkForTraps("summon")) return "rival's trap activated";
         if (selectedCard instanceof Terratiger) {
-            Show.showGameMessage("summoned successfully");
+            Show.showGameMessage("summoned successfully terratiger can be activated");
+            setInThisTurn.add(selectedCard);
             return ((Terratiger) selectedCard).action();
         }
-        if (checkForTraps("summon")) return "rival's trap activated";
         return "summoned successfully";
     }
 
