@@ -26,7 +26,7 @@ public class MindCrush extends Trap implements Activatable {
         int numberOfGuessedCard = 0;
         for (int i = 0; i < hand.length; i++) {
             Card card = hand[i];
-            if (card.getName().equals(cardName)) {
+            if (card != null && card.getName().equals(cardName)) {
                 game.removeCardFromZone(card, Board.Zone.HAND, i, rivalBoard);
                 game.putCardInZone(card, Board.Zone.GRAVE, null, rivalBoard);
                 numberOfGuessedCard++;

@@ -54,12 +54,12 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
             case "Skull Guardian" -> new RitualMonster("Skull Guardian", "This monster can only be Ritual Summoned with the Ritual " +
                     "Spell Card, \"Novox's Prayer\". You must also offer monsters whose total Level Stars equal 7 or more as" +
                     " a Tribute from the field or your hand.", 7900, Monster.MonsterType.WARRIORITUAL, 7, 2050,
-                    2500, Card.getCardByName("Novox's Prayer"), 7);
+                    2500, Card.getCardByName("Novox's Prayer"));
 
             case "Crab Turtle" -> new RitualMonster("Crab Turtle", "This monster can only be Ritual Summoned with the Ritual Spell " +
                     "Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute" +
                     " from the field or your hand.", 10200, Monster.MonsterType.AQUARITUAL, 7, 2550, 2500,
-                    Card.getCardByName("Turtle Oath"), 8);
+                    Card.getCardByName("Turtle Oath"));
             case "Man-Eater Bug" -> new ManEaterBug();
             case "Gate Guardian" -> new GateGuardian();
             case "Scanner" -> new Scanner();

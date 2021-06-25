@@ -119,11 +119,11 @@ public class UpdateStatus {
         new RitualMonster("Skull Guardian", "This monster can only be Ritual Summoned with the Ritual " +
                 "Spell Card, \"Novox's Prayer\". You must also offer monsters whose total Level Stars equal 7 or more as" +
                 " a Tribute from the field or your hand.", 7900, Monster.MonsterType.WARRIORITUAL, 7, 2050,
-                2500, Card.getCardByName("Novox's Prayer"), 7);
+                2500, Card.getCardByName("Novox's Prayer"));
         new RitualMonster("Crab Turtle", "This monster can only be Ritual Summoned with the Ritual Spell " +
                 "Card, \"Turtle Oath\". You must also offer monsters whose total Level Stars equal 8 or more as a Tribute" +
                 " from the field or your hand.", 10200, Monster.MonsterType.AQUARITUAL, 7, 2550, 2500,
-                Card.getCardByName("Turtle Oath"), 8);
+                Card.getCardByName("Turtle Oath"));
         new Monster("Slot Machine", "The machine's ability is said to vary according to its slot results."
                 , 7500, Monster.MonsterType.MACHINE, 7, 2000, 2300);
         new Monster("Haniwa", "An earthen figure that protects the tomb of an ancient ruler.", 600,

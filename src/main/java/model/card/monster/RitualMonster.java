@@ -11,14 +11,12 @@ import java.util.Collections;
 
 public class RitualMonster extends Monster {
     protected Card ritualSpell;
-    protected int sumOfTributeLevels;
 
 
     public RitualMonster(String name, String description, int price, MonsterType monsterType, int level, int ATK, int DEF
-            , Card ritualSpell, int sumOfTributeLevels) {
+            , Card ritualSpell) {
         super(name, description, price, monsterType, level, ATK, DEF);
         this.ritualSpell = ritualSpell;
-        this.sumOfTributeLevels = sumOfTributeLevels;
     }
 
     public String getDeckIndexAndTribute() {
@@ -54,6 +52,6 @@ public class RitualMonster extends Monster {
         for (Monster monster : monsters) {
             sumOfLevels += monster.getLevel();
         }
-        return sumOfLevels >= sumOfTributeLevels;
+        return sumOfLevels >= level;
     }
 }
