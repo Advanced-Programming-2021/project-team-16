@@ -14,7 +14,7 @@ module YuGiOh {
     exports model.card;
     exports model.card.monster;
     exports model.card.spell;
-    exports model.card.spell.equipspells;
     exports model.card.spell.fieldspells;
     exports model.card.trap;
+    exports view;
 }
