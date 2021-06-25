@@ -679,7 +679,7 @@ public class Game {
                 }
                 if (currentPlayer.getBoard().getFieldSpell() != null)
                     removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
-              //  board.setFieldSpell(((FieldSpell) card), fakeCard);
+                board.setFieldSpell(((FieldSpell) card), fakeCard);
             }
             case SPELL_AND_TRAP -> {
                 index = board.getFirstEmptyIndexOfZone(Board.Zone.SPELL_AND_TRAP);
@@ -741,10 +741,10 @@ public class Game {
             }
             case SPELL_AND_TRAP -> {
                 board.getSpellAndTrapZone()[index] = null;
-              // if (isGraphical) {
-              //     board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
-              //     board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
-              // }
+             // if (isGraphical) {
+             //     board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
+             //     board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+             // }
             }
             case HAND -> {
                 board.getHand()[index] = null;
@@ -752,7 +752,7 @@ public class Game {
             }
             case FIELD_SPELL -> {
                 if (card != null && ((FieldSpell) card).isActivated()) ((FieldSpell) card).action(true);
-              //  board.setFieldSpell(null, null);
+                board.setFieldSpell(null, null);
                 assert card != null;
                 putCardInZone(card, Board.Zone.GRAVE, null, board);
             }
