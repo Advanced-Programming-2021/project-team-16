@@ -1,6 +1,5 @@
 package model;
 
-import controller.GameMenu;
 import graphicview.GameView;
 import model.card.Card;
 import model.card.monster.Monster;
@@ -125,7 +124,7 @@ public class Board {
 
   public void setFieldSpell(FieldSpell fieldSpell , Card fakeCard) {
       this.fieldSpell = fieldSpell;
-   //f (GameMenu.getCurrentGame().isGraphical()) {
+   //if (GameMenu.getCurrentGame().isGraphical()) {
    //   if (fieldSpell == null) {
    //       getGameView().myFieldSpell.getChildren().set(0, Card.getBlackRectangle(false));
    //       getRivalGameView().rivalFieldSpell.getChildren().set(0, Card.getBlackRectangle(false));
@@ -151,7 +150,7 @@ public class Board {
         cards.removeIf(Objects::isNull);
         Arrays.fill(hand, null);
         for (int i = 0; i < cards.size(); i++) hand[i] = cards.get(i);
-   // (GameMenu.getCurrentGame().isGraphical()) for (int i = 0; i < hand.length; i++)
+   // if (GameMenu.getCurrentGame().isGraphical()) for (int i = 0; i < hand.length; i++)
    //  if (hand[i] == null) {
    //      getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
    //      getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
