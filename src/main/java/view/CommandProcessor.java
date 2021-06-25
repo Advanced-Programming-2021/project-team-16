@@ -44,6 +44,7 @@ public class CommandProcessor {
                 System.out.println(Login.menuName());
             else if (command.matches(Enums.LoginCommands.ENTER_MENU.getRegex()))
                 System.out.println("please login first");
+            else if (command.equals("help")) System.out.println(Enums.LOGIN_HELP);
             else System.out.println("invalid command");
         }
     }
@@ -69,7 +70,8 @@ public class CommandProcessor {
             } else if (command.equals(Enums.MainMenuCommands.SHOW_CURRENT.getRegex())) {
                 System.out.println(MainMenu.menuName());
 
-            } else System.out.println("invalid command");
+            } else if (command.equals("help")) System.out.println(Enums.MAIN_Menu_HELP);
+            else System.out.println("invalid command");
 
             command = scanner.nextLine().trim();
         }
@@ -90,6 +92,7 @@ public class CommandProcessor {
                 System.out.println("menu navigation is not possible");
             else if ((matcher = getCommandMatcher(command, Enums.Cheat.INCREASE_MONEY.getRegex())).find())
                 MainMenu.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
+            else if (command.equals("help")) System.out.println(Enums.SHOP_HELP);
             else System.out.println("invalid command!");
             command = scanner.nextLine().trim();
         }
@@ -143,6 +146,7 @@ public class CommandProcessor {
                 System.out.println("menu navigation is not possible");
             else if ((matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SHOW_CARD.getRegex())).find())
                 Show.showSingleCard(matcher.group(1));
+            else if (command.equals("help")) System.out.println(Enums.DECK_HELP);
             else System.out.println("invalid command!");
             command = scanner.nextLine().trim();
         }
@@ -166,10 +170,11 @@ public class CommandProcessor {
             } else if (command.matches(Enums.ProfileCommands.CHANGE_USERNAME.getRegex())) {
                 data = getCommandData(command);
                 System.out.println(Profile.changeUsername(data.get("username")));
-            }else if (command.matches(Enums.ProfileCommands.CHANGE_PASSWORD.getRegex())) {
+            } else if (command.matches(Enums.ProfileCommands.CHANGE_PASSWORD.getRegex())) {
                 data = getCommandData(command);
                 System.out.println(Profile.changePassword(data.get("current"), data.get("new")));
-            } else System.out.println("invalid command");
+            } else if (command.equals("help")) System.out.println(Enums.PROFILE_HELP);
+            else System.out.println("invalid command");
         }
     }
 
@@ -197,7 +202,8 @@ public class CommandProcessor {
                     System.out.println("duel started successfully");
                     GameMenu.duel(null, Integer.parseInt(rounds), false);
                 }
-            } else System.out.println("invalid command");
+            } else if (command.equals("help")) System.out.println(Enums.DUEL_HELP);
+            else System.out.println("invalid command");
         }
     }
 
@@ -306,6 +312,7 @@ public class CommandProcessor {
                 System.out.println(Scoreboard.menuName());
             else if (command.matches(Enums.ScoreboardCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
+            else if (command.equals("help")) System.out.println(Enums.SCOREBOARD_HELP);
             else System.out.println("invalid command");
         }
     }
@@ -321,13 +328,12 @@ public class CommandProcessor {
                 Matcher matcher = getCommandMatcher(command, Enums.ImportExportCommands.EXPORT_CARD.getRegex());
                 if (matcher.find())
                     ImportExport.exportCard(Card.getCardByName(matcher.group(1)));
-            } else if (command.matches(Enums.ImportExportCommands.ENTER_MENU.getRegex())) {
+            } else if (command.matches(Enums.ImportExportCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
-            } else if (command.equals(Enums.ImportExportCommands.SHOW_CURRENT.getRegex())) {
+            else if (command.equals(Enums.ImportExportCommands.SHOW_CURRENT.getRegex()))
                 System.out.println(ImportExport.menuName());
-            } else {
-                System.out.println("invalid command!");
-            }
+            else if (command.equals("help")) System.out.println(Enums.IMPORT_EXPORT_HELP);
+            else System.out.println("invalid command!");
             command = scanner.nextLine().trim();
         }
     }

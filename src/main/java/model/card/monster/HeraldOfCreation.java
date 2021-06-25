@@ -21,8 +21,8 @@ public class HeraldOfCreation extends Monster implements Activatable {
         if (isUsed) return "you can activate Herald of Creation once in a turn";
         Game game = GameMenu.getCurrentGame();
         Board board = game.getCurrentPlayer().getBoard();
-        if (!board.doesGraveHaveMonster() || board.isZoneFull(Board.Zone.MONSTER))
-            return "there is no way you could special summon a monster";
+        if (!board.doesGraveHaveMonster())
+            return "there is no monster in your grave. operation cancelled";
         int[] tributes = CommandProcessor.getTribute(1, false);
         if (tributes == null) return "cancelled";
         int indexOfHandZone = tributes[0];
@@ -31,10 +31,12 @@ public class HeraldOfCreation extends Monster implements Activatable {
         Monster monster = (Monster) board.getCardByIndexAndZone(graveIndex, Board.Zone.GRAVE);
         if (monster.getLevel() < 7) return "The level can't be lower than 7.";
         Card[] handZone = board.getHand();
-        game.putCardInZone(handZone[indexOfHandZone], Board.Zone.GRAVE, null, board);
         game.removeCardFromZone(handZone[indexOfHandZone], Board.Zone.HAND, indexOfHandZone, board);
+        game.putCardInZone(handZone[indexOfHandZone], Board.Zone.GRAVE, null, board);
+        game.removeCardFromZone(monster, Board.Zone.GRAVE,0,board);
+        game.putCardInZone(monster, Board.Zone.HAND,null,board);
         isUsed = true;
-        return "special summoned " + monster.getName() + " successfully";
+        return  monster.getName() + " is in your hand";
     }
 
     public void setUsed(boolean isUsed) {
