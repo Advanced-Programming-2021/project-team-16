@@ -67,7 +67,7 @@ public class Board {
         if (zone == Zone.GRAVE) return grave.get(zoneIndex);
         if (zone == Zone.DECK) return deck.get(zoneIndex);
         if (zone == Zone.HAND) return hand[zoneIndex];
-
+        if (zone == Zone.FIELD_SPELL) return fieldSpell;
         return null;
     }
 
