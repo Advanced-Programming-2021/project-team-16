@@ -30,8 +30,8 @@ public class MainMenu {
         DuelMenu.enterMenu();
     }
 
-    public void shopButtonOnAction(ActionEvent actionEvent) {
-        //TODO: ShopMenu.enterMenu();
+    public void shopButtonOnAction(ActionEvent actionEvent) throws IOException {
+        ShopMenu.enterMenuu();
     }
 
     public void ProfileButtonOnAction(ActionEvent actionEvent) {
