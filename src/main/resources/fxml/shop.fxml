@@ -10,10 +10,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<AnchorPane prefHeight="200.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/16" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ShopMenu">
-<HBox alignment="CENTER_RIGHT" prefHeight="530.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+
+<HBox alignment="CENTER_RIGHT" prefHeight="530.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/16" fx:controller="graphicview.ShopMenu" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-        <VBox alignment="CENTER" prefHeight="530.0" prefWidth="234.0">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+      <VBox alignment="CENTER" prefHeight="530.0" prefWidth="234.0">
          <children>
             <ImageView fitHeight="284.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true" />
          </children>
@@ -1348,7 +1349,7 @@
                         <Font name="Andalus" size="23.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#enterMenu" prefHeight="54.0" prefWidth="141.0" text="Back">
+                  <Button mnemonicParsing="false" onAction="#backButton" prefHeight="54.0" prefWidth="141.0" text="Back">
                      <font>
                         <Font name="Andalus" size="23.0" />
                      </font>
@@ -1359,4 +1360,3 @@
       </StackPane>
    </children>
 </HBox>
-</AnchorPane>

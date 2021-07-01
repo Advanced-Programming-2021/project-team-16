@@ -31,7 +31,7 @@ public class MainMenu {
     }
 
     public void shopButtonOnAction(ActionEvent actionEvent) throws IOException {
-        ShopMenu.enterMenuu();
+        ShopMenu.enterMenu();
     }
 
     public void ProfileButtonOnAction(ActionEvent actionEvent) {
