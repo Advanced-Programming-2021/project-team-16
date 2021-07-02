@@ -25,4 +25,9 @@ public class ShopMenu {
     public void backButton(ActionEvent event) throws IOException {
         this.changeScene("/fxml/main.fxml");
     }
+
+    public void cardListMenu(ActionEvent event) throws IOException {
+        this.changeScene("/fxml/cardList");
+    }
 }
+//fx:controller="graphicview.ShopMenu"
