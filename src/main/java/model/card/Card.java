@@ -4,6 +4,7 @@ import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import model.card.monster.*;
 import model.card.spell.*;
@@ -19,7 +20,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
 
     private static final ArrayList<Card> cards = new ArrayList<>();
 
-   // public static final Paint UNKNOWN_CARD_FILL = new ImagePattern(new Image(Card.class.getResource("/png/card/Unknown.jpg").toExternalForm()));
+    public static final Paint UNKNOWN_CARD_FILL = new ImagePattern(new Image(Card.class.getResource("/png/card/Unknown.jpg").toExternalForm()));
     protected String name;
     protected String description;
     protected int price;
@@ -32,7 +33,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         this.price = price;
      this.rectangle = new Rectangle();
      try {
-         //rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+         rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
      } catch (NullPointerException e) {
          rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
     }
@@ -180,13 +181,6 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
        return rectangle;
     }
 
-    public void setSide(boolean isToFace) {
-        if (isToFace)
-           setFill(rectangle.getFill());
-       // else
-          //  setFill(UNKNOWN_CARD_FILL);
-    }
-
     public static Rectangle getBlackRectangle(boolean isHand) {
         Rectangle blackRec = new Rectangle();
        blackRec.setFill(Color.BLACK);
@@ -197,7 +191,15 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
             blackRec.setWidth(70);
            blackRec.setHeight(100);
         }
+        blackRec.setVisible(false);
         return blackRec;
+    }
+
+    public void setSide(boolean isToFace) {
+        if (isToFace)
+           setFill(rectangle.getFill());
+        else
+            setFill(UNKNOWN_CARD_FILL);
     }
 
     public void setSizes(boolean isHand) {

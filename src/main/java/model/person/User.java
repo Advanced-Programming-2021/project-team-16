@@ -178,6 +178,9 @@ public class User {
         User.users = users;
     }
 
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
 
     @Override
     public String toString() {

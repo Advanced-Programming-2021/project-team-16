@@ -13,7 +13,7 @@ public class BeastKingBarbaros extends Monster implements specialSummonable {
     }
 
     public void normalSummonOrSet() {
-        this.ATK = 1900;
+        decreaseATK(1100);
     }
 
     public String specialSummon(int[] monsterZoneIndex, int handZoneIndexOfThis) {

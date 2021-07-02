@@ -27,7 +27,6 @@ public class Spell extends Card {
         QUICK_PLAY,
         RITUAL,
         CONTINUES,
-        COUNTER,
         NORMAL
 
     }

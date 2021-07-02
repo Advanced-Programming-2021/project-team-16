@@ -1,6 +1,12 @@
 package model.card.spell.fieldspells;
 
 import controller.GameMenu;
+import javafx.geometry.Insets;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.ImagePattern;
 import model.Board;
 import model.Game;
 import model.card.Card;
@@ -11,9 +17,9 @@ import java.util.HashMap;
 
 public class FieldSpell extends Spell {
 
-    boolean isActivated = false;
-    HashMap<Monster.MonsterType, Integer> deltaATK;
-    HashMap<Monster.MonsterType, Integer> deltaDEF;
+    protected boolean isActivated = false;
+    protected HashMap<Monster.MonsterType, Integer> deltaATK;
+    protected HashMap<Monster.MonsterType, Integer> deltaDEF;
 
     public FieldSpell(String name, String description, HashMap<Monster.MonsterType, Integer> deltaATK,
                       HashMap<Monster.MonsterType, Integer> deltaDEF) {
@@ -31,6 +37,7 @@ public class FieldSpell extends Spell {
         Game game = GameMenu.getCurrentGame();
         doActionOnBoard(game.getCurrentPlayer().getBoard(), isUndo);
         doActionOnBoard(game.getRival().getBoard(), isUndo);
+        changeBackground(isUndo);
         isActivated = !isUndo;
         return this.name + " has made changes to all monsters";
 
@@ -55,6 +62,19 @@ public class FieldSpell extends Spell {
             if (isUndo) delta *= -1;
             ((Monster) card).increaseDEF(delta);
         }
+    }
+
+    protected void changeBackground(boolean isUndo) {
+        Game game = GameMenu.getCurrentGame();
+        Background background;
+        if (isUndo) background = new Background(new BackgroundFill(
+                new ImagePattern(new Image(getClass().getResource("/png/field/fie_normal.bmp").toExternalForm())),
+                CornerRadii.EMPTY, Insets.EMPTY));
+        else background = new Background(new BackgroundFill(
+                new ImagePattern(new Image(getClass().getResource("/png/field/" + name + ".bmp").toExternalForm())),
+                CornerRadii.EMPTY, Insets.EMPTY));
+        game.getCurrentPlayer().getGameView().board.setBackground(background);
+        game.getRival().getGameView().board.setBackground(background);
     }
 
     public boolean isActivated() {

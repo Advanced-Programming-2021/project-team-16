@@ -12,8 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -47,8 +48,8 @@ public class GameView {
     public HBox myHand;
     public Rectangle selectedCard;
     public Label selectedCardDescription;
-    public Pane myFieldSpell;
-    public Pane rivalFieldSpell;
+    private static MediaPlayer backgroundMusic;
+    public BorderPane myFieldSpell;
     public VBox buttonsOfGameActions;
     public Button summonButton;
     public Button flipButton;
@@ -61,7 +62,7 @@ public class GameView {
     private Stage stage;
     private final Popup popup = new Popup();
     private final VBox popupVBox = new VBox();
-
+    public BorderPane rivalFieldSpell;
 
     public static void startGame(Integer rounds, User user2) {
         GameMenu.duel(user2, rounds, true);
@@ -83,6 +84,12 @@ public class GameView {
             secondStage.show();
             ((GameView) loader.getController()).showBoard(secondPlayer, secondStage);
             //starting game
+            backgroundMusic = new MediaPlayer(new Media(GameView.class.getResource("/sounds/background.mp3").toExternalForm()));
+            backgroundMusic.setOnEndOfMedia(() -> {
+                backgroundMusic.seek(Duration.ZERO);
+                backgroundMusic.play();
+            });
+            backgroundMusic.play();
             game.runGraphical();
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,6 +139,7 @@ public class GameView {
     }
 
     public void doLostAction() {
+        new MediaPlayer(new Media(GameView.class.getResource("/sounds/end-turn.wav").toExternalForm())).play();
         if (game.getRound() == 1) endGame(game.endRound());
         else {
             String result = game.getResultOfOneRound(player);
@@ -142,6 +150,8 @@ public class GameView {
     }
 
     private void endGame(String result) {
+        game.setOver(true);
+        backgroundMusic.stop();
         showMessage(result, true);
         FadeTransition ft = new FadeTransition(Duration.millis(1000), stage.getScene().getRoot());
         ft.setFromValue(1.0);
@@ -188,8 +198,6 @@ public class GameView {
                 stage.getScene().getRoot().setOpacity(1);
             }
         });
-        game.deselect();
-
     }
 
 
@@ -217,7 +225,11 @@ public class GameView {
     public void changePosition() {
         Popup popup = new Popup();
         HBox positionChooser = new HBox();
+        positionChooser.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY,
+                CornerRadii.EMPTY,
+                Insets.EMPTY)));
         Label label = new Label("choose a position :   ");
+        label.setStyle("-fx-font: 15 arial;");
         Button attackPosition = new Button("attack");
         Button defensePosition = new Button("defense");
         attackPosition.setOnMouseClicked(mouseEvent -> {
@@ -230,7 +242,7 @@ public class GameView {
         });
 
         popup.setAnchorX(600);
-        popup.setAnchorY(390);
+        popup.setAnchorY(400);
         positionChooser.getChildren().add(label);
         positionChooser.getChildren().add(attackPosition);
         positionChooser.getChildren().add(defensePosition);
@@ -240,7 +252,7 @@ public class GameView {
     }
 
 
-    public void showGraveyard(MouseEvent mouseEvent) {
+    public void showGraveyard() {
         //TODO
     }
 
@@ -253,39 +265,47 @@ public class GameView {
         Popup popup = new Popup();
         HBox attackedChooser = new HBox();
         Label label = new Label("choose a monster :   ");
+        label.setStyle("-fx-font: 15 arial;");
+        attackedChooser.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY,
+                CornerRadii.EMPTY,
+                Insets.EMPTY)));
         Button[] monsterButtons = new Button[5];
-        for (int i = 1; i <= 5; i++){
-            monsterButtons[i-1] = new Button(String.valueOf(i));
+        for (int i = 1; i <= 5; i++) {
+            monsterButtons[i - 1] = new Button(String.valueOf(i));
             int finalI = i;
-            monsterButtons[i].setOnMouseClicked(mouseEvent -> {
+            monsterButtons[i - 1].setOnMouseClicked(mouseEvent -> {
                 showMessage(game.attack(finalI - 1), false);
                 popup.hide();
             });
         }
-
+        Button attackDirect = new Button("attack directly");
+        attackDirect.setOnMouseClicked(mouseEvent -> {
+            showMessage(game.attack(-1), false);
+            popup.hide();
+        });
         popup.setAnchorX(600);
-        popup.setAnchorY(390);
+        popup.setAnchorY(400);
         attackedChooser.getChildren().add(label);
         attackedChooser.getChildren().add(monsterButtons[3]);
         attackedChooser.getChildren().add(monsterButtons[1]);
         attackedChooser.getChildren().add(monsterButtons[0]);
         attackedChooser.getChildren().add(monsterButtons[2]);
         attackedChooser.getChildren().add(monsterButtons[4]);
+        attackedChooser.getChildren().add(attackDirect);
         popup.getContent().add(attackedChooser);
         attackedChooser.setSpacing(2);
         popup.show(stage);
     }
 
     public void makeActionsVisible(boolean isMonster, boolean isMainPhase) {
-        if (isMonster){
-            if(isMainPhase){
+        if (isMonster) {
+            if (isMainPhase) {
                 summonButton.setVisible(true);
                 setButton.setVisible(true);
                 setPositionButton.setVisible(true);
                 flipButton.setVisible(true);
-            }
-            else attackButton.setVisible(true);
-        }else if (isMainPhase) {
+            } else attackButton.setVisible(true);
+        } else if (isMainPhase) {
             setButton.setVisible(true);
             activeEffectButton.setVisible(true);
         }

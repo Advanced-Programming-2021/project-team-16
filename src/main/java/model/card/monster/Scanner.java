@@ -4,6 +4,7 @@ import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Activatable;
+import model.card.Card;
 import model.person.Player;
 import view.CommandProcessor;
 
@@ -40,8 +41,19 @@ public class Scanner extends Monster implements Activatable {
     }
 
     public static void undo() {
-        for (Scanner activatedScanner : activatedScanners)
-            activatedScanner.player.getBoard().getMonsterZone()[activatedScanner.monsterZoneIndex] = activatedScanner;
+        for (Scanner activatedScanner : activatedScanners) {
+            Board board = activatedScanner.player.getBoard();
+            int index = activatedScanner.monsterZoneIndex;
+            Card fakeCard = new Scanner();
+            fakeCard.setSide(true);
+            fakeCard.setSizes(false);
+            GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard,index, Board.Zone.MONSTER,true);
+            board.getMonsterZone()[index] = activatedScanner;
+            board.getGameView().myMonsters.getChildren().set(Game.getGraphicalIndex(index,true),activatedScanner);
+            activatedScanner.setSide(true);
+            board.getRivalGameView().rivalMonsters.getChildren().set(Game.getGraphicalIndex(index,false),fakeCard);
+
+        }
         activatedScanners.clear();
     }
 

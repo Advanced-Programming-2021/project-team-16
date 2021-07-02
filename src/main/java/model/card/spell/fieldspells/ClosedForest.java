@@ -30,6 +30,7 @@ public class ClosedForest extends FieldSpell {
         for (Card card : board.getGrave()) changeATK(card, isUndo);
         for (Monster monster : board.getMonsterZone()) changeATK(monster, isUndo);
         for (Card card : board.getHand()) changeATK(card, isUndo);
+        changeBackground(isUndo);
         return this.name + " has made changes to beast monsters";
     }
 

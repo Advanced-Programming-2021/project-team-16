@@ -23,19 +23,19 @@ public class AI extends Player {
     }
 
     public void playMainPhase() {
-        setOrSummon();
-        activeEffect();
         Game game = GameMenu.getCurrentGame();
-        game.deselect();
-        if (game.isGraphical()) game.goToNextPhase();
+        if (!game.isOver()) setOrSummon();
+        if (!game.isOver()) activeEffect();
+        if (!game.isOver()) game.deselect();
+        if (!game.isOver() && game.isGraphical()) game.goToNextPhase();
     }
 
     public void setOrSummon() {
         Game game = GameMenu.getCurrentGame();
-        if (board.getNumberOfMonsters() < 3) tryToSummonMonster();
-        if (!game.hasSummonedOrSet() && board.getNumberOfSpellAndTraps() < 3) tryToSetTrap();
-        if (!game.hasSummonedOrSet() && board.getNumberOfMonsters() >= 3) tryToSummonMonster();
-        if (!game.hasSummonedOrSet() && board.getNumberOfSpellAndTraps() >= 3) tryToSetTrap();
+        if (!game.isOver() && board.getNumberOfMonsters() < 3) tryToSummonMonster();
+        if (!game.isOver() && !game.hasSummonedOrSet() && board.getNumberOfSpellAndTraps() < 3) tryToSetTrap();
+        if (!game.isOver() && !game.hasSummonedOrSet() && board.getNumberOfMonsters() >= 3) tryToSummonMonster();
+        if (!game.isOver() && !game.hasSummonedOrSet() && board.getNumberOfSpellAndTraps() >= 3) tryToSetTrap();
     }
 
     private void tryToSetTrap() {
@@ -44,13 +44,13 @@ public class AI extends Player {
         Card[] hand = board.getHand();
         boolean shouldSet;
         for (int i = 0; i < hand.length; i++) {
-            if (game.hasSummonedOrSet()) break;
+            if (game.isOver()||game.hasSummonedOrSet()) break;
             shouldSet = false;
             Card card = hand[i];
             if (card instanceof Trap) {
                 if (card instanceof MagicJammer &&
-                        rivalBoard.getNumberOfSpellAndTraps()+rivalBoard.getNumberOfHandCards() > 3
-                && board.getNumberOfHandCards() > 1) shouldSet = true;
+                        rivalBoard.getNumberOfSpellAndTraps() + rivalBoard.getNumberOfHandCards() > 3
+                        && board.getNumberOfHandCards() > 1) shouldSet = true;
                 if (card instanceof NegateAttack && rivalBoard.getNumberOfMonsters() > 1) shouldSet = true;
                 if (card instanceof TimeSeal && rivalBoard.getNumberOfHandCards() < 2) shouldSet = true;
                 if (card instanceof TorrentialTribute && board.getNumberOfMonsters() < rivalBoard.getNumberOfMonsters())
@@ -59,7 +59,7 @@ public class AI extends Player {
                 if (card instanceof MirrorForce && rivalBoard.getNumberOfMonsters() > 1) shouldSet = true;
                 if (card instanceof MagicCylinder && rivalBoard.getNumberOfMonsters() != 0) shouldSet = true;
             }
-            if (shouldSet){
+            if (shouldSet) {
                 game.selectCard(Board.Zone.HAND, i, false);
                 game.set();
             }
@@ -78,7 +78,7 @@ public class AI extends Player {
                 if (hand[monsterIndexes.get(j)].getLevel() < hand[monsterIndexes.get(j + 1)].getLevel())
                     Collections.swap(monsterIndexes, j, j + 1);
         for (Integer monsterIndex : monsterIndexes) {
-            if (game.hasSummonedOrSet()) break;
+            if (game.isOver()||game.hasSummonedOrSet()) break;
             game.selectCard(Board.Zone.HAND, monsterIndex, false);
             game.summon();
         }
@@ -90,6 +90,7 @@ public class AI extends Player {
         Board rivalBoard = game.getRival().getBoard();
         boolean shouldActive;
         for (int i = myHand.length - 1; i >= 0; i--) {
+            if (game.isOver()) break;
             Card card = myHand[i];
             shouldActive = false;
             if (card instanceof Spell) {
@@ -116,10 +117,11 @@ public class AI extends Player {
             }
             if (shouldActive) {
                 game.selectCard(Board.Zone.HAND, i, false);
-                game.activeEffect();
+                if (game.getSelectedCard() != null) game.activeEffect();
             }
         }
         for (int i = 0; i < board.getSpellAndTrapZone().length; i++) {
+            if (game.isOver()) break;
             Card card = board.getSpellAndTrapZone()[i];
             shouldActive = false;
             if (card instanceof Trap) {
@@ -143,7 +145,7 @@ public class AI extends Player {
         Monster[] rivalMonsters = rivalBoard.getMonsterZone();
         Board.CardPosition[] rivalMonsterPositions = rivalBoard.getCardPositions()[0];
         int myMonsterIndex = getMyMonsterIndex();
-        while (myMonsterIndex != -1) {
+        while (myMonsterIndex != -1 && !game.isOver()) {
             game.selectCard(Board.Zone.MONSTER, myMonsterIndex, false);
             int rivalMonsterIndex = -1;
             int minATKOrDEF = 9999999;
