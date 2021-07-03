@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -22,6 +23,7 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Game;
+import model.card.Card;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
@@ -48,8 +50,8 @@ public class GameView {
     public HBox myHand;
     public Rectangle selectedCard;
     public Label selectedCardDescription;
-    private static MediaPlayer backgroundMusic;
     public BorderPane myFieldSpell;
+    public BorderPane rivalFieldSpell;
     public VBox buttonsOfGameActions;
     public Button summonButton;
     public Button flipButton;
@@ -57,12 +59,12 @@ public class GameView {
     public Button activeEffectButton;
     public Button setPositionButton;
     public Button attackButton;
+    private static MediaPlayer backgroundMusic;
     private Player player;
     private Player rival;
     private Stage stage;
     private final Popup popup = new Popup();
     private final VBox popupVBox = new VBox();
-    public BorderPane rivalFieldSpell;
 
     public static void startGame(Integer rounds, User user2) {
         GameMenu.duel(user2, rounds, true);
@@ -136,6 +138,8 @@ public class GameView {
         popup.setAnchorY(390);
         popup.getContent().add(popupVBox);
         popupVBox.setSpacing(5);
+        myLP.setTextFill(Color.rgb(0, 170, 0));
+        rivalLP.setTextFill(Color.rgb(0, 170, 0));
     }
 
     public void doLostAction() {
@@ -253,8 +257,42 @@ public class GameView {
 
 
     public void showGraveyard() {
-        //TODO
+        HBox bothGraves = new HBox();
+        bothGraves.getChildren().addAll(addCardsToGrave(player, "Your Graveyard:"),
+                addCardsToGrave(rival, "Rival's Graveyard:"));
+        Button closeGY = new Button("close");
+        VBox GYsAndButton = new VBox();
+        GYsAndButton.setMaxHeight(300);
+        GYsAndButton.getChildren().addAll(bothGraves, closeGY);
+        Popup popup = new Popup();
+        popup.getContent().add(GYsAndButton);
+        popup.setAnchorY(stage.getHeight() / 2);
+        popup.setAnchorX(stage.getWidth() / 2 - 200);
+        popup.show(stage);
+        closeGY.setOnMouseClicked(mouseEvent -> popup.hide());
     }
+
+
+    private ScrollPane addCardsToGrave(Player player, String graveName) {
+        VBox graphicGrave = new VBox();
+        graphicGrave.setSpacing(5);
+        Label label = new Label(graveName);
+        label.setStyle("-fx-font-size: 15");
+        label.setTextFill(Color.BROWN);
+        graphicGrave.getChildren().add(label);
+        for (Card card : player.getBoard().getGrave()) {
+            if (card != null) {
+                Card copiedCard = Card.make(card.getName());
+                copiedCard.setSizes(false);
+                copiedCard.setShowDescriptionOnMouseClicked(stage);
+                graphicGrave.getChildren().add(copiedCard);
+            }
+        }
+        ScrollPane scrollPane = new ScrollPane(graphicGrave);
+        scrollPane.setFitToWidth(true);
+        return scrollPane;
+    }
+
 
     public void surrender() {
         game.surrendered();
@@ -298,6 +336,9 @@ public class GameView {
     }
 
     public void makeActionsVisible(boolean isMonster, boolean isMainPhase) {
+        for (Node child : buttonsOfGameActions.getChildren()) {
+            child.setVisible(false);
+        }
         if (isMonster) {
             if (isMainPhase) {
                 summonButton.setVisible(true);

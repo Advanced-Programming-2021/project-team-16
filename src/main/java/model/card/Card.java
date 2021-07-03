@@ -1,11 +1,19 @@
 package model.card;
 
+import javafx.geometry.Insets;
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
 import model.card.monster.*;
 import model.card.spell.*;
 import model.card.spell.fieldspells.ClosedForest;
@@ -19,29 +27,31 @@ import java.util.HashMap;
 public abstract class Card extends Rectangle implements Comparable<Card> {
 
     private static final ArrayList<Card> cards = new ArrayList<>();
+    private static final ArrayList<Popup> popups = new ArrayList<>();
 
     public static final Paint UNKNOWN_CARD_FILL = new ImagePattern(new Image(Card.class.getResource("/png/card/Unknown.jpg").toExternalForm()));
     protected String name;
     protected String description;
     protected int price;
-   protected Rectangle rectangle;
+    protected Rectangle rectangle;
 
 
     public Card(String name, String description, int price) {
         this.name = name;
         this.description = description;
         this.price = price;
-     this.rectangle = new Rectangle();
-     try {
-         rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
-     } catch (NullPointerException e) {
-         rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
-    }
-     rectangle.setHeight(120);
-     rectangle.setWidth(80);
-        for (Card card : cards) if (card.getName().equals(this.getName())) return;
+        this.rectangle = new Rectangle();
+        try {
+            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+        } catch (NullPointerException e) {
+            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
+        }
+        rectangle.setHeight(120);
+        rectangle.setWidth(80);
         setOnMouseEntered(mouseEvent -> setCursor(Cursor.HAND));
         setOnMouseExited(mouseEvent -> setCursor(Cursor.DEFAULT));
+        setFill(rectangle.getFill());
+        for (Card card : cards) if (card.getName().equals(this.getName())) return;
         cards.add(this);
     }
 
@@ -165,39 +175,38 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         return name;
     }
 
-
-  public String getDescription() {
-      return description;
-  }
-
-
-    public int getLevel(){
-        if(this instanceof Monster)
-            return this.getLevel();
-
-        return 0;
-    }
-    public Rectangle getRectangle() {
-       return rectangle;
-    }
-
     public static Rectangle getBlackRectangle(boolean isHand) {
         Rectangle blackRec = new Rectangle();
-       blackRec.setFill(Color.BLACK);
+        blackRec.setFill(Color.BLACK);
         if (isHand) {
-           blackRec.setWidth(60);
+            blackRec.setWidth(60);
             blackRec.setHeight(90);
         } else {
             blackRec.setWidth(70);
-           blackRec.setHeight(100);
+            blackRec.setHeight(100);
         }
         blackRec.setVisible(false);
         return blackRec;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public int getLevel() {
+        if (this instanceof Monster)
+            return this.getLevel();
+
+        return 0;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
     public void setSide(boolean isToFace) {
         if (isToFace)
-           setFill(rectangle.getFill());
+            setFill(rectangle.getFill());
         else
             setFill(UNKNOWN_CARD_FILL);
     }
@@ -210,6 +219,29 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
             setWidth(70);
             setHeight(100);
         }
+    }
+
+    public void setShowDescriptionOnMouseClicked(Stage stage) {
+        Label label = new Label(getCardProperties());
+        label.setWrapText(true);
+        label.setStyle("-fx-font-size: 13");
+        label.setBackground(new Background(new BackgroundFill(Color.LIGHTYELLOW,
+                CornerRadii.EMPTY,
+                Insets.EMPTY)));
+        label.setMinSize(50,50);
+        label.setMaxWidth(200);
+        HBox hBox = new HBox(label);
+        Popup popup = new Popup();
+        popups.add(popup);
+        popup.setAnchorY(stage.getHeight()/2);
+        popup.setAnchorX(stage.getWidth()/2);
+        popup.getContent().add(hBox);
+        setOnMouseClicked(e -> popup.show(stage));
+        stage.getScene().setOnMouseClicked(e->{
+            for (Popup popup1 : popups) {
+                if (popup1.isShowing()) popup1.hide();
+            }
+        });
     }
 
     public String getCardProperties() {
