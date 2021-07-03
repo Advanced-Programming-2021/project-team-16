@@ -1,11 +1,21 @@
 package view;
 
 import controller.*;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.Board;
 import model.Game;
 import model.card.Card;
 import model.card.monster.Monster;
 import model.person.AI;
+import model.person.Player;
 import model.person.User;
 
 import java.util.*;
@@ -15,6 +25,9 @@ import java.util.regex.Pattern;
 
 public class CommandProcessor {
     private static final Scanner scanner = new Scanner(System.in);
+    private static boolean isAnswerYes;
+    private static String cardNameInput = "name";
+    private static int indexOfArray;
 
     private static HashMap<String, String> getCommandData(String command) {
         HashMap<String, String> data = new HashMap<>();
@@ -254,15 +267,15 @@ public class CommandProcessor {
                     if (index < 1 || index > 5) isIndexValid = false;
                 }
                 if (isIndexValid) {
-                   System.out.println(game.attack(index - 1));
-                    if (game.hasBattlePhaseEnded()){
+                    System.out.println(game.attack(index - 1));
+                    if (game.hasBattlePhaseEnded()) {
                         game.setBattlePhaseEnded(false);
                         break;
                     }
                 } else System.out.println("index is not valid");
             } else if (command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex())) {
                 System.out.println(game.attack(-1));
-                if (game.hasBattlePhaseEnded()){
+                if (game.hasBattlePhaseEnded()) {
                     game.setBattlePhaseEnded(false);
                     break;
                 }
@@ -309,7 +322,8 @@ public class CommandProcessor {
 
 
     private static void scoreboard() {
-        for (String command = scanner.nextLine().trim(); !command.equals(Enums.ScoreboardCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
+        for (String command = scanner.nextLine().trim(); !command.equals(Enums.ScoreboardCommands.EXIT.getRegex());
+             command = scanner.nextLine().trim()) {
             if (command.equals(Enums.ScoreboardCommands.SHOW_SCOREBOARD.getRegex()))
                 Scoreboard.showScoreboard();
             else if (command.equals(Enums.ScoreboardCommands.SHOW_CURRENT.getRegex()))
@@ -342,82 +356,6 @@ public class CommandProcessor {
         }
     }
 
-
-    public static boolean yesNoQuestion(String question) {
-        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI)
-            return true;
-        System.out.println(question);
-        return "yes".equals(scanner.nextLine());
-
-
-    }
-
-
-    public static String getCardName(String whyDoYouNidThis) {
-        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) {
-            Random random = new Random();
-            ArrayList<Card> allCards = Card.getCards();
-            Card card = allCards.get(random.nextInt(allCards.size()));
-            return card.getName();
-        }
-        System.out.println(whyDoYouNidThis);
-        return scanner.nextLine();
-    }
-
-    public static int getMonsterFromGrave(boolean isMyGrave) {
-        Game game = GameMenu.getCurrentGame();
-        if (game.getCurrentPlayer() instanceof AI)
-            return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getMonsterFromGrave(isMyGrave);
-        ArrayList<Card> grave = isMyGrave ?
-                game.getCurrentPlayer().getBoard().getGrave() : game.getRival().getBoard().getGrave();
-        String graveOwner = isMyGrave ? "your" : "rival's";
-        Show.showCardArray(grave);
-        System.out.println("choose an index from " + graveOwner + " grave");
-        String command = scanner.nextLine().trim();
-        int index = -1;
-        while (!command.equals("cancel")) {
-            String error = null;
-            if (!command.matches("\\d+")) error = "invalid command";
-            else {
-                index = Integer.parseInt(command) - 1;
-                if (grave.size() <= index || index < 0) error = "invalid index";
-                else if (!(grave.get(index) instanceof Monster)) error = "this is not a monster";
-            }
-            if (error == null) return index;
-            System.out.println(error + ". please try again or \"cancel\" the operation");
-            command = scanner.nextLine().trim();
-        }
-        return -1;
-    }
-
-
-    public static int getIndexOfCardArray(ArrayList<Card> cards, String goal) {
-        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) return 0;
-        System.out.println("choose an index from these cards: " + goal);
-        Show.showCardArray(cards);
-        String command = scanner.nextLine().trim();
-        int index = -1;
-        while (!command.equals("cancel")) {
-            String error = null;
-            if (!command.matches("\\d+")) error = "invalid command";
-            else {
-                index = Integer.parseInt(command);
-                if (cards.size() < index || index == 0) error = "invalid index";
-            }
-            if (error == null) return index - 1;
-            System.out.println(error + ". please try again or \"cancel\" the operation");
-            command = scanner.nextLine().trim();
-        }
-        return -1;
-
-    }
-
-    public static Board.Zone getZone() {
-        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) return Board.Zone.HAND;
-        String zoneName = scanner.nextLine();
-        return getZoneByZoneName(zoneName);
-    }
-
     private static Board.Zone getZoneByZoneName(String zoneName) {
         Board.Zone zone = null;
         switch (zoneName.toLowerCase()) {
@@ -432,46 +370,232 @@ public class CommandProcessor {
     }
 
 
+    public static boolean yesNoQuestion(String question) {
+        isAnswerYes = false;
+        Game game = GameMenu.getCurrentGame();
+        Player currentPlayer = game.getCurrentPlayer();
+        if (currentPlayer instanceof AI) return true;
+        if (game.isGraphical()) {
+            Button yesButton = new Button("yes");
+            Button noButton = new Button("no");
+            HBox hBox = new HBox(getGoodLabel(question), yesButton, noButton);
+            hBox.setSpacing(10);
+            hBox.setBackground(getGreyBackground());
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(hBox));
+            yesButton.setOnMouseClicked(e -> {
+                isAnswerYes = true;
+                newStage.close();
+            });
+            noButton.setOnMouseClicked(e -> {
+                isAnswerYes = false;
+                newStage.close();
+            });
+            newStage.showAndWait();
+            return isAnswerYes;
+        } else {
+            System.out.println(question);
+            return "yes".equals(scanner.nextLine());
+        }
+
+    }
+
+
+    public static String getCardName(String whyDoYouNidThis) {
+        Game game = GameMenu.getCurrentGame();
+        if (game.getCurrentPlayer() instanceof AI) {
+            Random random = new Random();
+            ArrayList<Card> allCards = Card.getCards();
+            Card card = allCards.get(random.nextInt(allCards.size()));
+            return card.getName();
+        }
+        if (game.isGraphical()) {
+            Button doneButton = new Button("done");
+            TextField cardNameField = new TextField();
+            cardNameField.setPromptText("card name");
+            HBox hBox = new HBox(cardNameField, doneButton);
+            VBox vBox = new VBox(getGoodLabel(whyDoYouNidThis), hBox);
+            hBox.setSpacing(10);
+            vBox.setSpacing(10);
+            vBox.setBackground(getGreyBackground());
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(vBox));
+            doneButton.setOnMouseClicked(e -> {
+                cardNameInput = cardNameField.getText();
+                newStage.close();
+            });
+            newStage.showAndWait();
+            return cardNameInput;
+        } else {
+            System.out.println(whyDoYouNidThis);
+            return scanner.nextLine();
+        }
+    }
+
+    public static int getIndexOfCardArray(ArrayList<Card> cards, String goal) {
+        Game game = GameMenu.getCurrentGame();
+        if (game.getCurrentPlayer() instanceof AI) return 0;
+        if (game.isGraphical()) {
+            indexOfArray = -1;
+            Stage newStage = new Stage();
+            HBox cardsWithNames = new HBox();
+            cardsWithNames.setSpacing(10);
+            for (int i = 0; i < cards.size(); i++) {
+                Card copiedCard = Card.make(cards.get(i).getName());
+                copiedCard.setHeight(120);
+                copiedCard.setWidth(80);
+                int finalI = i;
+                copiedCard.setOnMouseClicked(e -> {
+                    indexOfArray = finalI;
+                    newStage.close();
+                });
+                VBox vBox = new VBox(copiedCard, getGoodLabel(copiedCard.getName()));
+                cardsWithNames.getChildren().add(vBox);
+            }
+            ScrollPane scrollPane = new ScrollPane(cardsWithNames);
+            scrollPane.setMinHeight(160);
+            VBox cardsAndGoal = new VBox(getGoodLabel(goal + "\n(close the stage to cancel the operation.)"), scrollPane);
+            cardsAndGoal.setMaxWidth(500);
+            newStage.setScene(new Scene(cardsAndGoal));
+            newStage.showAndWait();
+            return indexOfArray;
+        } else {
+            System.out.println("choose an index from these cards: " + goal);
+            Show.showCardArray(cards);
+            String command = scanner.nextLine().trim();
+            int index = -1;
+            while (!command.equals("cancel")) {
+                String error = null;
+                if (!command.matches("\\d+")) error = "invalid command";
+                else {
+                    index = Integer.parseInt(command);
+                    if (cards.size() < index || index == 0) error = "invalid index";
+                }
+                if (error == null) return index - 1;
+                System.out.println(error + ". please try again or \"cancel\" the operation");
+                command = scanner.nextLine().trim();
+            }
+            return -1;
+        }
+
+    }
+
+    public static int getMonsterFromGrave(boolean isMyGrave) {
+        Game game = GameMenu.getCurrentGame();
+        if (game.getCurrentPlayer() instanceof AI)
+            return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getMonsterFromGrave(isMyGrave);
+        ArrayList<Card> grave = isMyGrave ?
+                game.getCurrentPlayer().getBoard().getGrave() : game.getRival().getBoard().getGrave();
+        String graveOwner = isMyGrave ? "your" : "rival's";
+        if (game.isGraphical()) {
+            ArrayList<Card> monsters = new ArrayList<>();
+            HashMap<Card,Integer> monstersWithIndex = new HashMap<>();
+            for (int i = 0; i < grave.size(); i++) {
+                Card card = grave.get(i);
+                if (card instanceof Monster) {
+                    monsters.add(card);
+                    monstersWithIndex.put(card,i);
+                }
+            }
+            int index = getIndexOfCardArray(monsters,"choose a monster from " + graveOwner + " grave:");
+            if (index == -1) return -1;
+            else return monstersWithIndex.get(monsters.get(index));
+        } else {
+            Show.showCardArray(grave);
+            System.out.println("choose an index from " + graveOwner + " grave");
+            String command = scanner.nextLine().trim();
+            int index = -1;
+            while (!command.equals("cancel")) {
+                String error = null;
+                if (!command.matches("\\d+")) error = "invalid command";
+                else {
+                    index = Integer.parseInt(command) - 1;
+                    if (grave.size() <= index || index < 0) error = "invalid index";
+                    else if (!(grave.get(index) instanceof Monster)) error = "this is not a monster";
+                }
+                if (error == null) return index;
+                System.out.println(error + ". please try again or \"cancel\" the operation");
+                command = scanner.nextLine().trim();
+            }
+            return -1;
+        }
+    }
+
+
+
+
     public static int[] getTribute(int numberOfTributes, boolean isFromMonsterZone) {
-        if (GameMenu.getCurrentGame().getCurrentPlayer() instanceof AI) {
+        Game game = GameMenu.getCurrentGame();
+        if (game.getCurrentPlayer() instanceof AI) {
             return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getTribute(numberOfTributes, isFromMonsterZone);
         }
-        String fromWhere = isFromMonsterZone ? "monster zone" : "hand";
-        System.out.println("please enter " + numberOfTributes + " index(es) for tribute from your " + fromWhere);
         int[] indexes = new int[numberOfTributes];
-        Arrays.fill(indexes, -1);
-        String command;
-        while (Arrays.stream(indexes).anyMatch(i -> i == -1)) {
-            command = scanner.nextLine().trim();
-            if (command.equals("cancel"))
-                return null;
-            else if (command.matches("\\d+")) {
-                String error = null;
-                int index = Integer.parseInt(command) - 1;
-                if (Arrays.stream(indexes).anyMatch(i -> i == index))
-                    error = "you have already chosen this";
-                else if (isFromMonsterZone) {
-                    if (index < 0 || index > 4)
-                        error = "invalid index";
-                    else if (GameMenu.getCurrentGame().getCurrentPlayer().getBoard().getMonsterZone()[index] == null)
-                        error = "there are no monsters on this address";
-                } else {
-                    if (index < 0 || index > 5)
-                        error = "invalid index";
-                    else if (GameMenu.getCurrentGame().getCurrentPlayer().getBoard().getHand()[index] == null)
-                        error = "this index is empty";
+        if (game.isGraphical()) {
+            ArrayList<Card> monsters = new ArrayList<>();
+            HashMap<Card, Integer> monstersWithIndex = new HashMap<>();
+            Card[] cards = isFromMonsterZone ? game.getCurrentPlayer().getBoard().getMonsterZone() : game.getCurrentPlayer().getBoard().getHand();
+            for (int i = 0; i < cards.length; i++) {
+                Card card = cards[i];
+                if (card instanceof Monster) {
+                    monsters.add(card);
+                    monstersWithIndex.put(card, i);
                 }
-                if (error == null)
-                    for (int i = 0; i < indexes.length; i++) {
-                        if (indexes[i] == -1) {
-                            indexes[i] = index;
-                            break;
-                        }
+            }
+            for (int i = 0; i < numberOfTributes; i++) {
+                int indexOfArrayList = getIndexOfCardArray(monsters, "please choose monster(s) for tribute(s)");
+                if (indexOfArrayList == -1) return null;
+                Card card = monsters.get(indexOfArrayList);
+                indexes[i] = monstersWithIndex.get(card);
+                monsters.remove(card);
+            }
+        } else {
+            String fromWhere = isFromMonsterZone ? "monster zone" : "hand";
+            System.out.println("please enter " + numberOfTributes + " index(es) for tribute from your " + fromWhere);
+            Arrays.fill(indexes, -1);
+            String command;
+            while (Arrays.stream(indexes).anyMatch(i -> i == -1)) {
+                command = scanner.nextLine().trim();
+                if (command.equals("cancel"))
+                    return null;
+                else if (command.matches("\\d+")) {
+                    String error = null;
+                    int index = Integer.parseInt(command) - 1;
+                    if (Arrays.stream(indexes).anyMatch(i -> i == index))
+                        error = "you have already chosen this";
+                    else if (isFromMonsterZone) {
+                        if (index < 0 || index > 4)
+                            error = "invalid index";
+                        else if (GameMenu.getCurrentGame().getCurrentPlayer().getBoard().getMonsterZone()[index] == null)
+                            error = "there are no monsters on this address";
+                    } else {
+                        if (index < 0 || index > 5)
+                            error = "invalid index";
+                        else if (GameMenu.getCurrentGame().getCurrentPlayer().getBoard().getHand()[index] == null)
+                            error = "this index is empty";
                     }
-                else System.out.println(error);
-            } else System.out.println("invalid command.");
+                    if (error == null)
+                        for (int i = 0; i < indexes.length; i++) {
+                            if (indexes[i] == -1) {
+                                indexes[i] = index;
+                                break;
+                            }
+                        }
+                    else System.out.println(error);
+                } else System.out.println("invalid command.");
+            }
         }
         return indexes;
+    }
+
+    private static Label getGoodLabel(String text) {
+        Label label = new Label(text);
+        label.setTextFill(Color.BROWN);
+        label.setStyle("-fx-font-size: 15");
+        return label;
+    }
+
+    private static Background getGreyBackground() {
+        return new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY));
     }
 }
 

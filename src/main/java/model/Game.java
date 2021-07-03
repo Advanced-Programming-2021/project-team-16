@@ -380,7 +380,7 @@ public class Game {
                 index = CommandProcessor.getTribute(1, false);
                 if (index == null) return "special summon cancelled";
                 if (index[0] == selectedZoneIndex) return "choose another card. you can't tribute this for itself";
-                return ((TheTricky) selectedCard).specialSummon(index[0], selectedZoneIndex);
+                return ((TheTricky) selectedCard).specialSummon(index[0]);
             }
         } else return "this card can not be special summoned";
     }

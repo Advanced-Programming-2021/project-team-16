@@ -8,8 +8,8 @@ public interface specialSummonable {
         Board board = game.getCurrentPlayer().getBoard();
         for (int monsterZoneIndex : monsterZoneIndexes) {
             Monster monster = board.getMonsterZone()[monsterZoneIndex];
-            game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
             game.removeCardFromZone(monster, Board.Zone.MONSTER, monsterZoneIndex, board);
+            game.putCardInZone(monster, Board.Zone.GRAVE, null, board);
         }
     }
 }

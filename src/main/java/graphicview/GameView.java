@@ -27,6 +27,7 @@ import model.card.Card;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
+import view.CommandProcessor;
 
 import java.io.IOException;
 
@@ -205,25 +206,24 @@ public class GameView {
     }
 
 
-    public void goToNextPhase() {
-        if (game.getRival() == player) showMessage("not your turn", false);
-        else game.goToNextPhase();
-    }
-
     public void summon() {
         showMessage(game.summon(), false);
+        game.deselect();
     }
 
     public void set() {
         showMessage(game.set(), false);
+        game.deselect();
     }
 
     public void flipSummon() {
         showMessage(game.flipSummon(), false);
+        game.deselect();
     }
 
     public void activeEffect() {
         showMessage(game.activeEffect(), false);
+        game.deselect();
     }
 
     public void changePosition() {
@@ -237,12 +237,14 @@ public class GameView {
         Button attackPosition = new Button("attack");
         Button defensePosition = new Button("defense");
         attackPosition.setOnMouseClicked(mouseEvent -> {
-            showMessage(game.setMonsterPosition(true), false);
             popup.hide();
+            showMessage(game.setMonsterPosition(true), false);
+            game.deselect();
         });
         defensePosition.setOnMouseClicked(mouseEvent -> {
-            showMessage(game.setMonsterPosition(false), false);
             popup.hide();
+            showMessage(game.setMonsterPosition(false), false);
+            game.deselect();
         });
 
         popup.setAnchorX(600);
@@ -255,6 +257,57 @@ public class GameView {
         popup.show(stage);
     }
 
+    public void attack() {
+        Popup popup = new Popup();
+        HBox attackedChooser = new HBox();
+        Label label = new Label("choose a monster :   ");
+        label.setStyle("-fx-font: 15 arial;");
+        attackedChooser.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY,
+                CornerRadii.EMPTY,
+                Insets.EMPTY)));
+        Button[] monsterButtons = new Button[5];
+        for (int i = 1; i <= 5; i++) {
+            monsterButtons[i - 1] = new Button(String.valueOf(i));
+            int finalI = i;
+            monsterButtons[i - 1].setOnMouseClicked(mouseEvent -> {
+                popup.hide();
+                showMessage(game.attack(finalI - 1), false);
+                game.deselect();
+                if (game.hasBattlePhaseEnded()){
+                    game.setBattlePhaseEnded(false);
+                    game.goToNextPhase();
+                }
+            });
+        }
+        Button attackDirect = new Button("attack directly");
+        attackDirect.setOnMouseClicked(mouseEvent -> {
+            popup.hide();
+            showMessage(game.attack(-1), false);
+            game.deselect();
+            if (game.hasBattlePhaseEnded()){
+                game.setBattlePhaseEnded(false);
+                game.goToNextPhase();
+            }
+        });
+        popup.setAnchorX(600);
+        popup.setAnchorY(400);
+        attackedChooser.getChildren().add(label);
+        attackedChooser.getChildren().add(monsterButtons[3]);
+        attackedChooser.getChildren().add(monsterButtons[1]);
+        attackedChooser.getChildren().add(monsterButtons[0]);
+        attackedChooser.getChildren().add(monsterButtons[2]);
+        attackedChooser.getChildren().add(monsterButtons[4]);
+        attackedChooser.getChildren().add(attackDirect);
+        popup.getContent().add(attackedChooser);
+        attackedChooser.setSpacing(2);
+        popup.show(stage);
+    }
+
+
+    public void goToNextPhase() {
+        if (game.getRival() == player) showMessage("not your turn", false);
+        else game.goToNextPhase();
+    }
 
     public void showGraveyard() {
         HBox bothGraves = new HBox();
@@ -295,44 +348,11 @@ public class GameView {
 
 
     public void surrender() {
-        game.surrendered();
-        doLostAction();
-    }
+//        game.surrendered();
+//        doLostAction();
 
-    public void attack() {
-        Popup popup = new Popup();
-        HBox attackedChooser = new HBox();
-        Label label = new Label("choose a monster :   ");
-        label.setStyle("-fx-font: 15 arial;");
-        attackedChooser.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY,
-                CornerRadii.EMPTY,
-                Insets.EMPTY)));
-        Button[] monsterButtons = new Button[5];
-        for (int i = 1; i <= 5; i++) {
-            monsterButtons[i - 1] = new Button(String.valueOf(i));
-            int finalI = i;
-            monsterButtons[i - 1].setOnMouseClicked(mouseEvent -> {
-                showMessage(game.attack(finalI - 1), false);
-                popup.hide();
-            });
-        }
-        Button attackDirect = new Button("attack directly");
-        attackDirect.setOnMouseClicked(mouseEvent -> {
-            showMessage(game.attack(-1), false);
-            popup.hide();
-        });
-        popup.setAnchorX(600);
-        popup.setAnchorY(400);
-        attackedChooser.getChildren().add(label);
-        attackedChooser.getChildren().add(monsterButtons[3]);
-        attackedChooser.getChildren().add(monsterButtons[1]);
-        attackedChooser.getChildren().add(monsterButtons[0]);
-        attackedChooser.getChildren().add(monsterButtons[2]);
-        attackedChooser.getChildren().add(monsterButtons[4]);
-        attackedChooser.getChildren().add(attackDirect);
-        popup.getContent().add(attackedChooser);
-        attackedChooser.setSpacing(2);
-        popup.show(stage);
+        System.out.println(CommandProcessor.getMonsterFromGrave(true));
+        System.out.println(CommandProcessor.getMonsterFromGrave(false));
     }
 
     public void makeActionsVisible(boolean isMonster, boolean isMainPhase) {

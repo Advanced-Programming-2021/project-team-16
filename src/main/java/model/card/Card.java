@@ -51,6 +51,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         setOnMouseEntered(mouseEvent -> setCursor(Cursor.HAND));
         setOnMouseExited(mouseEvent -> setCursor(Cursor.DEFAULT));
         setFill(rectangle.getFill());
+        setSizes(false);
         for (Card card : cards) if (card.getName().equals(this.getName())) return;
         cards.add(this);
     }
