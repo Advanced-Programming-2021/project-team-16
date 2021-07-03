@@ -4,8 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import model.Game;
 
 import java.io.IOException;
 
@@ -16,7 +16,11 @@ public class ShopMenu {
     public static void enterMenu() throws IOException {
         FXMLLoader loader = new FXMLLoader(ProfileMenu.class.getResource("/fxml/shop.fxml"));
         Parent root = loader.load();
-        LoginMenu.getMainStage().setScene(new Scene(root));
+        stage = LoginMenu.getMainStage();
+        stage.setScene(new Scene(root));
+        stage.getScene().setOnKeyPressed(keyEvent -> {
+            if (Game.CHEAT_KEYS.match(keyEvent)) GameView.openCheatPopup(stage,null);
+        });
     }
     public void changeScene(String fxml) throws IOException {
         Parent pane =FXMLLoader.load(getClass().getResource(fxml));

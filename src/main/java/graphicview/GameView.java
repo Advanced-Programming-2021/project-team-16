@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
@@ -27,9 +28,11 @@ import model.card.Card;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
-import view.CommandProcessor;
+import view.Enums;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class GameView {
@@ -113,6 +116,35 @@ public class GameView {
         ft.play();
     }
 
+    public static void openCheatPopup(Stage stage,Player player) {
+        Popup popup = new Popup();
+        TextField textField = new TextField();
+        textField.setPromptText("cheat code");
+        Button button = new Button("cheat");
+        button.setOnMouseClicked(e -> {
+            processCheatCode(textField.getText(),player);
+            popup.hide();
+        });
+        HBox hBox = new HBox(textField,button);
+        hBox.setMinHeight(100);
+        hBox.setMinWidth(300);
+        popup.getContent().add(hBox);
+        popup.setAnchorX(400);
+        popup.setAnchorY(390);
+        popup.show(stage);
+    }
+
+    private static void processCheatCode(String cheatCode,Player player) {
+        Matcher matcher;
+        if (game != null && !game.isOver()) {
+            if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_LP.getRegex()).matcher(cheatCode)).find())
+                player.increaseLP(Integer.parseInt(matcher.group(1)));
+            else if (cheatCode.equals(Enums.Cheat.WIN_DUEL.getRegex())) player.getRival().getGameView().surrender();
+            else if (cheatCode.equals(Enums.Cheat.SET_AND_SUMMON_AGAIN.getRegex())) game.setHasSummonedOrSet(false);
+        }else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_MONEY.getRegex()).matcher(cheatCode)).find())
+            if (MainMenu.getCurrentUser() != null) MainMenu.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
+    }
+
     public Stage getStage() {
         return stage;
     }
@@ -141,7 +173,11 @@ public class GameView {
         popupVBox.setSpacing(5);
         myLP.setTextFill(Color.rgb(0, 170, 0));
         rivalLP.setTextFill(Color.rgb(0, 170, 0));
+        stage.getScene().setOnKeyPressed(keyEvent -> {
+            if (Game.CHEAT_KEYS.match(keyEvent)) openCheatPopup(stage,player);
+        });
     }
+
 
     public void doLostAction() {
         new MediaPlayer(new Media(GameView.class.getResource("/sounds/end-turn.wav").toExternalForm())).play();
@@ -273,7 +309,7 @@ public class GameView {
                 popup.hide();
                 showMessage(game.attack(finalI - 1), false);
                 game.deselect();
-                if (game.hasBattlePhaseEnded()){
+                if (game.hasBattlePhaseEnded()) {
                     game.setBattlePhaseEnded(false);
                     game.goToNextPhase();
                 }
@@ -284,7 +320,7 @@ public class GameView {
             popup.hide();
             showMessage(game.attack(-1), false);
             game.deselect();
-            if (game.hasBattlePhaseEnded()){
+            if (game.hasBattlePhaseEnded()) {
                 game.setBattlePhaseEnded(false);
                 game.goToNextPhase();
             }
@@ -348,11 +384,8 @@ public class GameView {
 
 
     public void surrender() {
-//        game.surrendered();
-//        doLostAction();
-
-        System.out.println(CommandProcessor.getMonsterFromGrave(true));
-        System.out.println(CommandProcessor.getMonsterFromGrave(false));
+        game.surrendered();
+        doLostAction();
     }
 
     public void makeActionsVisible(boolean isMonster, boolean isMainPhase) {

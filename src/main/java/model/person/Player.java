@@ -61,10 +61,16 @@ public class Player {
             {
                 setCycleDuration(Duration.millis(1000));
             }
+
             protected void interpolate(double v) {
-                Color color = Color.rgb(
-                        (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP - finalAmount) / 8 * 255 / 1000)
-                        , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP + finalAmount) / 8 * 170 / 1000), 0);
+                Color color;
+                try {
+                    color = Color.rgb(
+                            (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP - finalAmount) / 8 * 255 / 1000)
+                            , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP + finalAmount) / 8 * 170 / 1000), 0);
+                }catch (Exception e){
+                    color = Color.rgb(0,200,0);
+                }
                 gameView.myLP.setTextFill(color);
                 rival.gameView.rivalLP.setTextFill(color);
             }
@@ -80,10 +86,16 @@ public class Player {
             {
                 setCycleDuration(Duration.millis(1000));
             }
+
             protected void interpolate(double v) {
-                Color color = Color.rgb(
-                        (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP + amount) / 8 * 255 / 1000)
-                        , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP - amount) / 8 * 170 / 1000), 0);
+                Color color;
+                try {
+                    color = Color.rgb(
+                            (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP + amount) / 8 * 255 / 1000)
+                            , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP - amount) / 8 * 170 / 1000), 0);
+                }catch (Exception e){
+                    color = Color.rgb(0,200,0);
+                }
                 gameView.myLP.setTextFill(color);
                 rival.gameView.rivalLP.setTextFill(color);
             }
@@ -94,8 +106,7 @@ public class Player {
     public void setLP(int LP) {
         this.LP = LP;
         changeGraphicLPs();
-
-        Color color = Color.rgb((8000 - LP) / 8 * 255 / 1000,LP / 8 * 170 / 1000 , 0);
+        Color color = Color.rgb(0,170,0);
         gameView.myLP.setTextFill(color);
         rival.gameView.rivalLP.setTextFill(color);
     }

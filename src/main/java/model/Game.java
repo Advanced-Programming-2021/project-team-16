@@ -2,6 +2,9 @@ package model;
 
 import graphicview.GameView;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -23,6 +26,7 @@ import java.util.ArrayList;
 
 
 public class Game {
+    public final static KeyCombination CHEAT_KEYS = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
     private final int round;
     private int currentRound = 0;
     private Card selectedCard;
