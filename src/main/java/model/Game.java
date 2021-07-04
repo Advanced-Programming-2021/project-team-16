@@ -751,6 +751,7 @@ public class Game {
                 GameView.hideNode(card);
         switch (zone) {
             case MONSTER -> {
+                card.setOnDragDetected(null);
                 board.getMonsterZone()[index] = null;
                 if (isGraphical) {
                     board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
