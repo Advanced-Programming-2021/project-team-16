@@ -77,13 +77,31 @@ public class DeckMenu {
                 }
             }
         };
+
         if (user.getActiveDeck() != null) {
             hasActiveDeck = true;
             Deck activeDeck = user.getActiveDeck();
             ActiveDeck = new Button("  " + activeDeck.getName());
             ActiveDeck.setStyle("-fx-background-color: #ffffff; ");
             ActiveDeck.setOnAction(event);
-            ActiveDeck.setId("activeDeck");
+
+            ActiveDeck.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent me) {
+                   ActiveDeck.setStyle("-fx-text-fill: blue;"+
+                            "-fx-background-color:#ffffff;");
+
+                }
+            });
+
+            ActiveDeck.setOnMouseExited(new EventHandler<MouseEvent>() {
+                public void handle(MouseEvent me) {
+
+                    ActiveDeck.setStyle("-fx-text-fill: black;" +
+                            "-fx-background-color:#ffffff;");
+                }
+            });
+
+
             Main = new Label(String.valueOf(activeDeck.getMainDeckCards().size()));
             Side = new Label(String.valueOf(activeDeck.getSideDeckCards().size()));
         }else{
@@ -102,8 +120,21 @@ public class DeckMenu {
                     OtherDecks = new Button("  " + userDecks.get(j).getName());
                     OtherDecks.setStyle("-fx-background-color: #ffffff; ");
                     OtherDecks.setOnAction(event);
-                    OtherDecks.setOnAction(event);
-                    OtherDecks.setId("deck " + j);
+                    Button finalOtherDecks = OtherDecks;
+                    OtherDecks.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                        public void handle(MouseEvent me) {
+                            finalOtherDecks.setStyle("-fx-text-fill: blue;"+
+                                    "-fx-background-color:#ffffff;");
+
+                        }
+                    });
+                    OtherDecks.setOnMouseExited(new EventHandler<MouseEvent>() {
+                        public void handle(MouseEvent me) {
+
+                            finalOtherDecks.setStyle("-fx-text-fill: black;" +
+                                    "-fx-background-color:#ffffff;");
+                        }
+                    });
                     Main = new Label(String.valueOf(userDecks.get(j).getMainDeckCards().size()));
                     Side = new Label(String.valueOf(userDecks.get(j).getSideDeckCards().size()));
                     decks.add(OtherDecks,0,j+3);
