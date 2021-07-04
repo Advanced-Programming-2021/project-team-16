@@ -23,8 +23,7 @@ public class MainMenu {
 
 
     public void deckButtonOnAction(ActionEvent actionEvent) throws IOException {
-        DeckMenu.enterMenu();
-
+        DeckMenu.enterMainDeckMenu();
     }
 
     public void duelButtonOnAction(ActionEvent actionEvent) {
