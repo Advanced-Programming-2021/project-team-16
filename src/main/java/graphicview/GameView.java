@@ -3,6 +3,7 @@ package graphicview;
 import controller.GameMenu;
 import controller.MainMenu;
 import javafx.animation.FadeTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,6 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -23,12 +27,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Board;
 import model.Game;
 import model.card.Card;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
 import view.Enums;
+import view.Show;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
@@ -176,6 +182,9 @@ public class GameView {
         stage.getScene().setOnKeyPressed(keyEvent -> {
             if (Game.CHEAT_KEYS.match(keyEvent)) openCheatPopup(stage,player);
         });
+        setRivalBoardDragOverDirectAttack(rivalMonsters);
+        setRivalBoardDragOverDirectAttack(rivalSpells);
+        setRivalBoardDragOverDirectAttack(rivalHand);
     }
 
 
@@ -404,5 +413,33 @@ public class GameView {
             activeEffectButton.setVisible(true);
         }
     }
+
+    private void setRivalBoardDragOverDirectAttack(Node node){
+        node.setOnDragOver(new EventHandler<>() {
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != this && event.getDragboard().hasString())
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                event.consume();
+            }
+        });
+
+        node.setOnDragDropped((DragEvent event) -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasString()) {
+                Game game = GameMenu.getCurrentGame();
+                Matcher matcher = Pattern.compile("(\\d+) # (.*)").matcher(db.getString());
+                if (matcher.find()) {
+                    boolean hasCurrentPlayerDoneTheAct = matcher.group(2).equals(game.getCurrentPlayer().getUser().getUsername());
+                    if (hasCurrentPlayerDoneTheAct) {
+                        game.selectCard(Board.Zone.MONSTER, Integer.parseInt(matcher.group(1)), false);
+                        Show.showGameMessage(game.attack(-1));
+                    } else Show.showGameMessage("not your turn");
+                }
+                event.setDropCompleted(true);
+            } else event.setDropCompleted(false);
+            event.consume();
+        });
+    }
+
 }
 

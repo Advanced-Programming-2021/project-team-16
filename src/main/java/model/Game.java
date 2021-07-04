@@ -693,6 +693,8 @@ public class Game {
                     card.setSizes(false);
                     board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), card);
                     board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), fakeCard);
+                    fakeCard.setAttackedOnDraggedOver(index);
+                    card.setAttackingOnDragged(index, board.getPlayer());
                 }
             }
             case FIELD_SPELL -> {

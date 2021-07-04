@@ -197,4 +197,8 @@ public class Board {
     public void noMonsterAttacked() {
         Arrays.fill(didMonsterAttack, false);
     }
+
+    public Player getPlayer() {
+        return player;
+    }
 }

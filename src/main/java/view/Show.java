@@ -253,7 +253,7 @@ public class Show {
     public static void showImportantGameMessage(String importantMessage) {
         if (GameMenu.getCurrentGame().isGraphical()) {
             GameMenu.getCurrentGame().getCurrentPlayer().getGameView().showMessage(importantMessage, true);
-            GameMenu.getCurrentGame().getRival().getGameView().showMessage(importantMessage, true);
+//            GameMenu.getCurrentGame().getRival().getGameView().showMessage(importantMessage, true);
         } else System.out.println(importantMessage);
     }
 

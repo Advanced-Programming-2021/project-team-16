@@ -1,9 +1,12 @@
 package model.card;
 
+import controller.GameMenu;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.input.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -14,15 +17,21 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import model.Board;
+import model.Game;
 import model.card.monster.*;
 import model.card.spell.*;
 import model.card.spell.fieldspells.ClosedForest;
 import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.*;
+import model.person.Player;
+import view.Show;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public abstract class Card extends Rectangle implements Comparable<Card> {
 
@@ -229,20 +238,57 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         label.setBackground(new Background(new BackgroundFill(Color.LIGHTYELLOW,
                 CornerRadii.EMPTY,
                 Insets.EMPTY)));
-        label.setMinSize(50,50);
+        label.setMinSize(50, 50);
         label.setMaxWidth(200);
         HBox hBox = new HBox(label);
         Popup popup = new Popup();
         popups.add(popup);
-        popup.setAnchorY(stage.getHeight()/2);
-        popup.setAnchorX(stage.getWidth()/2);
+        popup.setAnchorY(stage.getHeight() / 2);
+        popup.setAnchorX(stage.getWidth() / 2);
         popup.getContent().add(hBox);
         setOnMouseClicked(e -> popup.show(stage));
-        stage.getScene().setOnMouseClicked(e->{
+        stage.getScene().setOnMouseClicked(e -> {
             for (Popup popup1 : popups) {
                 if (popup1.isShowing()) popup1.hide();
             }
         });
+    }
+
+    public void setAttackedOnDraggedOver(int index) {
+        setOnDragOver(new EventHandler<>() {
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != this && event.getDragboard().hasString())
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                event.consume();
+            }
+        });
+
+        setOnDragDropped((DragEvent event) -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasString()) {
+                Game game = GameMenu.getCurrentGame();
+                Matcher matcher = Pattern.compile("(\\d+) # (.*)").matcher(db.getString());
+                if (matcher.find()) {
+                    boolean hasCurrentPlayerDoneTheAct = matcher.group(2).equals(game.getCurrentPlayer().getUser().getUsername());
+                    if (hasCurrentPlayerDoneTheAct) {
+                        game.selectCard(Board.Zone.MONSTER, Integer.parseInt(matcher.group(1)), false);
+                        Show.showGameMessage(game.attack(index));
+                    } else Show.showGameMessage("not your turn");
+                }
+                event.setDropCompleted(true);
+            } else event.setDropCompleted(false);
+            event.consume();
+        });
+    }
+
+    public void setAttackingOnDragged(int index, Player player) {
+        setOnDragDetected((MouseEvent event) -> {
+            Dragboard db = startDragAndDrop(TransferMode.ANY);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(index + " # " + player.getUser().getUsername());
+            db.setContent(content);
+        });
+        setOnMouseDragged((MouseEvent event) -> event.setDragDetect(true));
     }
 
     public String getCardProperties() {
