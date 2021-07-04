@@ -14,7 +14,7 @@
             <Font size="27.0" />
          </font>
       </Label>
-      <Label fx:id="error" layoutX="170.0" layoutY="273.0" prefHeight="22.0" prefWidth="238.0" textAlignment="CENTER" textFill="#df1d1d">
+      <Label fx:id="error" layoutX="170.0" layoutY="273.0" prefHeight="22.0" prefWidth="238.0" textAlignment="CENTER" alignment="CENTER" textFill="#df1d1d">
          <font>
             <Font size="15.0" />
          </font>

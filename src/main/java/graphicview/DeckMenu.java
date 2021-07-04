@@ -62,7 +62,7 @@ public class DeckMenu {
         click.setVisible(false);
         activeD.setVisible(true);
         otherD.setVisible(true);
-        Label Main,Side;
+        Label Main,Side,ActiveDeckL,OtherDecksL;
         Button ActiveDeck, OtherDecks;
         boolean hasActiveDeck = false;
         User user = MainMenu.getCurrentUser();
@@ -101,15 +101,16 @@ public class DeckMenu {
                 }
             });
 
-
+            decks.add(ActiveDeck,0,1);
             Main = new Label(String.valueOf(activeDeck.getMainDeckCards().size()));
             Side = new Label(String.valueOf(activeDeck.getSideDeckCards().size()));
         }else{
-            ActiveDeck = new Button("         - ");
+            ActiveDeckL = new Label("         - ");
+            decks.add(ActiveDeckL,0,1);
             Main = new Label(" - ");
             Side = new Label(" - ");
         }
-        decks.add(ActiveDeck,0,1);
+
         decks.add(Main,1,1);
         decks.add(Side,2,1);
 
@@ -143,10 +144,10 @@ public class DeckMenu {
                 }
             }
                if(userDecks != null && userDecks.size() == 0 || userDecks != null && userDecks.size() == 1 && hasActiveDeck) {
-                OtherDecks = new Button("         - ");
+                OtherDecksL = new Label("         - ");
                 Main = new Label(" - ");
                 Side = new Label(" - ");
-                decks.add(OtherDecks,0,3);
+                decks.add(OtherDecksL,0,3);
                 decks.add(Main,1,3);
                 decks.add(Side,2,3);
             }

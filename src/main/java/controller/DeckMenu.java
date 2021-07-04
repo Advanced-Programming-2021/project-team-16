@@ -12,8 +12,8 @@ import java.util.Objects;
 
 public class DeckMenu {
     public static String create(String name) {
-
-        if (MainMenu.getCurrentUser().getDeckByName(name.toLowerCase(Locale.ROOT)) != null) {
+         if(name.equals("")) return "please enter a name";
+        else if (MainMenu.getCurrentUser().getDeckByName(name.toLowerCase(Locale.ROOT)) != null) {
             return "deck with name " + name + " already exists";
         } else {
             Deck deck = new Deck(name);
