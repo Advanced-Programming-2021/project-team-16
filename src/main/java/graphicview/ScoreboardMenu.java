@@ -20,6 +20,7 @@ public class ScoreboardMenu {
             Parent root = FXMLLoader.load(ScoreboardMenu.class.getResource("/fxml/scoreboard.fxml"));
             LoginMenu.getMainStage().setScene(new Scene(root));
             scoreboardPane = (GridPane) root;
+            scoreboardPane.setBackground(GraphicUtils.getBackground("/png/background/scoreboard.png"));
             showScoreboard();
         } catch (IOException ignored) {
         }
@@ -36,10 +37,13 @@ public class ScoreboardMenu {
             nickname = new Label(users.get(i - 1).getNickname());
             score = new Label("" + users.get(i - 1).getScore());
             rateLabel = new Label(rate + "");
+            nickname.setStyle("-fx-font-size: 15;");
+            score.setStyle("-fx-font-size: 15;");
+            rateLabel.setStyle("-fx-font-size: 15;");
             if (MainMenu.getCurrentUser() == users.get(i-1)) {
-                nickname.setTextFill(Color.GREEN);
-                score.setTextFill(Color.GREEN);
-                rateLabel.setTextFill(Color.GREEN);
+                nickname.setTextFill(Color.DARKGREEN);
+                score.setTextFill(Color.DARKGREEN);
+                rateLabel.setTextFill(Color.DARKGREEN);
             } else {
                 nickname.setTextFill(Color.BLUE);
                 score.setTextFill(Color.BLUE);
@@ -49,6 +53,7 @@ public class ScoreboardMenu {
             scoreboardPane.add(score, 2, i);
         }
     }
+
 
     public void enterMainMenu() throws IOException {
         graphicview.MainMenu.enterMenu();

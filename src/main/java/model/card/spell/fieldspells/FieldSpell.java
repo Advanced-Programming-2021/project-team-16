@@ -1,12 +1,8 @@
 package model.card.spell.fieldspells;
 
 import controller.GameMenu;
-import javafx.geometry.Insets;
-import javafx.scene.image.Image;
+import graphicview.GraphicUtils;
 import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.paint.ImagePattern;
 import model.Board;
 import model.Game;
 import model.card.Card;
@@ -67,12 +63,8 @@ public class FieldSpell extends Spell {
     protected void changeBackground(boolean isUndo) {
         Game game = GameMenu.getCurrentGame();
         Background background;
-        if (isUndo) background = new Background(new BackgroundFill(
-                new ImagePattern(new Image(getClass().getResource("/png/field/fie_normal.bmp").toExternalForm())),
-                CornerRadii.EMPTY, Insets.EMPTY));
-        else background = new Background(new BackgroundFill(
-                new ImagePattern(new Image(getClass().getResource("/png/field/" + name + ".bmp").toExternalForm())),
-                CornerRadii.EMPTY, Insets.EMPTY));
+        if (isUndo) background = GraphicUtils.getBackground("/png/field/fie_normal.bmp");
+        else background = GraphicUtils.getBackground("/png/field/" + name + ".bmp");
         game.getCurrentPlayer().getGameView().board.setBackground(background);
         game.getRival().getGameView().board.setBackground(background);
     }

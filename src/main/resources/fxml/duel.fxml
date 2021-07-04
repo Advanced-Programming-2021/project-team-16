@@ -6,21 +6,20 @@
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="graphicview.DuelMenu"
           prefHeight="400.0" prefWidth="600.0"
-          style="-fx-font: 13 arial;" vgap="10" hgap="5" alignment="CENTER">
+          style="-fx-font: 15 arial;" vgap="10" hgap="5" alignment="CENTER">
 
-    <Label text="Duel Menu" style="-fx-font: 15 arial;" textFill="blueviolet" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-    <Label text="second player" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <TextField fx:id="secondPlayerUsername" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-    <Label text="rounds" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+    <Label text="Duel Menu" style="-fx-font: 20 arial;" textFill="indigo" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <Label text="second player" GridPane.rowIndex="1" GridPane.columnIndex="0" textFill="bisque"/>
+    <TextField fx:id="secondPlayerUsername" GridPane.rowIndex="1" GridPane.columnIndex="1" />
+    <Label text="rounds" GridPane.rowIndex="2" GridPane.columnIndex="0" textFill="bisque"/>
     <ChoiceBox fx:id="rounds" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
     <Button text="Duel!" GridPane.rowIndex="4" GridPane.columnIndex="1" onMouseClicked="#duel"/>
-    <Label fx:id="duelError" GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+    <Label fx:id="duelError" GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2" textFill="bisque"/>
 
-
-    <Label text="rounds" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+    <Label text="rounds" GridPane.rowIndex="2" GridPane.columnIndex="2" textFill="bisque"/>
     <ChoiceBox fx:id="roundsWithAI" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
     <Button text="Duel With AI!" GridPane.rowIndex="4" GridPane.columnIndex="3" onMouseClicked="#duelWithAI"/>
-    <Label fx:id="aiDuelError" GridPane.rowIndex="5" GridPane.columnIndex="2" GridPane.columnSpan="2"/>
+    <Label fx:id="aiDuelError" GridPane.rowIndex="5" GridPane.columnIndex="2" GridPane.columnSpan="2" textFill="bisque"/>
 
     <Button text="back" GridPane.rowIndex="10" GridPane.columnIndex="3" onMouseClicked="#enterMainMenu"/>
 
