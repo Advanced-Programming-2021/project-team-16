@@ -1,22 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          prefHeight="600.0" prefWidth="600.0"
-          fx:controller="graphicview.ScoreboardMenu"
-          alignment="CENTER"
-          style="-fx-font: 13 arial;" vgap="10" hgap="10"
->
-    <Label text="#rate" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font: 15 arial;"/>
-    <Label text="nickname" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-font: 15 arial;"/>
-    <Label text="score" GridPane.columnIndex="2" GridPane.rowIndex="0" style="-fx-font: 15 arial;"/>
-    <Button text="back" GridPane.columnIndex="2" GridPane.rowIndex="22" style="-fx-font: 15 arial;"
-    onMouseClicked="#enterMainMenu"/>
+<GridPane alignment="CENTER" hgap="10" prefHeight="600.0" prefWidth="600.0" style="-fx-font: 13 arial;" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ScoreboardMenu">
+    <Label style="-fx-font: 15 arial;" text="#rate" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+    <Label style="-fx-font: 15 arial;" text="nickname" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+    <Label style="-fx-font: 15 arial;" text="score" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+    <Button onMouseClicked="#enterMainMenu" style="-fx-font: 15 arial;" text="back" GridPane.columnIndex="2" GridPane.rowIndex="22" />
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 
 </GridPane>

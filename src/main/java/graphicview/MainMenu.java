@@ -24,6 +24,7 @@ public class MainMenu {
 
     public void deckButtonOnAction(ActionEvent actionEvent) throws IOException {
         DeckMenu.enterMenu();
+
     }
 
     public void duelButtonOnAction(ActionEvent actionEvent) {

@@ -100,7 +100,20 @@ public class Deck {
     public ArrayList<String> getMainDeckCards() {
         return mainCardNames;
     }
-
+    public  int getMainCount(){
+        int count = 0;
+        for (int i = 0; i < getMainDeckCards().size(); i++) {
+            count++;
+        }
+        return count;
+    }
+    public  int getSideCount(){
+        int count = 0;
+        for (int i = 0; i < getSideDeckCards().size(); i++) {
+            count++;
+        }
+        return count;
+    }
     public static ArrayList<Deck> getAllDecks() {
         return decks;
     }
