@@ -2,6 +2,11 @@ package model;
 
 import graphicview.GameView;
 import javafx.scene.Node;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import model.card.Activatable;
 import model.card.Card;
@@ -21,6 +26,7 @@ import java.util.ArrayList;
 
 
 public class Game {
+    public final static KeyCombination CHEAT_KEYS = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
     private final int round;
     private int currentRound = 0;
     private Card selectedCard;
@@ -39,6 +45,7 @@ public class Game {
     private boolean hasSurrendered = false;
     private boolean isGraphical;
     private boolean hasBattlePhaseEnded = false;
+    private boolean isOver = false;
 
     public Game(Player player1, Player player2, int round) {
         this.currentPlayer = player2;
@@ -223,9 +230,10 @@ public class Game {
         selectedCard = player.getBoard().getCardByIndexAndZone(index, zone);
         if (selectedCard == null) return "no card found in the given position";
         if (isGraphical) {
-            selectedCard.setOpacity(0.5);
-            if (!isSelectedCardForRival)
+            if (!isSelectedCardForRival) {
+                selectedCard.setOpacity(0.5);
                 currentPlayer.getGameView().makeActionsVisible(selectedCard instanceof Monster, currentPhase != Phase.BATTLE);
+            }
         }
         if (!isSelectedCardForRival && ((selectedZone == Board.Zone.MONSTER && selectedCard instanceof Activatable &&
                 (currentPhase == Phase.MAIN_1 || currentPhase == Phase.MAIN_2)) ||
@@ -376,7 +384,7 @@ public class Game {
                 index = CommandProcessor.getTribute(1, false);
                 if (index == null) return "special summon cancelled";
                 if (index[0] == selectedZoneIndex) return "choose another card. you can't tribute this for itself";
-                return ((TheTricky) selectedCard).specialSummon(index[0], selectedZoneIndex);
+                return ((TheTricky) selectedCard).specialSummon(index[0]);
             }
         } else return "this card can not be special summoned";
     }
@@ -450,6 +458,8 @@ public class Game {
                 || setInThisTurn.contains(selectedCard))
             return "you can’t flip summon this card";
         currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] = Board.CardPosition.ATK;
+        selectedCard.setSide(true);
+        ((Card) rival.getGameView().rivalMonsters.getChildren().get(getGraphicalIndex(selectedZoneIndex, false))).setSide(true);
         positionChangedInThisTurn.add(selectedCard);
         if (selectedCard instanceof ManEaterBug) {
             Show.showGameMessage("flip summoned successfully");
@@ -479,9 +489,10 @@ public class Game {
         if (isSelectedCardForRival) return "this action is not available on rival cards";
         if (selectedZone != Board.Zone.MONSTER) return "you can’t attack with this card";
         Monster attacking = (Monster) selectedCard;
-        if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
         if (currentPhase != Phase.BATTLE) return "you can’t do this action in this phase";
         if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
+        if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
+        new MediaPlayer(new Media(GameView.class.getResource("/sounds/attack.wav").toExternalForm())).play();
         if (checkForTraps("attack")) return "rival's trap was activated. attack is cancelled";
         if (MessengerOfPeace.canBeActivated()) return MessengerOfPeace.getActivationMessage();
         if (monsterNumber == -1) return attackDirectly();
@@ -662,9 +673,9 @@ public class Game {
                 index = board.getFirstEmptyIndexOfZone(Board.Zone.HAND);
                 board.getHand()[index] = card;
                 if (isGraphical) {
-                    //  card.setSide(true);
-                    //  fakeCard.setSide(false);
-                    //  card.setSizes(true);
+                    card.setSide(true);
+                    fakeCard.setSide(false);
+                    card.setSizes(true);
                     board.getGameView().myHand.getChildren().set(index, card);
                     board.getRivalGameView().rivalHand.getChildren().set(index, fakeCard);
                 }
@@ -678,20 +689,22 @@ public class Game {
                 if (position != Board.CardPosition.HIDE_DEF && card instanceof CommandKnight)
                     if (!((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(false);
                 if (isGraphical) {
-                    //  card.setSide(position != Board.CardPosition.HIDE_DEF);
-                    //  card.setSizes(false);
+                    card.setSide(position != Board.CardPosition.HIDE_DEF);
+                    card.setSizes(false);
                     board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), card);
                     board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), fakeCard);
+                    fakeCard.setAttackedOnDraggedOver(index);
+                    card.setAttackingOnDragged(index, board.getPlayer());
                 }
             }
             case FIELD_SPELL -> {
+                if (currentPlayer.getBoard().getFieldSpell() != null)
+                    removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
                 if (position == Board.CardPosition.ACTIVATED) {
                     ((FieldSpell) card).action(false);
                     if (rival.getBoard().getFieldSpell() != null && rival.getBoard().getFieldSpell().isActivated())
                         removeCardFromZone(rival.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, rival.getBoard());
                 }
-                if (currentPlayer.getBoard().getFieldSpell() != null)
-                    removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
                 board.setFieldSpell(((FieldSpell) card), fakeCard);
             }
             case SPELL_AND_TRAP -> {
@@ -699,8 +712,8 @@ public class Game {
                 board.getSpellAndTrapZone()[index] = card;
                 board.getCardPositions()[1][index] = position;
                 if (isGraphical) {
-                    //     card.setSide(position != Board.CardPosition.HIDE_DEF);
-                    //     card.setSizes(false);
+                    card.setSide(position != Board.CardPosition.HIDE_DEF);
+                    card.setSizes(false);
                     board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), card);
                     board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), fakeCard);
                 }
@@ -708,6 +721,7 @@ public class Game {
         }
         if (isGraphical) {
             if (zone == Board.Zone.HAND || zone == Board.Zone.MONSTER || zone == Board.Zone.SPELL_AND_TRAP || zone == Board.Zone.FIELD_SPELL) {
+                new MediaPlayer(new Media(GameView.class.getResource("/sounds/summon.wav").toExternalForm())).play();
                 GameView.showNode(card);
                 if (zone != Board.Zone.HAND) fakeCard.setFill(card.getFill());
                 fakeCard.setWidth(card.getWidth());
@@ -738,10 +752,10 @@ public class Game {
         switch (zone) {
             case MONSTER -> {
                 board.getMonsterZone()[index] = null;
-                //   if (isGraphical) {
-                //       board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
-                //       board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
-                //   }
+                if (isGraphical) {
+                    board.getGameView().myMonsters.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
+                    board.getRivalGameView().rivalMonsters.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+                }
                 if (card instanceof CommandKnight)
                     if (((CommandKnight) card).hasDoneAction()) ((CommandKnight) card).action(true);
                 for (Card spell : board.getSpellAndTrapZone())
@@ -754,10 +768,10 @@ public class Game {
             }
             case SPELL_AND_TRAP -> {
                 board.getSpellAndTrapZone()[index] = null;
-                // if (isGraphical) {
-                //     board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
-                //     board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
-                // }
+                if (isGraphical) {
+                    board.getGameView().mySpells.getChildren().set(getGraphicalIndex(index, true), Card.getBlackRectangle(false));
+                    board.getRivalGameView().rivalSpells.getChildren().set(getGraphicalIndex(index, false), Card.getBlackRectangle(false));
+                }
             }
             case HAND -> {
                 board.getHand()[index] = null;
@@ -766,8 +780,7 @@ public class Game {
             case FIELD_SPELL -> {
                 if (card != null && ((FieldSpell) card).isActivated()) ((FieldSpell) card).action(true);
                 board.setFieldSpell(null, null);
-                assert card != null;
-                putCardInZone(card, Board.Zone.GRAVE, null, board);
+                if (card != null) putCardInZone(card, Board.Zone.GRAVE, null, board);
             }
             case GRAVE -> board.getGrave().remove(card);
             case DECK -> board.getDeck().remove(card);
@@ -779,6 +792,9 @@ public class Game {
         this.currentPhase = currentPhase;
         deselect();
         if (currentPhase == Phase.END) isItFirstTurn = false;
+        if (currentPhase == Phase.BATTLE)
+            new MediaPlayer(new Media(GameView.class.getResource("/sounds/battle-phase.wav").toExternalForm())).play();
+
         Show.showPhase(currentPhase);
     }
 
@@ -801,17 +817,17 @@ public class Game {
             }
             Show.showSingleCard(selectedCard);
 
-        }// else {
-        //   if ((selectedZone == Board.Zone.MONSTER && rival.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
-        //           (selectedZone == Board.Zone.SPELL_AND_TRAP && rival.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF)) {
-        //       currentPlayer.getGameView().selectedCard.setFill(Card.UNKNOWN_CARD_FILL);
-        //       currentPlayer.getGameView().selectedCardDescription.setText("card is not visible");
-        //   } else {
-        //       currentPlayer.getGameView().selectedCard.setFill(selectedCard.getRectangle().getFill());
-        //       currentPlayer.getGameView().selectedCardDescription.setText(selectedCard.getCardProperties());
-        //   }
-//
-        //     }//
+        } else {
+            if (isSelectedCardForRival && ((selectedZone == Board.Zone.MONSTER && rival.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
+                    (selectedZone == Board.Zone.SPELL_AND_TRAP && rival.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
+                    (selectedZone == Board.Zone.HAND))) {
+                currentPlayer.getGameView().selectedCard.setFill(Card.UNKNOWN_CARD_FILL);
+                currentPlayer.getGameView().selectedCardDescription.setText("card is not visible");
+            } else {
+                currentPlayer.getGameView().selectedCard.setFill(selectedCard.getRectangle().getFill());
+                currentPlayer.getGameView().selectedCardDescription.setText(selectedCard.getCardProperties());
+            }
+        }
         return "";
     }
 
@@ -841,6 +857,14 @@ public class Game {
 
     public int getRound() {
         return round;
+    }
+
+    public boolean isOver() {
+        return isOver;
+    }
+
+    public void setOver(boolean over) {
+        isOver = over;
     }
 
     public String addCardToHand(String cardName) {

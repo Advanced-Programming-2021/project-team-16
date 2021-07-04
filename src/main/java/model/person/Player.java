@@ -2,6 +2,12 @@ package model.person;
 
 import controller.GameMenu;
 import graphicview.GameView;
+import javafx.animation.Animation;
+import javafx.animation.Transition;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import model.Board;
 import model.card.Card;
 
@@ -27,7 +33,7 @@ public class Player {
                 Card card = Card.make(cardName);
                 if (card != null) cards.add(card);
             }
-            board = new Board(cards,this);
+            board = new Board(cards, this);
         }
     }
 
@@ -40,27 +46,72 @@ public class Player {
     }
 
     public void decreaseLP(int amount) {
-        if (LP > amount)
+        if (LP > amount) {
             LP -= amount;
-        else {
+            new MediaPlayer(new Media(GameView.class.getResource("/sounds/LP-decrease.wav").toExternalForm())).play();
+        } else {
+            amount = LP;
             GameMenu.getCurrentGame().setWinner(rival);
             LP = 0;
             if (GameMenu.getCurrentGame().isGraphical()) gameView.doLostAction();
         }
         changeGraphicLPs();
+        int finalAmount = amount;
+        Animation animation = new Transition() {
+            {
+                setCycleDuration(Duration.millis(1000));
+            }
+
+            protected void interpolate(double v) {
+                Color color;
+                try {
+                    color = Color.rgb(
+                            (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP - finalAmount) / 8 * 255 / 1000)
+                            , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP + finalAmount) / 8 * 170 / 1000), 0);
+                }catch (Exception e){
+                    color = Color.rgb(0,200,0);
+                }
+                gameView.myLP.setTextFill(color);
+                rival.gameView.rivalLP.setTextFill(color);
+            }
+        };
+        animation.play();
     }
 
     public void increaseLP(int amount) {
         LP += amount;
         changeGraphicLPs();
+
+        Animation animation = new Transition() {
+            {
+                setCycleDuration(Duration.millis(1000));
+            }
+
+            protected void interpolate(double v) {
+                Color color;
+                try {
+                    color = Color.rgb(
+                            (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP + amount) / 8 * 255 / 1000)
+                            , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP - amount) / 8 * 170 / 1000), 0);
+                }catch (Exception e){
+                    color = Color.rgb(0,200,0);
+                }
+                gameView.myLP.setTextFill(color);
+                rival.gameView.rivalLP.setTextFill(color);
+            }
+        };
+        animation.play();
     }
 
     public void setLP(int LP) {
         this.LP = LP;
         changeGraphicLPs();
+        Color color = Color.rgb(0,170,0);
+        gameView.myLP.setTextFill(color);
+        rival.gameView.rivalLP.setTextFill(color);
     }
 
-    private void changeGraphicLPs(){
+    private void changeGraphicLPs() {
         if (!GameMenu.getCurrentGame().isGraphical()) return;
         this.gameView.getMyLP().setText(String.valueOf(LP));
         rival.gameView.getRivalLP().setText(String.valueOf(LP));

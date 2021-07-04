@@ -28,7 +28,7 @@
         <VBox>
             <Rectangle fx:id="selectedCard" width="280" height="400" fill="black"/>
             <Label fx:id="selectedCardDescription" lineSpacing="2" minWidth="140" minHeight="200" alignment="CENTER"
-            textFill="darkslategray" text="no card is selected yet."/>
+            textFill="darkslategray" text="no card is selected yet." style="-fx-font: 13 arial;"/>
         </VBox>
 
 
@@ -49,78 +49,76 @@
 
 
     <GridPane fx:id="board" vgap="43" GridPane.rowIndex="0" GridPane.columnIndex="1" minHeight="800" minWidth="760">
-        <VBox minWidth="145" maxHeight="780" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="6"
-              alignment="BOTTOM_CENTER" spacing="70">
+        <VBox minWidth="160" maxHeight="780" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="6"
+              alignment="BOTTOM_CENTER" spacing="5">
             <BorderPane fx:id="myFieldSpell"><center>
-                <Rectangle height="100" width="70" fill="black"/>
+                <Rectangle height="100" width="70" fill="black" visible="false"/>
             </center></BorderPane>
             <Button text="next phase" textFill="blue" onMouseClicked="#goToNextPhase"/>
             <Button text="show graveyard" onMouseClicked="#showGraveyard"/>
             <Button text="surrender" onMouseClicked="#surrender"/>
         </VBox >
 
-        <VBox maxHeight="780" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.rowSpan="5"
-              alignment="TOP_RIGHT">
-            <Pane minHeight="70"/>
+        <VBox maxHeight="780" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.rowSpan="5" alignment="TOP_CENTER">
             <BorderPane fx:id="rivalFieldSpell" ><right>
-                <Rectangle height="100" width="70" fill="black"/>
+                <Rectangle height="100" width="70" fill="black" visible="false"/>
             </right></BorderPane>
-            <Pane minHeight="510"/>
+            <Pane minHeight="300"/>
             <VBox fx:id="buttonsOfGameActions" spacing="5">
                 <Button fx:id="summonButton" text="summon" onMouseClicked="#summon" visible="false"/>
                 <Button fx:id="setButton" text="set" onMouseClicked="#set"  visible="false"/>
                 <Button fx:id="flipButton" text="flip summon" onMouseClicked="#flipSummon"  visible="false"/>
-                <Button fx:id="activeEffectButton" text="activate effect" onMouseClicked="#activeEffect"  visible="false"/>
                 <Button fx:id="setPositionButton" text="change position" onMouseClicked="#changePosition"  visible="false"/>
+                <Button fx:id="activeEffectButton" text="activate effect" onMouseClicked="#activeEffect"  visible="false"/>
                 <Button fx:id="attackButton" text="attack" onMouseClicked="#attack"  visible="false"/>
             </VBox>
         </VBox >
 
     <HBox fx:id="rivalHand"  spacing="15" GridPane.rowIndex="0" GridPane.columnIndex="1">
-        <Rectangle height="90" width="60" fill="black"/>
-        <Rectangle height="90" width="60" fill="black"/>
-        <Rectangle height="90" width="60" fill="black"/>
-        <Rectangle height="90" width="60" fill="black"/>
-        <Rectangle height="90" width="60" fill="black"/>
-        <Rectangle height="90" width="60" fill="black"/>
+        <Rectangle height="90" width="60" fill="black" visible="false"/>
+        <Rectangle height="90" width="60" fill="black" visible="false"/>
+        <Rectangle height="90" width="60" fill="black" visible="false"/>
+        <Rectangle height="90" width="60" fill="black" visible="false"/>
+        <Rectangle height="90" width="60" fill="black" visible="false"/>
+        <Rectangle height="90" width="60" fill="black" visible="false"/>
     </HBox>
 
-    <HBox fx:id="rivalSpells"  spacing="35" GridPane.rowIndex="1" GridPane.columnIndex="1" minWidth="535">
-        <Rectangle height="100" width="70" fill="black"/>
-        <Rectangle height="100" width="70" fill="black"/>
-        <Rectangle height="100" width="70" fill="black"/>
-        <Rectangle height="100" width="70" fill="black"/>
-        <Rectangle height="100" width="70" fill="black"/>
+    <HBox fx:id="rivalSpells"  spacing="45" GridPane.rowIndex="1" GridPane.columnIndex="1" minWidth="535">
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
     </HBox>
 
-    <HBox fx:id="rivalMonsters" spacing="35" GridPane.rowIndex="2" GridPane.columnIndex="1">
-        <Rectangle height="100" width="70" fill="black"/>
-        <Rectangle height="100" width="70" fill="black"/>
-        <Rectangle height="100" width="70" fill="black"/>
-        <Rectangle height="100" width="70" fill="black"/>
-        <Rectangle height="100" width="70" fill="black"/>
+    <HBox fx:id="rivalMonsters" spacing="45" GridPane.rowIndex="2" GridPane.columnIndex="1">
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <Rectangle height="100" width="70" fill="black" visible="false"/>
     </HBox>
-        <HBox fx:id="myMonsters" spacing="35" GridPane.rowIndex="3" GridPane.columnIndex="1">
-            <Rectangle height="100" width="70" fill="black"/>
-            <Rectangle height="100" width="70" fill="black"/>
-            <Rectangle height="100" width="70" fill="black"/>
-            <Rectangle height="100" width="70" fill="black"/>
-            <Rectangle height="100" width="70" fill="black"/>
+        <HBox fx:id="myMonsters" spacing="45" GridPane.rowIndex="3" GridPane.columnIndex="1">
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
         </HBox>
-        <HBox fx:id="mySpells"  spacing="35" GridPane.rowIndex="4" GridPane.columnIndex="1">
-            <Rectangle height="100" width="70" fill="black"/>
-            <Rectangle height="100" width="70" fill="black"/>
-            <Rectangle height="100" width="70" fill="black"/>
-            <Rectangle height="100" width="70" fill="black"/>
-            <Rectangle height="100" width="70" fill="black"/>
+        <HBox fx:id="mySpells"  spacing="45" GridPane.rowIndex="4" GridPane.columnIndex="1">
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
+            <Rectangle height="100" width="70" fill="black" visible="false"/>
         </HBox>
         <HBox fx:id="myHand"  spacing="15" GridPane.rowIndex="5" GridPane.columnIndex="1">
-            <Rectangle height="90" width="60" fill="black"/>
-            <Rectangle height="90" width="60" fill="black"/>
-            <Rectangle height="90" width="60" fill="black"/>
-            <Rectangle height="90" width="60" fill="black"/>
-            <Rectangle height="90" width="60" fill="black"/>
-            <Rectangle height="90" width="60" fill="black"/>
+            <Rectangle height="90" width="60" fill="black" visible="false"/>
+            <Rectangle height="90" width="60" fill="black" visible="false"/>
+            <Rectangle height="90" width="60" fill="black" visible="false"/>
+            <Rectangle height="90" width="60" fill="black" visible="false"/>
+            <Rectangle height="90" width="60" fill="black" visible="false"/>
+            <Rectangle height="90" width="60" fill="black" visible="false"/>
         </HBox>
 
     </GridPane>

@@ -3,6 +3,7 @@ package graphicview;
 import controller.GameMenu;
 import controller.MainMenu;
 import javafx.animation.FadeTransition;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,21 +12,33 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import model.Board;
 import model.Game;
+import model.card.Card;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
+import view.Enums;
+import view.Show;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class GameView {
@@ -47,8 +60,8 @@ public class GameView {
     public HBox myHand;
     public Rectangle selectedCard;
     public Label selectedCardDescription;
-    public Pane myFieldSpell;
-    public Pane rivalFieldSpell;
+    public BorderPane myFieldSpell;
+    public BorderPane rivalFieldSpell;
     public VBox buttonsOfGameActions;
     public Button summonButton;
     public Button flipButton;
@@ -56,12 +69,12 @@ public class GameView {
     public Button activeEffectButton;
     public Button setPositionButton;
     public Button attackButton;
+    private static MediaPlayer backgroundMusic;
     private Player player;
     private Player rival;
     private Stage stage;
     private final Popup popup = new Popup();
     private final VBox popupVBox = new VBox();
-
 
     public static void startGame(Integer rounds, User user2) {
         GameMenu.duel(user2, rounds, true);
@@ -83,6 +96,12 @@ public class GameView {
             secondStage.show();
             ((GameView) loader.getController()).showBoard(secondPlayer, secondStage);
             //starting game
+            backgroundMusic = new MediaPlayer(new Media(GameView.class.getResource("/sounds/background.mp3").toExternalForm()));
+            backgroundMusic.setOnEndOfMedia(() -> {
+                backgroundMusic.seek(Duration.ZERO);
+                backgroundMusic.play();
+            });
+            backgroundMusic.play();
             game.runGraphical();
         } catch (IOException e) {
             e.printStackTrace();
@@ -101,6 +120,35 @@ public class GameView {
         ft.setFromValue(0.0);
         ft.setToValue(1.0);
         ft.play();
+    }
+
+    public static void openCheatPopup(Stage stage,Player player) {
+        Popup popup = new Popup();
+        TextField textField = new TextField();
+        textField.setPromptText("cheat code");
+        Button button = new Button("cheat");
+        button.setOnMouseClicked(e -> {
+            processCheatCode(textField.getText(),player);
+            popup.hide();
+        });
+        HBox hBox = new HBox(textField,button);
+        hBox.setMinHeight(100);
+        hBox.setMinWidth(300);
+        popup.getContent().add(hBox);
+        popup.setAnchorX(400);
+        popup.setAnchorY(390);
+        popup.show(stage);
+    }
+
+    private static void processCheatCode(String cheatCode,Player player) {
+        Matcher matcher;
+        if (game != null && !game.isOver()) {
+            if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_LP.getRegex()).matcher(cheatCode)).find())
+                player.increaseLP(Integer.parseInt(matcher.group(1)));
+            else if (cheatCode.equals(Enums.Cheat.WIN_DUEL.getRegex())) player.getRival().getGameView().surrender();
+            else if (cheatCode.equals(Enums.Cheat.SET_AND_SUMMON_AGAIN.getRegex())) game.setHasSummonedOrSet(false);
+        }else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_MONEY.getRegex()).matcher(cheatCode)).find())
+            if (MainMenu.getCurrentUser() != null) MainMenu.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
     }
 
     public Stage getStage() {
@@ -129,9 +177,19 @@ public class GameView {
         popup.setAnchorY(390);
         popup.getContent().add(popupVBox);
         popupVBox.setSpacing(5);
+        myLP.setTextFill(Color.rgb(0, 170, 0));
+        rivalLP.setTextFill(Color.rgb(0, 170, 0));
+        stage.getScene().setOnKeyPressed(keyEvent -> {
+            if (Game.CHEAT_KEYS.match(keyEvent)) openCheatPopup(stage,player);
+        });
+        setRivalBoardDragOverDirectAttack(rivalMonsters);
+        setRivalBoardDragOverDirectAttack(rivalSpells);
+        setRivalBoardDragOverDirectAttack(rivalHand);
     }
 
+
     public void doLostAction() {
+        new MediaPlayer(new Media(GameView.class.getResource("/sounds/end-turn.wav").toExternalForm())).play();
         if (game.getRound() == 1) endGame(game.endRound());
         else {
             String result = game.getResultOfOneRound(player);
@@ -142,6 +200,8 @@ public class GameView {
     }
 
     private void endGame(String result) {
+        game.setOver(true);
+        backgroundMusic.stop();
         showMessage(result, true);
         FadeTransition ft = new FadeTransition(Duration.millis(1000), stage.getScene().getRoot());
         ft.setFromValue(1.0);
@@ -188,49 +248,52 @@ public class GameView {
                 stage.getScene().getRoot().setOpacity(1);
             }
         });
-        game.deselect();
-
     }
 
-
-    public void goToNextPhase() {
-        if (game.getRival() == player) showMessage("not your turn", false);
-        else game.goToNextPhase();
-    }
 
     public void summon() {
         showMessage(game.summon(), false);
+        game.deselect();
     }
 
     public void set() {
         showMessage(game.set(), false);
+        game.deselect();
     }
 
     public void flipSummon() {
         showMessage(game.flipSummon(), false);
+        game.deselect();
     }
 
     public void activeEffect() {
         showMessage(game.activeEffect(), false);
+        game.deselect();
     }
 
     public void changePosition() {
         Popup popup = new Popup();
         HBox positionChooser = new HBox();
+        positionChooser.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY,
+                CornerRadii.EMPTY,
+                Insets.EMPTY)));
         Label label = new Label("choose a position :   ");
+        label.setStyle("-fx-font: 15 arial;");
         Button attackPosition = new Button("attack");
         Button defensePosition = new Button("defense");
         attackPosition.setOnMouseClicked(mouseEvent -> {
-            showMessage(game.setMonsterPosition(true), false);
             popup.hide();
+            showMessage(game.setMonsterPosition(true), false);
+            game.deselect();
         });
         defensePosition.setOnMouseClicked(mouseEvent -> {
-            showMessage(game.setMonsterPosition(false), false);
             popup.hide();
+            showMessage(game.setMonsterPosition(false), false);
+            game.deselect();
         });
 
         popup.setAnchorX(600);
-        popup.setAnchorY(390);
+        popup.setAnchorY(400);
         positionChooser.getChildren().add(label);
         positionChooser.getChildren().add(attackPosition);
         positionChooser.getChildren().add(defensePosition);
@@ -239,56 +302,144 @@ public class GameView {
         popup.show(stage);
     }
 
-
-    public void showGraveyard(MouseEvent mouseEvent) {
-        //TODO
-    }
-
-    public void surrender() {
-        game.surrendered();
-        doLostAction();
-    }
-
     public void attack() {
         Popup popup = new Popup();
         HBox attackedChooser = new HBox();
         Label label = new Label("choose a monster :   ");
+        label.setStyle("-fx-font: 15 arial;");
+        attackedChooser.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY,
+                CornerRadii.EMPTY,
+                Insets.EMPTY)));
         Button[] monsterButtons = new Button[5];
-        for (int i = 1; i <= 5; i++){
-            monsterButtons[i-1] = new Button(String.valueOf(i));
+        for (int i = 1; i <= 5; i++) {
+            monsterButtons[i - 1] = new Button(String.valueOf(i));
             int finalI = i;
-            monsterButtons[i].setOnMouseClicked(mouseEvent -> {
-                showMessage(game.attack(finalI - 1), false);
+            monsterButtons[i - 1].setOnMouseClicked(mouseEvent -> {
                 popup.hide();
+                showMessage(game.attack(finalI - 1), false);
+                game.deselect();
+                if (game.hasBattlePhaseEnded()) {
+                    game.setBattlePhaseEnded(false);
+                    game.goToNextPhase();
+                }
             });
         }
-
+        Button attackDirect = new Button("attack directly");
+        attackDirect.setOnMouseClicked(mouseEvent -> {
+            popup.hide();
+            showMessage(game.attack(-1), false);
+            game.deselect();
+            if (game.hasBattlePhaseEnded()) {
+                game.setBattlePhaseEnded(false);
+                game.goToNextPhase();
+            }
+        });
         popup.setAnchorX(600);
-        popup.setAnchorY(390);
+        popup.setAnchorY(400);
         attackedChooser.getChildren().add(label);
         attackedChooser.getChildren().add(monsterButtons[3]);
         attackedChooser.getChildren().add(monsterButtons[1]);
         attackedChooser.getChildren().add(monsterButtons[0]);
         attackedChooser.getChildren().add(monsterButtons[2]);
         attackedChooser.getChildren().add(monsterButtons[4]);
+        attackedChooser.getChildren().add(attackDirect);
         popup.getContent().add(attackedChooser);
         attackedChooser.setSpacing(2);
         popup.show(stage);
     }
 
+
+    public void goToNextPhase() {
+        if (game.getRival() == player) showMessage("not your turn", false);
+        else game.goToNextPhase();
+    }
+
+    public void showGraveyard() {
+        HBox bothGraves = new HBox();
+        bothGraves.getChildren().addAll(addCardsToGrave(player, "Your Graveyard:"),
+                addCardsToGrave(rival, "Rival's Graveyard:"));
+        Button closeGY = new Button("close");
+        VBox GYsAndButton = new VBox();
+        GYsAndButton.setMaxHeight(300);
+        GYsAndButton.getChildren().addAll(bothGraves, closeGY);
+        Popup popup = new Popup();
+        popup.getContent().add(GYsAndButton);
+        popup.setAnchorY(stage.getHeight() / 2);
+        popup.setAnchorX(stage.getWidth() / 2 - 200);
+        popup.show(stage);
+        closeGY.setOnMouseClicked(mouseEvent -> popup.hide());
+    }
+
+
+    private ScrollPane addCardsToGrave(Player player, String graveName) {
+        VBox graphicGrave = new VBox();
+        graphicGrave.setSpacing(5);
+        Label label = new Label(graveName);
+        label.setStyle("-fx-font-size: 15");
+        label.setTextFill(Color.BROWN);
+        graphicGrave.getChildren().add(label);
+        for (Card card : player.getBoard().getGrave()) {
+            if (card != null) {
+                Card copiedCard = Card.make(card.getName());
+                copiedCard.setSizes(false);
+                copiedCard.setShowDescriptionOnMouseClicked(stage);
+                graphicGrave.getChildren().add(copiedCard);
+            }
+        }
+        ScrollPane scrollPane = new ScrollPane(graphicGrave);
+        scrollPane.setFitToWidth(true);
+        return scrollPane;
+    }
+
+
+    public void surrender() {
+        game.surrendered();
+        doLostAction();
+    }
+
     public void makeActionsVisible(boolean isMonster, boolean isMainPhase) {
-        if (isMonster){
-            if(isMainPhase){
+        for (Node child : buttonsOfGameActions.getChildren()) {
+            child.setVisible(false);
+        }
+        if (isMonster) {
+            if (isMainPhase) {
                 summonButton.setVisible(true);
                 setButton.setVisible(true);
                 setPositionButton.setVisible(true);
                 flipButton.setVisible(true);
-            }
-            else attackButton.setVisible(true);
-        }else if (isMainPhase) {
+            } else attackButton.setVisible(true);
+        } else if (isMainPhase) {
             setButton.setVisible(true);
             activeEffectButton.setVisible(true);
         }
     }
+
+    private void setRivalBoardDragOverDirectAttack(Node node){
+        node.setOnDragOver(new EventHandler<>() {
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != this && event.getDragboard().hasString())
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                event.consume();
+            }
+        });
+
+        node.setOnDragDropped((DragEvent event) -> {
+            Dragboard db = event.getDragboard();
+            if (db.hasString()) {
+                Game game = GameMenu.getCurrentGame();
+                Matcher matcher = Pattern.compile("(\\d+) # (.*)").matcher(db.getString());
+                if (matcher.find()) {
+                    boolean hasCurrentPlayerDoneTheAct = matcher.group(2).equals(game.getCurrentPlayer().getUser().getUsername());
+                    if (hasCurrentPlayerDoneTheAct) {
+                        game.selectCard(Board.Zone.MONSTER, Integer.parseInt(matcher.group(1)), false);
+                        Show.showGameMessage(game.attack(-1));
+                    } else Show.showGameMessage("not your turn");
+                }
+                event.setDropCompleted(true);
+            } else event.setDropCompleted(false);
+            event.consume();
+        });
+    }
+
 }
 

@@ -35,8 +35,10 @@ public class Profile {
     public static String changeAvatar(String name){
         User user = MainMenu.getCurrentUser();
         try {
+            String avatarPath = "/png/profile/" + name;
+            user.setAvatarPath(avatarPath);
             user.getAvatarRec().setFill(new ImagePattern(new Image(String.valueOf(Profile.class.getResource(
-                    "/png/profile/" + name )))));
+                    avatarPath )))));
             return "your avatar changed successfully";
         }catch (Exception e){
             return "some thing went wrong!";

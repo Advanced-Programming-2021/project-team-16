@@ -2,7 +2,6 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.shape.Rectangle?>
 <GridPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
@@ -19,17 +18,17 @@
 
     <TextField  fx:id="newNickname" promptText="new nickname" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
     <Button text="change nickname" GridPane.rowIndex="9" GridPane.columnIndex="0" onMouseClicked="#changeNickname"/>
-    <Label fx:id="changeNicknameAlert" GridPane.rowIndex="10" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
 
     <TextField fx:id="oldPass" promptText="current password" GridPane.rowIndex="8" GridPane.columnIndex="2"/>
     <TextField fx:id="newPass" promptText="new password" GridPane.rowIndex="9" GridPane.columnIndex="2"/>
     <Button  text="change password" GridPane.rowIndex="10" GridPane.columnIndex="2" onMouseClicked="#changePass"/>
-    <Label  fx:id="changePassAlert" GridPane.rowIndex="11" GridPane.columnIndex="2" GridPane.columnSpan="2"/>
 
     <Label text="Put your picture in resource/png/profile" GridPane.rowIndex="8" GridPane.columnIndex="4"/>
     <TextField fx:id="avatarName" promptText="name.png/name.jpd/..." GridPane.rowIndex="9" GridPane.columnIndex="4"/>
     <Button  text="change avatar" GridPane.rowIndex="10" GridPane.columnIndex="4" onMouseClicked="#changeAvatar"/>
-    <Label  fx:id="changeAvatarAlert" GridPane.rowIndex="11" GridPane.columnIndex="4" GridPane.columnSpan="2"/>
+
+
+    <Label  fx:id="changeAlert" GridPane.rowIndex="12" GridPane.columnIndex="1" GridPane.columnSpan="5"/>
 
 
     <Button text="back" GridPane.rowIndex="13" GridPane.columnIndex="5" onMouseClicked="#enterMainMenu"/>

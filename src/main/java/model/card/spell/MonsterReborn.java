@@ -30,7 +30,7 @@ public class MonsterReborn extends Spell {
         board = isMyGrave ? game.getCurrentPlayer().getBoard() : game.getRival().getBoard();
         Monster monster = (Monster) board.getCardByIndexAndZone(graveIndex, Board.Zone.GRAVE);
         game.removeCardFromZone(monster, Board.Zone.GRAVE, graveIndex, board);
-        game.putCardInZone(monster, Board.Zone.MONSTER, null, board);
+        game.putCardInZone(monster, Board.Zone.MONSTER, null, game.getCurrentPlayer().getBoard());
         super.action();
         return "spell activated and special summoned " + monster.getName() + " successfully";
     }

@@ -28,9 +28,6 @@ public class LoginMenu extends Application {
     private static Stage mainStage;
 
     public static void main(String[] args) {
-        // test user :
-        new User("", "", "");
-
         UpdateStatus.beforeRun();
         launch(args);
         UpdateStatus.afterRun();
