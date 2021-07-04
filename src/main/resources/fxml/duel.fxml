@@ -2,12 +2,12 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-
 <GridPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="graphicview.DuelMenu"
-            prefHeight="400.0" prefWidth="600.0"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="graphicview.DuelMenu"
+          prefHeight="400.0" prefWidth="600.0"
           style="-fx-font: 13 arial;" vgap="10" hgap="5" alignment="CENTER">
+
     <Label text="Duel Menu" style="-fx-font: 15 arial;" textFill="blueviolet" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
     <Label text="second player" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
     <TextField fx:id="secondPlayerUsername" GridPane.rowIndex="1" GridPane.columnIndex="1"/>

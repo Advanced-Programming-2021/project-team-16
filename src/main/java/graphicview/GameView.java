@@ -79,6 +79,10 @@ public class GameView {
     public static void startGame(Integer rounds, User user2) {
         GameMenu.duel(user2, rounds, true);
         game = GameMenu.getCurrentGame();
+
+    }
+
+    public static void showGameView(){
         Player firstPlayer = game.getCurrentPlayer().getUser() == MainMenu.getCurrentUser() ?
                 game.getCurrentPlayer() : game.getRival();
         Player secondPlayer = game.getCurrentPlayer() == firstPlayer ? game.getRival() : game.getCurrentPlayer();

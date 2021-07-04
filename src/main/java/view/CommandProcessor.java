@@ -597,5 +597,8 @@ public class CommandProcessor {
     private static Background getGreyBackground() {
         return new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY));
     }
+    public static Background getBackground(Color color){
+        return new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY));
+    }
 }
 
