@@ -76,15 +76,15 @@ public class EditDeck {
         if (selectedDeck.getName().equals(user.getActiveDeck().getName()))
             setActiveBtn.setVisible(false);
         for (String name : selectedDeck.getMainDeckCards()) {
-            Card card = Card.getCardByName(name);
-            cards = new Rectangle();
+            Card card = Card.make(name);
+            cards = card;
             cards.setHeight(85);
             cards.setWidth(68);
             Rectangle finalCards = cards;
 
             cards.setOnMouseClicked(me -> {
                 selectedCard.setFill(finalCards.getFill());
-                selected = getCardByRectangle(finalCards);
+                selected = card;
                 selectedCardDescription.setText(selected.getCardProperties());
                 removeBtn.setVisible(true);
                 isMain = true;
@@ -95,7 +95,6 @@ public class EditDeck {
             cards.setOnMouseExited(me -> {
                 undoGlowEffect(finalCards);
             });
-            assert card != null;
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             mainBoard.add(cards, row, column);
@@ -108,7 +107,7 @@ public class EditDeck {
         row = 0;
         column = 0;
         for (String name : selectedDeck.getSideDeckCards()) {
-            Card card = Card.getCardByName(name);
+            Card card = Card.make(name);
             cards = new Rectangle();
             cards.setHeight(90);
             cards.setWidth(65);
@@ -117,7 +116,7 @@ public class EditDeck {
                 public void handle(MouseEvent me) {
 
                     selectedCard.setFill(finalCards.getFill());
-                    selected = getCardByRectangle(finalCards);
+                    selected = card;
                     selectedCardDescription.setText(selected.getCardProperties());
                     removeBtn.setVisible(true);
                     isMain = false;
@@ -195,11 +194,6 @@ public class EditDeck {
     }
 
     public void setActiveBtnOnAction(ActionEvent actionEvent) {
-        String message = controller.DeckMenu.activate(deck[0].trim());
-        if(message.equals("deck activated successfully")){
-            setActiveBtn.setVisible(false);
-            DeckMenu.enterMenu();
-        }
     }
 
     public void AddCardBtnOnAction(ActionEvent actionEvent) throws IOException {
@@ -211,10 +205,6 @@ public class EditDeck {
     }
 
     public void deleteBtnOnAction(ActionEvent actionEvent) {
-        String message = controller.DeckMenu.delete(deck[0].trim());
-        if(message.equals("deck deleted successfully")) {
-            DeckMenu.enterMenu();
-        }
     }
 
     public void addCardBoard() {
@@ -223,9 +213,9 @@ public class EditDeck {
         int row = 0;
         int column = 0;
         for (String name : selectedDeck.getMainDeckCards()) {
-            Card card = Card.getCardByName(name);
-            cards = new Rectangle();
-            //cards = card
+            Card card = Card.make(name);
+            cards = card;
+            assert cards != null;
             cards.setHeight(85);
             cards.setWidth(68);
             Rectangle finalCards = cards;
@@ -234,7 +224,7 @@ public class EditDeck {
                 public void handle(MouseEvent me) {
 
                     selectedCard.setFill(finalCards.getFill());
-                    selected = getCardByRectangle(finalCards);
+                    selected = card;
                     selectedCardDescription1.setText(selected.getCardProperties());
                     removeBtn.setVisible(true);
                     isMain = true;
@@ -250,7 +240,6 @@ public class EditDeck {
                     undoGlowEffect(finalCards);
                 }
             });
-            assert card != null;
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             mainBoard.add(cards, row, column);
@@ -263,8 +252,9 @@ public class EditDeck {
         row = 0;
         column = 0;
         for (String name : selectedDeck.getSideDeckCards()) {
-            Card card = Card.getCardByName(name);
-            cards = new Rectangle();
+            Card card = Card.make(name);
+            cards = card;
+            assert cards != null;
             cards.setHeight(90);
             cards.setWidth(65);
             Rectangle finalCards = cards;
@@ -272,7 +262,7 @@ public class EditDeck {
                 public void handle(MouseEvent me) {
 
                     selectedCard.setFill(finalCards.getFill());
-                    selected = getCardByRectangle(finalCards);
+                    selected = card;
                     selectedCardDescription1.setText(selected.getCardProperties());
                     removeBtn.setVisible(true);
                     isMain = false;
@@ -298,7 +288,6 @@ public class EditDeck {
                     undoGlowEffect(finalCards);
                 }
             });
-            assert card != null;
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             sideBoard.add(cards, row, column);
@@ -311,7 +300,7 @@ public class EditDeck {
         row = 0;
         column = 0;
         for (Card card : user.getCards()) {
-            cards = new Rectangle();
+            cards = card;
             cards.setHeight(90);
             cards.setWidth(65);
             Rectangle finalCards = cards;
@@ -320,7 +309,7 @@ public class EditDeck {
                 public void handle(MouseEvent me) {
 
                     selectedCard.setFill(finalCards.getFill());
-                    selected = getCardByRectangle(finalCards);
+                    selected = card;
                     selectedCardDescription1.setText(selected.getCardProperties());
                     isMain = true;
                 }
@@ -335,7 +324,6 @@ public class EditDeck {
                     undoGlowEffect(finalCards);
                 }
             });
-            assert card != null;
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             allCards.add(cards, row, column);
@@ -351,7 +339,7 @@ public class EditDeck {
     public Card getCardByRectangle(Rectangle rectangle) {
         Card rCard = null;
         for (Card card : Card.getCards()) {
-            if (card.getRectangle().getFill() == rectangle.getFill())
+            if (card.getRectangle().getFill().equals(rectangle.getFill()))
                 rCard = card;
         }
         return rCard;
