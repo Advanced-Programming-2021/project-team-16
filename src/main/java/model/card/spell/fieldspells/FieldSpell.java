@@ -65,10 +65,8 @@ public class FieldSpell extends Spell {
         Background background;
         if (isUndo) background = GraphicUtils.getBackground("/png/field/fie_normal.bmp");
         else background = GraphicUtils.getBackground("/png/field/" + name + ".bmp");
-        if (game.getRival().getBoard().getFieldSpell() == null && game.getCurrentPlayer().getBoard().getFieldSpell() == null) {
-            game.getCurrentPlayer().getGameView().board.setBackground(background);
-            game.getRival().getGameView().board.setBackground(background);
-        }
+        game.getCurrentPlayer().getGameView().board.setBackground(background);
+        game.getRival().getGameView().board.setBackground(background);
     }
 
     public boolean isActivated() {

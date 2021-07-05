@@ -12,8 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -106,7 +104,7 @@ public class GameMenu {
                 if (countOfFlips < 4) flipToTail.play();
             });
             flipToTail.play();
-            new MediaPlayer(new Media(GameView.class.getResource("/sounds/coin.mp3").toExternalForm())).play();
+            GameView.playSound("coin.mp3");
         });
         return chosenRec;
     }

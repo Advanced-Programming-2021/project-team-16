@@ -5,8 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import model.card.Activatable;
 import model.card.Card;
@@ -492,7 +490,7 @@ public class Game {
         if (currentPhase != Phase.BATTLE) return "you can’t do this action in this phase";
         if (currentPlayer.getBoard().getDidMonsterAttack()[selectedZoneIndex]) return "this card already attacked";
         if (attacking instanceof TheCalculator) ((TheCalculator) attacking).action();
-        new MediaPlayer(new Media(GameView.class.getResource("/sounds/attack.wav").toExternalForm())).play();
+        GameView.playSound("attack.wav");
         if (checkForTraps("attack")) return "rival's trap was activated. attack is cancelled";
         if (MessengerOfPeace.canBeActivated()) return MessengerOfPeace.getActivationMessage();
         if (monsterNumber == -1) return attackDirectly();
@@ -701,9 +699,9 @@ public class Game {
                 if (currentPlayer.getBoard().getFieldSpell() != null)
                     removeCardFromZone(currentPlayer.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, currentPlayer.getBoard());
                 if (position == Board.CardPosition.ACTIVATED) {
-                    ((FieldSpell) card).action(false);
                     if (rival.getBoard().getFieldSpell() != null && rival.getBoard().getFieldSpell().isActivated())
                         removeCardFromZone(rival.getBoard().getFieldSpell(), Board.Zone.FIELD_SPELL, 0, rival.getBoard());
+                    ((FieldSpell) card).action(false);
                 }
                 board.setFieldSpell(((FieldSpell) card), fakeCard);
             }
@@ -721,7 +719,7 @@ public class Game {
         }
         if (isGraphical) {
             if (zone == Board.Zone.HAND || zone == Board.Zone.MONSTER || zone == Board.Zone.SPELL_AND_TRAP || zone == Board.Zone.FIELD_SPELL) {
-                new MediaPlayer(new Media(GameView.class.getResource("/sounds/summon.wav").toExternalForm())).play();
+                GameView.playSound("summon.wav");
                 GameView.showNode(card);
                 if (zone != Board.Zone.HAND) fakeCard.setFill(card.getFill());
                 fakeCard.setWidth(card.getWidth());
@@ -793,9 +791,7 @@ public class Game {
         this.currentPhase = currentPhase;
         deselect();
         if (currentPhase == Phase.END) isItFirstTurn = false;
-        if (currentPhase == Phase.BATTLE)
-            new MediaPlayer(new Media(GameView.class.getResource("/sounds/battle-phase.wav").toExternalForm())).play();
-
+        if (currentPhase == Phase.BATTLE) GameView.playSound("battle-phase.wav");
         Show.showPhase(currentPhase);
     }
 
@@ -876,6 +872,14 @@ public class Game {
         putCardInZone(card, Board.Zone.HAND, null, board);
         Show.showBoard();
         return "card added to hand successfully!";
+    }
+
+    public void addCardToHand(String name, Player player){
+        Card card = Card.make(name);
+        if (card == null) return;
+        Board board = player.getBoard();
+        if (board.isZoneFull(Board.Zone.HAND)) return ;
+        putCardInZone(card, Board.Zone.HAND, null, board);
     }
 
     public String removeCardFromHand(String cardName) {

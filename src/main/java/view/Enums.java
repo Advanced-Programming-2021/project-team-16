@@ -298,6 +298,7 @@ public class Enums {
         INCREASE_LP("increase --LP (\\d+)"),
         INCREASE_MONEY("increase --money (\\d+)"),
         WIN_DUEL("duel set-winner"),
+        ADD_CARD("add card (.*)"),
         SET_AND_SUMMON_AGAIN("not summon/set yet");
         private final String regex;
 

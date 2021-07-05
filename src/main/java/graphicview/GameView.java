@@ -43,6 +43,8 @@ import java.util.regex.Pattern;
 
 public class GameView {
     private static Game game;
+    private static boolean isMuted;
+    private static MediaPlayer backgroundMusic;
     public Label myLP;
     public Label rivalNickname;
     public Rectangle rivalAvatar;
@@ -69,7 +71,7 @@ public class GameView {
     public Button activeEffectButton;
     public Button setPositionButton;
     public Button attackButton;
-    private static MediaPlayer backgroundMusic;
+    public Rectangle muteRectangle;
     private Player player;
     private Player rival;
     private Stage stage;
@@ -79,10 +81,10 @@ public class GameView {
     public static void startGame(Integer rounds, User user2) {
         GameMenu.duel(user2, rounds, true);
         game = GameMenu.getCurrentGame();
-
+        isMuted = false;
     }
 
-    public static void showGameView(){
+    public static void showGameView() {
         Player firstPlayer = game.getCurrentPlayer().getUser() == MainMenu.getCurrentUser() ?
                 game.getCurrentPlayer() : game.getRival();
         Player secondPlayer = game.getCurrentPlayer() == firstPlayer ? game.getRival() : game.getCurrentPlayer();
@@ -126,16 +128,16 @@ public class GameView {
         ft.play();
     }
 
-    public static void openCheatPopup(Stage stage,Player player) {
+    public static void openCheatPopup(Stage stage, Player player) {
         Popup popup = new Popup();
         TextField textField = new TextField();
         textField.setPromptText("cheat code");
         Button button = new Button("cheat");
         button.setOnMouseClicked(e -> {
-            processCheatCode(textField.getText(),player);
+            processCheatCode(textField.getText(), player);
             popup.hide();
         });
-        HBox hBox = new HBox(textField,button);
+        HBox hBox = new HBox(textField, button);
         hBox.setMinHeight(100);
         hBox.setMinWidth(300);
         popup.getContent().add(hBox);
@@ -144,15 +146,27 @@ public class GameView {
         popup.show(stage);
     }
 
-    private static void processCheatCode(String cheatCode,Player player) {
+    private static void processCheatCode(String cheatCode, Player player) {
         Matcher matcher;
         if (game != null && !game.isOver()) {
             if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_LP.getRegex()).matcher(cheatCode)).find())
                 player.increaseLP(Integer.parseInt(matcher.group(1)));
             else if (cheatCode.equals(Enums.Cheat.WIN_DUEL.getRegex())) player.getRival().getGameView().surrender();
             else if (cheatCode.equals(Enums.Cheat.SET_AND_SUMMON_AGAIN.getRegex())) game.setHasSummonedOrSet(false);
-        }else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_MONEY.getRegex()).matcher(cheatCode)).find())
-            if (MainMenu.getCurrentUser() != null) MainMenu.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
+            else if ((matcher = Pattern.compile(Enums.Cheat.ADD_CARD.getRegex()).matcher(cheatCode)).find())
+                game.addCardToHand(matcher.group(1),player);
+        } else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_MONEY.getRegex()).matcher(cheatCode)).find())
+            if (MainMenu.getCurrentUser() != null)
+                MainMenu.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
+    }
+
+    public static void playSound(String name) {
+        if (!isMuted())
+            new MediaPlayer(new Media(GameView.class.getResource("/sounds/" + name).toExternalForm())).play();
+    }
+
+    public static boolean isMuted() {
+        return isMuted;
     }
 
     public Stage getStage() {
@@ -184,16 +198,17 @@ public class GameView {
         myLP.setTextFill(Color.rgb(0, 170, 0));
         rivalLP.setTextFill(Color.rgb(0, 170, 0));
         stage.getScene().setOnKeyPressed(keyEvent -> {
-            if (Game.CHEAT_KEYS.match(keyEvent)) openCheatPopup(stage,player);
+            if (Game.CHEAT_KEYS.match(keyEvent)) openCheatPopup(stage, player);
         });
         setRivalBoardDragOverDirectAttack(rivalMonsters);
         setRivalBoardDragOverDirectAttack(rivalSpells);
         setRivalBoardDragOverDirectAttack(rivalHand);
+        shapeMuteRec();
     }
 
 
     public void doLostAction() {
-        new MediaPlayer(new Media(GameView.class.getResource("/sounds/end-turn.wav").toExternalForm())).play();
+        playSound("end-turn.wav");
         if (game.getRound() == 1) endGame(game.endRound());
         else {
             String result = game.getResultOfOneRound(player);
@@ -278,9 +293,7 @@ public class GameView {
     public void changePosition() {
         Popup popup = new Popup();
         HBox positionChooser = new HBox();
-        positionChooser.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY,
-                CornerRadii.EMPTY,
-                Insets.EMPTY)));
+        positionChooser.setBackground(GraphicUtils.getGreyBackground());
         Label label = new Label("choose a position :   ");
         label.setStyle("-fx-font: 15 arial;");
         Button attackPosition = new Button("attack");
@@ -418,7 +431,7 @@ public class GameView {
         }
     }
 
-    private void setRivalBoardDragOverDirectAttack(Node node){
+    private void setRivalBoardDragOverDirectAttack(Node node) {
         node.setOnDragOver(new EventHandler<>() {
             public void handle(DragEvent event) {
                 if (event.getGestureSource() != this && event.getDragboard().hasString())
@@ -445,5 +458,38 @@ public class GameView {
         });
     }
 
+    private void shapeMuteRec() {
+        muteRectangle.setHeight(30);
+        muteRectangle.setWidth(30);
+        muteRectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/background/unmuted.png").toExternalForm())));
+        muteRectangle.setOnMouseClicked(me -> {
+            if (isMuted()) {
+                muteRectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/background/unmuted.png").toExternalForm())));
+                isMuted = false;
+                backgroundMusic.play();
+            } else {
+                muteRectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/background/muted.png").toExternalForm())));
+                isMuted = true;
+                backgroundMusic.pause();
+            }
+        });
+    }
+
+
+    public void pauseGame() {
+        Stage stage = new Stage();
+        BorderPane borderPane = new BorderPane();
+        borderPane.setMinHeight(100);
+        borderPane.setMinWidth(160);
+        Button resume = new Button("resume");
+        resume.setOnMouseClicked(e-> {
+            stage.close();
+            backgroundMusic.play();
+        });
+        borderPane.setCenter(resume);
+        stage.setScene(new Scene(borderPane));
+        backgroundMusic.pause();
+        stage.showAndWait();
+    }
 }
 
