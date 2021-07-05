@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_RIGHT" prefHeight="530.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ShopMenu">
+<HBox alignment="CENTER_RIGHT" prefHeight="561.0" prefWidth="743.0" style="-fx-background-color: #ffdcb8;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ShopMenu">
    <children>
-      <VBox alignment="CENTER" prefHeight="530.0" prefWidth="234.0">
+      <VBox alignment="CENTER" prefHeight="551.0" prefWidth="222.0">
          <children>
-            <ImageView fitHeight="284.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="228.0" fitWidth="162.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </VBox>
       <StackPane prefHeight="296.0" prefWidth="30.0">
@@ -1335,19 +1335,19 @@
       </StackPane>
       <StackPane>
          <children>
-            <VBox alignment="CENTER" prefHeight="530.0" prefWidth="124.0">
+            <VBox alignment="CENTER" prefHeight="555.0" prefWidth="139.0">
                <children>
-                  <ImageView fitHeight="120.0" fitWidth="134.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="101.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../png/shop/shopLable.jpg" />
                      </image>
                   </ImageView>
-                  <Button mnemonicParsing="false" onAction="#cardListMenu" prefHeight="54.0" prefWidth="141.0" text="Card List">
+                  <Button mnemonicParsing="false" onAction="#cardListMenu" prefHeight="54.0" prefWidth="141.0" style="-fx-background-color: #000000;" text="Card List" textFill="RED">
                      <font>
-                        <Font name="Andalus" size="23.0" />
+                        <Font name="Andalus" size="21.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#backButton" prefHeight="54.0" prefWidth="141.0" text="Back">
+                  <Button mnemonicParsing="false" onAction="#backButton" prefHeight="54.0" prefWidth="141.0" style="-fx-background-color: #403535;" text="Back" textFill="RED">
                      <font>
                         <Font name="Andalus" size="23.0" />
                      </font>

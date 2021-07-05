@@ -10,19 +10,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="486.0" prefWidth="684.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ShopMenu">
+<AnchorPane prefHeight="577.0" prefWidth="767.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ShopMenu">
    <children>
-      <ImageView fitHeight="530.0" fitWidth="684.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="592.0" fitWidth="777.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../png/shop/cardList.jpg" />
          </image>
       </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="261.0" layoutY="-4.0" prefHeight="22.0" prefWidth="149.0" text="Card List Menu" textAlignment="CENTER" textFill="WHITE">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="314.0" prefHeight="22.0" prefWidth="149.0" text="Card List Menu" textAlignment="CENTER" textFill="#ffdcb8">
          <font>
             <Font name="Monotype Corsiva" size="26.0" />
          </font>
       </Label>
-      <Button layoutX="3.0" layoutY="452.0" mnemonicParsing="false" onAction="#backButton" prefHeight="22.0" prefWidth="82.0" text="Back">
+      <Button layoutX="28.0" layoutY="478.0" mnemonicParsing="false" onAction="#backToShopMenu" prefHeight="48.0" prefWidth="88.0" style="-fx-background-color: #ffdcb8;" text="Back">
          <font>
             <Font name="Andalus" size="21.0" />
          </font>

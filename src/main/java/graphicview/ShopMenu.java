@@ -31,7 +31,11 @@ public class ShopMenu {
     }
 
     public void cardListMenu(ActionEvent event) throws IOException {
-        this.changeScene("/fxml/cardList");
+        this.changeScene("/fxml/cardList.fxml");
+    }
+
+    public void backToShopMenu(ActionEvent event) throws IOException {
+        this.changeScene("/fxml/shop.fxml");
     }
 }
 //fx:controller="graphicview.ShopMenu"
