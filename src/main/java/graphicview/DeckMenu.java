@@ -22,7 +22,7 @@ public class DeckMenu {
 
     private static DeckMenu controllerDeckMenu;
 
-    @FXML
+
     public GridPane decks;
     public Label click;
     public Label activeD;
