@@ -5,6 +5,7 @@ module YuGiOh {
     requires com.google.gson;
 
 
+
     opens graphicview to javafx.fxml;
     opens model.person to com.google.gson;
     opens model to com.google.gson;

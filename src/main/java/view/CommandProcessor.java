@@ -1,14 +1,13 @@
 package view;
 
 import controller.*;
-import javafx.geometry.Insets;
+import graphicview.GraphicUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Board;
 import model.Game;
@@ -378,9 +377,9 @@ public class CommandProcessor {
         if (game.isGraphical()) {
             Button yesButton = new Button("yes");
             Button noButton = new Button("no");
-            HBox hBox = new HBox(getGoodLabel(question), yesButton, noButton);
+            HBox hBox = new HBox(GraphicUtils.getGoodLabel(question), yesButton, noButton);
             hBox.setSpacing(10);
-            hBox.setBackground(getGreyBackground());
+            hBox.setBackground(GraphicUtils.getGreyBackground());
             Stage newStage = new Stage();
             newStage.setScene(new Scene(hBox));
             yesButton.setOnMouseClicked(e -> {
@@ -414,10 +413,10 @@ public class CommandProcessor {
             TextField cardNameField = new TextField();
             cardNameField.setPromptText("card name");
             HBox hBox = new HBox(cardNameField, doneButton);
-            VBox vBox = new VBox(getGoodLabel(whyDoYouNidThis), hBox);
+            VBox vBox = new VBox(GraphicUtils.getGoodLabel(whyDoYouNidThis), hBox);
             hBox.setSpacing(10);
             vBox.setSpacing(10);
-            vBox.setBackground(getGreyBackground());
+            vBox.setBackground(GraphicUtils.getGreyBackground());
             Stage newStage = new Stage();
             newStage.setScene(new Scene(vBox));
             doneButton.setOnMouseClicked(e -> {
@@ -449,12 +448,12 @@ public class CommandProcessor {
                     indexOfArray = finalI;
                     newStage.close();
                 });
-                VBox vBox = new VBox(copiedCard, getGoodLabel(copiedCard.getName()));
+                VBox vBox = new VBox(copiedCard, GraphicUtils.getGoodLabel(copiedCard.getName()));
                 cardsWithNames.getChildren().add(vBox);
             }
             ScrollPane scrollPane = new ScrollPane(cardsWithNames);
             scrollPane.setMinHeight(160);
-            VBox cardsAndGoal = new VBox(getGoodLabel(goal + "\n(close the stage to cancel the operation.)"), scrollPane);
+            VBox cardsAndGoal = new VBox(GraphicUtils.getGoodLabel(goal + "\n(close the stage to cancel the operation.)"), scrollPane);
             cardsAndGoal.setMaxWidth(500);
             newStage.setScene(new Scene(cardsAndGoal));
             newStage.showAndWait();
@@ -587,18 +586,5 @@ public class CommandProcessor {
         return indexes;
     }
 
-    private static Label getGoodLabel(String text) {
-        Label label = new Label(text);
-        label.setTextFill(Color.BROWN);
-        label.setStyle("-fx-font-size: 15");
-        return label;
-    }
-
-    private static Background getGreyBackground() {
-        return new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY));
-    }
-    public static Background getBackground(Color color){
-        return new Background(new BackgroundFill(color, CornerRadii.EMPTY, Insets.EMPTY));
-    }
 }
 

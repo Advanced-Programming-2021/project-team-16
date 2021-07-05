@@ -1,6 +1,7 @@
 package controller;
 
 import graphicview.GameView;
+import graphicview.GraphicUtils;
 import graphicview.LoginMenu;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
@@ -21,7 +22,6 @@ import model.Game;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
-import view.CommandProcessor;
 
 import java.util.Random;
 
@@ -56,7 +56,7 @@ public class GameMenu {
         label.setTextFill(Color.BLUE);
         VBox vBox = new VBox(label, hBox);
         vBox.setSpacing(20);
-        vBox.setBackground(CommandProcessor.getBackground(Color.BEIGE));
+        vBox.setBackground(GraphicUtils.getBackground(Color.BEIGE));
         LoginMenu.getMainStage().setScene(new Scene(vBox));
     }
 

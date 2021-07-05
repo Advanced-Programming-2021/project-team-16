@@ -14,7 +14,7 @@ import static java.util.Collections.swap;
 public class User {
     private static ArrayList<User> users = new ArrayList<>();
     private static final Random random = new Random();
-    private  String username;
+    private String username;
     private String password;
     private String nickname;
     private int money;
@@ -75,12 +75,13 @@ public class User {
         return "strong";
     }
 
+
     public void setActiveDeck(Deck deck) {
-            this.activeDeck = deck;
+        this.activeDeck = deck;
     }
 
     public Rectangle getAvatarRec() {
-        Rectangle avatarRec =new Rectangle();
+        Rectangle avatarRec = new Rectangle();
         if (avatarPath == null) avatarPath = "/png/profile/Chara001.dds" + random.nextInt(38) + ".png";
         avatarRec.setFill(new ImagePattern(new Image(String.valueOf(getClass().getResource(avatarPath)))));
         return avatarRec;
@@ -126,7 +127,6 @@ public class User {
     public int getMoney() {
         return money;
     }
-
 
 
     public ArrayList<Deck> getDecks() {

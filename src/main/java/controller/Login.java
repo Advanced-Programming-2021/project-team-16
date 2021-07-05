@@ -6,12 +6,12 @@ public class Login {
     public static String signUp(String username, String password, String nickname) {
         if (username.length() == 0) return "enter a username";
         if (User.getUserByUsername(username) != null)
-            return "user with username " + username + " already exists";
+            return "User with username " + username + " already exists";
         if (User.getUserByNickname(nickname) != null)
-            return "user with nickname " + nickname + " already exists";
+            return "User with nickname " + nickname + " already exists";
         if (!User.getPasswordWeakness(password).equals("strong")) return User.getPasswordWeakness(password);
         new User(username, password, nickname);
-        return "user created successfully!";
+        return "User created successfully!";
     }
 
     public static String login(String username, String password) {
