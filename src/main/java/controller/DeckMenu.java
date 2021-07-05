@@ -45,7 +45,18 @@ public class DeckMenu {
 
                 }
             }
+            for (String cardName:MainMenu.getCurrentUser().getDeckByName(name).getMainDeckCards()) {
+                Card card = Card.make(cardName);
+                MainMenu.getCurrentUser().getCards().add(card);
+            }
+            for (String cardName:MainMenu.getCurrentUser().getDeckByName(name).getSideDeckCards()) {
+                Card card = Card.make(cardName);
+                MainMenu.getCurrentUser().getCards().add(card);
+            }
             MainMenu.getCurrentUser().removeDeck(MainMenu.getCurrentUser().getDeckByName(name));
+
+            if(name.equals(MainMenu.getCurrentUser().getActiveDeck().getName()))
+                MainMenu.getCurrentUser().setActiveDeck(null);
             return "deck deleted successfully";
         }
     }
@@ -73,12 +84,14 @@ public class DeckMenu {
                 return "there are already three cards with name " + cardName + " in deck " + deckName;
             assert card != null;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToMainDeck(card);
+            MainMenu.getCurrentUser().getCards().remove(card);
         } else {
             if (MainMenu.getCurrentUser().getDeckByName(deckName).SideIsFull()) return "side deck is full";
             if (MainMenu.getCurrentUser().getDeckByName(deckName).isLimited(card))
                 return "there are already three cards with name " + cardName + " in deck " + deckName;
             assert card != null;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToSideDeck(card);
+            MainMenu.getCurrentUser().getCards().remove(card);
         }
 
         return "card added to deck successfully";
@@ -103,6 +116,7 @@ public class DeckMenu {
             }
             if (!flag) return "card with name " + cardName + " does not exist in main deck";
             MainMenu.getCurrentUser().getDeckByName(deckName).removeCardFromMain(card);
+            MainMenu.getCurrentUser().getCards().add(card);
         } else {
             for (String sideDeckCard : sideDeckCards) {
                 if (Card.getCardByName(sideDeckCard) == card) {
@@ -112,7 +126,7 @@ public class DeckMenu {
             }
             if (!flag) return "card with name " + cardName + " does not exist in side deck";
             MainMenu.getCurrentUser().getDeckByName(deckName).removeCardFromSide(card);
-
+            MainMenu.getCurrentUser().getCards().add(card);
         }
         return "card removed form deck successfully";
     }
