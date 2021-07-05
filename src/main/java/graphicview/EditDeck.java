@@ -2,7 +2,6 @@ package graphicview;
 
 import controller.MainMenu;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -89,12 +88,8 @@ public class EditDeck {
                 removeBtn.setVisible(true);
                 isMain = true;
             });
-            cards.setOnMouseEntered(me -> {
-                glowCardEffect(finalCards);
-            });
-            cards.setOnMouseExited(me -> {
-                undoGlowEffect(finalCards);
-            });
+            cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
+            cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             mainBoard.add(cards, row, column);
@@ -109,39 +104,7 @@ public class EditDeck {
         for (String name : selectedDeck.getSideDeckCards()) {
             Card card = Card.make(name);
             cards = new Rectangle();
-            cards.setHeight(90);
-            cards.setWidth(65);
-            Rectangle finalCards = cards;
-            cards.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-
-                    selectedCard.setFill(finalCards.getFill());
-                    selected = card;
-                    selectedCardDescription.setText(selected.getCardProperties());
-                    removeBtn.setVisible(true);
-                    isMain = false;
-                }
-            });
-            cards.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    finalCards.setCursor(Cursor.HAND);
-                    int depth = 70;  //Setting the uniform variable for the glow width and height
-
-                    DropShadow borderGlow = new DropShadow();
-                    borderGlow.setOffsetY(0f);
-                    borderGlow.setOffsetX(0f);
-                    borderGlow.setColor(Color.GOLD);
-                    borderGlow.setWidth(depth);
-                    borderGlow.setHeight(depth);
-
-                    finalCards.setEffect(borderGlow);
-                }
-            });
-            cards.setOnMouseExited(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    undoGlowEffect(finalCards);
-                }
-            });
+            doWhatIsNeededForCards(cards, card, selectedCardDescription);
             assert card != null;
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
@@ -152,6 +115,33 @@ public class EditDeck {
                 column++;
             }
         }
+    }
+
+    private void doWhatIsNeededForCards(Rectangle cards, Card card, Label selectedCardDescription) {
+        cards.setHeight(90);
+        cards.setWidth(65);
+        cards.setOnMouseClicked(me -> {
+
+            selectedCard.setFill(cards.getFill());
+            selected = card;
+            selectedCardDescription.setText(selected.getCardProperties());
+            removeBtn.setVisible(true);
+            isMain = false;
+        });
+        cards.setOnMouseEntered(me -> {
+            cards.setCursor(Cursor.HAND);
+            int depth = 70;  //Setting the uniform variable for the glow width and height
+
+            DropShadow borderGlow = new DropShadow();
+            borderGlow.setOffsetY(0f);
+            borderGlow.setOffsetX(0f);
+            borderGlow.setColor(Color.GOLD);
+            borderGlow.setWidth(depth);
+            borderGlow.setHeight(depth);
+
+            cards.setEffect(borderGlow);
+        });
+        cards.setOnMouseExited(me -> undoGlowEffect(cards));
     }
 
     private void undoGlowEffect(Rectangle finalCards) {
@@ -229,26 +219,16 @@ public class EditDeck {
             cards.setWidth(68);
             Rectangle finalCards = cards;
 
-            cards.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
+            cards.setOnMouseClicked(me -> {
 
-                    selectedCard.setFill(finalCards.getFill());
-                    selected = card;
-                    selectedCardDescription1.setText(selected.getCardProperties());
-                    removeBtn.setVisible(true);
-                    isMain = true;
-                }
+                selectedCard.setFill(finalCards.getFill());
+                selected = card;
+                selectedCardDescription1.setText(selected.getCardProperties());
+                removeBtn.setVisible(true);
+                isMain = true;
             });
-            cards.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    glowCardEffect(finalCards);
-                }
-            });
-            cards.setOnMouseExited(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    undoGlowEffect(finalCards);
-                }
-            });
+            cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
+            cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             mainBoard.add(cards, row, column);
@@ -264,39 +244,7 @@ public class EditDeck {
             Card card = Card.make(name);
             cards = card;
             assert cards != null;
-            cards.setHeight(90);
-            cards.setWidth(65);
-            Rectangle finalCards = cards;
-            cards.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-
-                    selectedCard.setFill(finalCards.getFill());
-                    selected = card;
-                    selectedCardDescription1.setText(selected.getCardProperties());
-                    removeBtn.setVisible(true);
-                    isMain = false;
-                }
-            });
-            cards.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    finalCards.setCursor(Cursor.HAND);
-                    int depth = 70;  //Setting the uniform variable for the glow width and height
-
-                    DropShadow borderGlow = new DropShadow();
-                    borderGlow.setOffsetY(0f);
-                    borderGlow.setOffsetX(0f);
-                    borderGlow.setColor(Color.GOLD);
-                    borderGlow.setWidth(depth);
-                    borderGlow.setHeight(depth);
-
-                    finalCards.setEffect(borderGlow);
-                }
-            });
-            cards.setOnMouseExited(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    undoGlowEffect(finalCards);
-                }
-            });
+            doWhatIsNeededForCards(cards, card, selectedCardDescription1);
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             sideBoard.add(cards, row, column);
@@ -314,25 +262,15 @@ public class EditDeck {
             cards.setWidth(65);
             Rectangle finalCards = cards;
 
-            cards.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
+            cards.setOnMouseClicked(me -> {
 
-                    selectedCard.setFill(finalCards.getFill());
-                    selected = card;
-                    selectedCardDescription1.setText(selected.getCardProperties());
-                    isMain = true;
-                }
+                selectedCard.setFill(finalCards.getFill());
+                selected = card;
+                selectedCardDescription1.setText(selected.getCardProperties());
+                isMain = true;
             });
-            cards.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    glowCardEffect(finalCards);
-                }
-            });
-            cards.setOnMouseExited(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                    undoGlowEffect(finalCards);
-                }
-            });
+            cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
+            cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             allCards.add(cards, row, column);
@@ -345,12 +283,4 @@ public class EditDeck {
         }
     }
 
-    public Card getCardByRectangle(Rectangle rectangle) {
-        Card rCard = null;
-        for (Card card : Card.getCards()) {
-            if (card.getRectangle().getFill().equals(rectangle.getFill()))
-                rCard = card;
-        }
-        return rCard;
-    }
 }

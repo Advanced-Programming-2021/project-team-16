@@ -2,8 +2,6 @@ package graphicview;
 
 import controller.MainMenu;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,8 +32,6 @@ public class DeckMenu {
     static final String[] decksName = new String[1];
     public static void enterMainDeckMenu()  {
         try {
-//            Parent root = FXMLLoader.load(DeckMenu.class.getResource("/fxml/deckMenu.fxml"));
-//            LoginMenu.getMainStage().setScene(new Scene(root));
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/deckMenu.fxml"));
             Parent root = loader.load();
             LoginMenu.getMainStage().setScene(new Scene(root));
@@ -73,31 +69,23 @@ public class DeckMenu {
             Deck activeDeck = user.getActiveDeck();
             ActiveDeck = new Button("  " + activeDeck.getName());
             ActiveDeck.setStyle("-fx-background-color: #ffffff; ");
-            ActiveDeck.setOnAction(new EventHandler<ActionEvent>() {
-                public void handle(ActionEvent e)
-                {
-                    try {
-                         decksName[0] = ActiveDeck.getText();
-                         //EditDeck.makeBtnInvisible();
-                        FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
-                        Parent root = loader.load();
-                        LoginMenu.getMainStage().setScene(new Scene(root));
-                        EditDeck.setControllerEditDeck(loader.getController());
-                        EditDeck.getControllerEditDeck().loadBoard();
+            ActiveDeck.setOnAction(e -> {
+                try {
+                     decksName[0] = ActiveDeck.getText();
+                     //EditDeck.makeBtnInvisible();
+                    FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
+                    Parent root = loader.load();
+                    LoginMenu.getMainStage().setScene(new Scene(root));
+                    EditDeck.setControllerEditDeck(loader.getController());
+                    EditDeck.getControllerEditDeck().loadBoard();
 
-                    } catch (IOException ioException) {
-                        ioException.printStackTrace();
-                    }
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
                 }
             });
 
-            ActiveDeck.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-                   ActiveDeck.setStyle("-fx-text-fill: blue;"+
-                            "-fx-background-color:#ffffff;");
-
-                }
-            });
+            ActiveDeck.setOnMouseEntered(me -> ActiveDeck.setStyle("-fx-text-fill: blue;"+
+                     "-fx-background-color:#ffffff;"));
 
             ActiveDeck.setOnMouseExited(me -> ActiveDeck.setStyle("-fx-text-fill: black;" +
                     "-fx-background-color:#ffffff;"));
@@ -125,35 +113,22 @@ public class DeckMenu {
                     OtherDecks = new Button("  " + userDecks.get(j).getName());
                     OtherDecks.setStyle("-fx-background-color: #ffffff; ");
                     Button finalOtherDecks = OtherDecks;
-                    OtherDecks.setOnAction(new EventHandler<ActionEvent>() {
-                        public void handle(ActionEvent e)
-                        {
-                            try {
-                                decksName[0] = finalOtherDecks.getText();
-                                FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
-                                Parent root = loader.load();
-                                LoginMenu.getMainStage().setScene(new Scene(root));
-                                EditDeck.setControllerEditDeck(loader.getController());
-                                EditDeck.getControllerEditDeck().loadBoard();                               // EditDeck.loadBoard();
-                            } catch (IOException ioException) {
-                                ioException.printStackTrace();
-                            }
+                    OtherDecks.setOnAction(e -> {
+                        try {
+                            decksName[0] = finalOtherDecks.getText();
+                            FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
+                            Parent root = loader.load();
+                            LoginMenu.getMainStage().setScene(new Scene(root));
+                            EditDeck.setControllerEditDeck(loader.getController());
+                            EditDeck.getControllerEditDeck().loadBoard();                               // EditDeck.loadBoard();
+                        } catch (IOException ioException) {
+                            ioException.printStackTrace();
                         }
                     });
-                    OtherDecks.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                        public void handle(MouseEvent me) {
-                            finalOtherDecks.setStyle("-fx-text-fill: blue;"+
-                                    "-fx-background-color:#ffffff;");
-
-                        }
-                    });
-                    OtherDecks.setOnMouseExited(new EventHandler<MouseEvent>() {
-                        public void handle(MouseEvent me) {
-
-                            finalOtherDecks.setStyle("-fx-text-fill: black;" +
-                                    "-fx-background-color:#ffffff;");
-                        }
-                    });
+                    OtherDecks.setOnMouseEntered(me -> finalOtherDecks.setStyle("-fx-text-fill: blue;"+
+                            "-fx-background-color:#ffffff;"));
+                    OtherDecks.setOnMouseExited(me -> finalOtherDecks.setStyle("-fx-text-fill: black;" +
+                            "-fx-background-color:#ffffff;"));
                     Main = new Label(String.valueOf(userDecks.get(j).getMainDeckCards().size()));
                     Side = new Label(String.valueOf(userDecks.get(j).getSideDeckCards().size()));
                     decks.add(OtherDecks,0,i+3);
