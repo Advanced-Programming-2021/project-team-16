@@ -2,6 +2,7 @@ package graphicview;
 
 import controller.MainMenu;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -42,6 +43,8 @@ public class EditDeck {
     public Label sideC;
     public Label owner;
     public Label dName;
+    public Button add2Main;
+    public Button add2Side;
     public Button backButton;
     private Card selected;
     boolean isMain;
@@ -61,7 +64,28 @@ public class EditDeck {
     public void backOnAction(MouseEvent mouseEvent) {
         DeckMenu.enterMenu();
     }
+    public void backOnAction2(MouseEvent mouseEvent) {
+        try {
 
+            //EditDeck.makeBtnInvisible();
+            FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
+            Parent root = loader.load();
+            LoginMenu.getMainStage().setScene(new Scene(root));
+            EditDeck.setControllerEditDeck(loader.getController());
+            EditDeck.getControllerEditDeck().loadBoard();
+
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }
+    }
+    public void addToMain(MouseEvent mouseEvent) {
+        controller.DeckMenu.addCardToDeck(selected.getName(),deck[0].trim(),true);
+        addCardBoard();
+    }
+    public void addToSide(MouseEvent mouseEvent) {
+        controller.DeckMenu.addCardToDeck(selected.getName(),deck[0].trim(),false);
+        addCardBoard();
+    }
     public void loadBoard() {
         Rectangle cards;
         int row = 0;
@@ -207,7 +231,9 @@ public class EditDeck {
     }
 
     public void addCardBoard() {
-        backButton.setOnMouseClicked(this::backOnAction);
+        backButton.setOnMouseClicked(this::backOnAction2);
+        add2Main.setOnMouseClicked(this::addToMain);
+        add2Side.setOnMouseClicked(this::addToSide);
         Rectangle cards;
         int row = 0;
         int column = 0;
@@ -275,7 +301,7 @@ public class EditDeck {
             cards.setFill(card.getRectangle().getFill());
             allCards.add(cards, row, column);
             row++;
-            if (row == 10) {
+            if (row == 7) {
                 row = 0;
                 column++;
             }
