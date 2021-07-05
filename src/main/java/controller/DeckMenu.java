@@ -46,6 +46,8 @@ public class DeckMenu {
                 }
             }
             MainMenu.getCurrentUser().removeDeck(MainMenu.getCurrentUser().getDeckByName(name));
+            if(name.equals(MainMenu.getCurrentUser().getActiveDeck().getName()))
+                MainMenu.getCurrentUser().setActiveDeck(null);
             return "deck deleted successfully";
         }
     }
