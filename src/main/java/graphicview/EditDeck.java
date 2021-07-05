@@ -194,6 +194,11 @@ public class EditDeck {
     }
 
     public void setActiveBtnOnAction(ActionEvent actionEvent) {
+        String message = controller.DeckMenu.activate(deck[0].trim());
+        if(message.equals("deck activated successfully")){
+            setActiveBtn.setVisible(false);
+            DeckMenu.enterMenu();
+        }
     }
 
     public void AddCardBtnOnAction(ActionEvent actionEvent) throws IOException {
@@ -205,6 +210,10 @@ public class EditDeck {
     }
 
     public void deleteBtnOnAction(ActionEvent actionEvent) {
+        String message = controller.DeckMenu.delete(deck[0].trim());
+        if(message.equals("deck deleted successfully")) {
+            DeckMenu.enterMenu();
+        }
     }
 
     public void addCardBoard() {
