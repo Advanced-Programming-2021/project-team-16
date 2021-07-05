@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox alignment="CENTER_RIGHT" prefHeight="530.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/16"  fx:controller="graphicview.ShopMenu" xmlns:fx="http://javafx.com/fxml/1">
+<HBox alignment="CENTER_RIGHT" prefHeight="530.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ShopMenu">
    <children>
       <VBox alignment="CENTER" prefHeight="530.0" prefWidth="234.0">
          <children>
@@ -28,7 +28,7 @@
                   </VBox>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/AlexandriteDragon.jpg" />
+                        <Image url="@../png/card/Alexandrite%20Dragon.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -45,7 +45,7 @@
                   <ButtonBar />
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/AxeRaider.jpg" />
+                        <Image url="@../png/card/Axe%20Raider.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -61,7 +61,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/BabyDragon.jpg" />
+                        <Image url="@../png/card/Baby%20dragon.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -77,7 +77,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/BattleOx.jpg" />
+                        <Image url="@../png/card/Battle%20OX.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -93,7 +93,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/BattleWarrior.jpg" />
+                        <Image url="@../png/card/Battle%20warrior.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -109,7 +109,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/BeastKingBarbaros.jpg" />
+                        <Image url="@../png/card/Beast%20King%20Barbaros.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -125,7 +125,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Bitron.jpg" />
+                        <Image url="@../png/card/Bitron.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -155,7 +155,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/AdvancedRitualArt.jpg" />
+                        <Image url="@../png/card/Advanced%20Ritual%20Art.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -171,7 +171,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/BlackPendant.jpg" />
+                        <Image url="@../png/card/Black%20Pendant.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -187,7 +187,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/BlueEyesWhiteDragon.jpg" />
+                        <Image url="@../png/card/Blue-Eyes%20white%20dragon.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -203,7 +203,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Unknown.jpg" />
+                        <Image url="@../png/card/Unknown.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -219,7 +219,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/ChangeOfHeart.jpg" />
+                        <Image url="@../png/card/Change%20of%20Heart.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -235,7 +235,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/ClosedForest.jpg" />
+                        <Image url="@../png/card/ClosedForest.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -251,127 +251,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/CommandKnight.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </StackPane>
-      <StackPane>
-         <children>
-            <VBox>
-               <children>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/CrabTurtle.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/CrawlingDragon.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/CurtainOfTheDarkOnes.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/DarkBlade.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/DarkHole.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/DarkMagician.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/ExploderDragon.jpg" />
+                        <Image url="@../png/card/Command%20Knight.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -395,7 +275,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/FeralImp.jpg" />
+                        <Image url="@../png/card/Crab%20Turtle.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -411,7 +291,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Fireyarou.jpg" />
+                        <Image url="@../png/card/Crawling%20dragon.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -427,7 +307,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/FlameManipulator.jpg" />
+                        <Image url="@../png/card/Curtain%20of%20the%20dark%20ones.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -443,7 +323,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Forest.jpg" />
+                        <Image url="@../png/card/Dark%20Blade.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -459,7 +339,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/GateGuardian.jpg" />
+                        <Image url="@../png/card/Dark%20Hole.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -475,7 +355,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Haniwa.jpg" />
+                        <Image url="@../png/card/Dark%20magician.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -491,127 +371,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/HarpiesFeatherDuster.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </StackPane>
-      <StackPane>
-         <children>
-            <VBox>
-               <children>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/HeraldOfCreation.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/HeroOfTheEast.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/HornImp.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Leotron.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/MagicCylinder.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/MagicJammer.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/MagnumShield.jpg" />
+                        <Image url="@../png/card/Exploder%20Dragon.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -635,7 +395,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/ManEaterBug.jpg" />
+                        <Image url="@../png/card/Feral%20Imp.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -651,7 +411,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Marshmallon.jpg" />
+                        <Image url="@../png/card/Fireyarou.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -667,7 +427,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/MessengerOfPeace.jpg" />
+                        <Image url="@../png/card/Flame%20manipulator.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -683,7 +443,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/MindCrush.jpg" />
+                        <Image url="@../png/card/Forest.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -699,7 +459,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/MirageDragon.jpg" />
+                        <Image url="@../png/card/Gate%20Guardian.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -715,7 +475,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/MirrorForce.jpg" />
+                        <Image url="@../png/card/Haniwa.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -731,127 +491,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/MonsterReborn.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </StackPane>
-      <StackPane>
-         <children>
-            <VBox>
-               <children>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/MysticalSpaceTyphoon.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/NegateAttack.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/PotOfGreed.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Raigeki.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/RingOfDefense.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Scanner.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/SilverFang.jpg" />
+                        <Image url="@../png/card/Harpie's%20Feather%20Duster.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -875,7 +515,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/SkullGuardian.jpg" />
+                        <Image url="@../png/card/Herald%20of%20Creation.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -891,7 +531,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/SlotMachine.jpg" />
+                        <Image url="@../png/card/Hero%20of%20the%20east.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -907,7 +547,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/SolemnWarning.jpg" />
+                        <Image url="@../png/card/Horn%20Imp.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -923,7 +563,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/SpellAbsorption.jpg" />
+                        <Image url="@../png/card/Leotron.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -939,7 +579,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/SpiralSerpent.jpg" />
+                        <Image url="@../png/card/MagicCylinder.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -955,7 +595,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Suijin.jpg" />
+                        <Image url="@../png/card/MagicJammer.png" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -971,127 +611,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/SupplySquad.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-               </children>
-            </VBox>
-         </children>
-      </StackPane>
-      <StackPane>
-         <children>
-            <VBox>
-               <children>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/SwordOfDarkDestruction.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/SwordOfRevealingLight.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Terraforming.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Terratiger.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Texchanger.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/TheCalculator.jpg" />
-                     </image>
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </VBox.margin>
-                  </ImageView>
-                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
-                     <padding>
-                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
-                     </padding>
-                     <font>
-                        <Font name="System Bold Italic" size="11.0" />
-                     </font>
-                  </Button>
-                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/TheTricky.jpg" />
+                        <Image url="@../png/card/Magnum%20Shield.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1115,7 +635,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/TimeSeal.jpg" />
+                        <Image url="@../png/card/Man-Eater%20Bug.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1131,7 +651,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/TorrentialTribute.jpg" />
+                        <Image url="@../png/card/Marshmallon.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1147,7 +667,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/TrapHole.jpg" />
+                        <Image url="@../png/card/Messenger%20of%20peace.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1163,7 +683,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/TwinTwisters.jpg" />
+                        <Image url="@../png/card/MindCrush.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1179,7 +699,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Umiiruka.jpg" />
+                        <Image url="@../png/card/Mirage%20Dragon.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1195,7 +715,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/UnitedWeStand.jpg" />
+                        <Image url="@../png/card/MirrorForce.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1211,7 +731,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/YomiShip.jpg" />
+                        <Image url="@../png/card/Monster%20Reborn.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1235,7 +755,7 @@
                <children>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/VanitysEmptiness.jpg" />
+                        <Image url="@../png/card/Mystical%20space%20typhoon.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1251,7 +771,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/WallOfRevealingLight.jpg" />
+                        <Image url="@../png/card/NegateAttack.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1267,7 +787,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/WarriorDaiGrepher.jpg" />
+                        <Image url="@../png/card/Pot%20of%20Greed.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1283,7 +803,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Wattaildragon.jpg" />
+                        <Image url="@../png/card/Raigeki.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1299,7 +819,7 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Wattkid.jpg" />
+                        <Image url="@../png/card/Ring%20of%20defense.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -1315,7 +835,487 @@
                   </Button>
                   <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../IdeaProjects/project-team-166/src/main/resources/png/Yami.jpg" />
+                        <Image url="@../png/card/Scanner.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Silver%20Fang.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <StackPane>
+         <children>
+            <VBox>
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Skull%20Guardian.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Slot%20Machine.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/SolemnWarning.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Spell%20Absorption.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Spiral%20Serpent.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Suijin.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Supply%20Squad.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <StackPane>
+         <children>
+            <VBox>
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Sword%20of%20dark%20destruction.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Swords%20of%20Revealing%20Light.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Terraforming.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Terratiger.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Texchanger.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/The%20Calculator.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/The%20Tricky.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <StackPane>
+         <children>
+            <VBox>
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/TimeSeal.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/TorrentialTribute.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/TrapHole.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Twin%20Twisters.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Umiiruka.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/United%20We%20Stand.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Yomi%20Ship.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <StackPane>
+         <children>
+            <VBox>
+               <children>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/VanitysEmptiness.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/WallOfRevealingLight.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Warrior%20Dai%20Grepher.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Wattaildragon.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Wattkid.jpg" />
+                     </image>
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+                  <Button minWidth="40.0" mnemonicParsing="false" prefHeight="3.0" text="Buy">
+                     <padding>
+                        <Insets bottom="-1.0" left="-1.0" right="-1.0" top="-1.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold Italic" size="11.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="50.0" fitWidth="103.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../png/card/Yami.jpg" />
                      </image>
                      <VBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
