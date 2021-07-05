@@ -477,19 +477,21 @@ public class GameView {
 
 
     public void pauseGame() {
-        Stage stage = new Stage();
+        Stage newStage = new Stage();
         BorderPane borderPane = new BorderPane();
         borderPane.setMinHeight(100);
         borderPane.setMinWidth(160);
         Button resume = new Button("resume");
         resume.setOnMouseClicked(e-> {
-            stage.close();
+            newStage.close();
             backgroundMusic.play();
+            stage.show();
         });
         borderPane.setCenter(resume);
-        stage.setScene(new Scene(borderPane));
+        newStage.setScene(new Scene(borderPane));
         backgroundMusic.pause();
-        stage.showAndWait();
+        stage.hide();
+        newStage.showAndWait();
     }
 }
 
