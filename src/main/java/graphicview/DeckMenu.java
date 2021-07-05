@@ -11,17 +11,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import model.Deck;
 import model.person.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static view.Show.showAllDecks;
 
 public class DeckMenu {
 
@@ -36,6 +31,7 @@ public class DeckMenu {
     public Label error;
     public TextField deckName;
     public Label successful;
+    static final String[] decksName = new String[1];
     public static void enterMainDeckMenu()  {
 
         try {
@@ -64,26 +60,29 @@ public class DeckMenu {
         otherD.setVisible(true);
         Label Main,Side,ActiveDeckL,OtherDecksL;
         Button ActiveDeck, OtherDecks;
+
         boolean hasActiveDeck = false;
         User user = MainMenu.getCurrentUser();
         ArrayList<Deck> userDecks = user.getDecks();
-        EventHandler<ActionEvent> event = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent e)
-            {
-                try {
-                    LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(LoginMenu.class.getResource("/fxml/info.fxml"))));
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
-                }
-            }
-        };
 
         if (user.getActiveDeck() != null) {
             hasActiveDeck = true;
             Deck activeDeck = user.getActiveDeck();
             ActiveDeck = new Button("  " + activeDeck.getName());
             ActiveDeck.setStyle("-fx-background-color: #ffffff; ");
-            ActiveDeck.setOnAction(event);
+            ActiveDeck.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent e)
+                {
+                    try {
+                         decksName[0] = ActiveDeck.getText();
+                         //EditDeck.makeBtnInvisible();
+                         LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(LoginMenu.class.getResource("/fxml/info.fxml"))));
+
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }
+            });
 
             ActiveDeck.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 public void handle(MouseEvent me) {
@@ -120,8 +119,19 @@ public class DeckMenu {
                     if (hasActiveDeck && userDecks.get(j) == user.getActiveDeck()) continue;
                     OtherDecks = new Button("  " + userDecks.get(j).getName());
                     OtherDecks.setStyle("-fx-background-color: #ffffff; ");
-                    OtherDecks.setOnAction(event);
                     Button finalOtherDecks = OtherDecks;
+                    OtherDecks.setOnAction(new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent e)
+                        {
+                            try {
+                                decksName[0] = finalOtherDecks.getText();
+                                LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(LoginMenu.class.getResource("/fxml/info.fxml"))));
+                               // EditDeck.loadBoard();
+                            } catch (IOException ioException) {
+                                ioException.printStackTrace();
+                            }
+                        }
+                    });
                     OtherDecks.setOnMouseEntered(new EventHandler<MouseEvent>() {
                         public void handle(MouseEvent me) {
                             finalOtherDecks.setStyle("-fx-text-fill: blue;"+
@@ -176,6 +186,7 @@ public class DeckMenu {
     public void deckBack(MouseEvent mouseEvent) {
         enterMainDeckMenu();
     }
+    public static String[] getDeckName(){return decksName;}
 
     public void createBtn(ActionEvent actionEvent) {
         String message = controller.DeckMenu.create(deckName.getText());

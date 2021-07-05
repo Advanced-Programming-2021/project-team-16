@@ -48,6 +48,7 @@ public class Deck {
         for (String c : sideCardNames) {
             if (c.equals(card.getName())) {
                 sideCardNames.remove(card.getName());
+
                 return;
             }
         }

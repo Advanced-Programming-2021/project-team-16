@@ -38,6 +38,8 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
     private static final ArrayList<Card> cards = new ArrayList<>();
     private static final ArrayList<Popup> popups = new ArrayList<>();
 
+
+
     public static final Paint UNKNOWN_CARD_FILL = new ImagePattern(new Image(Card.class.getResource("/png/card/Unknown.jpg").toExternalForm()));
     protected String name;
     protected String description;
@@ -63,6 +65,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         setSizes(false);
         for (Card card : cards) if (card.getName().equals(this.getName())) return;
         cards.add(this);
+
     }
 
     public static Card make(String cardName) {
