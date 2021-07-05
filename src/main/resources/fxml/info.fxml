@@ -1,177 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#loadBoard" prefHeight="730.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.EditDeck">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="28.0" prefWidth="280.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-  </columnConstraints>
-  <rowConstraints>
-      <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <GridPane prefHeight="629.0" prefWidth="610.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <GridPane fx:id="mainBoard" prefHeight="452.0" prefWidth="609.0" style="-fx-background-color: #7615b2;">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-            <GridPane fx:id="sideBoard" prefHeight="182.0" prefWidth="606.0" style="-fx-background-color: #ad34f8;" GridPane.rowIndex="1">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-            </GridPane>
-         </children>
-      </GridPane>
-      <VBox maxHeight="742.0" minHeight="640.0" prefHeight="648.0" prefWidth="273.0" style="-fx-background-color: #1546a2;" GridPane.rowIndex="1">
-         <children>
-            <Rectangle fx:id="selectedCard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="388.0" stroke="BLACK" strokeType="INSIDE" width="280.0" />
-            <Label fx:id="selectedCardDescription" prefHeight="196.0" prefWidth="279.0" text="no card is selected yet." textFill="WHITE" wrapText="true" />
-            <HBox prefHeight="116.0" prefWidth="280.0">
-               <children>
-                  <VBox prefHeight="110.0" prefWidth="93.0" />
-                  <VBox prefHeight="96.0" prefWidth="102.0">
-                     <children>
-                        <GridPane prefHeight="98.0" prefWidth="102.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="59.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#removeBtnOnAction" prefHeight="29.0" prefWidth="104.0" text="remove" visible="false" GridPane.rowIndex="1" />
-                           </children>
-                        </GridPane>
-                     </children>
-                  </VBox>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-         </children>
-      </VBox>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #2470f2;" GridPane.columnIndex="1" GridPane.rowIndex="1">
-         <children>
-            <HBox prefHeight="550.0" prefWidth="600.0">
-               <children>
-                  <VBox alignment="TOP_RIGHT" prefHeight="420.0" prefWidth="532.0">
-                     <children>
-                        <AnchorPane prefHeight="472.0" prefWidth="528.0">
-                           <children>
-                              <Rectangle fx:id="avatar" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="181.0" layoutX="170.0" layoutY="47.0" stroke="BLACK" strokeType="INSIDE" width="169.0" />
-                              <Label fx:id="dName" alignment="CENTER" layoutX="178.0" layoutY="377.0" prefHeight="30.0" prefWidth="154.0" textAlignment="CENTER" textFill="#0c3474">
-                                 <font>
-                                    <Font name="System Bold" size="20.0" />
-                                 </font>
-                              </Label>
-                              <ImageView fitHeight="30.0" fitWidth="132.0" layoutX="196.0" layoutY="257.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../png/texture/owner.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="30.0" fitWidth="146.0" layoutX="182.0" layoutY="339.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../png/texture/deckName.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="38.0" fitWidth="127.0" layoutX="25.0" layoutY="412.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../png/texture/main.png" />
-                                 </image>
-                              </ImageView>
-                              <ImageView fitHeight="38.0" fitWidth="94.0" layoutX="339.0" layoutY="412.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../png/texture/side.png" />
-                                 </image>
-                              </ImageView>
-                              <Label fx:id="mainC" layoutX="143.0" layoutY="408.0" prefHeight="38.0" prefWidth="38.0" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="32.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="sideC" layoutX="436.0" layoutY="408.0" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="32.0" />
-                                 </font>
-                              </Label>
-                              <Label fx:id="owner" alignment="CENTER" layoutX="175.0" layoutY="299.0" prefHeight="30.0" prefWidth="153.0" textAlignment="CENTER" textFill="#0c3474">
-                                 <font>
-                                    <Font name="System Bold" size="20.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </AnchorPane>
-                     </children></VBox>
-                  <VBox prefHeight="471.0" prefWidth="86.0" style="-fx-background-color: #7615b2;" />
-               </children>
-            </HBox>
-            <HBox prefHeight="250.0" prefWidth="610.0">
-               <children>
-                  <VBox prefHeight="252.0" prefWidth="528.0">
-                     <children>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="setActiveBtn" layoutX="202.0" layoutY="112.0" mnemonicParsing="false" onAction="#setActiveBtnOnAction" prefHeight="38.0" prefWidth="103.0" text="set Active" />
-                              <Button fx:id="addCardBtn" layoutX="68.0" layoutY="70.0" mnemonicParsing="false" onAction="#AddCardBtnOnAction" prefHeight="30.0" prefWidth="94.0" text="Add Card" />
-                              <Button fx:id="deleteBtn" layoutX="357.0" layoutY="70.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" prefHeight="30.0" prefWidth="94.0" text="Delete" />
-                           </children>
-                        </AnchorPane>
-                     </children></VBox>
-                  <VBox prefHeight="180.0" prefWidth="84.0" style="-fx-background-color: #ad34f8;" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-      <Button mnemonicParsing="false" onAction="#backOnAction" prefHeight="26.0" prefWidth="65.0" text="Back" />
-   </children>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity" prefHeight="730.0" prefWidth="1500.0"
+          xmlns="http://javafx.com/javafx/11.0.1" fx:controller="graphicview.EditDeck">
+    <columnConstraints>
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="28.0" prefWidth="280.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+        <RowConstraints minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES"/>
+        <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <children>
+        <GridPane prefHeight="629.0" prefWidth="610.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES"/>
+            </rowConstraints>
+            <children>
+                <GridPane fx:id="mainBoard" prefHeight="452.0" prefWidth="609.0" style="-fx-background-color: #7615b2;">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                </GridPane>
+                <GridPane fx:id="sideBoard" prefHeight="182.0" prefWidth="606.0" style="-fx-background-color: #ad34f8;"
+                          GridPane.rowIndex="1">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                </GridPane>
+            </children>
+        </GridPane>
+        <VBox maxHeight="742.0" minHeight="640.0" prefHeight="648.0" prefWidth="273.0"
+              style="-fx-background-color: #1546a2;" GridPane.rowIndex="1">
+            <children>
+                <Rectangle fx:id="selectedCard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="388.0"
+                           stroke="BLACK" strokeType="INSIDE" width="280.0"/>
+                <Label fx:id="selectedCardDescription" prefHeight="196.0" prefWidth="279.0"
+                       text="no card is selected yet." textFill="WHITE" wrapText="true"/>
+                <HBox prefHeight="116.0" prefWidth="280.0">
+                    <children>
+                        <VBox prefHeight="110.0" prefWidth="93.0"/>
+                        <VBox prefHeight="96.0" prefWidth="102.0">
+                            <children>
+                                <GridPane prefHeight="98.0" prefWidth="102.0">
+                                    <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="59.0"/>
+                                    </columnConstraints>
+                                    <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                    </rowConstraints>
+                                    <children>
+                                        <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#removeBtnOnAction"
+                                                prefHeight="29.0" prefWidth="104.0" text="remove" visible="false"
+                                                GridPane.rowIndex="1"/>
+                                    </children>
+                                </GridPane>
+                            </children>
+                        </VBox>
+                    </children>
+                    <VBox.margin>
+                        <Insets/>
+                    </VBox.margin>
+                </HBox>
+            </children>
+        </VBox>
+        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #2470f2;" GridPane.columnIndex="1"
+              GridPane.rowIndex="1">
+            <children>
+                <HBox prefHeight="550.0" prefWidth="600.0">
+                    <children>
+                        <VBox alignment="TOP_RIGHT" prefHeight="420.0" prefWidth="532.0">
+                            <children>
+                                <AnchorPane prefHeight="472.0" prefWidth="528.0">
+                                    <children>
+                                        <Rectangle fx:id="avatar" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE"
+                                                   height="181.0" layoutX="170.0" layoutY="47.0" stroke="BLACK"
+                                                   strokeType="INSIDE" width="169.0"/>
+                                        <Label fx:id="dName" alignment="CENTER" layoutX="178.0" layoutY="377.0"
+                                               prefHeight="30.0" prefWidth="154.0" textAlignment="CENTER"
+                                               textFill="#0c3474">
+                                            <font>
+                                                <Font name="System Bold" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                        <ImageView fitHeight="30.0" fitWidth="132.0" layoutX="196.0" layoutY="257.0"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../png/texture/owner.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <ImageView fitHeight="30.0" fitWidth="146.0" layoutX="182.0" layoutY="339.0"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../png/texture/deckName.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <ImageView fitHeight="38.0" fitWidth="127.0" layoutX="25.0" layoutY="412.0"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../png/texture/main.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <ImageView fitHeight="38.0" fitWidth="94.0" layoutX="339.0" layoutY="412.0"
+                                                   pickOnBounds="true" preserveRatio="true">
+                                            <image>
+                                                <Image url="@../png/texture/side.png"/>
+                                            </image>
+                                        </ImageView>
+                                        <Label fx:id="mainC" layoutX="143.0" layoutY="408.0" prefHeight="38.0"
+                                               prefWidth="38.0" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="32.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="sideC" layoutX="436.0" layoutY="408.0" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Bold" size="32.0"/>
+                                            </font>
+                                        </Label>
+                                        <Label fx:id="owner" alignment="CENTER" layoutX="175.0" layoutY="299.0"
+                                               prefHeight="30.0" prefWidth="153.0" textAlignment="CENTER"
+                                               textFill="#0c3474">
+                                            <font>
+                                                <Font name="System Bold" size="20.0"/>
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="471.0" prefWidth="86.0" style="-fx-background-color: #7615b2;"/>
+                    </children>
+                </HBox>
+                <HBox prefHeight="250.0" prefWidth="610.0">
+                    <children>
+                        <VBox prefHeight="252.0" prefWidth="528.0">
+                            <children>
+                                <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                    <children>
+                                        <Button fx:id="setActiveBtn" layoutX="202.0" layoutY="112.0"
+                                                mnemonicParsing="false" onAction="#setActiveBtnOnAction"
+                                                prefHeight="38.0" prefWidth="103.0" text="set Active"/>
+                                        <Button fx:id="addCardBtn" layoutX="68.0" layoutY="70.0" mnemonicParsing="false"
+                                                onAction="#AddCardBtnOnAction" prefHeight="30.0" prefWidth="94.0"
+                                                text="Add Card"/>
+                                        <Button fx:id="deleteBtn" layoutX="357.0" layoutY="70.0" mnemonicParsing="false"
+                                                onAction="#deleteBtnOnAction" prefHeight="30.0" prefWidth="94.0"
+                                                text="Delete"/>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </VBox>
+                        <VBox prefHeight="180.0" prefWidth="84.0" style="-fx-background-color: #ad34f8;"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <Button mnemonicParsing="false" onMouseClicked="#backOnAction" prefHeight="26.0" prefWidth="65.0" text="Back"/>
+    </children>
 </GridPane>

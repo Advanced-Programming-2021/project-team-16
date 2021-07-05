@@ -20,8 +20,7 @@ import java.util.ArrayList;
 
 public class DeckMenu {
 
-
-
+    private static DeckMenu controllerDeckMenu;
 
     @FXML
     public GridPane decks;
@@ -31,21 +30,26 @@ public class DeckMenu {
     public Label error;
     public TextField deckName;
     public Label successful;
+    public Button backButton;
     static final String[] decksName = new String[1];
     public static void enterMainDeckMenu()  {
-
         try {
-            Parent root = FXMLLoader.load(DeckMenu.class.getResource("/fxml/deckMenu.fxml"));
+//            Parent root = FXMLLoader.load(DeckMenu.class.getResource("/fxml/deckMenu.fxml"));
+//            LoginMenu.getMainStage().setScene(new Scene(root));
+            FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/deckMenu.fxml"));
+            Parent root = loader.load();
             LoginMenu.getMainStage().setScene(new Scene(root));
+            controllerDeckMenu = loader.getController();
         } catch (IOException ignored) {
         }
-
     }
     public static void enterMenu()  {
-
        try {
-           Parent root = FXMLLoader.load(DeckMenu.class.getResource("/fxml/deck.fxml"));
+           FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/deck.fxml"));
+           loader.setController(controllerDeckMenu);
+           Parent root = loader.load();
            LoginMenu.getMainStage().setScene(new Scene(root));
+           controllerDeckMenu.showAllDecks();
        } catch (IOException ignored) {
        }
 
@@ -54,13 +58,12 @@ public class DeckMenu {
         graphicview.MainMenu.enterMenu();
     }
     public  void showAllDecks() {
-
+        backButton.setOnMouseClicked(this::deckBack);
         click.setVisible(false);
         activeD.setVisible(true);
         otherD.setVisible(true);
         Label Main,Side,ActiveDeckL,OtherDecksL;
         Button ActiveDeck, OtherDecks;
-
         boolean hasActiveDeck = false;
         User user = MainMenu.getCurrentUser();
         ArrayList<Deck> userDecks = user.getDecks();
@@ -76,7 +79,11 @@ public class DeckMenu {
                     try {
                          decksName[0] = ActiveDeck.getText();
                          //EditDeck.makeBtnInvisible();
-                         LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(LoginMenu.class.getResource("/fxml/info.fxml"))));
+                        FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
+                        Parent root = loader.load();
+                        LoginMenu.getMainStage().setScene(new Scene(root));
+                        EditDeck.setControllerEditDeck(loader.getController());
+                        EditDeck.getControllerEditDeck().loadBoard();
 
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
@@ -92,13 +99,8 @@ public class DeckMenu {
                 }
             });
 
-            ActiveDeck.setOnMouseExited(new EventHandler<MouseEvent>() {
-                public void handle(MouseEvent me) {
-
-                    ActiveDeck.setStyle("-fx-text-fill: black;" +
-                            "-fx-background-color:#ffffff;");
-                }
-            });
+            ActiveDeck.setOnMouseExited(me -> ActiveDeck.setStyle("-fx-text-fill: black;" +
+                    "-fx-background-color:#ffffff;"));
 
             decks.add(ActiveDeck,0,1);
             Main = new Label(String.valueOf(activeDeck.getMainDeckCards().size()));
@@ -125,8 +127,11 @@ public class DeckMenu {
                         {
                             try {
                                 decksName[0] = finalOtherDecks.getText();
-                                LoginMenu.getMainStage().setScene(new Scene(FXMLLoader.load(LoginMenu.class.getResource("/fxml/info.fxml"))));
-                               // EditDeck.loadBoard();
+                                FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
+                                Parent root = loader.load();
+                                LoginMenu.getMainStage().setScene(new Scene(root));
+                                EditDeck.setControllerEditDeck(loader.getController());
+                                EditDeck.getControllerEditDeck().loadBoard();                               // EditDeck.loadBoard();
                             } catch (IOException ioException) {
                                 ioException.printStackTrace();
                             }

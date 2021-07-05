@@ -35,7 +35,6 @@ public class LoginMenu extends Application {
         Parent root = FXMLLoader.load(LoginMenu.class.getResource("/fxml/login.fxml"));
         ((BorderPane) root).setBackground(GraphicUtils.getBackground("/png/background/login.png"));
         getMainStage().setScene(new Scene(root));
-
     }
 
     @Override
@@ -46,6 +45,7 @@ public class LoginMenu extends Application {
         ((BorderPane) root).setBackground(GraphicUtils.getBackground("/png/background/login.png"));
         mainStage = stage;
         stage.show();
+        UpdateStatus.beforeRun();
     }
 
     public static Stage getMainStage() {

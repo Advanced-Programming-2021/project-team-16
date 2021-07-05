@@ -12,6 +12,7 @@ public class HarpiesFeatherDuster extends Spell {
 
     public String action() {
         UtilActions.removeRivalCards(Board.Zone.SPELL_AND_TRAP);
+        UtilActions.removeRivalCards(Board.Zone.FIELD_SPELL);
         return super.action() + "and all rival's spells and traps are destroyed";
     }
 
