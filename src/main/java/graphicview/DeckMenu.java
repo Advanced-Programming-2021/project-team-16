@@ -117,8 +117,11 @@ public class DeckMenu {
 
         if (userDecks != null && userDecks.size() != 0) {
                 Deck.sort(userDecks);
-                for (int j = 0; j < userDecks.size(); j++) {
-                    if (hasActiveDeck && userDecks.get(j) == user.getActiveDeck()) continue;
+                for (int j=0,i=0; j < userDecks.size(); j++,i++) {
+                    if (hasActiveDeck && userDecks.get(j) == user.getActiveDeck()) {
+                        i--;
+                        continue;
+                    }
                     OtherDecks = new Button("  " + userDecks.get(j).getName());
                     OtherDecks.setStyle("-fx-background-color: #ffffff; ");
                     Button finalOtherDecks = OtherDecks;
@@ -153,9 +156,9 @@ public class DeckMenu {
                     });
                     Main = new Label(String.valueOf(userDecks.get(j).getMainDeckCards().size()));
                     Side = new Label(String.valueOf(userDecks.get(j).getSideDeckCards().size()));
-                    decks.add(OtherDecks,0,j+3);
-                    decks.add(Main,1,j+3);
-                    decks.add(Side,2,j+3);
+                    decks.add(OtherDecks,0,i+3);
+                    decks.add(Main,1,i+3);
+                    decks.add(Side,2,i+3);
                 }
             }
                if(userDecks != null && userDecks.size() == 0 || userDecks != null && userDecks.size() == 1 && hasActiveDeck) {
