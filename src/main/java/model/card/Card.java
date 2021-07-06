@@ -30,6 +30,7 @@ import view.Show;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,32 +42,42 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
 
 
     public static final Paint UNKNOWN_CARD_FILL = new ImagePattern(new Image(Card.class.getResource("/png/card/Unknown.jpg").toExternalForm()));
+
     protected String name;
     protected String description;
     protected int price;
     protected Rectangle rectangle;
 
+//
+//    public String imgSrc;
+//
+//    public String getImgSrc(String imgSrc) {
+//        this.imgSrc = imgSrc;
+//        return imgSrc;
+//    }
 
     public Card(String name, String description, int price) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.rectangle = new Rectangle();
-        try {
-            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
-        } catch (NullPointerException e) {
-            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
-        }
-        rectangle.setHeight(120);
-        rectangle.setWidth(80);
-        setOnMouseEntered(mouseEvent -> setCursor(Cursor.HAND));
-        setOnMouseExited(mouseEvent -> setCursor(Cursor.DEFAULT));
-        setFill(rectangle.getFill());
-        setSizes(false);
+       // this.imgSrc = "/png/card/" + name + ".jpg";
+       this.rectangle = new Rectangle();
+       try {
+           rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+       } catch (NullPointerException e) {
+           rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
+       }
+       rectangle.setHeight(120);
+       rectangle.setWidth(80);
+       setOnMouseEntered(mouseEvent -> setCursor(Cursor.HAND));
+       setOnMouseExited(mouseEvent -> setCursor(Cursor.DEFAULT));
+       setFill(rectangle.getFill());
+       setSizes(false);
         for (Card card : cards) if (card.getName().equals(this.getName())) return;
         cards.add(this);
 
     }
+
 
     public static Card make(String cardName) {
         return switch (cardName) {
