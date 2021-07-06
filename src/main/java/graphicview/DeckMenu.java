@@ -9,7 +9,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import model.Deck;
 import model.person.User;
 
@@ -29,11 +31,13 @@ public class DeckMenu {
     public TextField deckName;
     public Label successful;
     public Button backButton;
+    public VBox vBox1;
     static final String[] decksName = new String[1];
     public static void enterMainDeckMenu()  {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/deckMenu.fxml"));
             Parent root = loader.load();
+            ((AnchorPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
             LoginMenu.getMainStage().setScene(new Scene(root));
             controllerDeckMenu = loader.getController();
         } catch (IOException ignored) {
@@ -44,6 +48,7 @@ public class DeckMenu {
            FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/deck.fxml"));
            loader.setController(controllerDeckMenu);
            Parent root = loader.load();
+           ((AnchorPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
            LoginMenu.getMainStage().setScene(new Scene(root));
            controllerDeckMenu.showAllDecks();
        } catch (IOException ignored) {
@@ -55,7 +60,7 @@ public class DeckMenu {
     }
     public  void showAllDecks() {
         backButton.setOnMouseClicked(this::deckBack);
-        click.setVisible(false);
+        //click.setVisible(false);
         activeD.setVisible(true);
         otherD.setVisible(true);
         Label Main,Side,ActiveDeckL,OtherDecksL;
@@ -75,6 +80,7 @@ public class DeckMenu {
                      //EditDeck.makeBtnInvisible();
                     FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
                     Parent root = loader.load();
+                    ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
                     LoginMenu.getMainStage().setScene(new Scene(root));
                     EditDeck.setControllerEditDeck(loader.getController());
                     EditDeck.getControllerEditDeck().loadBoard();
@@ -118,6 +124,7 @@ public class DeckMenu {
                             decksName[0] = finalOtherDecks.getText();
                             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
                             Parent root = loader.load();
+                            ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
                             LoginMenu.getMainStage().setScene(new Scene(root));
                             EditDeck.setControllerEditDeck(loader.getController());
                             EditDeck.getControllerEditDeck().loadBoard();                               // EditDeck.loadBoard();
