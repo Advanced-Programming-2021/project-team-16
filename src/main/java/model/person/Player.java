@@ -4,8 +4,6 @@ import controller.GameMenu;
 import graphicview.GameView;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import model.Board;
@@ -48,7 +46,7 @@ public class Player {
     public void decreaseLP(int amount) {
         if (LP > amount) {
             LP -= amount;
-            new MediaPlayer(new Media(GameView.class.getResource("/sounds/LP-decrease.wav").toExternalForm())).play();
+            GameView.playSound("LP-decrease.wav");
         } else {
             amount = LP;
             GameMenu.getCurrentGame().setWinner(rival);
