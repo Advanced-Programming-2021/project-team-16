@@ -33,7 +33,7 @@ public class LoginMenu extends Application {
 
     public static void enterMenu() throws IOException {
         Parent root = FXMLLoader.load(LoginMenu.class.getResource("/fxml/login.fxml"));
-        ((BorderPane) root).setBackground(GraphicUtils.getBackground("/png/background/login.png"));
+        ((BorderPane) root).setBackground(GraphicUtils.getBackground("/png/texture/50151.png"));
         getMainStage().setScene(new Scene(root));
     }
 
@@ -42,7 +42,7 @@ public class LoginMenu extends Application {
         stage.setTitle("YuGiOh!");
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         stage.setScene(new Scene(root));
-        ((BorderPane) root).setBackground(GraphicUtils.getBackground("/png/background/login.png"));
+        ((BorderPane) root).setBackground(GraphicUtils.getBackground("/png/texture/50151.png"));
         mainStage = stage;
         stage.show();
         UpdateStatus.beforeRun();
@@ -56,14 +56,15 @@ public class LoginMenu extends Application {
         String result = Login.signUp(usernameSignup.getText(), passwordSignup.getText(), nickname.getText());
         signupError.setText(result);
         if (result.contains("success")) signupError.setTextFill(Color.DARKGREEN);
-        else signupError.setTextFill(Color.DARKRED);
+        else signupError.setStyle("-fx-background-color: #d72a7b;");
 
     }
 
     public void login() throws IOException {
         String result = Login.login(usernameLogin.getText(), passwordLogin.getText());
         loginError.setText(result);
-        loginError.setTextFill(Color.DARKRED);
+//        loginError.setTextFill(Color.DARKRED);
+        loginError.setStyle("-fx-background-color: #d72a7b;");
         if (result.contains("success")) graphicview.MainMenu.enterMenu();
     }
 }

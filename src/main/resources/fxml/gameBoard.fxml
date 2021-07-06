@@ -3,47 +3,42 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="graphicview.GameView"
-          prefHeight="800.0" prefWidth="1400.0"
-          style="-fx-font: 15 arial;">
 
-    <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="10" minWidth="280"
-          style="-fx-background-color: #ba8c5b" alignment="CENTER">
+<GridPane prefHeight="800.0" prefWidth="1400.0" style="-fx-font: 15 arial;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.GameView">
+
+    <VBox alignment="CENTER" minWidth="280" style="-fx-background-color: #1546a2;" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="10">
 
         <HBox spacing="2">
-            <Rectangle fx:id="rivalAvatar" width="80" height="100"/>
+            <Rectangle fx:id="rivalAvatar" height="100" width="80" />
             <VBox spacing="2">
-                <Label fx:id="rivalUsername" style="-fx-font: 13 arial;"/>
-                <Label fx:id="rivalNickname" style="-fx-font: 17 arial;"/>
+                <Label fx:id="rivalUsername" style="-fx-font: 13 arial;" />
+                <Label fx:id="rivalNickname" style="-fx-font: 17 arial;" />
                 <HBox spacing="4">
-                    <Label text="LP" style="-fx-font: 20 arial;"/>
-                    <Label fx:id="rivalLP" style="-fx-font: 20 arial;"/>
+                    <Label style="-fx-font: 20 arial;" text="LP" textFill="#b4f2ed" />
+                    <Label fx:id="rivalLP" style="-fx-font: 20 arial;" />
                 </HBox>
             </VBox>
         </HBox>
 
 
         <VBox>
-            <Rectangle fx:id="selectedCard" width="280" height="400" fill="black"/>
-            <Label fx:id="selectedCardDescription" lineSpacing="2" minWidth="140" minHeight="200" alignment="CENTER"
-                   textFill="darkslategray" text="no card is selected yet." style="-fx-font: 13 arial;"/>
+            <Rectangle fx:id="selectedCard" fill="black" height="400" width="280" />
+            <Label fx:id="selectedCardDescription" alignment="CENTER" lineSpacing="2" minHeight="200" minWidth="140" style="-fx-font: 13 arial;" text="no card is selected yet." textFill="WHITE" />
         </VBox>
 
 
         <HBox spacing="2">
-            <Rectangle fx:id="myAvatar" width="80" height="100"/>
+            <Rectangle fx:id="myAvatar" height="100" width="80" />
             <VBox spacing="2">
-                <Label fx:id="myUsername" style="-fx-font: 13 arial;"/>
-                <Label fx:id="myNickname" style="-fx-font: 17 arial;"/>
+                <Label fx:id="myUsername" style="-fx-font: 13 arial;" />
+                <Label fx:id="myNickname" style="-fx-font: 17 arial;" />
                 <HBox spacing="4">
-                    <Label text="LP" style="-fx-font: 20 arial;"/>
-                    <Label fx:id="myLP" style="-fx-font: 20 arial;"/>
+                    <Label style="-fx-font: 20 arial;" text="LP" textFill="#b4f2ed" />
+                    <Label fx:id="myLP" style="-fx-font: 20 arial;" />
                 </HBox>
                 <HBox spacing="4">
-                    <Rectangle fx:id="muteRectangle"/>
-                    <Button text="pause game" onMouseClicked="#pauseGame"/>
+                    <Rectangle fx:id="muteRectangle" />
+                    <Button onMouseClicked="#pauseGame" text="pause game" />
                 </HBox>
 
             </VBox>
@@ -51,87 +46,112 @@
     </VBox>
 
 
-    <GridPane fx:id="board" vgap="43" GridPane.rowIndex="0" GridPane.columnIndex="1" minHeight="800" minWidth="760">
-        <VBox minWidth="160" maxHeight="780" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="6"
-              alignment="BOTTOM_CENTER" spacing="5">
+    <GridPane fx:id="board" minHeight="800" minWidth="760" vgap="43" GridPane.columnIndex="1" GridPane.rowIndex="0">
+        <VBox alignment="BOTTOM_CENTER" maxHeight="780" minWidth="160" spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.rowSpan="6">
             <BorderPane fx:id="myFieldSpell">
                 <center>
-                    <Rectangle height="100" width="70" fill="black" visible="false"/>
+                    <Rectangle fill="black" height="100" visible="false" width="70" />
                 </center>
             </BorderPane>
 
-            <Button text="next phase" textFill="blue" onMouseClicked="#goToNextPhase"/>
-            <Button text="show graveyard" onMouseClicked="#showGraveyard"/>
-            <Button text="surrender" onMouseClicked="#surrender"/>
+            <Button onMouseClicked="#goToNextPhase" text="next phase" textFill="blue" />
+            <Button onMouseClicked="#showGraveyard" text="show graveyard" />
+            <Button onMouseClicked="#surrender" text="surrender" />
         </VBox>
 
-        <VBox maxHeight="780" GridPane.rowIndex="1" GridPane.columnIndex="2" GridPane.rowSpan="5"
-              alignment="TOP_CENTER">
+        <VBox alignment="TOP_CENTER" maxHeight="780" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="5">
             <BorderPane fx:id="rivalFieldSpell">
                 <right>
-                    <Rectangle height="100" width="70" fill="black" visible="false"/>
+                    <Rectangle fill="black" height="100" visible="false" width="70" />
                 </right>
             </BorderPane>
-            <Pane minHeight="300"/>
+            <Pane minHeight="300" />
             <VBox fx:id="buttonsOfGameActions" spacing="5">
-                <Button fx:id="summonButton" text="summon" onMouseClicked="#summon" visible="false"/>
-                <Button fx:id="setButton" text="set" onMouseClicked="#set" visible="false"/>
-                <Button fx:id="flipButton" text="flip summon" onMouseClicked="#flipSummon" visible="false"/>
-                <Button fx:id="setPositionButton" text="change position" onMouseClicked="#changePosition"
-                        visible="false"/>
-                <Button fx:id="activeEffectButton" text="activate effect" onMouseClicked="#activeEffect"
-                        visible="false"/>
-                <Button fx:id="attackButton" text="attack" onMouseClicked="#attack" visible="false"/>
+                <Button fx:id="summonButton" onMouseClicked="#summon" text="summon" visible="false" />
+                <Button fx:id="setButton" onMouseClicked="#set" text="set" visible="false" />
+                <Button fx:id="flipButton" onMouseClicked="#flipSummon" text="flip summon" visible="false" />
+                <Button fx:id="setPositionButton" onMouseClicked="#changePosition" text="change position" visible="false" />
+                <Button fx:id="activeEffectButton" onMouseClicked="#activeEffect" text="activate effect" visible="false" />
+                <Button fx:id="attackButton" onMouseClicked="#attack" text="attack" visible="false" />
             </VBox>
         </VBox>
 
-        <HBox fx:id="rivalHand" spacing="15" GridPane.rowIndex="0" GridPane.columnIndex="1">
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
+        <HBox fx:id="rivalHand" spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
         </HBox>
 
-        <HBox fx:id="rivalSpells" spacing="45" GridPane.rowIndex="1" GridPane.columnIndex="1" minWidth="535">
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <HBox fx:id="rivalSpells" minWidth="535" spacing="45" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
         </HBox>
 
-        <HBox fx:id="rivalMonsters" spacing="45" GridPane.rowIndex="2" GridPane.columnIndex="1">
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <HBox fx:id="rivalMonsters" spacing="45" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
         </HBox>
-        <HBox fx:id="myMonsters" spacing="45" GridPane.rowIndex="3" GridPane.columnIndex="1">
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <HBox fx:id="myMonsters" spacing="45" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
         </HBox>
-        <HBox fx:id="mySpells" spacing="45" GridPane.rowIndex="4" GridPane.columnIndex="1">
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
-            <Rectangle height="100" width="70" fill="black" visible="false"/>
+        <HBox fx:id="mySpells" spacing="45" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
+            <Rectangle fill="black" height="100" visible="false" width="70" />
         </HBox>
-        <HBox fx:id="myHand" spacing="15" GridPane.rowIndex="5" GridPane.columnIndex="1">
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
-            <Rectangle height="90" width="60" fill="black" visible="false"/>
+        <HBox fx:id="myHand" spacing="15" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
+            <Rectangle fill="black" height="90" visible="false" width="60" />
         </HBox>
+      <columnConstraints>
+         <ColumnConstraints />
+         <ColumnConstraints />
+         <ColumnConstraints />
+      </columnConstraints>
+      <rowConstraints>
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+         <RowConstraints />
+      </rowConstraints>
 
     </GridPane>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 
 </GridPane>

@@ -55,7 +55,7 @@ public class DeckMenu {
             }
             MainMenu.getCurrentUser().removeDeck(MainMenu.getCurrentUser().getDeckByName(name));
 
-            if(name.equals(MainMenu.getCurrentUser().getActiveDeck().getName()))
+            if(MainMenu.getCurrentUser().getActiveDeck() != null && name.equals(MainMenu.getCurrentUser().getActiveDeck().getName()))
                 MainMenu.getCurrentUser().setActiveDeck(null);
             return "deck deleted successfully";
         }
@@ -81,14 +81,14 @@ public class DeckMenu {
         if (isMain) {
             if (MainMenu.getCurrentUser().getDeckByName(deckName).MainIsFull()) return "main deck is full";
             if (MainMenu.getCurrentUser().getDeckByName(deckName).isLimited(card))
-                return "there are already three cards with name " + cardName + " in deck " + deckName;
+                return "there are already three cards with name " + "\"" +cardName + "\"" + " in deck " + "\"" + deckName + "\"";
             assert card != null;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToMainDeck(card);
-            MainMenu.getCurrentUser().getCards().remove(card);
+            //MainMenu.getCurrentUser().getCards().remove(card);
         } else {
             if (MainMenu.getCurrentUser().getDeckByName(deckName).SideIsFull()) return "side deck is full";
             if (MainMenu.getCurrentUser().getDeckByName(deckName).isLimited(card))
-                return "there are already three cards with name " + cardName + " in deck " + deckName;
+                return "there are already three cards with name " + "\"" +cardName + "\"" + " in deck " + "\"" + deckName + "\"";
             assert card != null;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToSideDeck(card);
             MainMenu.getCurrentUser().getCards().remove(card);
