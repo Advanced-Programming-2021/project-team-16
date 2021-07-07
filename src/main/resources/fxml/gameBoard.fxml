@@ -12,10 +12,10 @@
         <HBox spacing="2">
             <Rectangle fx:id="rivalAvatar" height="100" width="80"/>
             <VBox spacing="2">
-                <Label fx:id="rivalUsername" style="-fx-font: 13 arial;"/>
-                <Label fx:id="rivalNickname" style="-fx-font: 17 arial;"/>
+                <Label fx:id="rivalUsername" style="-fx-font: 13 arial;" textFill="WHITE"/>
+                <Label fx:id="rivalNickname" style="-fx-font: 17 arial;" textFill="WHITE"/>
                 <HBox spacing="4">
-                    <Label style="-fx-font: 20 arial;" text="LP" textFill="#b4f2ed"/>
+                    <Label style="-fx-font: 20 arial;" text="LP" textFill="blueviolet"/>
                     <Label fx:id="rivalLP" style="-fx-font: 20 arial;"/>
                 </HBox>
             </VBox>
@@ -32,11 +32,11 @@
         <HBox spacing="2">
             <Rectangle fx:id="myAvatar" height="100" width="80"/>
             <VBox spacing="2">
-                <Label fx:id="myUsername" style="-fx-font: 13 arial;"/>
-                <Label fx:id="myNickname" style="-fx-font: 17 arial;"/>
+                <Label fx:id="myUsername" style="-fx-font: 13 arial;"  textFill="white"/>
+                <Label fx:id="myNickname" style="-fx-font: 17 arial;"  textFill="white"/>
                 <HBox spacing="4">
-                    <Label style="-fx-font: 20 arial;" text="LP" textFill="#b4f2ed"/>
-                    <Label fx:id="myLP" style="-fx-font: 20 arial;"/>
+                    <Label style="-fx-font: 20 arial;" text="LP" textFill="blueviolet"/>
+                    <Label fx:id="myLP" style="-fx-font: 20 arial;" />
                 </HBox>
                 <HBox spacing="4">
                     <Rectangle fx:id="muteRectangle"/>
