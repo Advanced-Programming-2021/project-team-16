@@ -154,7 +154,7 @@ public class GameView {
             else if (cheatCode.equals(Enums.Cheat.WIN_DUEL.getRegex())) player.getRival().getGameView().surrender();
             else if (cheatCode.equals(Enums.Cheat.SET_AND_SUMMON_AGAIN.getRegex())) game.setHasSummonedOrSet(false);
             else if ((matcher = Pattern.compile(Enums.Cheat.ADD_CARD.getRegex()).matcher(cheatCode)).find())
-                game.addCardToHand(matcher.group(1),player);
+                game.addCardToHand(matcher.group(1), player);
         } else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_MONEY.getRegex()).matcher(cheatCode)).find())
             if (MainMenu.getCurrentUser() != null)
                 MainMenu.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
@@ -212,9 +212,8 @@ public class GameView {
         if (game.getRound() == 1) endGame(game.endRound());
         else {
             String result = game.getResultOfOneRound(player);
-            if (result.contains("whole match")) {
-                endGame(result);
-            }
+            if (result.contains("whole match")) endGame(result);
+            else showMessage(result, true);
         }
     }
 
@@ -410,6 +409,7 @@ public class GameView {
 
 
     public void surrender() {
+        if (game.getRival() == player) showMessage("not your turn", false);
         game.surrendered();
         doLostAction();
     }
@@ -482,7 +482,7 @@ public class GameView {
         borderPane.setMinHeight(100);
         borderPane.setMinWidth(160);
         Button resume = new Button("resume");
-        resume.setOnMouseClicked(e-> newStage.close());
+        resume.setOnMouseClicked(e -> newStage.close());
         borderPane.setCenter(resume);
         newStage.setScene(new Scene(borderPane));
         backgroundMusic.pause();
