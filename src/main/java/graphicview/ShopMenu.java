@@ -54,6 +54,7 @@ public class ShopMenu  {
     public Label selectedCardDescription1;
     public Label price;
     public Label urMoney;
+    public Button backBtn1;
     //cards count
     //TODO: اول بیا همه اسما رو از آپدیت استاتوس براشون اینجا مثل مثالا براشون شمارنده بزار
     int battleOXCount = 0;
@@ -88,7 +89,7 @@ public class ShopMenu  {
         Rectangle cards;
         int row = 0;
         int column = 0;
-
+        backBtn1.setOnMouseClicked(this::enterMenu1);
         for (Card card : user.getCards()) {
             cards = card;
             cards.setHeight(90);
@@ -106,17 +107,7 @@ public class ShopMenu  {
             cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
             card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
-            StackPane stackPane = new StackPane();
-            Text text = new Text("4");
-            text.setFill(Color.WHITE);
-            text.setFont(Font.font("System", FontWeight.BOLD,30));
-
-            stackPane.getChildren().add(cards);
-            stackPane.getChildren().add(text);
-
-           // paneContent.getChildren().add(stackPane);
-
-            userCardsPane.add(stackPane, row, column);
+            userCardsPane.add(cards, row, column);
             row++;
             if (row == 10) {
                 row = 0;
@@ -204,12 +195,12 @@ public class ShopMenu  {
     public void showCardListBtnOnClick(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/cardlist.fxml"));
-            //loader.setController(controllerShopMenu);
+            loader.setController(controllerShopMenu);
             Parent root = loader.load();
-            //((AnchorPane) root).setBackground(GraphicUtils.getBackground("/png/texture/cardList.jpg"));
+            ((AnchorPane) root).setBackground(GraphicUtils.getBackground("/png/shop/cardList.jpg"));
             LoginMenu.getMainStage().setScene(new Scene(root));
             //ShopMenu.setControllerShop(loader.getController());
-           //controllerShopMenu.loadUserCards();
+            controllerShopMenu.loadUserCards();
         } catch (IOException ignored) {
         }
     }
@@ -229,7 +220,7 @@ public class ShopMenu  {
         graphicview.MainMenu.enterMenu();
     }
 
-    public void enterMenu1(ActionEvent actionEvent) {
+    public void enterMenu1(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/shop.fxml"));
             //loader.setController(controllerShopMenu);

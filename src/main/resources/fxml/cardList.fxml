@@ -6,55 +6,55 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="623.0" prefWidth="966.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ShopMenu">
+<AnchorPane prefHeight="623.0" prefWidth="966.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="492.0" layoutY="14.0" prefHeight="22.0" prefWidth="149.0" text="Card List Menu" textAlignment="CENTER" textFill="WHITE">
             <font>
                 <Font name="Monotype Corsiva" size="26.0" />
             </font>
         </Label>
-        <Button fx:id="backBtn1" layoutX="14.0" layoutY="6.0" mnemonicParsing="false" onAction="#enterMenu1" prefHeight="34.0" prefWidth="84.0" text="Back">
+        <Button fx:id="backBtn1" layoutX="14.0" layoutY="6.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="84.0" text="Back">
             <font>
                 <Font name="Andalus" size="17.0" />
             </font>
         </Button>
-      <ScrollPane layoutX="276.0" layoutY="49.0" prefHeight="527.0" prefWidth="661.0">
+      <ScrollPane layoutX="320.0" layoutY="49.0" prefHeight="527.0" prefWidth="587.0">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="968.0" prefWidth="645.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="925.0" prefWidth="568.0">
                <children>
-                  <GridPane fx:id="userCardsPane" layoutY="6.0" prefHeight="894.0" prefWidth="611.0" style="-fx-background-color: #ffffff;">
+                  <GridPane fx:id="userCardsPane" layoutX="6.0" layoutY="14.0" prefHeight="971.0" prefWidth="556.0" style="-fx-background-color: #ffffff;">
                     <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="80.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="80.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="80.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="80.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="80.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="80.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="80.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="70.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="70.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="70.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="70.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="70.0" minWidth="10.0" prefWidth="70.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="100.0" minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="200.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="150.0" minHeight="10.0" prefHeight="170.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                   </GridPane>
                </children></AnchorPane>
         </content>
       </ScrollPane>
-      <AnchorPane layoutX="-6.0" layoutY="49.0" onMouseClicked="#loadUserCards" prefHeight="527.0" prefWidth="265.0" style="-fx-background-color: #1546a2;">
+      <AnchorPane layoutX="-6.0" layoutY="49.0" prefHeight="527.0" prefWidth="265.0" style="-fx-background-color: #1546a2;">
          <children>
             <ImageView fitHeight="293.0" fitWidth="278.0" layoutX="-14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>

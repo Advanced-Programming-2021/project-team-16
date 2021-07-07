@@ -347,8 +347,6 @@ public class EditDeck {
         ObservableList<Node> children = gridPane.getChildren();
         for(Node node : children) {
                 if(node instanceof Rectangle || GridPane.getRowIndex(node) == tRow && GridPane.getColumnIndex(node) == tColumn)
-                   // Rectangle rectangle = new Rectangle(node);
-                   // ImageView imageView=ImageView(node);
                 gridPane.getChildren().remove(node);
             tRow++;
             if (tRow == 7) {
