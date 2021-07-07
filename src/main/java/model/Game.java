@@ -146,7 +146,7 @@ public class Game {
         setCurrentPhase(Phase.DRAW);
         Show.showGameMessage(drawCard());
         if (didSbWin()) {
-            currentPlayer.getGameView().doLostAction();
+            loser.getGameView().doLostAction();
             return;
         }
         setCurrentPhase(Phase.STANDBY);
@@ -203,6 +203,10 @@ public class Game {
     public boolean didSbWin() {
         if (winner != null) {
             loser = (winner == currentPlayer) ? rival : currentPlayer;
+            return true;
+        }
+        if (loser != null) {
+            winner = (loser == currentPlayer) ? rival : currentPlayer;
             return true;
         }
         if (currentPlayer.getLP() == 0) {

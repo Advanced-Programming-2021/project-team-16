@@ -213,7 +213,10 @@ public class GameView {
         else {
             String result = game.getResultOfOneRound(player);
             if (result.contains("whole match")) endGame(result);
-            else showMessage(result, true);
+            else {
+                showMessage(result, true);
+                game.runGraphical();
+            }
         }
     }
 
