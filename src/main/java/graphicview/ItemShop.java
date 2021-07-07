@@ -15,16 +15,16 @@ public class ItemShop {
     private ImageView img;
     private CardsOfShop card;
     private MyListener myListener;
-    @FXML
-    private void click(MouseEvent mouseEvent) {
-        myListener.onClickListener(card);
-    }
-Card card1;
-    public void setData(CardsOfShop card, MyListener myListener) {
-        this.card = card;
-        this.myListener = myListener;
-        priceLable.setText(ShopMenu.CURRENCY + card.getPrice());
-        Image image = new Image(getClass().getResourceAsStream(card.getImgSrc()));
-        img.setImage(image);
-    }
+//    @FXML
+//    private void click(MouseEvent mouseEvent) {
+//        myListener.onClickListener(card);
+//    }
+//Card card1;
+//    public void setData(CardsOfShop card, MyListener myListener) {
+//        this.card = card;
+//        this.myListener = myListener;
+//        priceLable.setText(ShopMenu.CURRENCY + card.getPrice());
+//        Image image = new Image(getClass().getResourceAsStream(card.getImgSrc()));
+//        img.setImage(image);
+//    }
 }
