@@ -1,26 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<GridPane xmlns="http://javafx.com/javafx"
-          xmlns:fx="http://javafx.com/fxml"
-          fx:controller="graphicview.DuelMenu"
-          prefHeight="400.0" prefWidth="600.0"
-          style="-fx-font: 15 arial;" vgap="10" hgap="5" alignment="CENTER">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-    <Label text="Duel Menu" style="-fx-font: 20 arial;" textFill="indigo" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-    <Label text="second player" GridPane.rowIndex="1" GridPane.columnIndex="0" textFill="bisque"/>
-    <TextField fx:id="secondPlayerUsername" GridPane.rowIndex="1" GridPane.columnIndex="1" />
-    <Label text="rounds" GridPane.rowIndex="2" GridPane.columnIndex="0" textFill="bisque"/>
-    <ChoiceBox fx:id="rounds" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-    <Button text="Duel!" GridPane.rowIndex="4" GridPane.columnIndex="1" onMouseClicked="#duel"/>
-    <Label fx:id="duelError" GridPane.rowIndex="5" GridPane.columnIndex="0" GridPane.columnSpan="2" textFill="bisque"/>
 
-    <Label text="rounds" GridPane.rowIndex="2" GridPane.columnIndex="2" textFill="bisque"/>
-    <ChoiceBox fx:id="roundsWithAI" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
-    <Button text="Duel With AI!" GridPane.rowIndex="4" GridPane.columnIndex="3" onMouseClicked="#duelWithAI"/>
-    <Label fx:id="aiDuelError" GridPane.rowIndex="5" GridPane.columnIndex="2" GridPane.columnSpan="2" textFill="bisque"/>
-
-    <Button text="back" GridPane.rowIndex="10" GridPane.columnIndex="3" onMouseClicked="#enterMainMenu"/>
-
-</GridPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.DuelMenu">
+    <children>
+        <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" smooth="false">
+            <image>
+                <Image url="@../png/texture/5844a29a9ccb0bca826058066acbb10126f1c402.jpg" />
+            </image>
+        </ImageView>
+        <GridPane alignment="CENTER" hgap="5" layoutX="-1.0" layoutY="-1.0" prefHeight="400.0" prefWidth="600.0" style="-fx-font: 15 arial;" vgap="10">
+            <children>
+                <Label prefHeight="30.0" prefWidth="146.0" text="second player" textFill="#ecdcc9" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="OCR A Extended" size="18.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="secondPlayerUsername" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" prefHeight="22.0" prefWidth="142.0" text="rounds" textAlignment="RIGHT" textFill="bisque" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="OCR A Extended" size="20.0" />
+                    </font>
+                </Label>
+                <ChoiceBox fx:id="rounds" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <Button onMouseClicked="#duel" prefHeight="30.0" prefWidth="54.0" style="-fx-background-color: #bf7777#993030;" text="Duel!" textFill="#f4f4f4" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                    <font>
+                        <Font name="Perpetua Titling MT Bold" size="12.0" />
+                    </font>
+                </Button>
+                <Label fx:id="duelError" textFill="bisque" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                <Label text="rounds" textFill="bisque" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                    <font>
+                        <Font name="OCR A Extended" size="20.0" />
+                    </font>
+                </Label>
+                <ChoiceBox fx:id="roundsWithAI" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                <Button onMouseClicked="#duelWithAI" style="-fx-background-color: #bf7777#993030;" text="Duel With AI!" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                    <font>
+                        <Font name="Palatino Linotype Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Label fx:id="aiDuelError" textFill="bisque" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="6" />
+                <Button onMouseClicked="#enterMainMenu" style="-fx-background-color: #bf7777#993030;" text="back" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="11">
+                    <font>
+                        <Font name="Perpetua Bold" size="19.0" />
+                    </font>
+                </Button>
+                <ImageView fitHeight="63.0" fitWidth="205.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+                    <image>
+                        <Image url="@../png/texture/4a40398d42c9f5c53c8a85a8ecf95800.png" />
+                    </image>
+                </ImageView>
+            </children>
+            <columnConstraints>
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+                <ColumnConstraints />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+                <RowConstraints />
+            </rowConstraints>
+        </GridPane>
+    </children>
+</AnchorPane>
