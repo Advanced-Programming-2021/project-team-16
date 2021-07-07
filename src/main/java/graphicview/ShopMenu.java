@@ -206,7 +206,6 @@ public class ShopMenu {
             Parent root = loader.load();
             ((AnchorPane) root).setBackground(GraphicUtils.getBackground("/png/shop/cardList.jpg"));
             LoginMenu.getMainStage().setScene(new Scene(root));
-            //ShopMenu.setControllerShop(loader.getController());
             controllerShopMenu.loadUserCards();
         } catch (IOException ignored) {
         }
