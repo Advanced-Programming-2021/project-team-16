@@ -55,26 +55,15 @@ public class ShopMenu  {
     public Label price;
     public Label urMoney;
     public Button backBtn1;
-    //cards count
-    //TODO: اول بیا همه اسما رو از آپدیت استاتوس براشون اینجا مثل مثالا براشون شمارنده بزار
-    int battleOXCount = 0;
-    int axeRaiderCount = 0;
-
-
-
-
-
 
 
     public static void enterMenu()  {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/shop.fxml"));
-            //loader.setController(controllerShopMenu);
             Parent root = loader.load();
             ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
             LoginMenu.getMainStage().setScene(new Scene(root));
             controllerShopMenu = loader.getController();
-            //ShopMenu.setControllerShop(loader.getController());
             controllerShopMenu.loadBoard();
         } catch (IOException ignored) {
         }
@@ -220,18 +209,7 @@ public class ShopMenu  {
         } catch (IOException ignored) {
         }
     }
-    public void enterCardListMenu(){
-        try {
-        FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/cardlist.fxml"));
-        //loader.setController(controllerShopMenu);
-        Parent root = loader.load();
-//        ((AnchorPane) root).setBackground(GraphicUtils.getBackground("/png/texture/cardList.jpg"));
-        LoginMenu.getMainStage().setScene(new Scene(root));
-       // ShopMenu.setControllerShop(loader.getController());
-        //controllerShopMenu.loadUserCards();
-    } catch (IOException ignored) {
-    }
-    }
+
     public void enterMainMenu() throws IOException {
         graphicview.MainMenu.enterMenu();
     }
@@ -239,25 +217,13 @@ public class ShopMenu  {
     public void enterMenu1(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/shop.fxml"));
-            //loader.setController(controllerShopMenu);
             Parent root = loader.load();
             ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
             LoginMenu.getMainStage().setScene(new Scene(root));
             ShopMenu.setControllerShop(loader.getController());
             ShopMenu.getControllerShop().loadBoard();
-           // controllerShopMenu.loadBoard();
         } catch (IOException ignored) {
         }
     }
 
-    //TODO: بعد همون اسمایی که از آپدیت استاتوی برداشتی رو دقیقا خودشو بزار توی ایف مثل مثالا و شمارندش رو پلاس پلاس کن
-    public void countMonsters(){
-        for (Card card: user.getCards()) {
-            if(card.getName().equals("Battle OX")) battleOXCount++;
-            if(card.getName().equals("Axe Raider")) axeRaiderCount++;
-            // do ta monster aval update status ro zadam to az edamash boro manam miram spella
-
-
-        }
-    }
 }
