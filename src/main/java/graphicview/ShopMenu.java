@@ -129,12 +129,13 @@ public class ShopMenu  {
             Rectangle finalCards = cards;
 
             cards.setOnMouseClicked(me -> {
-                cardsOnClick();
+
                 selectedCard.setFill(finalCards.getFill());
                 selected = card;
                 selectedCardDescription.setText(selected.getCardProperties());
                 errorTxt.setText("");
                 price.setText(String.valueOf(selected.getPrice()));
+                cardsOnClick();
             });
             cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
             cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
@@ -151,10 +152,16 @@ public class ShopMenu  {
     }
 
     public void cardsOnClick() {
-        buyBtn.setVisible(true);
-        showCardListBtn.setVisible(true);
-        buyBtn.setOnMouseClicked(this::buyBtnOnClick);
-        showCardListBtn.setOnMouseClicked(this::showCardListBtnOnClick);
+        if(selected.getPrice() <= user.getMoney())
+        {     success.setText("");
+              error.setText("");
+              buyBtn.setVisible(true);
+              buyBtn.setOnMouseClicked(this::buyBtnOnClick);}
+         else{ success.setText("");
+               error.setText("not enough money");
+               buyBtn.setVisible(false);}
+               showCardListBtn.setVisible(true);
+               showCardListBtn.setOnMouseClicked(this::showCardListBtnOnClick);
     }
     private void undoGlowEffect(Rectangle finalCards) {
         finalCards.setCursor(Cursor.DEFAULT);
@@ -187,10 +194,19 @@ public class ShopMenu  {
     public void buyBtnOnClick(MouseEvent mouseEvent) {
            String message = Shop.buy(selected.getName());
            if(message.equals("shopping is successfully!")){
+               error.setText("");
                urMoney.setText(String.valueOf(user.getMoney()));
                success.setText("Card was shopped successfully!");
            }
-           else error.setText(message);
+
+           else {
+               success.setText("");
+               error.setText(message);
+           }
+           if(selected.getPrice() > user.getMoney())
+           {buyBtn.setVisible(false);
+           success.setText("");
+           error.setText("not enough money");}
     }
     public void showCardListBtnOnClick(MouseEvent mouseEvent) {
         try {
