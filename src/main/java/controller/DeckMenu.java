@@ -2,7 +2,6 @@ package controller;
 
 import model.Deck;
 import model.card.Card;
-import model.card.monster.Monster;
 import view.Show;
 
 import java.util.ArrayList;
@@ -84,14 +83,14 @@ public class DeckMenu {
                 return "there are already three cards with name " + "\"" +cardName + "\"" + " in deck " + "\"" + deckName + "\"";
             assert card != null;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToMainDeck(card);
-            //MainMenu.getCurrentUser().getCards().remove(card);
+            MainMenu.getCurrentUser().removeCard(card);
         } else {
             if (MainMenu.getCurrentUser().getDeckByName(deckName).SideIsFull()) return "side deck is full";
             if (MainMenu.getCurrentUser().getDeckByName(deckName).isLimited(card))
                 return "there are already three cards with name " + "\"" +cardName + "\"" + " in deck " + "\"" + deckName + "\"";
             assert card != null;
             MainMenu.getCurrentUser().getDeckByName(deckName).addCardToSideDeck(card);
-            MainMenu.getCurrentUser().getCards().remove(card);
+            MainMenu.getCurrentUser().removeCard(card);
         }
 
         return "card added to deck successfully";

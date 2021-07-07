@@ -7,6 +7,7 @@ import model.person.User;
 public class Profile {
 
     public static String changeUsername(String newUsername) {
+        if (newUsername.length() == 0) return "choose a username";
         if (MainMenu.getCurrentUser().getUsername().equals(newUsername)) return "this is your current username";
         if (User.getUserByUsername(newUsername) != null)
             return "user with username " + newUsername + " already exists";
@@ -15,6 +16,7 @@ public class Profile {
     }
 
     public static String changeNickname(String newNickname) {
+        if (newNickname.length() == 0) return "choose a nickname";
         if (MainMenu.getCurrentUser().getNickname().equals(newNickname)) return "this is your current nickname";
         if (User.getUserByNickname(newNickname) != null)
             return "user with nickname " + newNickname + " already exists";
