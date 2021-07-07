@@ -36,7 +36,7 @@ public class ScoreboardMenu {
                 rate = i;
             nickname = new Label(users.get(i - 1).getNickname());
             score = new Label("" + users.get(i - 1).getScore());
-            rateLabel = new Label(rate + "");
+            rateLabel = new Label("  " + rate );
             nickname.setStyle("-fx-font-size: 15;");
             score.setStyle("-fx-font-size: 15;");
             rateLabel.setStyle("-fx-font-size: 15;");
@@ -45,8 +45,8 @@ public class ScoreboardMenu {
                 score.setTextFill(Color.LIGHTGREEN);
                 rateLabel.setTextFill(Color.LIGHTGREEN);
             } else {
-                nickname.setTextFill(Color.BLUE);
-                score.setTextFill(Color.BLUE);
+                nickname.setTextFill(Color.LIGHTBLUE);
+                score.setTextFill(Color.LIGHTBLUE);
                 rateLabel.setTextFill(Color.WHITE);
             }
             scoreboardPane.add(rateLabel, 0, i);
