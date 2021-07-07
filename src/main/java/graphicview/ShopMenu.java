@@ -22,8 +22,7 @@ import model.person.User;
 import java.io.IOException;
 
 
-public class ShopMenu  {
-
+public class ShopMenu {
 
     private static ShopMenu controllerShopMenu;
     public Label countLabel;
@@ -45,13 +44,7 @@ public class ShopMenu  {
     public Button backBtn1;
 
 
-
-
-
-
-
-
-    public static void enterMenu()  {
+    public static void enterMenu() {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/shop.fxml"));
             Parent root = loader.load();
@@ -66,12 +59,15 @@ public class ShopMenu  {
         } catch (IOException ignored) {
         }
     }
+
     public static ShopMenu getControllerShop() {
         return controllerShopMenu;
     }
-    public static void setControllerShop (ShopMenu controllerShopMenu) {
-         ShopMenu.controllerShopMenu = controllerShopMenu;
+
+    public static void setControllerShop(ShopMenu controllerShopMenu) {
+        ShopMenu.controllerShopMenu = controllerShopMenu;
     }
+
     public void loadUserCards() {
         Rectangle cards;
         int row = 0;
@@ -102,10 +98,11 @@ public class ShopMenu  {
         }
 
     }
+
     public void loadBoard() {
         Rectangle cards;
-       int row = 0;
-       int column = 0;
+        int row = 0;
+        int column = 0;
         urMoney.setText(String.valueOf(user.getMoney()));
         for (Card card : Card.getCards()) {
             cards = card;
@@ -120,7 +117,7 @@ public class ShopMenu  {
                 int count = 0;
                 for (Card userCard : user.getCards()) if (userCard.getName().equals(selected.getName())) count++;
                 selectedCardDescription.setText(selected.getCardProperties());
-                countLabel.setText( "You have bought " + count + " of this card.");
+                countLabel.setText("You have bought " + count + " of this card.");
                 errorTxt.setText("");
                 price.setText(String.valueOf(selected.getPrice()));
                 cardsOnClick();
@@ -140,17 +137,20 @@ public class ShopMenu  {
     }
 
     public void cardsOnClick() {
-        if(selected.getPrice() <= user.getMoney())
-        {     success.setText("");
-              error.setText("");
-              buyBtn.setVisible(true);
-              buyBtn.setOnMouseClicked(this::buyBtnOnClick);}
-         else{ success.setText("");
-               error.setText("not enough money");
-               buyBtn.setVisible(false);}
-               showCardListBtn.setVisible(true);
-               showCardListBtn.setOnMouseClicked(this::showCardListBtnOnClick);
+        if (selected.getPrice() <= user.getMoney()) {
+            success.setText("");
+            error.setText("");
+            buyBtn.setVisible(true);
+            buyBtn.setOnMouseClicked(this::buyBtnOnClick);
+        } else {
+            success.setText("");
+            error.setText("not enough money");
+            buyBtn.setVisible(false);
+        }
+        showCardListBtn.setVisible(true);
+        showCardListBtn.setOnMouseClicked(this::showCardListBtnOnClick);
     }
+
     private void undoGlowEffect(Rectangle finalCards) {
         finalCards.setCursor(Cursor.DEFAULT);
         int depth = 0;
@@ -180,22 +180,25 @@ public class ShopMenu  {
     }
 
     public void buyBtnOnClick(MouseEvent mouseEvent) {
-           String message = Shop.buy(selected.getName());
-           if(message.equals("shopping is successfully!")){
-               error.setText("");
-               urMoney.setText(String.valueOf(user.getMoney()));
-               success.setText("Card was shopped successfully!");
-           }
-
-           else {
-               success.setText("");
-               error.setText(message);
-           }
-           if(selected.getPrice() > user.getMoney())
-           {buyBtn.setVisible(false);
-           success.setText("");
-           error.setText("not enough money");}
+        String message = Shop.buy(selected.getName());
+        if (message.equals("shopping is successfully!")) {
+            error.setText("");
+            urMoney.setText(String.valueOf(user.getMoney()));
+            success.setText("Card was shopped successfully!");
+            int count = 0;
+            for (Card userCard : user.getCards()) if (userCard.getName().equals(selected.getName())) count++;
+            countLabel.setText("You have bought " + count + " of this card.");
+        } else {
+            success.setText("");
+            error.setText(message);
+        }
+        if (selected.getPrice() > user.getMoney()) {
+            buyBtn.setVisible(false);
+            success.setText("");
+            error.setText("not enough money");
+        }
     }
+
     public void showCardListBtnOnClick(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/cardlist.fxml"));
