@@ -78,7 +78,7 @@
          </font></Button>
       <ImageView fitHeight="56.0" fitWidth="336.0" layoutX="147.0" pickOnBounds="true" smooth="false">
          <image>
-            <Image url="@../../../../../project-team-16-phase2/src/main/resources/png/texture/ce11c423bd29f67f3c29c3ae7d0b99e1.png" />
+            <Image url="@../png/texture/4116492bd34ae19e4ed8b7c751f3693c.png" />
          </image>
       </ImageView>
    </children>
