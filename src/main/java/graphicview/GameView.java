@@ -99,7 +99,7 @@ public class GameView {
             Parent secondBoard = loader.load();
             Stage secondStage = new Stage();
             secondStage.setScene(new Scene(secondBoard));
-            secondStage.show();
+            if (!(secondPlayer instanceof AI)) secondStage.show();
             ((GameView) loader.getController()).showBoard(secondPlayer, secondStage);
             //starting game
             backgroundMusic = new MediaPlayer(new Media(GameView.class.getResource("/sounds/background.mp3").toExternalForm()));
@@ -482,16 +482,14 @@ public class GameView {
         borderPane.setMinHeight(100);
         borderPane.setMinWidth(160);
         Button resume = new Button("resume");
-        resume.setOnMouseClicked(e-> {
-            newStage.close();
-            backgroundMusic.play();
-            stage.show();
-        });
+        resume.setOnMouseClicked(e-> newStage.close());
         borderPane.setCenter(resume);
         newStage.setScene(new Scene(borderPane));
         backgroundMusic.pause();
         stage.hide();
         newStage.showAndWait();
+        backgroundMusic.play();
+        stage.show();
     }
 }
 
