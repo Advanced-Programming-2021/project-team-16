@@ -103,7 +103,8 @@ public class EditDeck {
         else errorTxt.setText(message);
     }
     public void loadBoard() {
-        Rectangle cards;
+        Rectangle
+                cards;
         int row = 0;
         int column = 0;
 
@@ -313,7 +314,7 @@ public class EditDeck {
             }
         }
         row = 0;
-        column = 0;
+        column = 8;
         for (Card card : user.getCards()) {
             cards = card;
             cards.setHeight(90);
