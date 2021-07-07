@@ -2,43 +2,31 @@ package graphicview;
 
 import controller.MainMenu;
 import controller.Shop;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Game;
 import model.card.Card;
 import model.person.User;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
 
 
 public class ShopMenu  {
 
 
     private static ShopMenu controllerShopMenu;
+    public Label countLabel;
     User user = MainMenu.getCurrentUser();
     public Rectangle selectedCard;
     private Card selected;
@@ -55,10 +43,7 @@ public class ShopMenu  {
     public Label price;
     public Label urMoney;
     public Button backBtn1;
-    //cards count
-    //TODO: اول بیا همه اسما رو از آپدیت استاتوس براشون اینجا مثل مثالا براشون شمارنده بزار
-    int battleOXCount = 0;
-    int axeRaiderCount = 0;
+
 
 
 
@@ -72,7 +57,11 @@ public class ShopMenu  {
             //loader.setController(controllerShopMenu);
             Parent root = loader.load();
             ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
+            Stage stage = LoginMenu.getMainStage();
             LoginMenu.getMainStage().setScene(new Scene(root));
+            stage.getScene().setOnKeyPressed(keyEvent -> {
+                if (Game.CHEAT_KEYS.match(keyEvent)) GameView.openCheatPopup(stage, null);
+            });
             controllerShopMenu = loader.getController();
             //ShopMenu.setControllerShop(loader.getController());
             controllerShopMenu.loadBoard();
@@ -100,8 +89,6 @@ public class ShopMenu  {
                 selectedCard1.setFill(finalCards.getFill());
                 selected = card;
                 selectedCardDescription1.setText(selected.getCardProperties());
-
-
             });
             cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
             cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
@@ -132,7 +119,10 @@ public class ShopMenu  {
 
                 selectedCard.setFill(finalCards.getFill());
                 selected = card;
+                int count = 0;
+                for (Card userCard : user.getCards()) if (userCard.getName().equals(selected.getName())) count++;
                 selectedCardDescription.setText(selected.getCardProperties());
+                countLabel.setText( "You have bought " + count + " of this card.");
                 errorTxt.setText("");
                 price.setText(String.valueOf(selected.getPrice()));
                 cardsOnClick();
@@ -250,14 +240,4 @@ public class ShopMenu  {
         }
     }
 
-    //TODO: بعد همون اسمایی که از آپدیت استاتوی برداشتی رو دقیقا خودشو بزار توی ایف مثل مثالا و شمارندش رو پلاس پلاس کن
-    public void countMonsters(){
-        for (Card card: user.getCards()) {
-            if(card.getName().equals("Battle OX")) battleOXCount++;
-            if(card.getName().equals("Axe Raider")) axeRaiderCount++;
-            // do ta monster aval update status ro zadam to az edamash boro manam miram spella
-
-
-        }
-    }
 }

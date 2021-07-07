@@ -3,9 +3,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.*?>
-
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="688.0" prefWidth="1231.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ShopMenu">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="330.0" minWidth="28.0" prefWidth="290.0" />
@@ -27,6 +26,7 @@
                   </ImageView>
                   <Rectangle fx:id="selectedCard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="245.0" layoutX="74.0" layoutY="44.0" stroke="BLACK" strokeType="INSIDE" width="163.0" />
                   <Label fx:id="selectedCardDescription" layoutX="2.0" layoutY="357.0" prefHeight="174.0" prefWidth="320.0" text="no card is selected yet." textFill="WHITE" wrapText="true" />
+                  <Label fx:id="countLabel" textFill="white" style="-fx-font-size: 13"/>
                   <Button fx:id="buyBtn" layoutX="14.0" layoutY="572.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="96.0" text="buy" visible="false" />
                   <Button fx:id="showCardListBtn" layoutX="217.0" layoutY="571.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="96.0" text="Show card List" visible="false" />
                   <Label fx:id="error" alignment="CENTER" layoutX="67.0" layoutY="536.0" prefHeight="26.0" prefWidth="180.0" textAlignment="CENTER" textFill="#ff8a8a">
