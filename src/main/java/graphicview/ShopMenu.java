@@ -54,7 +54,6 @@ public class ShopMenu  {
     public static void enterMenu()  {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/shop.fxml"));
-            //loader.setController(controllerShopMenu);
             Parent root = loader.load();
             ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
             Stage stage = LoginMenu.getMainStage();
@@ -63,7 +62,6 @@ public class ShopMenu  {
                 if (Game.CHEAT_KEYS.match(keyEvent)) GameView.openCheatPopup(stage, null);
             });
             controllerShopMenu = loader.getController();
-            //ShopMenu.setControllerShop(loader.getController());
             controllerShopMenu.loadBoard();
         } catch (IOException ignored) {
         }
@@ -210,18 +208,7 @@ public class ShopMenu  {
         } catch (IOException ignored) {
         }
     }
-    public void enterCardListMenu(){
-        try {
-        FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/cardlist.fxml"));
-        //loader.setController(controllerShopMenu);
-        Parent root = loader.load();
-//        ((AnchorPane) root).setBackground(GraphicUtils.getBackground("/png/texture/cardList.jpg"));
-        LoginMenu.getMainStage().setScene(new Scene(root));
-       // ShopMenu.setControllerShop(loader.getController());
-        //controllerShopMenu.loadUserCards();
-    } catch (IOException ignored) {
-    }
-    }
+
     public void enterMainMenu() throws IOException {
         graphicview.MainMenu.enterMenu();
     }
@@ -229,13 +216,11 @@ public class ShopMenu  {
     public void enterMenu1(MouseEvent mouseEvent) {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/shop.fxml"));
-            //loader.setController(controllerShopMenu);
             Parent root = loader.load();
             ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
             LoginMenu.getMainStage().setScene(new Scene(root));
             ShopMenu.setControllerShop(loader.getController());
             ShopMenu.getControllerShop().loadBoard();
-           // controllerShopMenu.loadBoard();
         } catch (IOException ignored) {
         }
     }
