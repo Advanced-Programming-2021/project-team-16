@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-font: 14 arial;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.LoginMenu">
-    <center>
-        <GridPane alignment="CENTER" hgap="40" vgap="10">
+<BorderPane prefHeight="413.0" prefWidth="726.0" style="-fx-font: 14 arial;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.LoginMenu">
+   <left>
+        <GridPane alignment="CENTER" hgap="40" prefHeight="411.0" prefWidth="723.0" vgap="10" BorderPane.alignment="CENTER">
 
 
             <HBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
@@ -28,13 +28,13 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
-                <TextField fx:id="nickname" />
+                <TextField fx:id="nickname" prefHeight="26.0" prefWidth="177.0" />
             </HBox>
-            <Label fx:id="signupError" prefHeight="18.0" prefWidth="237.0" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6" textAlignment="CENTER" alignment="CENTER">
+            <Label fx:id="signupError" alignment="CENTER" prefHeight="18.0" prefWidth="237.0" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="6">
             <font>
                <Font name="System Bold" size="12.0" />
             </font></Label>
-         <AnchorPane prefHeight="196.0" prefWidth="242.0">
+         <AnchorPane prefHeight="200.0" prefWidth="357.0">
             <children>
                   <HBox layoutX="-1.0" layoutY="14.0" spacing="5">
                       <Label style="-fx-background-color: #373fe5;" text="username" textFill="WHITE">
@@ -52,7 +52,7 @@
                       <PasswordField fx:id="passwordLogin" />
                   </HBox>
                   <Button layoutX="92.0" layoutY="100.0" onMouseClicked="#login" prefHeight="26.0" prefWidth="77.0" text="login" />
-                  <Label fx:id="loginError" layoutX="3.0" layoutY="142.0" prefHeight="26.0" prefWidth="250.0" textFill="WHITE" alignment="CENTER" textAlignment="CENTER">
+                  <Label fx:id="loginError" alignment="CENTER" layoutX="3.0" layoutY="142.0" prefHeight="26.0" prefWidth="250.0" textAlignment="CENTER" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="12.0" />
                   </font></Label>
@@ -80,5 +80,5 @@
          </rowConstraints>
 
         </GridPane>
-    </center>
+   </left>
 </BorderPane>
