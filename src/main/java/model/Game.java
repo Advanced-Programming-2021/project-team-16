@@ -142,6 +142,7 @@ public class Game {
     }
 
     public void runGraphical() {
+        if (!hasSurrendered) winner = loser = null;
         doStartTurnActions();
         setCurrentPhase(Phase.DRAW);
         Show.showGameMessage(drawCard());
