@@ -738,6 +738,7 @@ public class Game {
     }
 
     public void setOnMouseClickedSelect(Card card, int index, Board.Zone zone, boolean isInRivalView) {
+        if (isGraphical) return;
         card.setOnMouseClicked(mouseEvent -> {
             if (card.getScene() == rival.getGameView().getStage().getScene()) {
                 rival.getGameView().selectedCardDescription.setText("not your turn");

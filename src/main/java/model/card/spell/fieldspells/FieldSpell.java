@@ -33,7 +33,7 @@ public class FieldSpell extends Spell {
         Game game = GameMenu.getCurrentGame();
         doActionOnBoard(game.getCurrentPlayer().getBoard(), isUndo);
         doActionOnBoard(game.getRival().getBoard(), isUndo);
-        changeBackground(isUndo);
+        if(game.isGraphical()) changeBackground(isUndo);
         isActivated = !isUndo;
         return this.name + " has made changes to all monsters";
 

@@ -53,60 +53,67 @@ public class Player {
             LP = 0;
             if (GameMenu.getCurrentGame().isGraphical()) gameView.doLostAction();
         }
-        changeGraphicLPs();
-        int finalAmount = amount;
-        Animation animation = new Transition() {
-            {
-                setCycleDuration(Duration.millis(1000));
-            }
-
-            protected void interpolate(double v) {
-                Color color;
-                try {
-                    color = Color.rgb(
-                            (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP - finalAmount) / 8 * 255 / 1000)
-                            , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP + finalAmount) / 8 * 170 / 1000), 0);
-                }catch (Exception e){
-                    color = Color.rgb(0,200,0);
+        if(GameMenu.getCurrentGame().isGraphical()) {
+            changeGraphicLPs();
+            int finalAmount = amount;
+            Animation animation = new Transition() {
+                {
+                    setCycleDuration(Duration.millis(1000));
                 }
-                gameView.myLP.setTextFill(color);
-                rival.gameView.rivalLP.setTextFill(color);
-            }
-        };
-        animation.play();
+
+                protected void interpolate(double v) {
+                    Color color;
+                    try {
+                        color = Color.rgb(
+                                (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP - finalAmount) / 8 * 255 / 1000)
+                                , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP + finalAmount) / 8 * 170 / 1000), 0);
+                    } catch (Exception e) {
+                        color = Color.rgb(0, 200, 0);
+                    }
+                    gameView.myLP.setTextFill(color);
+                    rival.gameView.rivalLP.setTextFill(color);
+                }
+            };
+            animation.play();
+        }
     }
 
     public void increaseLP(int amount) {
         LP += amount;
-        changeGraphicLPs();
 
-        Animation animation = new Transition() {
-            {
-                setCycleDuration(Duration.millis(1000));
-            }
+        if(GameMenu.getCurrentGame().isGraphical()) {
+            changeGraphicLPs();
 
-            protected void interpolate(double v) {
-                Color color;
-                try {
-                    color = Color.rgb(
-                            (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP + amount) / 8 * 255 / 1000)
-                            , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP - amount) / 8 * 170 / 1000), 0);
-                }catch (Exception e){
-                    color = Color.rgb(0,200,0);
+            Animation animation = new Transition() {
+                {
+                    setCycleDuration(Duration.millis(1000));
                 }
-                gameView.myLP.setTextFill(color);
-                rival.gameView.rivalLP.setTextFill(color);
-            }
-        };
-        animation.play();
+
+                protected void interpolate(double v) {
+                    Color color;
+                    try {
+                        color = Color.rgb(
+                                (int) (v * (8000 - LP) / 8 * 255 / 1000 + (1 - v) * (8000 - LP + amount) / 8 * 255 / 1000)
+                                , (int) (v * LP / 8 * 170 / 1000 + (1 - v) * (LP - amount) / 8 * 170 / 1000), 0);
+                    } catch (Exception e) {
+                        color = Color.rgb(0, 200, 0);
+                    }
+                    gameView.myLP.setTextFill(color);
+                    rival.gameView.rivalLP.setTextFill(color);
+                }
+            };
+            animation.play();
+        }
     }
 
     public void setLP(int LP) {
         this.LP = LP;
-        changeGraphicLPs();
-        Color color = Color.rgb(0,170,0);
-        gameView.myLP.setTextFill(color);
-        rival.gameView.rivalLP.setTextFill(color);
+        if(GameMenu.getCurrentGame().isGraphical()) {
+            changeGraphicLPs();
+            Color color = Color.rgb(0, 170, 0);
+            gameView.myLP.setTextFill(color);
+            rival.gameView.rivalLP.setTextFill(color);
+        }
     }
 
     private void changeGraphicLPs() {

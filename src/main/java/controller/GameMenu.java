@@ -34,7 +34,10 @@ public class GameMenu {
         if (doesFirsPlayerStart) setCurrentGame(new Game(player1, player2, round));
         else setCurrentGame(new Game(player2, player1, round));
         if (!isGraphical) currentGame.playConsole();
-        else showCoinDropAndStartGame(doesFirsPlayerStart);
+        else {
+            currentGame.playGraphical();
+            showCoinDropAndStartGame(doesFirsPlayerStart);
+        }
     }
 
 

@@ -125,9 +125,9 @@ public class Board {
 
     public void setFieldSpell(FieldSpell fieldSpell, Card fakeCard) {
         this.fieldSpell = fieldSpell;
-        getGameView().myFieldSpell.getChildren().clear();
-        getRivalGameView().rivalFieldSpell.getChildren().clear();
         if (GameMenu.getCurrentGame().isGraphical()) {
+            getGameView().myFieldSpell.getChildren().clear();
+            getRivalGameView().rivalFieldSpell.getChildren().clear();
             if (fieldSpell == null) {
                 getGameView().myFieldSpell.setCenter(Card.getBlackRectangle(false));
                 getRivalGameView().rivalFieldSpell.setCenter(Card.getBlackRectangle(false));
