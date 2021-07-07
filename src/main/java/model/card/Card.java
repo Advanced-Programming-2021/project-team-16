@@ -1,15 +1,12 @@
 package model.card;
 
 import controller.GameMenu;
+import graphicview.GraphicUtils;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -30,7 +27,6 @@ import view.Show;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -247,11 +243,10 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
 
     public void setShowDescriptionOnMouseClicked(Stage stage) {
         Label label = new Label(getCardProperties());
+        label.setTextFill(Color.WHITE);
         label.setWrapText(true);
         label.setStyle("-fx-font-size: 13");
-        label.setBackground(new Background(new BackgroundFill(Color.LIGHTYELLOW,
-                CornerRadii.EMPTY,
-                Insets.EMPTY)));
+        label.setBackground(GraphicUtils.getBackground(Color.DARKBLUE));
         label.setMinSize(50, 50);
         label.setMaxWidth(200);
         HBox hBox = new HBox(label);
@@ -262,9 +257,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
         popup.getContent().add(hBox);
         setOnMouseClicked(e -> popup.show(stage));
         stage.getScene().setOnMouseClicked(e -> {
-            for (Popup popup1 : popups) {
-                if (popup1.isShowing()) popup1.hide();
-            }
+            for (Popup popup1 : popups) if (popup1.isShowing()) popup1.hide();
         });
     }
 
