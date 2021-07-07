@@ -32,11 +32,13 @@ public class Scanner extends Monster implements Activatable {
             fakeCard.setSide(true);
             fakeCard.setSizes(false);
             fakeCard.setAttackedOnDraggedOver(index);
-            GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard,index, Board.Zone.MONSTER,true);
+            GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard, index, Board.Zone.MONSTER, true);
             board.getMonsterZone()[index] = activatedScanner;
-            board.getGameView().myMonsters.getChildren().set(Game.getGraphicalIndex(index,true),activatedScanner);
-            activatedScanner.setSide(true);
-            board.getRivalGameView().rivalMonsters.getChildren().set(Game.getGraphicalIndex(index,false),fakeCard);
+            if (GameMenu.getCurrentGame().isGraphical()) {
+                board.getGameView().myMonsters.getChildren().set(Game.getGraphicalIndex(index, true), activatedScanner);
+                activatedScanner.setSide(true);
+                board.getRivalGameView().rivalMonsters.getChildren().set(Game.getGraphicalIndex(index, false), fakeCard);
+            }
 
         }
         activatedScanners.clear();
@@ -55,17 +57,19 @@ public class Scanner extends Monster implements Activatable {
         this.monsterZoneIndex = monsterZoneIndex;
         game.getCurrentPlayer().getBoard().getMonsterZone()[monsterZoneIndex] = replacement;
         game.getCurrentPlayer().getBoard().getCardPositions()[0][monsterZoneIndex] = Board.CardPosition.ATK;
-        Card fakeCard = Card.make(replacement.getName());
-        fakeCard.setSide(true);
-        fakeCard.setSizes(false);
-        replacement.setSizes(false);
-        replacement.setSide(true);
-        GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard,monsterZoneIndex, Board.Zone.MONSTER,true);
-        GameMenu.getCurrentGame().setOnMouseClickedSelect(replacement,monsterZoneIndex, Board.Zone.MONSTER,false);
-        player.getGameView().myMonsters.getChildren().set(Game.getGraphicalIndex(monsterZoneIndex,true),replacement);
-        player.getBoard().getRivalGameView().rivalMonsters.getChildren().set(Game.getGraphicalIndex(monsterZoneIndex,false),fakeCard);
-        replacement.setAttackingOnDragged(replacementIndex,player);
-        fakeCard.setAttackedOnDraggedOver(replacementIndex);
+        if (game.isGraphical()) {
+            Card fakeCard = Card.make(replacement.getName());
+            fakeCard.setSide(true);
+            fakeCard.setSizes(false);
+            replacement.setSizes(false);
+            replacement.setSide(true);
+            GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard, monsterZoneIndex, Board.Zone.MONSTER, true);
+            GameMenu.getCurrentGame().setOnMouseClickedSelect(replacement, monsterZoneIndex, Board.Zone.MONSTER, false);
+            player.getGameView().myMonsters.getChildren().set(Game.getGraphicalIndex(monsterZoneIndex, true), replacement);
+            player.getBoard().getRivalGameView().rivalMonsters.getChildren().set(Game.getGraphicalIndex(monsterZoneIndex, false), fakeCard);
+            replacement.setAttackingOnDragged(replacementIndex, player);
+            fakeCard.setAttackedOnDraggedOver(replacementIndex);
+        }
         activatedScanners.add(this);
         return "Replaced successfully.";
     }

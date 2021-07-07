@@ -462,7 +462,8 @@ public class Game {
             return "you can’t flip summon this card";
         currentPlayer.getBoard().getCardPositions()[0][selectedZoneIndex] = Board.CardPosition.ATK;
         selectedCard.setSide(true);
-        ((Card) rival.getGameView().rivalMonsters.getChildren().get(getGraphicalIndex(selectedZoneIndex, false))).setSide(true);
+        if (isGraphical)
+            ((Card) rival.getGameView().rivalMonsters.getChildren().get(getGraphicalIndex(selectedZoneIndex, false))).setSide(true);
         positionChangedInThisTurn.add(selectedCard);
         if (selectedCard instanceof ManEaterBug) {
             Show.showGameMessage("flip summoned successfully");
@@ -879,11 +880,11 @@ public class Game {
         return "card added to hand successfully!";
     }
 
-    public void addCardToHand(String name, Player player){
+    public void addCardToHand(String name, Player player) {
         Card card = Card.make(name);
         if (card == null) return;
         Board board = player.getBoard();
-        if (board.isZoneFull(Board.Zone.HAND)) return ;
+        if (board.isZoneFull(Board.Zone.HAND)) return;
         putCardInZone(card, Board.Zone.HAND, null, board);
     }
 

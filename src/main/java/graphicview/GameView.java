@@ -163,7 +163,7 @@ public class GameView {
     }
 
     public static void playSound(String name) {
-        if (!isMuted())
+        if (!isMuted() && game.isGraphical())
             new MediaPlayer(new Media(GameView.class.getResource("/sounds/" + name).toExternalForm())).play();
     }
 

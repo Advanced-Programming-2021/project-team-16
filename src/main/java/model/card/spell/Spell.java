@@ -50,8 +50,9 @@ public class Spell extends Card {
         if (selectedZone == Board.Zone.SPELL_AND_TRAP) {
             game.getCurrentPlayer().getBoard().getCardPositions()[1][game.getSelectedZoneIndex()] = Board.CardPosition.ACTIVATED;
             this.setFill(rectangle.getFill());
-            ((Card) game.getRival().getGameView().rivalSpells.getChildren().
-                    get(Game.getGraphicalIndex(game.getSelectedZoneIndex(),false))).setSide(true);
+            if (game.isGraphical())
+                ((Card) game.getRival().getGameView().rivalSpells.getChildren().
+                        get(Game.getGraphicalIndex(game.getSelectedZoneIndex(), false))).setSide(true);
             if (spellType != SpellType.EQUIP && spellType != SpellType.CONTINUES) {
                 game.removeCardFromZone(game.getSelectedCard(), Board.Zone.SPELL_AND_TRAP, game.getSelectedZoneIndex(), game.getCurrentPlayer().getBoard());
                 game.putCardInZone(game.getSelectedCard(), Board.Zone.GRAVE, null, game.getCurrentPlayer().getBoard());
