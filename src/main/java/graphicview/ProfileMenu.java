@@ -29,7 +29,7 @@ public class ProfileMenu {
         try {
             FXMLLoader loader = new FXMLLoader(ProfileMenu.class.getResource("/fxml/profile.fxml"));
             Parent root = loader.load();
-            ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/background/profile.png"));
+            ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/profile.png"));
             LoginMenu.getMainStage().setScene(new Scene(root));
             ((ProfileMenu)loader.getController()).showProfileInformation();
         } catch (IOException ignored) {}
