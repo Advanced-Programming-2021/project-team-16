@@ -156,8 +156,10 @@ public class GameView {
             else if ((matcher = Pattern.compile(Enums.Cheat.ADD_CARD.getRegex()).matcher(cheatCode)).find())
                 game.addCardToHand(matcher.group(1), player);
         } else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_MONEY.getRegex()).matcher(cheatCode)).find())
-            if (MainMenu.getCurrentUser() != null)
+            if (MainMenu.getCurrentUser() != null) {
                 MainMenu.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
+                ShopMenu.getControllerShop().urMoney.setText(String.valueOf(MainMenu.getCurrentUser().getMoney()));
+            }
     }
 
     public static void playSound(String name) {
