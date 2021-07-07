@@ -85,10 +85,8 @@ public class EditDeck {
     }
 
     public void addToMain(MouseEvent mouseEvent) {
-        System.out.println(selected.getName());
         String message = controller.DeckMenu.addCardToDeck(selected.getName(), deck[0].trim(), true);
         if (!message.equals("there are already three cards with name " + "\"" + selected.getName() + "\"" + " in deck " + "\"" + deck[0].trim() + "\"")) {
-            user.getCards().remove(selected);
             addCardBoard();
         } else errorTxt.setText(message);
     }
@@ -96,9 +94,6 @@ public class EditDeck {
     public void addToSide(MouseEvent mouseEvent) {
         String message = controller.DeckMenu.addCardToDeck(selected.getName(), deck[0].trim(), false);
         if (!message.equals("there are already three cards with name " + "\"" + selected.getName() + "\"" + " in deck " + "\"" + deck[0].trim() + "\"")) {
-            System.out.println(user.getCards().size());
-            user.getCards().remove(selected);
-            System.out.println(user.getCards().size());
             addCardBoard();
         } else errorTxt.setText(message);
     }
@@ -110,7 +105,7 @@ public class EditDeck {
 
 
         removeAllNodes(mainBoard);
-//        removeAllNodes(sideBoard);
+        removeAllNodes(sideBoard);
         avatar.setFill(user.getAvatarRec().getFill());
         mainC.setText(String.valueOf(selectedDeck.getMainDeckCards().size()));
         sideC.setText(String.valueOf(selectedDeck.getSideDeckCards().size()));
@@ -260,11 +255,11 @@ public class EditDeck {
 
     public void addCardBoard() {
         backButton.setOnMouseClicked(this::backOnAction2);
-//        add2Main.setOnMouseClicked(this::addToMain);
-//        add2Side.setOnMouseClicked(this::addToSide);
-//        removeAllNodes(allCards);
-//        removeAllNodes(mainBoard);
-//        removeAllNodes(sideBoard);
+        add2Main.setOnMouseClicked(this::addToMain);
+        add2Side.setOnMouseClicked(this::addToSide);
+        removeAllNodes(allCards);
+        removeAllNodes(mainBoard);
+        removeAllNodes(sideBoard);
         Rectangle cards;
         int row = 0;
         int column = 0;

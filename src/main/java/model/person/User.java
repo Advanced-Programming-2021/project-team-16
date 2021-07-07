@@ -152,6 +152,9 @@ public class User {
         return cards;
     }
 
+    public void removeCard(Card card){
+        cardNames.remove(card.getName());
+    }
 
     public Deck getActiveDeck() {
         return activeDeck;
