@@ -2,6 +2,7 @@ package view;
 
 import controller.*;
 import graphicview.GraphicUtils;
+import graphicview.LoginMenu;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -11,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Board;
 import model.Game;
+import model.Phase;
 import model.card.Card;
 import model.card.monster.Monster;
 import model.person.AI;
@@ -59,6 +61,7 @@ public class CommandProcessor {
             else if (command.equals("help")) System.out.println(Enums.LOGIN_HELP);
             else System.out.println("invalid command");
         }
+        if (LoginMenu.getMainStage() != null) LoginMenu.getMainStage().close();
     }
 
     private static void mainMenu() {
@@ -224,99 +227,105 @@ public class CommandProcessor {
         boolean isSelectedCardForOpponent;
         Matcher matcher;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.GameCommands.END_PHASE.getRegex()); command = scanner.nextLine().trim()) {
-            if ((matcher = Pattern.compile(Enums.GameCommands.SELECT_CARD.getRegex()).matcher(command)).find()) {
-                isSelectedCardForOpponent = matcher.group(3) != null;
-                boolean isSelectionValid = true;
-                int index = -1;
-                Board.Zone zone = getZoneByZoneName(matcher.group(1));
-                if (matcher.group(2) == null && zone != Board.Zone.FIELD_SPELL) isSelectionValid = false;
-                if (matcher.group(2) != null) {
-                    if (matcher.group(2).length() > 3) isSelectionValid = false;
-                    else index = Integer.parseInt(matcher.group(2));
-                    if (index == 0) isSelectionValid = false;
-                    if (zone == null) isSelectionValid = false;
-                    else
-                        switch (zone) {
-                            case HAND -> {
-                                if (index > 6) isSelectionValid = false;
+            try {
+                if ((matcher = Pattern.compile(Enums.GameCommands.SELECT_CARD.getRegex()).matcher(command)).find()) {
+                    isSelectedCardForOpponent = matcher.group(3) != null;
+                    boolean isSelectionValid = true;
+                    int index = -1;
+                    Board.Zone zone = getZoneByZoneName(matcher.group(1));
+                    if (matcher.group(2) == null && zone != Board.Zone.FIELD_SPELL) isSelectionValid = false;
+                    if (matcher.group(2) != null) {
+                        if (matcher.group(2).length() > 3) isSelectionValid = false;
+                        else index = Integer.parseInt(matcher.group(2));
+                        if (index == 0) isSelectionValid = false;
+                        if (zone == null) isSelectionValid = false;
+                        else
+                            switch (zone) {
+                                case HAND -> {
+                                    if (index > 6) isSelectionValid = false;
+                                }
+                                case MONSTER, SPELL_AND_TRAP -> {
+                                    if (index > 5) isSelectionValid = false;
+                                }
+                                case GRAVE, DECK -> isSelectionValid = false;
                             }
-                            case MONSTER, SPELL_AND_TRAP -> {
-                                if (index > 5) isSelectionValid = false;
-                            }
-                            case GRAVE, DECK -> isSelectionValid = false;
+                    }
+                    if (isSelectedCardForOpponent && zone == Board.Zone.HAND)
+                        System.out.println("you can't choose your opponent's hand");
+                    else if (!isSelectionValid) System.out.println("invalid selection");
+                    else System.out.println(game.selectCard(zone, index - 1, isSelectedCardForOpponent));
+                } else if (command.equals(Enums.GameCommands.DESELECT_CARD.getRegex()))
+                    System.out.println(game.deselect());
+                else if (command.equals(Enums.GameCommands.SUMMON.getRegex())) System.out.println(game.summon());
+                else if (command.equals(Enums.GameCommands.SET.getRegex())) System.out.println(game.set());
+                else if (command.equals(Enums.GameCommands.FLIP_SUMMON.getRegex()))
+                    System.out.println(game.flipSummon());
+                else if ((matcher = Pattern.compile(Enums.GameCommands.SET_POSITION.getRegex()).matcher(command)).find()) {
+                    boolean isAttack = matcher.group(1).equals("attack");
+                    System.out.println(game.setMonsterPosition(isAttack));
+                } else if ((matcher = Pattern.compile(Enums.GameCommands.ATTACK.getRegex()).matcher(command)).find()) {
+                    boolean isIndexValid = true;
+                    int index = -1;
+                    if (matcher.group(1).length() > 3) isIndexValid = false;
+                    else {
+                        index = Integer.parseInt(matcher.group(1));
+                        if (index < 1 || index > 5) isIndexValid = false;
+                    }
+                    if (isIndexValid) {
+                        System.out.println(game.attack(index - 1));
+                        if (game.hasBattlePhaseEnded()) {
+                            game.setBattlePhaseEnded(false);
+                            break;
                         }
-                }
-                if (isSelectedCardForOpponent && zone == Board.Zone.HAND)
-                    System.out.println("you can't choose your opponent's hand");
-                else if (!isSelectionValid) System.out.println("invalid selection");
-                else System.out.println(game.selectCard(zone, index - 1, isSelectedCardForOpponent));
-            } else if (command.equals(Enums.GameCommands.DESELECT_CARD.getRegex())) System.out.println(game.deselect());
-            else if (command.equals(Enums.GameCommands.SUMMON.getRegex())) System.out.println(game.summon());
-            else if (command.equals(Enums.GameCommands.SET.getRegex())) System.out.println(game.set());
-            else if (command.equals(Enums.GameCommands.FLIP_SUMMON.getRegex())) System.out.println(game.flipSummon());
-            else if ((matcher = Pattern.compile(Enums.GameCommands.SET_POSITION.getRegex()).matcher(command)).find()) {
-                boolean isAttack = matcher.group(1).equals("attack");
-                System.out.println(game.setMonsterPosition(isAttack));
-            } else if ((matcher = Pattern.compile(Enums.GameCommands.ATTACK.getRegex()).matcher(command)).find()) {
-                boolean isIndexValid = true;
-                int index = -1;
-                if (matcher.group(1).length() > 3) isIndexValid = false;
-                else {
-                    index = Integer.parseInt(matcher.group(1));
-                    if (index < 1 || index > 5) isIndexValid = false;
-                }
-                if (isIndexValid) {
-                    System.out.println(game.attack(index - 1));
+                    } else System.out.println("index is not valid");
+                } else if (command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex())) {
+                    System.out.println(game.attack(-1));
                     if (game.hasBattlePhaseEnded()) {
                         game.setBattlePhaseEnded(false);
                         break;
                     }
-                } else System.out.println("index is not valid");
-            } else if (command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex())) {
-                System.out.println(game.attack(-1));
-                if (game.hasBattlePhaseEnded()) {
-                    game.setBattlePhaseEnded(false);
-                    break;
+                } else if (command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()))
+                    System.out.println(game.activeEffect());
+                else if ((matcher = getCommandMatcher(command, Enums.GameCommands.SHOW_GRAVE.getRegex())).find()) {
+                    Show.showGraveYard(matcher.group(1));
+                    while (!scanner.nextLine().trim().equals("back"))
+                        System.out.println("use \"back\" command for exiting");
+                } else if (command.matches(Enums.GameCommands.SHOW_SELECTED.getRegex()))
+                    System.out.println(game.showSelectedCard());
+                else if (command.equals(Enums.GameCommands.SURRENDER.getRegex())) game.surrendered();
+                else if ((matcher = getCommandMatcher(command, Enums.GameCommands.SHOW_CARD.getRegex())).find())
+                    Show.showSingleCard(Card.getCardByName(matcher.group(1)));
+                else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_LP.getRegex()).matcher(command)).find())
+                    game.getCurrentPlayer().increaseLP(Integer.parseInt(matcher.group(1)));
+                else if (command.equals(Enums.Cheat.WIN_DUEL.getRegex()))
+                    game.setWinner(game.getCurrentPlayer());
+                else if (command.equals(Enums.Cheat.SET_AND_SUMMON_AGAIN.getRegex())) game.setHasSummonedOrSet(false);
+                else if (command.equals("help")) {
+                    if (game.getCurrentPhase() == Phase.BATTLE) System.out.println(Enums.GAME_HELP_BATTLE);
+                    else System.out.println(Enums.GAME_HELP_MAIN);
+                } else if ((matcher = getCommandMatcher(command, Enums.GameCommands.ADD_CARD.getRegex())).find())
+                    System.out.println(game.addCardToHand(matcher.group(1)));
+                else if ((matcher = getCommandMatcher(command, Enums.GameCommands.RM_CARD.getRegex())).find())
+                    System.out.println(game.removeCardFromHand(matcher.group(1)));
+                else System.out.println("invalid command");
+                if (
+                        command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()) ||
+                                command.matches(Enums.GameCommands.SUMMON.getRegex()) ||
+                                command.matches(Enums.GameCommands.SET.getRegex()) ||
+                                command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex()) ||
+                                command.matches(Enums.GameCommands.ATTACK.getRegex()) ||
+                                command.matches(Enums.GameCommands.FLIP_SUMMON.getRegex()) ||
+                                command.matches(Enums.GameCommands.SET_POSITION.getRegex())
+                ) {
+                    game.deselect();
+                    Show.showBoard();
                 }
-            } else if (command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()))
-                System.out.println(game.activeEffect());
-            else if ((matcher = getCommandMatcher(command, Enums.GameCommands.SHOW_GRAVE.getRegex())).find()) {
-                Show.showGraveYard(matcher.group(1));
-                while (!scanner.nextLine().trim().equals("back"))
-                    System.out.println("use \"back\" command for exiting");
-            } else if (command.matches(Enums.GameCommands.SHOW_SELECTED.getRegex()))
-                System.out.println(game.showSelectedCard());
-            else if (command.equals(Enums.GameCommands.SURRENDER.getRegex())) game.surrendered();
-            else if ((matcher = getCommandMatcher(command, Enums.GameCommands.SHOW_CARD.getRegex())).find())
-                Show.showSingleCard(Card.getCardByName(matcher.group(1)));
-            else if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_LP.getRegex()).matcher(command)).find())
-                game.getCurrentPlayer().increaseLP(Integer.parseInt(matcher.group(1)));
-            else if (command.equals(Enums.Cheat.WIN_DUEL.getRegex()))
-                game.setWinner(game.getCurrentPlayer());
-            else if (command.equals(Enums.Cheat.SET_AND_SUMMON_AGAIN.getRegex())) game.setHasSummonedOrSet(false);
-            else if (command.equals(Enums.GameCommands.HELP_MAIN.getRegex())) System.out.println(Enums.GAME_HELP_MAIN);
-            else if (command.equals(Enums.GameCommands.HELP_BATTLE.getRegex()))
-                System.out.println(Enums.GAME_HELP_BATTLE);
-            else if ((matcher = getCommandMatcher(command, Enums.GameCommands.ADD_CARD.getRegex())).find())
-                System.out.println(game.addCardToHand(matcher.group(1)));
-            else if ((matcher = getCommandMatcher(command, Enums.GameCommands.RM_CARD.getRegex())).find())
-                System.out.println(game.removeCardFromHand(matcher.group(1)));
-            else System.out.println("invalid command");
-            if (
-                    command.matches(Enums.GameCommands.ACTIVE_EFFECT.getRegex()) ||
-                            command.matches(Enums.GameCommands.SUMMON.getRegex()) ||
-                            command.matches(Enums.GameCommands.SET.getRegex()) ||
-                            command.matches(Enums.GameCommands.ATTACK_DIRECT.getRegex()) ||
-                            command.matches(Enums.GameCommands.ATTACK.getRegex()) ||
-                            command.matches(Enums.GameCommands.FLIP_SUMMON.getRegex()) ||
-                            command.matches(Enums.GameCommands.SET_POSITION.getRegex())
-            ) {
-                game.deselect();
-                Show.showBoard();
+                if (game.didSbWin()) return;
+            }catch (Exception e){
+                System.out.println(" something went wrong :(");
             }
-            if (game.didSbWin()) return;
         }
-        game.setSelectedCard(null);
+        game.deselect();
     }
 
 
@@ -438,6 +447,11 @@ public class CommandProcessor {
             indexOfArray = -1;
             Stage newStage = new Stage();
             HBox cardsWithNames = new HBox();
+            ScrollPane scrollPane = new ScrollPane(cardsWithNames);
+            scrollPane.setMinHeight(160);
+            VBox cardsAndGoal = new VBox(GraphicUtils.getGoodLabel(goal + "\n(close the stage to cancel the operation.)"), scrollPane);
+            cardsAndGoal.setMaxWidth(500);
+            newStage.setScene(new Scene(cardsAndGoal));
             cardsWithNames.setSpacing(10);
             for (int i = 0; i < cards.size(); i++) {
                 Card copiedCard = Card.make(cards.get(i).getName());
@@ -451,11 +465,7 @@ public class CommandProcessor {
                 VBox vBox = new VBox(copiedCard, GraphicUtils.getGoodLabel(copiedCard.getName()));
                 cardsWithNames.getChildren().add(vBox);
             }
-            ScrollPane scrollPane = new ScrollPane(cardsWithNames);
-            scrollPane.setMinHeight(160);
-            VBox cardsAndGoal = new VBox(GraphicUtils.getGoodLabel(goal + "\n(close the stage to cancel the operation.)"), scrollPane);
-            cardsAndGoal.setMaxWidth(500);
-            newStage.setScene(new Scene(cardsAndGoal));
+
             newStage.showAndWait();
             return indexOfArray;
         } else {
@@ -488,15 +498,15 @@ public class CommandProcessor {
         String graveOwner = isMyGrave ? "your" : "rival's";
         if (game.isGraphical()) {
             ArrayList<Card> monsters = new ArrayList<>();
-            HashMap<Card,Integer> monstersWithIndex = new HashMap<>();
+            HashMap<Card, Integer> monstersWithIndex = new HashMap<>();
             for (int i = 0; i < grave.size(); i++) {
                 Card card = grave.get(i);
                 if (card instanceof Monster) {
                     monsters.add(card);
-                    monstersWithIndex.put(card,i);
+                    monstersWithIndex.put(card, i);
                 }
             }
-            int index = getIndexOfCardArray(monsters,"choose a monster from " + graveOwner + " grave:");
+            int index = getIndexOfCardArray(monsters, "choose a monster from " + graveOwner + " grave:");
             if (index == -1) return -1;
             else return monstersWithIndex.get(monsters.get(index));
         } else {
@@ -519,8 +529,6 @@ public class CommandProcessor {
             return -1;
         }
     }
-
-
 
 
     public static int[] getTribute(int numberOfTributes, boolean isFromMonsterZone) {

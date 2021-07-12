@@ -8,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import model.person.User;
 
 import java.io.IOException;
@@ -25,7 +23,6 @@ public class DuelMenu {
         try {
             FXMLLoader loader = new FXMLLoader(DuelMenu.class.getResource("/fxml/duel.fxml"));
             Parent root = loader.load();
-            ((AnchorPane) root).setBackground(GraphicUtils.getBackground("/png/background/duel.png"));
             LoginMenu.getMainStage().setScene(new Scene(root));
             ((DuelMenu)loader.getController()).arrangeChoiceBox();
         } catch (IOException ignored) {}

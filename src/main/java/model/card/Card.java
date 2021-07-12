@@ -36,7 +36,6 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
     private static final ArrayList<Popup> popups = new ArrayList<>();
 
 
-
     public static final Paint UNKNOWN_CARD_FILL = new ImagePattern(new Image(Card.class.getResource("/png/card/Unknown.jpg").toExternalForm()));
 
     protected String name;
@@ -44,31 +43,23 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
     protected int price;
     protected Rectangle rectangle;
 
-//
-//    public String imgSrc;
-//
-//    public String getImgSrc(String imgSrc) {
-//        this.imgSrc = imgSrc;
-//        return imgSrc;
-//    }
 
     public Card(String name, String description, int price) {
         this.name = name;
         this.description = description;
         this.price = price;
-       // this.imgSrc = "/png/card/" + name + ".jpg";
-       this.rectangle = new Rectangle();
-       try {
-           rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
-       } catch (NullPointerException e) {
-           rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
-       }
-       rectangle.setHeight(120);
-       rectangle.setWidth(80);
-       setOnMouseEntered(mouseEvent -> setCursor(Cursor.HAND));
-       setOnMouseExited(mouseEvent -> setCursor(Cursor.DEFAULT));
-       setFill(rectangle.getFill());
-       setSizes(false);
+        this.rectangle = new Rectangle();
+        try {
+            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".jpg").toExternalForm())));
+        } catch (NullPointerException e) {
+            rectangle.setFill(new ImagePattern(new Image(getClass().getResource("/png/card/" + name + ".png").toExternalForm())));
+        }
+        rectangle.setHeight(120);
+        rectangle.setWidth(80);
+        setOnMouseEntered(mouseEvent -> setCursor(Cursor.HAND));
+        setOnMouseExited(mouseEvent -> setCursor(Cursor.DEFAULT));
+        setFill(rectangle.getFill());
+        setSizes(false);
         for (Card card : cards) if (card.getName().equals(this.getName())) return;
         cards.add(this);
 
@@ -232,6 +223,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
     }
 
     public void setSizes(boolean isHand) {
+        if (GameMenu.getCurrentGame() != null && !GameMenu.getCurrentGame().isGraphical()) return;
         if (isHand) {
             setWidth(60);
             setHeight(90);
@@ -242,6 +234,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
     }
 
     public void setShowDescriptionOnMouseClicked(Stage stage) {
+        if (GameMenu.getCurrentGame() != null && !GameMenu.getCurrentGame().isGraphical()) return;
         Label label = new Label(getCardProperties());
         label.setTextFill(Color.WHITE);
         label.setWrapText(true);
@@ -262,6 +255,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
     }
 
     public void setAttackedOnDraggedOver(int index) {
+        if (GameMenu.getCurrentGame() != null && !GameMenu.getCurrentGame().isGraphical()) return;
         setOnDragOver(new EventHandler<>() {
             public void handle(DragEvent event) {
                 if (event.getGestureSource() != this && event.getDragboard().hasString())
@@ -289,6 +283,7 @@ public abstract class Card extends Rectangle implements Comparable<Card> {
     }
 
     public void setAttackingOnDragged(int index, Player player) {
+        if (GameMenu.getCurrentGame() != null && !GameMenu.getCurrentGame().isGraphical()) return;
         setOnDragDetected((MouseEvent event) -> {
             Dragboard db = startDragAndDrop(TransferMode.ANY);
             ClipboardContent content = new ClipboardContent();

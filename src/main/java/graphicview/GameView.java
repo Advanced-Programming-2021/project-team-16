@@ -151,7 +151,7 @@ public class GameView {
         if (game != null && !game.isOver()) {
             if ((matcher = Pattern.compile(Enums.Cheat.INCREASE_LP.getRegex()).matcher(cheatCode)).find())
                 player.increaseLP(Integer.parseInt(matcher.group(1)));
-            else if (cheatCode.equals(Enums.Cheat.WIN_DUEL.getRegex())) player.getRival().getGameView().surrender();
+            else if (cheatCode.equals(Enums.Cheat.WIN_DUEL.getRegex())) player.getRival().getGameView().doLostAction();
             else if (cheatCode.equals(Enums.Cheat.SET_AND_SUMMON_AGAIN.getRegex())) game.setHasSummonedOrSet(false);
             else if ((matcher = Pattern.compile(Enums.Cheat.ADD_CARD.getRegex()).matcher(cheatCode)).find())
                 game.addCardToHand(matcher.group(1), player);
@@ -163,7 +163,7 @@ public class GameView {
     }
 
     public static void playSound(String name) {
-        if (!isMuted() && game.isGraphical())
+        if (game != null && !isMuted())
             new MediaPlayer(new Media(GameView.class.getResource("/sounds/" + name).toExternalForm())).play();
     }
 
@@ -210,8 +210,11 @@ public class GameView {
 
 
     public void doLostAction() {
+        game.setWinner(rival);
         playSound("end-turn.wav");
-        if (game.getRound() == 1) endGame(game.endRound());
+        if (game.getRound() == 1) {
+            endGame(game.endRound());
+        }
         else {
             String result = game.getResultOfOneRound(player);
             if (result.contains("whole match")) endGame(result);
@@ -247,7 +250,8 @@ public class GameView {
     }
 
     public void showMessage(String message, boolean isImportant) {
-        if (player instanceof AI) return;
+        if (player instanceof AI) if (isImportant) rival.getGameView().showMessage(message, true);
+        else return;
         Label label = new Label(message);
         label.setWrapText(true);
         label.setMaxWidth(460);

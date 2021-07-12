@@ -9,13 +9,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import view.CommandProcessor;
 
 import java.io.IOException;
 
 public class LoginMenu extends Application {
+    public final static KeyCombination PHASE_ONE = new KeyCodeCombination(KeyCode.DIGIT1, KeyCombination.CONTROL_DOWN, KeyCombination.SHIFT_DOWN);
     public TextField usernameLogin;
     public TextField passwordLogin;
     public TextField usernameSignup;
@@ -46,6 +51,12 @@ public class LoginMenu extends Application {
         mainStage = stage;
         stage.show();
         UpdateStatus.beforeRun();
+        stage.getScene().setOnKeyPressed(keyEvent -> {
+            if (PHASE_ONE.match(keyEvent)) {
+                LoginMenu.getMainStage().hide();
+                CommandProcessor.login();
+            }
+        });
     }
 
     public static Stage getMainStage() {
