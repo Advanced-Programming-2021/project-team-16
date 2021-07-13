@@ -3,9 +3,11 @@ package view;
 public class Enums {
 
     public enum LoginCommands {
-        LOGIN("login (\\w+) (\\w+)"),
-        CREATE_USER("register (\\w+) (\\w+) (\\w+)"),
-        SHOW_CURRENT("menu show-current"),
+        LOGIN("user login (--username (\\w+) --password (\\w+)|--password (\\w+) --username (\\w+))"),
+        CREATE_USER("user create (--username (\\w+) --nickname (\\w+) --password (\\w+)|" +
+                "--password (\\w+) --username (\\w+) --nickname (\\w+)|--nickname (\\w+) --password (\\w+) --username (\\w+)|" +
+                "--username (\\w+) --password (\\w+) --nickname (\\w+)|--nickname (\\w+) --username (\\w+) --password (\\w+)|" +
+                "--password (\\w+) --nickname (\\w+) --username (\\w+))"),        SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.*)"),
         EXIT("(menu exit|exit)");
         private final String regex;
@@ -20,8 +22,8 @@ public class Enums {
     }
 
     public static final String LOGIN_HELP = """
-            login <username> <password>
-            register <username> <password> <nickname>
+            user login --username <username> --password <password>
+            user create --username <username> --nickname <nickname> --password <password>
             menu show-current
             menu enter <menu name>
             exit
