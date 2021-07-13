@@ -3,7 +3,7 @@ package server.controller;
 import server.model.User;
 
 public class ServerLoginController {
-    public static synchronized String signUp(String username, String password, String nickname) {
+    public static synchronized String signUp(String username,String password, String nickname) {
 
         if (username.length() == 0) return "enter a username";
         if (User.getUserByUsername(username) != null)

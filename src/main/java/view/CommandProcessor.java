@@ -32,11 +32,10 @@ public class CommandProcessor {
 
     private static HashMap<String, String> getCommandData(String command) {
         HashMap<String, String> data = new HashMap<>();
-        Matcher matcher = Pattern.compile("--(\\S+) ([^\\-]+)").matcher(command);
+        Matcher matcher = Pattern.compile("([^\\-]+)").matcher(command);
         while (matcher.find()) data.put(matcher.group(1).trim(), matcher.group(2).trim());
         return data;
     }
-
     private static Matcher getCommandMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(input);
@@ -44,16 +43,17 @@ public class CommandProcessor {
 
     public static void login() {
         System.out.print("welcome to duel links!\n");
-        HashMap<String, String> data;
+        Matcher matcher;
+//        HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.matches(Enums.LoginCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
-            if (command.matches(Enums.LoginCommands.LOGIN.getRegex())) {
-                data = getCommandData(command);
-                String result = Login.login(data.get("username"), data.get("password"));
+            if ((matcher = getCommandMatcher(command, Enums.LoginCommands.LOGIN.getRegex())).find()) {
+                //     data = getCommandData(command);
+                String result = Login.login(matcher.group(1),matcher.group(2));
                 System.out.print(result + "\n");
                 if (result.equals("user logged in successfully!")) mainMenu();
-            } else if (command.matches(Enums.LoginCommands.CREATE_USER.getRegex())) {
-                data = getCommandData(command);
-                System.out.println(Login.signUp(data.get("username"), data.get("password"), data.get("nickname")));
+            } else if ((matcher = getCommandMatcher(command, Enums.LoginCommands.CREATE_USER.getRegex())).find()) {
+                //    data = getCommandData(command);
+                System.out.println(Login.signUp(matcher.group(1),matcher.group(2),matcher.group(3)));
             } else if (command.equals(Enums.LoginCommands.SHOW_CURRENT.getRegex()))
                 System.out.println(Login.menuName());
             else if (command.matches(Enums.LoginCommands.ENTER_MENU.getRegex()))
@@ -321,7 +321,7 @@ public class CommandProcessor {
                     Show.showBoard();
                 }
                 if (game.didSbWin()) return;
-            }catch (Exception e){
+            } catch (Exception e) {
                 System.out.println(" something went wrong :(");
             }
         }

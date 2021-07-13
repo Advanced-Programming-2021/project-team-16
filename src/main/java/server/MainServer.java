@@ -11,7 +11,7 @@ import java.net.Socket;
 public class MainServer {
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(1311);
+            ServerSocket serverSocket = new ServerSocket(1113);
             while (true) {
                 Socket socket = serverSocket.accept();
                 new Thread(() -> {
@@ -47,9 +47,6 @@ public class MainServer {
         } else if (command.startsWith("login")) {
             String[] parts = command.split(" ");
             return ServerLoginController.login(parts[1], parts[2]);
-        } else if (command.startsWith("multiply")) {
-            String[] parts = command.split(" ");
-            //return String.valueOf(ServerController.multiplyByTwo(Integer.parseInt(parts[1])));
         }
         return "";
     }
