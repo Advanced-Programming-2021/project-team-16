@@ -1,6 +1,6 @@
 package graphicview;
 
-import controller.UpdateStatus;
+import server.UpdateStatus;
 import javafx.application.Application;
 
 public class MainGraphics {

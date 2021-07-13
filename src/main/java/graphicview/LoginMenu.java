@@ -2,7 +2,7 @@ package graphicview;
 
 
 import controller.Login;
-import controller.UpdateStatus;
+import server.UpdateStatus;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
