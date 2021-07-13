@@ -14,7 +14,7 @@ public class Login {
 
     public static void initializeNetwork() {
         try {
-            socket = new Socket("localhost", 1205);
+            socket = new Socket("localhost", 1311);
             dataInputStream = new DataInputStream(socket.getInputStream());
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
         } catch (IOException x) {

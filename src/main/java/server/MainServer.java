@@ -11,7 +11,7 @@ import java.net.Socket;
 public class MainServer {
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(1205);
+            ServerSocket serverSocket = new ServerSocket(1311);
             while (true) {
                 Socket socket = serverSocket.accept();
                 new Thread(() -> {
