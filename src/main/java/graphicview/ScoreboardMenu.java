@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import model.person.User;
+import server.model.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class ScoreboardMenu {
     private static void showScoreboard() {
         ArrayList<User> users = User.getAllUsers();
         Label nickname, score,rateLabel;
-        User.sort(users);
+     //   User.sort(users);
         int rate = 1;
         for (int i = 1; i <= users.size() && i <= 20; i++) {
             if (i != 1 && users.get(i - 1).getScore() != users.get(i - 2).getScore())

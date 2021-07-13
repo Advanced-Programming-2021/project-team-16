@@ -1,7 +1,5 @@
 package controller;
 
-import model.person.User;
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

@@ -9,7 +9,7 @@ import model.card.spell.*;
 import model.card.spell.fieldspells.ClosedForest;
 import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.*;
-import model.person.User;
+import server.model.User;
 
 import java.io.FileWriter;
 import java.io.IOException;

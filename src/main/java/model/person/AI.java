@@ -10,6 +10,7 @@ import model.card.monster.RitualMonster;
 import model.card.spell.*;
 import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.*;
+import server.model.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;

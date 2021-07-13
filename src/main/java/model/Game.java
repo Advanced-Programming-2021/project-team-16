@@ -16,7 +16,7 @@ import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.*;
 import model.person.AI;
 import model.person.Player;
-import model.person.User;
+import server.model.User;
 import view.CommandProcessor;
 import view.Show;
 

@@ -5,15 +5,12 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import model.Deck;
 import model.card.Card;
-import model.person.User;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.util.Collections.swap;
-
-public class ServerUser {
-    private static ArrayList<ServerUser> users = new ArrayList<>();
+public class User {
+    private static ArrayList<User> users = new ArrayList<>();
     private static final Random random = new Random();
     private String username;
     private String password;
@@ -25,11 +22,11 @@ public class ServerUser {
     private final ArrayList<String> cardNames = new ArrayList<>();
     private String avatarPath;
 
-    public static ArrayList<ServerUser> getAllUsers() {
+    public static ArrayList<User> getAllUsers() {
         return users;
     }
 
-    public ServerUser(String username, String password, String nickname) {
+    public User(String username, String password, String nickname) {
         this.money = 100000;
         this.username = username;
         this.password = password;
@@ -40,14 +37,14 @@ public class ServerUser {
 
 
 
-    public static ServerUser getUserByUsername(String username) {
-        for (ServerUser user : users)
+    public static User getUserByUsername(String username) {
+        for (User user : users)
             if (user.username.equals(username)) return user;
         return null;
     }
 
-    public static ServerUser getUserByNickname(String nickname) {
-        for (ServerUser user : users)
+    public static User getUserByNickname(String nickname) {
+        for (User user : users)
             if (user.nickname.equals(nickname)) return user;
         return null;
     }
@@ -166,8 +163,8 @@ public class ServerUser {
         return score;
     }
 
-    public static void setUsers(ArrayList<ServerUser> users) {
-        ServerUser.users = users;
+    public static void setUsers(ArrayList<User> users) {
+        User.users = users;
     }
 
     public void setAvatarPath(String avatarPath) {

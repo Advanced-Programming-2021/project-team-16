@@ -1,23 +1,21 @@
 package server.controller;
 
-import controller.MainMenu;
-import model.person.User;
-import server.model.ServerUser;
+import server.model.User;
 
 public class ServerLoginController {
     public static synchronized String signUp(String username, String password, String nickname) {
 
         if (username.length() == 0) return "enter a username";
-        if (ServerUser.getUserByUsername(username) != null)
+        if (User.getUserByUsername(username) != null)
             return "User with username " + username + " already exists";
-        if (ServerUser.getUserByNickname(nickname) != null)
+        if (User.getUserByNickname(nickname) != null)
             return "User with nickname " + nickname + " already exists";
-        if (!ServerUser.getPasswordWeakness(password).equals("strong")) return User.getPasswordWeakness(password);
-        new ServerUser(username, password, nickname);
+        if (!User.getPasswordWeakness(password).equals("strong")) return User.getPasswordWeakness(password);
+        new User(username, password, nickname);
         return "User created successfully!";
     }
     public static String login(String username, String password) {
-        ServerUser user = ServerUser.getUserByUsername(username);
+        User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) return "Username and password didn’t match!";
         //MainMenu.setCurrentUser(user);
         return "user logged in successfully!";

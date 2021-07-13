@@ -8,7 +8,7 @@ import model.Game;
 import model.Phase;
 import model.card.Card;
 import model.card.monster.Monster;
-import model.person.User;
+import server.model.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;

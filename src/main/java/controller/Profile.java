@@ -2,7 +2,7 @@ package controller;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import model.person.User;
+import server.model.User;
 
 public class Profile {
 

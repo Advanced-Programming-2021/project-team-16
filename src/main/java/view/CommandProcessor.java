@@ -17,7 +17,7 @@ import model.card.Card;
 import model.card.monster.Monster;
 import model.person.AI;
 import model.person.Player;
-import model.person.User;
+import server.model.User;
 
 import java.util.*;
 import java.util.regex.Matcher;

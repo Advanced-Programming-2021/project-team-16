@@ -8,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import model.Board;
 import model.card.Card;
+import server.model.User;
 
 import java.util.ArrayList;
 

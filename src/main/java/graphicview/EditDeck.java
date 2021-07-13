@@ -18,7 +18,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.Deck;
 import model.card.Card;
-import model.person.User;
+import server.model.User;
 
 import java.io.IOException;
 import java.util.Iterator;

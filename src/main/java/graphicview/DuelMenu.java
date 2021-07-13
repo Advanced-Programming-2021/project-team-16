@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.person.User;
+import server.model.User;
 
 import java.io.IOException;
 
@@ -34,13 +34,13 @@ public class DuelMenu {
         roundsWithAI.setItems(FXCollections.observableArrayList(possibleRounds));
     }
 
-    public void duel() {
-        String error = GameMenu.isDuelPossibleWithError(String.valueOf(rounds.getValue())
-                , User.getUserByUsername(secondPlayerUsername.getText()),false);
-        if (error != null) duelError.setText(error);
-        else GameView.startGame(Integer.parseInt(String.valueOf(rounds.getValue()))
-                , User.getUserByUsername(secondPlayerUsername.getText()));
-    }
+ // public void duel() {
+ //     String error = GameMenu.isDuelPossibleWithError(String.valueOf(rounds.getValue())
+ //             , User.getUserByUsername(secondPlayerUsername.getText()),false);
+ //     if (error != null) duelError.setText(error);
+ //     else GameView.startGame(Integer.parseInt(String.valueOf(rounds.getValue()))
+ //             , User.getUserByUsername(secondPlayerUsername.getText()));
+ // }
 
     public void duelWithAI() {
         String error = GameMenu.isDuelPossibleWithError(String.valueOf(roundsWithAI.getValue()), null,true);

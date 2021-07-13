@@ -32,7 +32,7 @@ import model.Game;
 import model.card.Card;
 import model.person.AI;
 import model.person.Player;
-import model.person.User;
+import server.model.User;
 import view.Enums;
 import view.Show;
 

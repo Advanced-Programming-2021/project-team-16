@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Deck;
-import model.person.User;
+import server.model.User;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -19,7 +19,7 @@ import javafx.util.Duration;
 import model.Game;
 import model.person.AI;
 import model.person.Player;
-import model.person.User;
+import server.model.User;
 
 import java.util.Random;
 

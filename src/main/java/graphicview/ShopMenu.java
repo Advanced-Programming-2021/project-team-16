@@ -17,7 +17,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.Game;
 import model.card.Card;
-import model.person.User;
+import server.model.User;
 
 import java.io.IOException;
 

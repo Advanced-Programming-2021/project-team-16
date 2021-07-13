@@ -1,11 +1,11 @@
 package controller;
 
-import model.person.User;
+import server.model.User;
 import view.Show;
 
 public class Scoreboard {
     public static void showScoreboard() {
-        User.sort(User.getAllUsers());
+    //    User.sort(User.getAllUsers());
         Show.showScoreBoard(User.getAllUsers());
     }
     public static String menuName() {
