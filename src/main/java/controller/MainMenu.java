@@ -10,9 +10,9 @@ public class MainMenu {
         return currentUser;
     }
 
-    public static void setCurrentUser(User user) {
-            currentUser = user;
-    }
+//    public static void setCurrentUser(User user) {
+//            currentUser = user;
+//    }
 
     public static String menuName() {
         return "Main Menu";

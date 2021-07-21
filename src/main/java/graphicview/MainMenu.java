@@ -16,10 +16,10 @@ public class MainMenu {
 
     }
 
-    public void logoutButtonOnAction(ActionEvent actionEvent) throws IOException {
-        controller.MainMenu.setCurrentUser(null);
-        LoginMenu.enterMenu();
-    }
+//    public void logoutButtonOnAction(ActionEvent actionEvent) throws IOException {
+//        controller.MainMenu.setCurrentUser(null);
+//        LoginMenu.enterMenu();
+//    }
 
 
     public void deckButtonOnAction(ActionEvent actionEvent) throws IOException {
