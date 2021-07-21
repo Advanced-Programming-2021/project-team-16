@@ -25,7 +25,7 @@ import java.util.regex.Pattern;
 
 
 public class CommandProcessor {
-    private static final Scanner scanner = new Scanner(System.in);
+    public static final Scanner scanner = new Scanner(System.in);
     private static boolean isAnswerYes;
     private static String cardNameInput = "name";
     private static int indexOfArray;
@@ -36,6 +36,8 @@ public class CommandProcessor {
         while (matcher.find()) data.put(matcher.group(1).trim(), matcher.group(2).trim());
         return data;
     }
+
+
     private static Matcher getCommandMatcher(String input, String regex) {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(input);
@@ -55,15 +57,19 @@ public class CommandProcessor {
                 System.out.println(Login.signUp(data.get("username"), data.get("password"), data.get("nickname")));
             } else if (command.equals(Enums.LoginCommands.SHOW_CURRENT.getRegex()))
                 System.out.println(Login.menuName());
+            else if (command.startsWith(Enums.LoginCommands.SHOW_CHAT_ROOM.getRegex())) {
+                ChatRoom.showChatRoom();}
+              //  System.out.println("show-chatroom");}
             else if (command.matches(Enums.LoginCommands.ENTER_MENU.getRegex()))
                 System.out.println("please login first");
             else if (command.equals("help")) System.out.println(Enums.LOGIN_HELP);
             else System.out.println("invalid command");
         }
-        if (LoginMenu.getMainStage() != null) LoginMenu.getMainStage().close();
+     //   if (LoginMenu.getMainStage() != null) LoginMenu.getMainStage().close();
     }
 
-    private static void mainMenu() {
+
+    public static void mainMenu() {
         Matcher matcher;
         String command = scanner.nextLine().trim();
         while (!command.equals(Enums.MainMenuCommands.EXIT.getRegex()) && !command.equals(Enums.MainMenuCommands.LOGOUT.getRegex())) {
@@ -77,6 +83,8 @@ public class CommandProcessor {
                         case "Scoreboard" -> scoreboard();
                         case "Profile" -> profile();
                         case "Shop" -> shop();
+                        case "ChatRoom" -> chatRoom();
+                      //  case "ChatRoom2" -> chatRoom2();
                         case "Import/Export" -> importExportMenu();
                         default -> System.out.println("invalid command");
                     }
@@ -111,6 +119,7 @@ public class CommandProcessor {
             command = scanner.nextLine().trim();
         }
     }
+
 
     private static void deckMenu() {
         Matcher matcher;
@@ -341,6 +350,27 @@ public class CommandProcessor {
             else System.out.println("invalid command");
         }
     }
+
+    public static void chatRoom() {
+        for (String command = scanner.nextLine().trim(); !command.equals(Enums.ChatRoomCommands.EXIT.getRegex());
+             command = scanner.nextLine().trim()) {
+            if (command.equals(Enums.ChatRoomCommands.SHOW_CHAT_ROOM.getRegex())) {
+                ChatRoom.showChatRoom();
+//                command = scanner.nextLine().trim();
+//                String result = ChatRoom.showChatRoom(command);
+//                System.out.print(result + "\n");
+            }
+            else if (command.equals(Enums.ChatRoomCommands.SHOW_CURRENT.getRegex()))
+                System.out.println(ChatRoom.menuName());///////////////////////////////////////////
+            else if (command.matches(Enums.ChatRoomCommands.ENTER_MENU.getRegex()))
+                System.out.println("menu navigation is not possible");
+            else if (command.equals("help")) System.out.println(Enums.SCOREBOARD_HELP);
+            else System.out.println("invalid command");
+        }
+    }
+
+
+
 
     private static void importExportMenu() {
         String command = scanner.nextLine().trim();
