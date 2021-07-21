@@ -7,7 +7,9 @@ public class Enums {
         CREATE_USER("user create (--username (\\w+) --nickname (\\w+) --password (\\w+)|" +
                 "--password (\\w+) --username (\\w+) --nickname (\\w+)|--nickname (\\w+) --password (\\w+) --username (\\w+)|" +
                 "--username (\\w+) --password (\\w+) --nickname (\\w+)|--nickname (\\w+) --username (\\w+) --password (\\w+)|" +
-                "--password (\\w+) --nickname (\\w+) --username (\\w+))"),        SHOW_CURRENT("menu show-current"),
+                "--password (\\w+) --nickname (\\w+) --username (\\w+))"),
+        SHOW_CURRENT("menu show-current"),
+        SHOW_CHAT_ROOM("show-chatroom"),
         ENTER_MENU("menu enter (.*)"),
         EXIT("(menu exit|exit)");
         private final String regex;
@@ -28,6 +30,7 @@ public class Enums {
             menu enter <menu name>
             exit
             """;
+
 
     public enum MainMenuCommands {
         SHOW_CURRENT("menu show-current"),
@@ -72,6 +75,7 @@ public class Enums {
         }
 
     }
+
 
     public static final String SHOP_HELP = """
             shop buy <card name>
@@ -202,6 +206,24 @@ public class Enums {
         }
 
     }
+    public enum ChatRoomCommands {
+        SHOW_CHAT_ROOM("show-chatroom"),
+        SHOW_CURRENT("menu show-current"),
+        ENTER_MENU("menu enter (.*)"),
+        EXIT("menu exit");
+
+        String regex;
+
+        public String getRegex() {
+            return regex;
+        }
+
+        ChatRoomCommands(String regex) {
+            this.regex = regex;
+        }
+
+    }
+
 
     public static final String SCOREBOARD_HELP = """
             scoreboard show
