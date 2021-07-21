@@ -4,17 +4,18 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Login {
-    private static Socket socket;
-    private static DataInputStream dataInputStream;
-    private static DataOutputStream dataOutputStream;
+    public static Socket sock;
+    public static DataInputStream dataIn;
+    public static DataOutputStream dataOut;
 
-    public static void initializeNetwork() {
+    public static void initializeNetwork()   {
         try {
-            socket = new Socket("localhost", 1113);
-            dataInputStream = new DataInputStream(socket.getInputStream());
-            dataOutputStream = new DataOutputStream(socket.getOutputStream());
+            sock = new Socket("localhost", 8888);
+            dataIn = new DataInputStream(sock.getInputStream());
+            dataOut = new DataOutputStream(sock.getOutputStream());
         } catch (IOException x) {
             x.printStackTrace();
         }
@@ -23,9 +24,9 @@ public class Login {
     public static synchronized String signUp(String username, String password, String nickname) {
         String result;
         try {
-            dataOutputStream.writeUTF("register " + username + " " + password + " " + nickname);
-            dataOutputStream.flush();
-             result = dataInputStream.readUTF();
+            dataOut.writeUTF("register " + username + " " + password + " " + nickname);
+            dataOut.flush();
+             result = dataIn.readUTF();
 
         } catch (IOException x) {
             x.printStackTrace();
@@ -37,9 +38,9 @@ public class Login {
     public static String login(String username, String password) {
         String result;
         try {
-            dataOutputStream.writeUTF("login " + username + " " + password);
-            dataOutputStream.flush();
-             result = dataInputStream.readUTF();
+            dataOut.writeUTF("login " + username + " " + password);
+            dataOut.flush();
+             result = dataIn.readUTF();
         } catch (IOException x) {
             x.printStackTrace();
             result = " login error";
