@@ -1,5 +1,6 @@
 package server;
 
+import server.controller.ChatHandler;
 import server.controller.ServerLoginController;
 
 import java.io.*;
@@ -8,7 +9,7 @@ import java.net.*;
 
 public class MainServer {
     // Vector to store active clients
-    static Vector<ChatHandler> ar = new Vector<>();
+    public static Vector<ChatHandler> ar = new Vector<>();
 
     // counter for clients
     static int i = 0;
@@ -32,8 +33,7 @@ public class MainServer {
                         while (true) {
                             String received = dataInputStream.readUTF();
                             if (received.startsWith("show-chatroom")) {
-                                System.out.println("welcomee");
-
+                                System.out.println("welcome");
                                 String name = dataInputStream.readUTF();
 
                                 System.out.println("hello " + name);

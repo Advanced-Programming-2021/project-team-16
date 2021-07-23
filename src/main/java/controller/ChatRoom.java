@@ -19,7 +19,7 @@ public class ChatRoom {
 
         } catch (IOException x) {
             x.printStackTrace();
-            result = "sign up error";
+            result = "chatroom error";
         }
 //            System.out.println(result);
 
@@ -42,6 +42,7 @@ public class ChatRoom {
             }
         });
         // readMessage thread
+        System.out.println("enter your group chat name:");
         Thread readMessage = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -49,7 +50,7 @@ public class ChatRoom {
                 while (true) {
                     try {
                         // read the message sent to this client
-                        System.out.println("Waiting");
+                       // System.out.println("Waiting");
                         String msg = Login.dataIn.readUTF();
                         System.out.println(msg);
                     } catch (IOException e) {

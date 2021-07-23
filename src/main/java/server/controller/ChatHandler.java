@@ -1,11 +1,12 @@
-package server;
+package server.controller;
+
+import server.MainServer;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.Scanner;
-import java.util.StringTokenizer;
 
 public class ChatHandler implements Runnable {
 
@@ -42,17 +43,17 @@ public class ChatHandler implements Runnable {
                     this.s.close();
                     break;
                 }
-                String client = received.split("#", 2)[1];
-                String message = received.split("#", 2)[0];
+                String client = received.split("@", 2)[1];
+                String message = received.split("@", 2)[0];
 
                 for (ChatHandler mc : MainServer.ar) {
                     if (mc.name.equals(client) && mc.isloggedin) {
-                        mc.dos.writeUTF(this.name + " : " + message);
+                        mc.dos.writeUTF(this.name + ": " + message);
                         break;
                     }
                 }
             }
-            System.out.println("badbalht shodim");
+            System.out.println("badbakht shodim");
 
         } catch (Exception e) {
 
