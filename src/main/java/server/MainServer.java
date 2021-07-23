@@ -27,17 +27,24 @@ public class MainServer {
             while (true) {
                 socket = serverSocket.accept();
                 System.out.println("New client request received : " + socket);
-//                new Thread(() -> {
+                new Thread(() -> {
                     try {
                         dataInputStream = new DataInputStream(socket.getInputStream());
                         dataOutputStream = new DataOutputStream(socket.getOutputStream());
                         System.out.println("Creating a new handler for this client...");
                         while (true) {
                             String received = dataInputStream.readUTF();
-                            System.out.println("Creating a new handler for this client...");
                             if (received.startsWith("show-chatroom")) {
                                 System.out.println("welcomee");
-                                ChatHandler mtch = new ChatHandler(socket,"client " + i, dataInputStream, dataOutputStream);
+
+                                String name = dataInputStream.readUTF();
+
+                                System.out.println("hello " + name);
+                                ChatHandler mtch = new ChatHandler(socket,name, dataInputStream, dataOutputStream);
+                                i++;
+
+                                ar.add(mtch);
+
                                 mtch.run();
                                 // Create a new Thread with this object.
 //                                Thread t = new Thread(mtch);
@@ -45,7 +52,6 @@ public class MainServer {
                                 System.out.println("Adding this client to active client list");
 
                                 // add this client to active clients list
-                                ar.add(mtch);
 
                                 // start the thread.
 //                                t.start();
@@ -54,14 +60,15 @@ public class MainServer {
                                 // increment i for new client.
                                 // i is used for naming only, and can be replaced
                                 // by any naming scheme
-                                i++;
 
+                            } else if(received.startsWith("register") || received.startsWith("login")){
+                                String result = process(received);
+                                if (result.equals("")) break;
+                                dataOutputStream.writeUTF(result);
+                                dataOutputStream.flush();
                             }
 
-                            String result = process(received);
-                            if (result.equals("")) break;
-                            dataOutputStream.writeUTF(result);
-                            dataOutputStream.flush();
+
                         }
 
                         dataInputStream.close();
@@ -70,7 +77,7 @@ public class MainServer {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-//                }).start();
+                }).start();
 
             }
 
