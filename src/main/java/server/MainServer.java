@@ -1,6 +1,5 @@
 package server;
 
-import controller.Login;
 import server.controller.ServerLoginController;
 
 import java.io.*;
@@ -18,8 +17,6 @@ public class MainServer {
     static DataInputStream dataInputStream;
     static DataOutputStream dataOutputStream;
     static Socket socket;
-
-
 
     public static void main(String[] args) {
         try {
@@ -40,7 +37,7 @@ public class MainServer {
                                 String name = dataInputStream.readUTF();
 
                                 System.out.println("hello " + name);
-                                ChatHandler mtch = new ChatHandler(socket,name, dataInputStream, dataOutputStream);
+                                ChatHandler mtch = new ChatHandler(socket, name, dataInputStream, dataOutputStream);
                                 i++;
 
                                 ar.add(mtch);
@@ -56,21 +53,17 @@ public class MainServer {
                                 // start the thread.
 //                                t.start();
 
-
                                 // increment i for new client.
                                 // i is used for naming only, and can be replaced
                                 // by any naming scheme
 
-                            } else if(received.startsWith("register") || received.startsWith("login")){
+                            } else if (received.startsWith("register") || received.startsWith("login")) {
                                 String result = process(received);
                                 if (result.equals("")) break;
                                 dataOutputStream.writeUTF(result);
                                 dataOutputStream.flush();
                             }
-
-
                         }
-
                         dataInputStream.close();
                         socket.close();
                         serverSocket.close();
@@ -80,76 +73,11 @@ public class MainServer {
                 }).start();
 
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-// Java implementation of  Server side
-// It contains two classes : Server and ClientHandler
-// Save file as Server.java
 
-
-    // Server class
-
-
-    //
-//    public static void main(String[] args) throws IOException {
-//        // server is listening on port 1234
-//        ServerSocket ss = new ServerSocket(1234);
-//
-//        Socket s;
-//
-//        // running infinite loop for getting
-//        // client request
-//        while (true) {
-//            // Accept the incoming request
-//            s = ss.accept();
-//
-//            System.out.println("New client request received : " + s);
-//
-//            // obtain input and output streams
-//            DataInputStream dis = new DataInputStream(s.getInputStream());
-//            DataOutputStream dos = new DataOutputStream(s.getOutputStream());
-//            new Thread(() -> {
-//            String received;
-//            while (true) {
-//                try {
-//                    // receive the string
-//                    received = dis.readUTF();
-//
-//                    System.out.println(received);
-//                } catch (IOException e) {
-//
-//                    e.printStackTrace();
-//                } }
-//                }).start();
-//                    if (received.equals("show-chatroom")) {
-//                        // Create a new handler object for handling this request.
-//                        ChatHandler mtch = new ChatHandler(s, "client " + i, dis, dos);
-//
-//                        // Create a new Thread with this object.
-//                        Thread t = new Thread(mtch);
-//
-//                        System.out.println("Adding this client to active client list");
-//
-//                        // add this client to active clients list
-//                        ar.add(mtch);
-//
-//                        // start the thread.
-//                        t.start();
-//                    }
-//
-//
-//                // increment i for new client.
-//                // i is used for naming only, and can be replaced
-//                // by any naming scheme
-//                i++;
-//
-//            }
-//        }
-//    }
     static String process(String command) {
         if (command.startsWith("register")) {
             String[] parts = command.split(" ");
