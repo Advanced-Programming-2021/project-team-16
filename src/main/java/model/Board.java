@@ -2,9 +2,9 @@ package model;
 
 import controller.GameMenu;
 import graphicview.GameView;
-import model.card.Card;
-import model.card.monster.Monster;
-import model.card.spell.fieldspells.FieldSpell;
+import server.model.card.Card;
+import server.model.card.monster.Monster;
+import server.model.card.spell.fieldspells.FieldSpell;
 import model.person.Player;
 
 import java.util.ArrayList;

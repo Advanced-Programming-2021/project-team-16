@@ -13,7 +13,7 @@ public class Login {
 
     public static void initializeNetwork()   {
         try {
-            sock = new Socket("localhost", 8888);
+            sock = new Socket("localhost", 6789);
             dataIn = new DataInputStream(sock.getInputStream());
             dataOut = new DataOutputStream(sock.getOutputStream());
         } catch (IOException x) {

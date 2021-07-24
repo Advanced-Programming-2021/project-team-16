@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Board;
 import model.Game;
-import model.card.Card;
+import server.model.card.Card;
 import model.person.AI;
 import model.person.Player;
 import server.model.User;

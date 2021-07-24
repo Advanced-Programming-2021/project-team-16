@@ -6,14 +6,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.paint.Color;
-import model.card.Activatable;
-import model.card.Card;
-import model.card.monster.*;
-import model.card.spell.MessengerOfPeace;
-import model.card.spell.Spell;
-import model.card.spell.SupplySquad;
-import model.card.spell.fieldspells.FieldSpell;
-import model.card.trap.*;
+import server.model.card.Activatable;
+import server.model.card.Card;
+import server.model.card.monster.*;
+import server.model.card.spell.MessengerOfPeace;
+import server.model.card.spell.Spell;
+import server.model.card.spell.SupplySquad;
+import server.model.card.spell.fieldspells.FieldSpell;
+import server.model.card.trap.*;
 import model.person.AI;
 import model.person.Player;
 import server.model.User;
@@ -825,7 +825,7 @@ public class Game {
             if (isSelectedCardForRival && ((selectedZone == Board.Zone.MONSTER && rival.getBoard().getCardPositions()[0][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
                     (selectedZone == Board.Zone.SPELL_AND_TRAP && rival.getBoard().getCardPositions()[1][selectedZoneIndex] == Board.CardPosition.HIDE_DEF) ||
                     (selectedZone == Board.Zone.HAND))) {
-                currentPlayer.getGameView().selectedCard.setFill(Card.UNKNOWN_CARD_FILL);
+              //  currentPlayer.getGameView().selectedCard.setFill(Card.UNKNOWN_CARD_FILL);
                 currentPlayer.getGameView().selectedCardDescription.setText("card is not visible");
             } else {
                 currentPlayer.getGameView().selectedCard.setFill(selectedCard.getRectangle().getFill());

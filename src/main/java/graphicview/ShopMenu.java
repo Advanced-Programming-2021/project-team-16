@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import model.Game;
-import model.card.Card;
+import server.model.card.Card;
 import server.model.User;
 
 import java.io.IOException;

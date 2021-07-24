@@ -17,7 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.Deck;
-import model.card.Card;
+import server.model.card.Card;
 import server.model.User;
 
 import java.io.IOException;

@@ -1,7 +1,7 @@
 package controller;
 
 import model.Deck;
-import model.card.Card;
+import server.model.card.Card;
 import view.Show;
 
 import java.util.ArrayList;

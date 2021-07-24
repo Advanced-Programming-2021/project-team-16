@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import model.Deck;
-import model.card.Card;
+import server.model.card.Card;
 
 import java.util.ArrayList;
 import java.util.Random;

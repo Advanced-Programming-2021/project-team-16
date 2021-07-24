@@ -4,12 +4,12 @@ import controller.GameMenu;
 import model.Board;
 import model.Deck;
 import model.Game;
-import model.card.Card;
-import model.card.monster.Monster;
-import model.card.monster.RitualMonster;
-import model.card.spell.*;
-import model.card.spell.fieldspells.FieldSpell;
-import model.card.trap.*;
+import server.model.card.Card;
+import server.model.card.monster.Monster;
+import server.model.card.monster.RitualMonster;
+import server.model.card.spell.*;
+import server.model.card.spell.fieldspells.FieldSpell;
+import server.model.card.trap.*;
 import server.model.User;
 
 import java.util.ArrayList;

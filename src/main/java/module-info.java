@@ -12,10 +12,10 @@ module YuGiOh {
     exports graphicview;
     exports model;
     exports model.person;
-    exports model.card;
-    exports model.card.monster;
-    exports model.card.spell;
-    exports model.card.spell.fieldspells;
-    exports model.card.trap;
+    exports server.model.card;
+    exports server.model.card.monster;
+    exports server.model.card.spell;
+    exports server.model.card.spell.fieldspells;
+    exports server.model.card.trap;
     exports view;
 }

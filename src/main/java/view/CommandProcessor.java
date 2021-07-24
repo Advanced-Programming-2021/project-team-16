@@ -2,7 +2,6 @@ package view;
 
 import controller.*;
 import graphicview.GraphicUtils;
-import graphicview.LoginMenu;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -13,8 +12,8 @@ import javafx.stage.Stage;
 import model.Board;
 import model.Game;
 import model.Phase;
-import model.card.Card;
-import model.card.monster.Monster;
+import server.model.card.Card;
+import server.model.card.monster.Monster;
 import model.person.AI;
 import model.person.Player;
 import server.model.User;

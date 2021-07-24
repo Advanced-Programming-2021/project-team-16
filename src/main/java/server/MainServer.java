@@ -2,6 +2,7 @@ package server;
 
 import server.controller.ChatHandler;
 import server.controller.ServerLoginController;
+import server.controller.ShopServer;
 
 import java.io.*;
 import java.util.*;
@@ -21,7 +22,7 @@ public class MainServer {
 
     public static void main(String[] args) {
         try {
-            ServerSocket serverSocket = new ServerSocket(8888);
+            ServerSocket serverSocket = new ServerSocket(6789);
             while (true) {
                 socket = serverSocket.accept();
                 System.out.println("New client request received : " + socket);
@@ -57,7 +58,7 @@ public class MainServer {
                                 // i is used for naming only, and can be replaced
                                 // by any naming scheme
 
-                            } else if (received.startsWith("register") || received.startsWith("login")) {
+                            } else if (received.startsWith("register") || received.startsWith("login") || received.startsWith("shop buy")) {
                                 String result = process(received);
                                 if (result.equals("")) break;
                                 dataOutputStream.writeUTF(result);
@@ -85,6 +86,9 @@ public class MainServer {
         } else if (command.startsWith("login")) {
             String[] parts = command.split(" ");
             return ServerLoginController.login(parts[1], parts[2]);
+        } else if (command.startsWith("shop buy")){
+            String[] parts = command.split("shop buy ");
+            return ShopServer.buy(parts[1]);
         }
         return "";
     }

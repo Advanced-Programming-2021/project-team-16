@@ -60,7 +60,7 @@ public class Enums {
     public enum ShopCommands {
         SHOP_BUY("shop buy (.*)"),
         SHOW_ALL_CARDS("shop show --all"),
-        SHOW_CURRENT("menu show-current"),
+            SHOW_CURRENT("menu show-current"),
         ENTER_MENU("menu enter (.*)"),
         SHOW_CARD("card show (.*)"),
         EXIT("menu exit");

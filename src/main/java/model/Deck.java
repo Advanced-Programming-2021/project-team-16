@@ -1,6 +1,6 @@
 package model;
 
-import model.card.Card;
+import server.model.card.Card;
 
 import java.util.ArrayList;
 import java.util.Collections;

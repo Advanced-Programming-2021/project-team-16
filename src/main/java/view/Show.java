@@ -1,15 +1,17 @@
 package view;
 
 import controller.GameMenu;
+import controller.Login;
 import controller.MainMenu;
 import model.Board;
 import model.Deck;
 import model.Game;
 import model.Phase;
-import model.card.Card;
-import model.card.monster.Monster;
+import server.model.card.Card;
+import server.model.card.monster.Monster;
 import server.model.User;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,10 +19,19 @@ import java.util.Collections;
 
 public class Show {
     public static void showCardsInShop() {
-        ArrayList<Card> cards = Card.getCards();
-        Card.sort(cards);
-        for (Card card : cards) {
-            System.out.println(card.getName() + ":" + card.getPrice());
+        String result;
+        try {
+            Login.dataOut.writeUTF("shop show --all");
+
+            //  Login.dataOut.flush();
+//                msg = scn.nextLine();
+//                Login.dataOut.writeUTF(msg);
+//
+//                result = Login.dataIn.readUTF();
+
+        } catch (IOException x) {
+            x.printStackTrace();
+            result = "card show error";
         }
     }
 
@@ -34,8 +45,19 @@ public class Show {
     }
 
     public static void showSingleCard(Card card) {
-        if (card == null) System.out.println("no card with this name exists");
-        else System.out.println(card.getCardProperties());
+        String result;
+        try {
+            Login.dataOut.writeUTF("card show "+card);
+            //  Login.dataOut.flush();
+//                msg = scn.nextLine();
+//                Login.dataOut.writeUTF(msg);
+//
+//                result = Login.dataIn.readUTF();
+
+        } catch (IOException x) {
+            x.printStackTrace();
+            result = "single card show error";
+        }
     }
 
     public static void showScoreBoard(ArrayList<User> users) {

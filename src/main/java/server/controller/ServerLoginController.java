@@ -1,5 +1,6 @@
 package server.controller;
 
+
 import server.model.User;
 
 public class ServerLoginController {
@@ -17,7 +18,7 @@ public class ServerLoginController {
     public static String login(String username, String password) {
         User user = User.getUserByUsername(username);
         if (user == null || !user.getPassword().equals(password)) return "Username and password didn’t match!";
-        //MainMenu.setCurrentUser(user);
+        MainMenuServer.setCurrentUser(user);
         return "user logged in successfully!";
 
     }
