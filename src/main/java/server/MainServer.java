@@ -1,6 +1,7 @@
 package server;
 
 import server.controller.ChatHandler;
+import server.controller.ScoreboardServer;
 import server.controller.ServerLoginController;
 import server.controller.ShopServer;
 
@@ -58,9 +59,9 @@ public class MainServer {
                                 // i is used for naming only, and can be replaced
                                 // by any naming scheme
 
-                            } else if (received.startsWith("register") || received.startsWith("login") || received.startsWith("shop buy")) {
+                            } else if (received.startsWith("register") || received.startsWith("login") || received.startsWith("shop buy") || received.startsWith("scoreboard show")) {
                                 String result = process(received);
-                                if (result.equals("")) break;
+                                if (result.equals("asgharrr")) break;
                                 dataOutputStream.writeUTF(result);
                                 dataOutputStream.flush();
                             }
@@ -89,6 +90,8 @@ public class MainServer {
         } else if (command.startsWith("shop buy")){
             String[] parts = command.split("shop buy ");
             return ShopServer.buy(parts[1]);
+        } else if (command.startsWith("scoreboard show")){
+            return ScoreboardServer.showScoreboard();
         }
         return "";
     }
