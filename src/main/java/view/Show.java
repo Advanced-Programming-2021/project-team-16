@@ -60,7 +60,7 @@ public class Show {
         }
     }
 
-    public static void showScoreBoard(ArrayList<User> users) {
+    public static String showScoreBoard(ArrayList<User> users) {
         int rate = 1;
         System.out.println(rate + "-" + users.get(0).toString());
         for (int i = 2; i <= users.size(); i++) {
@@ -68,6 +68,7 @@ public class Show {
                 rate = i;
             System.out.println(rate + "-" + users.get(i - 1).toString());
         }
+    return "done!";
     }
 
 
