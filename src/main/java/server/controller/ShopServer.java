@@ -1,7 +1,7 @@
 package server.controller;
 
 
-import server.model.card.Card;
+import server.modell.card.Card;
 
 import static server.controller.MainMenuServer.getCurrentUser;
 

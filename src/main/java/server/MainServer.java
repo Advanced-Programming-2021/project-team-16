@@ -1,13 +1,14 @@
 package server;
 
-import server.controller.ChatHandler;
-import server.controller.ScoreboardServer;
-import server.controller.ServerLoginController;
-import server.controller.ShopServer;
+import controller.GameMenu;
+import server.controller.*;
+import server.modell.User;
 
 import java.io.*;
 import java.util.*;
 import java.net.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MainServer {
     // Vector to store active clients
@@ -59,7 +60,7 @@ public class MainServer {
                                 // i is used for naming only, and can be replaced
                                 // by any naming scheme
 
-                            } else if (received.startsWith("register") || received.startsWith("login") || received.startsWith("shop buy") || received.startsWith("scoreboard show")) {
+                            } else if (received.startsWith("register") || received.startsWith("login") || received.startsWith("shop buy") || received.startsWith("scoreboard show") || received.startsWith("duel --new")) {
                                 String result = process(received);
                                 if (result.equals("asgharrr")) break;
                                 dataOutputStream.writeUTF(result);
@@ -81,6 +82,7 @@ public class MainServer {
     }
 
     static String process(String command) {
+        HashMap<String, String> data;
         if (command.startsWith("register")) {
             String[] parts = command.split(" ");
             return ServerLoginController.signUp(parts[1], parts[2], parts[3]);
@@ -92,7 +94,23 @@ public class MainServer {
             return ShopServer.buy(parts[1]);
         } else if (command.startsWith("scoreboard show")){
             return ScoreboardServer.showScoreboard();
+        } else if (command.startsWith("duel --new")) {
+            data = getData(command);
+            User secondUser = User.getUserByUsername(data.get("second-player"));
+            String error = GameServer.isDuelPossibleWithError(data.get("rounds"), secondUser, false);
+            if (error != null) System.out.println(error);
+            else {
+                System.out.println("duel started successfully");
+                //     String[] parts = command.split(" ");
+                return GameServer.duel(secondUser, Integer.parseInt(data.get("rounds")));
+            }
         }
         return "";
+    }
+    private static HashMap<String, String> getData(String command) {
+        HashMap<String, String> data = new HashMap<>();
+        Matcher matcher = Pattern.compile("--(\\S+) ([^\\-]+)").matcher(command);
+        while (matcher.find()) data.put(matcher.group(1).trim(), matcher.group(2).trim());
+        return data;
     }
 }

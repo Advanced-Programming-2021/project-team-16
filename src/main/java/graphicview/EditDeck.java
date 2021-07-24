@@ -1,13 +1,9 @@
 package graphicview;
 
-import controller.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -17,10 +13,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import model.Deck;
-import server.model.card.Card;
-import server.model.User;
+import server.controller.MainMenuServer;
+import server.modell.card.Card;
+import server.modell.User;
 
-import java.io.IOException;
 import java.util.Iterator;
 
 public class EditDeck {
@@ -53,7 +49,7 @@ public class EditDeck {
     boolean isMain;
     private Card chosenCard;
     String[] deck = DeckMenu.getDeckName();
-    User user = MainMenu.getCurrentUser();
+    User user = MainMenuServer.getCurrentUser();
     Deck selectedDeck = user.getDeckByName(deck[0].trim());
 
     public static EditDeck getControllerEditDeck() {
@@ -68,95 +64,95 @@ public class EditDeck {
         DeckMenu.enterMenu();
     }
 
-    public void backOnAction2(MouseEvent mouseEvent) {
-        try {
+//    public void backOnAction2(MouseEvent mouseEvent) {
+//        try {
+//
+//            //EditDeck.makeBtnInvisible();
+//            FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
+//            Parent root = loader.load();
+//            ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
+//            LoginMenu.getMainStage().setScene(new Scene(root));
+//            EditDeck.setControllerEditDeck(loader.getController());
+//            EditDeck.getControllerEditDeck().loadBoard();
+//
+//        } catch (IOException ioException) {
+//            ioException.printStackTrace();
+//        }
+//    }
 
-            //EditDeck.makeBtnInvisible();
-            FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/info.fxml"));
-            Parent root = loader.load();
-            ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
-            LoginMenu.getMainStage().setScene(new Scene(root));
-            EditDeck.setControllerEditDeck(loader.getController());
-            EditDeck.getControllerEditDeck().loadBoard();
+//    public void addToMain(MouseEvent mouseEvent) {
+//        String message = controller.DeckMenu.addCardToDeck(selected.getName(), deck[0].trim(), true);
+//        if (!message.equals("there are already three cards with name " + "\"" + selected.getName() + "\"" + " in deck " + "\"" + deck[0].trim() + "\"")) {
+//            addCardBoard();
+//        } else errorTxt.setText(message);
+//    }
 
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
-        }
-    }
+//    public void addToSide(MouseEvent mouseEvent) {
+//        String message = controller.DeckMenu.addCardToDeck(selected.getName(), deck[0].trim(), false);
+//        if (!message.equals("there are already three cards with name " + "\"" + selected.getName() + "\"" + " in deck " + "\"" + deck[0].trim() + "\"")) {
+//            addCardBoard();
+//        } else errorTxt.setText(message);
+//    }
 
-    public void addToMain(MouseEvent mouseEvent) {
-        String message = controller.DeckMenu.addCardToDeck(selected.getName(), deck[0].trim(), true);
-        if (!message.equals("there are already three cards with name " + "\"" + selected.getName() + "\"" + " in deck " + "\"" + deck[0].trim() + "\"")) {
-            addCardBoard();
-        } else errorTxt.setText(message);
-    }
-
-    public void addToSide(MouseEvent mouseEvent) {
-        String message = controller.DeckMenu.addCardToDeck(selected.getName(), deck[0].trim(), false);
-        if (!message.equals("there are already three cards with name " + "\"" + selected.getName() + "\"" + " in deck " + "\"" + deck[0].trim() + "\"")) {
-            addCardBoard();
-        } else errorTxt.setText(message);
-    }
-
-    public void loadBoard() {
-        Rectangle
-                cards;
-        int row = 0;
-        int column = 0;
-
-
-        removeAllNodes(mainBoard);
-        removeAllNodes(sideBoard);
-        avatar.setFill(user.getAvatarRec().getFill());
-        mainC.setText(String.valueOf(selectedDeck.getMainDeckCards().size()));
-        sideC.setText(String.valueOf(selectedDeck.getSideDeckCards().size()));
-        owner.setText(user.getUsername());
-        dName.setText(deck[0]);
-        if (user.getActiveDeck() != null && selectedDeck.getName().equals(user.getActiveDeck().getName()))
-            setActiveBtn.setVisible(false);
-        for (String name : selectedDeck.getMainDeckCards()) {
-            Card card = Card.make(name);
-            cards = card;
-            cards.setHeight(85);
-            cards.setWidth(68);
-            Rectangle finalCards = cards;
-
-            cards.setOnMouseClicked(me -> {
-                selectedCard.setFill(finalCards.getFill());
-                selected = card;
-                selectedCardDescription.setText(selected.getCardProperties());
-                removeBtn.setVisible(true);
-                isMain = true;
-            });
-            cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
-            cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
-            card.setSizes(false);
-            cards.setFill(card.getRectangle().getFill());
-            mainBoard.add(cards, row, column);
-            row++;
-            if (row == 10) {
-                row = 0;
-                column++;
-            }
-        }
-        row = 0;
-        column = 0;
-        for (String name : selectedDeck.getSideDeckCards()) {
-            Card card = Card.make(name);
-            cards = new Rectangle();
-            isAddCardBoard = false;
-            doWhatIsNeededForCards(cards, card, selectedCardDescription);
-            assert card != null;
-            card.setSizes(false);
-            cards.setFill(card.getRectangle().getFill());
-            sideBoard.add(cards, row, column);
-            row++;
-            if (row == 10) {
-                row = 0;
-                column++;
-            }
-        }
-    }
+//    public void loadBoard() {
+//        Rectangle
+//                cards;
+//        int row = 0;
+//        int column = 0;
+//
+//
+//        removeAllNodes(mainBoard);
+//        removeAllNodes(sideBoard);
+//        avatar.setFill(user.getAvatarRec().getFill());
+//        mainC.setText(String.valueOf(selectedDeck.getMainDeckCards().size()));
+//        sideC.setText(String.valueOf(selectedDeck.getSideDeckCards().size()));
+//        owner.setText(user.getUsername());
+//        dName.setText(deck[0]);
+//        if (user.getActiveDeck() != null && selectedDeck.getName().equals(user.getActiveDeck().getName()))
+//            setActiveBtn.setVisible(false);
+//        for (String name : selectedDeck.getMainDeckCards()) {
+//            Card card = Card.make(name);
+//            cards = card;
+//            cards.setHeight(85);
+//            cards.setWidth(68);
+//            Rectangle finalCards = cards;
+//
+//            cards.setOnMouseClicked(me -> {
+//                selectedCard.setFill(finalCards.getFill());
+//                selected = card;
+//                selectedCardDescription.setText(selected.getCardProperties());
+//                removeBtn.setVisible(true);
+//                isMain = true;
+//            });
+//            cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
+//            cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
+//            card.setSizes(false);
+//            cards.setFill(card.getRectangle().getFill());
+//            mainBoard.add(cards, row, column);
+//            row++;
+//            if (row == 10) {
+//                row = 0;
+//                column++;
+//            }
+//        }
+//        row = 0;
+//        column = 0;
+//        for (String name : selectedDeck.getSideDeckCards()) {
+//            Card card = Card.make(name);
+//            cards = new Rectangle();
+//            isAddCardBoard = false;
+//            doWhatIsNeededForCards(cards, card, selectedCardDescription);
+//            assert card != null;
+//            card.setSizes(false);
+//            cards.setFill(card.getRectangle().getFill());
+//            sideBoard.add(cards, row, column);
+//            row++;
+//            if (row == 10) {
+//                row = 0;
+//                column++;
+//            }
+//        }
+//    }
 
     private void doWhatIsNeededForCards(Rectangle cards, Card card, Label selectedCardDescription) {
         cards.setHeight(90);
@@ -220,15 +216,15 @@ public class EditDeck {
     }
 
 
-    public void removeBtnOnAction(ActionEvent actionEvent) {
-        String message = controller.DeckMenu.removeCardFromDeck(selected.getName(), deck[0].trim(), isMain);
-        if (message.equals("card removed form deck successfully")) {
-            loadBoard();
-            selectedCard.setFill(Color.BLACK);
-            selectedCardDescription.setText("card removed form deck successfully");
-            removeBtn.setVisible(false);
-        }
-    }
+//    public void removeBtnOnAction(ActionEvent actionEvent) {
+//        String message = controller.DeckMenu.removeCardFromDeck(selected.getName(), deck[0].trim(), isMain);
+//        if (message.equals("card removed form deck successfully")) {
+//            loadBoard();
+//            selectedCard.setFill(Color.BLACK);
+//            selectedCardDescription.setText("card removed form deck successfully");
+//            removeBtn.setVisible(false);
+//        }
+//    }
 
     public void setActiveBtnOnAction(ActionEvent actionEvent) {
         String message = controller.DeckMenu.activate(deck[0].trim());
@@ -238,14 +234,14 @@ public class EditDeck {
         }
     }
 
-    public void AddCardBtnOnAction(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/addCard.fxml"));
-        loader.setController(controllerEditDeck);
-        Parent root = loader.load();
-        ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
-        LoginMenu.getMainStage().setScene(new Scene(root));
-        controllerEditDeck.addCardBoard();
-    }
+//    public void AddCardBtnOnAction(ActionEvent actionEvent) throws IOException {
+//        FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/addCard.fxml"));
+//        loader.setController(controllerEditDeck);
+//        Parent root = loader.load();
+//        ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
+//        LoginMenu.getMainStage().setScene(new Scene(root));
+//        controllerEditDeck.addCardBoard();
+//    }
 
     public void deleteBtnOnAction(ActionEvent actionEvent) {
         String message = controller.DeckMenu.delete(deck[0].trim());
@@ -254,91 +250,91 @@ public class EditDeck {
         }
     }
 
-    public void addCardBoard() {
-        backButton.setOnMouseClicked(this::backOnAction2);
-        add2Main.setOnMouseClicked(this::addToMain);
-        add2Side.setOnMouseClicked(this::addToSide);
-        removeAllNodes(allCards);
-        removeAllNodes(mainBoard);
-        removeAllNodes(sideBoard);
-        Rectangle cards;
-        int row = 0;
-        int column = 0;
-        for (String name : selectedDeck.getMainDeckCards()) {
-            Card card = Card.make(name);
-            cards = card;
-            assert cards != null;
-            cards.setHeight(85);
-            cards.setWidth(68);
-            Rectangle finalCards = cards;
-
-            cards.setOnMouseClicked(me -> {
-                add2Main.setVisible(false);
-                add2Side.setVisible(false);
-                selectedCard.setFill(finalCards.getFill());
-                selected = card;
-                selectedCardDescription1.setText(selected.getCardProperties());
-                errorTxt.setText("");
-                removeBtn.setVisible(true);
-                isMain = true;
-            });
-            cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
-            cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
-            card.setSizes(false);
-            cards.setFill(card.getRectangle().getFill());
-            mainBoard.add(cards, row, column);
-            row++;
-            if (row == 10) {
-                row = 0;
-                column++;
-            }
-        }
-        row = 0;
-        column = 0;
-        for (String name : selectedDeck.getSideDeckCards()) {
-            Card card = Card.make(name);
-            cards = card;
-            assert cards != null;
-            isAddCardBoard = true;
-            doWhatIsNeededForCards(cards, card, selectedCardDescription1);
-            card.setSizes(false);
-            cards.setFill(card.getRectangle().getFill());
-            sideBoard.add(cards, row, column);
-            row++;
-            if (row == 10) {
-                row = 0;
-                column++;
-            }
-        }
-        row = 0;
-        column = 8;
-        for (Card card : user.getCards()) {
-            cards = card;
-            cards.setHeight(90);
-            cards.setWidth(65);
-            Rectangle finalCards = cards;
-
-            cards.setOnMouseClicked(me -> {
-                addCardOnClick();
-                selectedCard.setFill(finalCards.getFill());
-                selected = card;
-                selectedCardDescription1.setText(selected.getCardProperties());
-                errorTxt.setText("");
-                isMain = true;
-            });
-            cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
-            cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
-            card.setSizes(false);
-            cards.setFill(card.getRectangle().getFill());
-            allCards.add(cards, row, column);
-            row++;
-            if (row == 9) {
-                row = 0;
-                column++;
-            }
-
-        }
-    }
+//    public void addCardBoard() {
+//        backButton.setOnMouseClicked(this::backOnAction2);
+//        add2Main.setOnMouseClicked(this::addToMain);
+//        add2Side.setOnMouseClicked(this::addToSide);
+//        removeAllNodes(allCards);
+//        removeAllNodes(mainBoard);
+//        removeAllNodes(sideBoard);
+//        Rectangle cards;
+//        int row = 0;
+//        int column = 0;
+//        for (String name : selectedDeck.getMainDeckCards()) {
+//            Card card = Card.make(name);
+//            cards = card;
+//            assert cards != null;
+//            cards.setHeight(85);
+//            cards.setWidth(68);
+//            Rectangle finalCards = cards;
+//
+//            cards.setOnMouseClicked(me -> {
+//                add2Main.setVisible(false);
+//                add2Side.setVisible(false);
+//                selectedCard.setFill(finalCards.getFill());
+//                selected = card;
+//                selectedCardDescription1.setText(selected.getCardProperties());
+//                errorTxt.setText("");
+//                removeBtn.setVisible(true);
+//                isMain = true;
+//            });
+//            cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
+//            cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
+//            card.setSizes(false);
+//            cards.setFill(card.getRectangle().getFill());
+//            mainBoard.add(cards, row, column);
+//            row++;
+//            if (row == 10) {
+//                row = 0;
+//                column++;
+//            }
+//        }
+//        row = 0;
+//        column = 0;
+//        for (String name : selectedDeck.getSideDeckCards()) {
+//            Card card = Card.make(name);
+//            cards = card;
+//            assert cards != null;
+//            isAddCardBoard = true;
+//            doWhatIsNeededForCards(cards, card, selectedCardDescription1);
+//            card.setSizes(false);
+//            cards.setFill(card.getRectangle().getFill());
+//            sideBoard.add(cards, row, column);
+//            row++;
+//            if (row == 10) {
+//                row = 0;
+//                column++;
+//            }
+//        }
+//        row = 0;
+//        column = 8;
+//        for (Card card : user.getCards()) {
+//            cards = card;
+//            cards.setHeight(90);
+//            cards.setWidth(65);
+//            Rectangle finalCards = cards;
+//
+//            cards.setOnMouseClicked(me -> {
+//                addCardOnClick();
+//                selectedCard.setFill(finalCards.getFill());
+//                selected = card;
+//                selectedCardDescription1.setText(selected.getCardProperties());
+//                errorTxt.setText("");
+//                isMain = true;
+//            });
+//            cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
+//            cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
+//            card.setSizes(false);
+//            cards.setFill(card.getRectangle().getFill());
+//            allCards.add(cards, row, column);
+//            row++;
+//            if (row == 9) {
+//                row = 0;
+//                column++;
+//            }
+//
+//        }
+//    }
 
     public void removeAllNodes(GridPane gridPane) {
         Iterator<Node> it = gridPane.getChildren().iterator();
@@ -348,11 +344,11 @@ public class EditDeck {
         }
     }
 
-    public void addCardOnClick() {
-        add2Side.setVisible(true);
-        add2Main.setVisible(true);
-        add2Main.setOnMouseClicked(this::addToMain);
-        add2Side.setOnMouseClicked(this::addToSide);
-    }
+//    public void addCardOnClick() {
+//        add2Side.setVisible(true);
+//        add2Main.setVisible(true);
+//        add2Main.setOnMouseClicked(this::addToMain);
+//        add2Side.setOnMouseClicked(this::addToSide);
+//    }
 }
 

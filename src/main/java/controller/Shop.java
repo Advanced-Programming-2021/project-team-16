@@ -1,7 +1,5 @@
 package controller;
 
-import server.model.card.Card;
-
 import java.io.IOException;
 
 public class Shop {

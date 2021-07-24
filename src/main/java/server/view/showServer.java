@@ -1,8 +1,8 @@
 package server.view;
 
-import server.model.User;
-import server.model.card.Card;
-import server.model.card.monster.Monster;
+import server.modell.User;
+import server.modell.card.Card;
+import server.modell.card.monster.Monster;
 
 import java.util.ArrayList;
 

@@ -1,15 +1,15 @@
 package view;
 
-import controller.GameMenu;
 import controller.Login;
-import controller.MainMenu;
 import model.Board;
 import model.Deck;
-import model.Game;
 import model.Phase;
-import server.model.card.Card;
-import server.model.card.monster.Monster;
-import server.model.User;
+import server.controller.GameServer;
+import server.controller.MainMenuServer;
+import server.modell.Game;
+import server.modell.card.Card;
+import server.modell.card.monster.Monster;
+import server.modell.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class Show {
 
 
     public static void showGraveYard(String opponent) {
-        Game game = GameMenu.getCurrentGame();
+        Game game = GameServer.getCurrentGame();
         Board board = opponent == null ? game.getCurrentPlayer().getBoard() : game.getRival().getBoard();
         ArrayList<Card> grave = board.getGrave();
         if (grave.isEmpty()) System.out.println("graveyard is empty");
@@ -82,7 +82,7 @@ public class Show {
 
     public static void showMainDeck(String deckName) {
 
-        User user = MainMenu.getCurrentUser();
+        User user = MainMenuServer.getCurrentUser();
         Deck userDeck = user.getDeckByName(deckName);
         if (user.getDeckByName(deckName) != null) {
             System.out.println("Deck: " + deckName);
@@ -109,7 +109,7 @@ public class Show {
     }
 
     public static void showSideDeck(String deckName) {
-        User user = MainMenu.getCurrentUser();
+        User user = MainMenuServer.getCurrentUser();
         Deck userDeck = user.getDeckByName(deckName);
         if (user.getDeckByName(deckName) != null) {
             System.out.println("Deck: " + deckName);
@@ -138,7 +138,7 @@ public class Show {
     public static void showAllDecks() {
         String validation;
         boolean hasActiveDeck = false;
-        User user = MainMenu.getCurrentUser();
+        User user = MainMenuServer.getCurrentUser();
         ArrayList<Deck> userDecks = user.getDecks();
         System.out.println("Decks:");
         System.out.println("Active deck:");
@@ -176,7 +176,7 @@ public class Show {
     }
 
     public static void showBoard() {
-        Game game = GameMenu.getCurrentGame();
+        Game game = GameServer.getCurrentGame();
         if (game.isGraphical()) return;
         Board rivalBoard = game.getRival().getBoard();
         String fieldZone;
@@ -261,23 +261,16 @@ public class Show {
     }
 
     public static void showGameMessage(String gameMessage) {
-        if (GameMenu.getCurrentGame().isGraphical())
-            GameMenu.getCurrentGame().getCurrentPlayer().getGameView().showMessage(gameMessage, false);
-        else System.out.println(gameMessage);
+      System.out.println(gameMessage);
     }
 
     public static void showPhase(Phase phase) {
         String message = "phase:" + phase.getPhaseName();
-        if (GameMenu.getCurrentGame().isGraphical())
-            GameMenu.getCurrentGame().getCurrentPlayer().getGameView().showMessage(message, true);
-        else System.out.println(message);
+         System.out.println(message);
     }
 
     public static void showImportantGameMessage(String importantMessage) {
-        if (GameMenu.getCurrentGame().isGraphical()) {
-            GameMenu.getCurrentGame().getCurrentPlayer().getGameView().showMessage(importantMessage, true);
-//            GameMenu.getCurrentGame().getRival().getGameView().showMessage(importantMessage, true);
-        } else System.out.println(importantMessage);
+         System.out.println(importantMessage);
     }
 
 }

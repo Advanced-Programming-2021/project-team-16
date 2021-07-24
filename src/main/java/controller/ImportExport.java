@@ -1,6 +1,6 @@
 package controller;
 
-import server.model.card.Card;
+import server.modell.card.Card;
 
 public class ImportExport {
     public static void importCard(Card card) {

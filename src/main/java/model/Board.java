@@ -1,11 +1,11 @@
 package model;
 
 import controller.GameMenu;
-import graphicview.GameView;
-import server.model.card.Card;
-import server.model.card.monster.Monster;
-import server.model.card.spell.fieldspells.FieldSpell;
-import model.person.Player;
+//import graphicview.GameView;
+import server.modell.card.Card;
+import server.modell.card.monster.Monster;
+import server.modell.card.spell.fieldspells.FieldSpell;
+import server.modell.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -125,55 +125,56 @@ public class Board {
 
     public void setFieldSpell(FieldSpell fieldSpell, Card fakeCard) {
         this.fieldSpell = fieldSpell;
-        if (GameMenu.getCurrentGame().isGraphical()) {
-            getGameView().myFieldSpell.getChildren().clear();
-            getRivalGameView().rivalFieldSpell.getChildren().clear();
-            if (fieldSpell == null) {
-                getGameView().myFieldSpell.setCenter(Card.getBlackRectangle(false));
-                getRivalGameView().rivalFieldSpell.setCenter(Card.getBlackRectangle(false));
-            } else {
-                fieldSpell.setSide(true);
-                fieldSpell.setSizes(false);
-                fakeCard.setSide(true);
-                fakeCard.setSizes(false);
-                getGameView().myFieldSpell.setCenter(fieldSpell);
-                getRivalGameView().rivalFieldSpell.setCenter(fakeCard);
-
-            }
-
-        }
+//        if (GameMenu.getCurrentGame().isGraphical()) {
+//            getGameView().myFieldSpell.getChildren().clear();
+//            getRivalGameView().rivalFieldSpell.getChildren().clear();
+//            if (fieldSpell == null) {
+//                getGameView().myFieldSpell.setCenter(Card.getBlackRectangle(false));
+//                getRivalGameView().rivalFieldSpell.setCenter(Card.getBlackRectangle(false));
+//            } else {
+//                fieldSpell.setSide(true);
+//                fieldSpell.setSizes(false);
+//                fakeCard.setSide(true);
+//                fakeCard.setSizes(false);
+//                getGameView().myFieldSpell.setCenter(fieldSpell);
+//                getRivalGameView().rivalFieldSpell.setCenter(fakeCard);
+//
+//            }
+//
+//        }
     }
 
-    public GameView getGameView() {
-        return player.getGameView();
-    }
+   // public GameView getGameView() {
+    //    return player.getGameView();
+   // }
 
-    public GameView getRivalGameView() {
-        return player.getRival().getGameView();
-    }
+   // public GameView getRivalGameView() {
+   //     return player.getRival().getGameView();
+   // }
 
     public void refreshHand() {
         ArrayList<Card> cards = new ArrayList<>(Arrays.asList(hand));
         cards.removeIf(Objects::isNull);
         Arrays.fill(hand, null);
-        for (int i = 0; i < cards.size(); i++) hand[i] = cards.get(i);
-        if (GameMenu.getCurrentGame().isGraphical()) for (int i = hand.length - 1; i >= 0; i--)
-            if (hand[i] == null) {
-                getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
-                getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
-            } else {
+        for (int i = 0; i < cards.size(); i++) {
+            hand[i] = cards.get(i);
+            //     if (GameMenu.getCurrentGame().isGraphical()) for (int i = hand.length - 1; i >= 0; i--)
+            //        if (hand[i] == null) {
+            //    getGameView().myHand.getChildren().set(i, Card.getBlackRectangle(true));
+            //    getRivalGameView().rivalHand.getChildren().set(i, Card.getBlackRectangle(true));
+            if (hand[i] != null) {
                 Card card = hand[i];
                 Card fakeCard = Card.make(card.getName());
-                fakeCard.setSizes(true);
+                //    fakeCard.setSizes(true);
                 fakeCard.setSide(false);
-                getGameView().myHand.getChildren().set(i, card);
-                getRivalGameView().rivalHand.getChildren().set(i, fakeCard);
-                GameMenu.getCurrentGame().setOnMouseClickedSelect(card, i, Zone.HAND, false);
-                GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard, i, Zone.HAND, true);
+                //  getGameView().myHand.getChildren().set(i, card);
+                //   getRivalGameView().rivalHand.getChildren().set(i, fakeCard);
+                //  GameMenu.getCurrentGame().setOnMouseClickedSelect(card, i, Zone.HAND, false);
+                //   GameMenu.getCurrentGame().setOnMouseClickedSelect(fakeCard, i, Zone.HAND, true);
+
             }
+        }
     }
-
-
     public enum CardPosition {
         HIDE_DEF,
         REVEAL_DEF,

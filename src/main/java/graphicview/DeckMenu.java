@@ -1,6 +1,5 @@
 package graphicview;
 
-import controller.MainMenu;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,7 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import model.Deck;
-import server.model.User;
+import server.controller.MainMenuServer;
+import server.modell.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,7 +66,7 @@ public class DeckMenu {
         Label Main,Side,ActiveDeckL,OtherDecksL;
         Button ActiveDeck, OtherDecks;
         boolean hasActiveDeck = false;
-        User user = MainMenu.getCurrentUser();
+        User user = MainMenuServer.getCurrentUser();
         ArrayList<Deck> userDecks = user.getDecks();
 
         if (user.getActiveDeck() != null) {
@@ -83,7 +83,7 @@ public class DeckMenu {
                     ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
                     LoginMenu.getMainStage().setScene(new Scene(root));
                     EditDeck.setControllerEditDeck(loader.getController());
-                    EditDeck.getControllerEditDeck().loadBoard();
+              ///      EditDeck.getControllerEditDeck().loadBoard();
 
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
@@ -127,7 +127,7 @@ public class DeckMenu {
                             ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
                             LoginMenu.getMainStage().setScene(new Scene(root));
                             EditDeck.setControllerEditDeck(loader.getController());
-                            EditDeck.getControllerEditDeck().loadBoard();                               // EditDeck.loadBoard();
+            //                EditDeck.getControllerEditDeck().loadBoard();                               // EditDeck.loadBoard();
                         } catch (IOException ioException) {
                             ioException.printStackTrace();
                         }

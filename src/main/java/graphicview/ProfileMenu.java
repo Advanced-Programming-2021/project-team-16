@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import server.model.User;
+import server.modell.User;
 
 import java.io.IOException;
 
@@ -37,14 +37,14 @@ public class ProfileMenu {
 
     private void showProfileInformation() {
         changeAvatarExplanation.setText("Put your picture in:\n resource/png/profile");
-        User user = controller.MainMenu.getCurrentUser();
+        User user = server.controller.MainMenuServer.getCurrentUser();
         nickname.setText("nickname : " + user.getNickname());
         username.setText("username : " + user.getUsername());
         avatar.setFill(user.getAvatarRec().getFill());
     }
 
     public void changeNickname() {
-        User user = controller.MainMenu.getCurrentUser();
+        User user = server.controller.MainMenuServer.getCurrentUser();
         String result = Profile.changeNickname(newNickname.getText());
         changeAlert.setText(result);
         if (result.contains("success")) changeAlert.setTextFill(Color.DARKGREEN);
@@ -60,7 +60,7 @@ public class ProfileMenu {
     }
 
     public void changeAvatar() {
-        User user = controller.MainMenu.getCurrentUser();
+        User user = server.controller.MainMenuServer.getCurrentUser();
         String result = Profile.changeAvatar(avatarName.getText());
         changeAlert.setText(result);
         if (result.contains("success")) changeAlert.setTextFill(Color.DARKGREEN);

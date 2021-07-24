@@ -10,13 +10,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Board;
-import model.Game;
 import model.Phase;
-import server.model.card.Card;
-import server.model.card.monster.Monster;
-import model.person.AI;
-import model.person.Player;
-import server.model.User;
+import server.controller.GameServer;
+import server.controller.MainMenuServer;
+import server.modell.Game;
+import server.modell.card.Card;
+import server.modell.card.monster.Monster;
+import server.modell.AI;
+import server.modell.Player;
+import server.modell.User;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -89,7 +91,7 @@ public class CommandProcessor {
                     }
                 }
             } else if (command.equals(Enums.MainMenuCommands.SHOW_CURRENT.getRegex())) {
-                System.out.println(MainMenu.menuName());
+                System.out.println(MainMenuC.menuName());
 
             } else if (command.equals("help")) System.out.println(Enums.MAIN_Menu_HELP);
             else System.out.println("invalid command");
@@ -112,7 +114,7 @@ public class CommandProcessor {
             else if (command.matches(Enums.ShopCommands.ENTER_MENU.getRegex()))
                 System.out.println("menu navigation is not possible");
             else if ((matcher = getCommandMatcher(command, Enums.Cheat.INCREASE_MONEY.getRegex())).find())
-                MainMenu.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
+                MainMenuServer.getCurrentUser().increaseMoney(Integer.parseInt(matcher.group(1)));
             else if (command.equals("help")) System.out.println(Enums.SHOP_HELP);
             else System.out.println("invalid command!");
             command = scanner.nextLine().trim();
@@ -175,7 +177,7 @@ public class CommandProcessor {
     }
 
     private static void profile() {
-        User user = MainMenu.getCurrentUser();
+        User user = MainMenuServer.getCurrentUser();
         System.out.println("username: " + user.getUsername());
         System.out.println("nick name: " + user.getNickname());
         System.out.println("score: " + user.getScore());
@@ -210,19 +212,14 @@ public class CommandProcessor {
             else if (command.matches(Enums.GameMenuCommands.DUEL.getRegex())) {
                 data = getCommandData(command);
                 User secondUser = User.getUserByUsername(data.get("second-player"));
-                String error = GameMenu.isDuelPossibleWithError(data.get("rounds"), secondUser, false);
-                if (error != null) System.out.println(error);
-                else {
-                    System.out.println("duel started successfully");
-                    GameMenu.duel(secondUser, Integer.parseInt(data.get("rounds")), false);
-                }
+                    System.out.println(GameMenu.duel(secondUser, Integer.parseInt(data.get("rounds")))) ;
             } else if (command.matches(Enums.GameMenuCommands.AI_DUEL.getRegex())) {
                 String rounds = getCommandData(command).get("rounds");
-                String error = GameMenu.isDuelPossibleWithError(rounds, null, true);
+               String error = GameServer.isDuelPossibleWithError(rounds, null, true);
                 if (error != null) System.out.println(error);
                 else {
                     System.out.println("duel started successfully");
-                    GameMenu.duel(null, Integer.parseInt(rounds), false);
+                    GameMenu.duel(null, Integer.parseInt(rounds));
                 }
             } else if (command.equals("help")) System.out.println(Enums.DUEL_HELP);
             else System.out.println("invalid command");
@@ -230,7 +227,7 @@ public class CommandProcessor {
     }
 
     public static void game() {
-        Game game = GameMenu.getCurrentGame();
+        Game game = GameServer.getCurrentGame();
         boolean isSelectedCardForOpponent;
         Matcher matcher;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.GameCommands.END_PHASE.getRegex()); command = scanner.nextLine().trim()) {
@@ -408,7 +405,7 @@ public class CommandProcessor {
 
     public static boolean yesNoQuestion(String question) {
         isAnswerYes = false;
-        Game game = GameMenu.getCurrentGame();
+        Game game = GameServer.getCurrentGame();
         Player currentPlayer = game.getCurrentPlayer();
         if (currentPlayer instanceof AI) return true;
         if (game.isGraphical()) {
@@ -438,7 +435,7 @@ public class CommandProcessor {
 
 
     public static String getCardName(String whyDoYouNidThis) {
-        Game game = GameMenu.getCurrentGame();
+        Game game = GameServer.getCurrentGame();
         if (game.getCurrentPlayer() instanceof AI) {
             Random random = new Random();
             ArrayList<Card> allCards = Card.getCards();
@@ -469,7 +466,7 @@ public class CommandProcessor {
     }
 
     public static int getIndexOfCardArray(ArrayList<Card> cards, String goal) {
-        Game game = GameMenu.getCurrentGame();
+        Game game = GameServer.getCurrentGame();
         if (game.getCurrentPlayer() instanceof AI) return 0;
         if (game.isGraphical()) {
             indexOfArray = -1;
@@ -518,9 +515,9 @@ public class CommandProcessor {
     }
 
     public static int getMonsterFromGrave(boolean isMyGrave) {
-        Game game = GameMenu.getCurrentGame();
+        Game game = GameServer.getCurrentGame();
         if (game.getCurrentPlayer() instanceof AI)
-            return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getMonsterFromGrave(isMyGrave);
+            return ((AI) GameServer.getCurrentGame().getCurrentPlayer()).getMonsterFromGrave(isMyGrave);
         ArrayList<Card> grave = isMyGrave ?
                 game.getCurrentPlayer().getBoard().getGrave() : game.getRival().getBoard().getGrave();
         String graveOwner = isMyGrave ? "your" : "rival's";
@@ -560,9 +557,9 @@ public class CommandProcessor {
 
 
     public static int[] getTribute(int numberOfTributes, boolean isFromMonsterZone) {
-        Game game = GameMenu.getCurrentGame();
+        Game game = GameServer.getCurrentGame();
         if (game.getCurrentPlayer() instanceof AI) {
-            return ((AI) GameMenu.getCurrentGame().getCurrentPlayer()).getTribute(numberOfTributes, isFromMonsterZone);
+            return ((AI) GameServer.getCurrentGame().getCurrentPlayer()).getTribute(numberOfTributes, isFromMonsterZone);
         }
         int[] indexes = new int[numberOfTributes];
         if (game.isGraphical()) {
@@ -600,12 +597,12 @@ public class CommandProcessor {
                     else if (isFromMonsterZone) {
                         if (index < 0 || index > 4)
                             error = "invalid index";
-                        else if (GameMenu.getCurrentGame().getCurrentPlayer().getBoard().getMonsterZone()[index] == null)
+                        else if (GameServer.getCurrentGame().getCurrentPlayer().getBoard().getMonsterZone()[index] == null)
                             error = "there are no monsters on this address";
                     } else {
                         if (index < 0 || index > 5)
                             error = "invalid index";
-                        else if (GameMenu.getCurrentGame().getCurrentPlayer().getBoard().getHand()[index] == null)
+                        else if (GameServer.getCurrentGame().getCurrentPlayer().getBoard().getHand()[index] == null)
                             error = "this index is empty";
                     }
                     if (error == null)

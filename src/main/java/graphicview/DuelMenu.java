@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import server.model.User;
 
 import java.io.IOException;
 
@@ -19,7 +18,7 @@ public class DuelMenu {
     public Label duelError;
     public Label aiDuelError;
 
-    public static void enterMenu(){
+    public static void  enterMenu(){
         try {
             FXMLLoader loader = new FXMLLoader(DuelMenu.class.getResource("/fxml/duel.fxml"));
             Parent root = loader.load();
@@ -42,12 +41,11 @@ public class DuelMenu {
  //             , User.getUserByUsername(secondPlayerUsername.getText()));
  // }
 
-    public void duelWithAI() {
-        String error = GameMenu.isDuelPossibleWithError(String.valueOf(roundsWithAI.getValue()), null,true);
-        if (error != null) aiDuelError.setText(error);
-        else GameView.startGame(Integer.parseInt(String.valueOf(roundsWithAI.getValue()))
-                , null);
-    }
+//    public void duelWithAI() {
+//        String error = GameMenu.isDuelPossibleWithError(String.valueOf(roundsWithAI.getValue()), null,true);
+//        if (error != null) aiDuelError.setText(error);
+////        else GameView.startGame(Integer.parseInt(String.valueOf(roundsWithAI.getValue())), null);
+//    }
 
     public void enterMainMenu() throws IOException {
         graphicview.MainMenu.enterMenu();

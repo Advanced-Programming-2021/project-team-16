@@ -1,13 +1,13 @@
 package graphicview;
 
-import controller.MainMenu;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import server.model.User;
+import server.controller.MainMenuServer;
+import server.modell.User;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class ScoreboardMenu {
             nickname.setStyle("-fx-font-size: 15;");
             score.setStyle("-fx-font-size: 15;");
             rateLabel.setStyle("-fx-font-size: 15;");
-            if (MainMenu.getCurrentUser() == users.get(i-1)) {
+            if (MainMenuServer.getCurrentUser() == users.get(i-1)) {
                 nickname.setTextFill(Color.LIGHTGREEN);
                 score.setTextFill(Color.LIGHTGREEN);
                 rateLabel.setTextFill(Color.LIGHTGREEN);

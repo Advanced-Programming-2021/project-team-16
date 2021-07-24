@@ -1,6 +1,6 @@
 package server.controller;
 
-import server.model.User;
+import server.modell.User;
 
 public class MainMenuServer {
     private static User currentUser;

@@ -1,7 +1,7 @@
 package server.controller;
 
 
-import server.model.User;
+import server.modell.User;
 
 public class ServerLoginController {
     public static synchronized String signUp(String username,String password, String nickname) {

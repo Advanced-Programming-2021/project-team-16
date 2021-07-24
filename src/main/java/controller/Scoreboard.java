@@ -1,8 +1,5 @@
 package controller;
 
-import server.model.User;
-import view.Show;
-
 import java.io.IOException;
 
 public class Scoreboard {

@@ -1,6 +1,5 @@
 package graphicview;
 
-import controller.MainMenu;
 import controller.Shop;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -15,9 +14,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import model.Game;
-import server.model.card.Card;
-import server.model.User;
+import server.controller.MainMenuServer;
+import server.modell.card.Card;
+import server.modell.User;
 
 import java.io.IOException;
 
@@ -26,7 +25,7 @@ public class ShopMenu {
 
     private static ShopMenu controllerShopMenu;
     public Label countLabel;
-    User user = MainMenu.getCurrentUser();
+    User user = MainMenuServer.getCurrentUser();
     public Rectangle selectedCard;
     private Card selected;
     public Label selectedCardDescription;
@@ -52,7 +51,7 @@ public class ShopMenu {
             Stage stage = LoginMenu.getMainStage();
             LoginMenu.getMainStage().setScene(new Scene(root));
             stage.getScene().setOnKeyPressed(keyEvent -> {
-                if (Game.CHEAT_KEYS.match(keyEvent)) GameView.openCheatPopup(stage, null);
+        //        if (Game.CHEAT_KEYS.match(keyEvent)) GameView.openCheatPopup(stage, null);
             });
             controllerShopMenu = loader.getController();
             controllerShopMenu.loadBoard();
@@ -86,7 +85,7 @@ public class ShopMenu {
             });
             cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
             cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
-            card.setSizes(false);
+        //    card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             userCardsPane.add(cards, row, column);
             row++;
@@ -124,7 +123,7 @@ public class ShopMenu {
             });
             cards.setOnMouseEntered(me -> glowCardEffect(finalCards));
             cards.setOnMouseExited(me -> undoGlowEffect(finalCards));
-            card.setSizes(false);
+        //    card.setSizes(false);
             cards.setFill(card.getRectangle().getFill());
             shopCards.add(cards, row, column);
             row++;
