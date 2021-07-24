@@ -14,7 +14,7 @@ public class Terratiger extends Monster {
     public Terratiger() {
         super("Terratiger", "When this card is Normal Summoned: You can Special" +
                         " Summon 1 Level 4 or lower Normal Monster from your hand in Defense Position.",
-                3200, MonsterType.WARRIOR, 4, 1800, 1200);
+                100, MonsterType.WARRIOR, 4, 1800, 1200);
     }
 
     public String action() {

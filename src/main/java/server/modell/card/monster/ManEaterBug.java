@@ -12,7 +12,7 @@ import java.util.HashMap;
 
 public class ManEaterBug extends Monster {
     public ManEaterBug() {
-        super("Man-EaterBug", "FLIP: Target 1 monster on the field; destroy that target.", 800,
+        super("Man-EaterBug", "FLIP: Target 1 monster on the field; destroy that target.", 100,
                 MonsterType.INSECT, 2, 800, 600);
     }
 

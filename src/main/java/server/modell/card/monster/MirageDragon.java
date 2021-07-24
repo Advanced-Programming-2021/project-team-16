@@ -8,7 +8,7 @@ import server.modell.Game;
 public class MirageDragon extends Monster {
     public MirageDragon() {
         super("MirageDragon", "Your opponent cannot activate Trap Cards during the Battle Phase.",
-                2500, MonsterType.DRAGON, 4, 1600, 600);
+                100, MonsterType.DRAGON, 4, 1600, 600);
     }
 
     public static boolean isOn(boolean isMyTurn) {

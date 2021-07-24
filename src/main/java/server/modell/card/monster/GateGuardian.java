@@ -10,7 +10,7 @@ import server.modell.Game;
 public class GateGuardian extends Monster implements specialSummonable {
     public GateGuardian() {
         super("GateGuardian", "Cannot be Normal Summoned/Set. Must first be Special Summoned (from your " +
-                        "hand) by Tributing 1 \"Sanga of the Thunder\", \"Kazejin\", and \"Suijin\".", 20000,
+                        "hand) by Tributing 1 \"Sanga of the Thunder\", \"Kazejin\", and \"Suijin\".", 100,
                 MonsterType.WARRIOR, 11, 3750, 3400);
     }
 

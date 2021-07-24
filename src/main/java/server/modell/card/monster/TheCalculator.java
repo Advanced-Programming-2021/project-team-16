@@ -8,7 +8,7 @@ import server.modell.Game;
 public class TheCalculator extends Monster {
     public TheCalculator() {
         super("TheCalculator", "The ATK of this card is the combined Levels of all face-up monsters " +
-                "you control x 300.", 8000, MonsterType.THUNDER, 2, 0, 0);
+                "you control x 300.", 100, MonsterType.THUNDER, 2, 0, 0);
     }
 
     public void action() {

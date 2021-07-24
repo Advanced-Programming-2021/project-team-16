@@ -10,7 +10,7 @@ public class BeastKingBarbaros extends Monster implements specialSummonable {
     public BeastKingBarbaros() {
         super("BeastKingBarbaros", "You can Normal Summon/Set this card without Tributing, but its original " +
                 "ATK becomes 1900. You can Tribute 3 monsters to Tribute Summon (but not Set) this card. If Summoned this" +
-                " way: Destroy all cards your opponent controls.", 9200, MonsterType.BEAST_WARRIOR, 8, 3000, 1200);
+                " way: Destroy all cards your opponent controls.", 100, MonsterType.BEAST_WARRIOR, 8, 3000, 1200);
     }
 
     public void normalSummonOrSet() {

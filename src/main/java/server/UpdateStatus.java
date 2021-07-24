@@ -76,35 +76,35 @@ public class UpdateStatus {
     public static void makeAllMonsters() {
         new CommandKnight();
         new Monster("BattleOX", "A monster with tremendous power, it destroys enemies with a swing of " +
-                "its axe.", 2900, Monster.MonsterType.BEAST_WARRIOR, 4, 1700, 1000);
-        new Monster("AxeRaider", "An axe-wielding monster of tremendous strength and agility.", 3100,
+                "its axe.", 700, Monster.MonsterType.BEAST_WARRIOR, 4, 1700, 1000);
+        new Monster("AxeRaider", "An axe-wielding monster of tremendous strength and agility.", 100,
                 Monster.MonsterType.WARRIOR, 4, 1700, 1150);
         new GraveYardEffectMonster("YomiShip", "If this card is destroyed by battle and sent to the GY: " +
                 "Destroy the monster that destroyed this card.", 1700, Monster.MonsterType.AQUA, 3, 800,
                 1400, true);
         new Monster("HornImp", "A small fiend that dwells in the dark, its single horn makes it a " +
-                "formidable opponent.", 2500, Monster.MonsterType.FIEND, 4, 1100, 1000);
+                "formidable opponent.", 100, Monster.MonsterType.FIEND, 4, 1100, 1000);
         new Monster("SilverFang", "A snow wolf that's beautiful to the eye, but absolutely vicious in " +
-                "battle.", 1700, Monster.MonsterType.BEAST, 4, 1200, 800);
+                "battle.", 100, Monster.MonsterType.BEAST, 4, 1200, 800);
         new Suijin();
         new Monster("Fireyarou", "A malevolent creature wrapped in flames that attacks enemies with " +
-                "intense fire.", 2500, Monster.MonsterType.PYRO, 4, 1300, 1000);
+                "intense fire.", 100, Monster.MonsterType.PYRO, 4, 1300, 1000);
         new Monster("Curtainofthedarkones", "A curtain that a spellcaster made, it is said to raise" +
                 " a dark power.", 700, Monster.MonsterType.SPELL_CASTER, 2, 600, 500);
         new Monster("FeralImp", "A playful little fiend that lurks in the dark, waiting to attack an " +
-                "unwary enemy.", 2800, Monster.MonsterType.FIEND, 4, 1300, 1400);
+                "unwary enemy.", 100, Monster.MonsterType.FIEND, 4, 1300, 1400);
         new Monster("Darkmagician", "The ultimate wizard in terms of attack and defense.", 8300,
                 Monster.MonsterType.SPELL_CASTER, 7, 2500, 2100);
         new Monster("Wattkid", "A creature that electrocutes opponents with bolts of lightning.",
-                1300, Monster.MonsterType.THUNDER, 3, 1000, 500);
+                100, Monster.MonsterType.THUNDER, 3, 1000, 500);
         new Monster("Babydragon", "Much more than just a child, this dragon is gifted with untapped power."
-                , 1600, Monster.MonsterType.DRAGON, 3, 1200, 700);
+                , 100, Monster.MonsterType.DRAGON, 3, 1200, 700);
         new Monster("Herooftheeast", "Feel da strength ah dis sword-swinging samurai from da Far East.",
-                1700, Monster.MonsterType.WARRIOR, 3, 1100, 1000);
-        new Monster("Battlewarrior", "A warrior that fights with his bare hands!!!", 1300,
+                100, Monster.MonsterType.WARRIOR, 3, 1100, 1000);
+        new Monster("Battlewarrior", "A warrior that fights with his bare hands!!!", 100,
                 Monster.MonsterType.WARRIOR, 3, 700, 1000);
         new Monster("Crawlingdragon", "This weakened dragon can no longer fly, but is still a deadly" +
-                " force to be reckoned with.", 3900, Monster.MonsterType.DRAGON, 5, 1600, 1400);
+                " force to be reckoned with.", 100, Monster.MonsterType.DRAGON, 5, 1600, 1400);
         new Monster("Flamemanipulator", "This Spellcaster attacks enemies with fire-related spells such" +
                 " as \"Sea of Flames\" and \"Wall of Fire\".", 1500, Monster.MonsterType.SPELL_CASTER, 3
                 , 900, 1000);
@@ -144,7 +144,7 @@ public class UpdateStatus {
                 " Graveyard: Destroy the monster that destroyed it. Neither player takes any battle damage from attacks" +
                 " involving this attacking card.", 1000, Monster.MonsterType.DRAGON, 3, 1000, 0, false);
         new Monster("WarriorDaiGrepher", "The warrior who can manipulate dragons. Nobody knows his " +
-                "mysterious past.", 3400, Monster.MonsterType.WARRIOR, 4, 1700, 1600);
+                "mysterious past.", 100, Monster.MonsterType.WARRIOR, 4, 1700, 1600);
         new Monster("DarkBlade", "They say he is a dragon-manipulating warrior from the dark world. His" +
                 " attack is tremendous, using his great swords with vicious power.",
                 3500, Monster.MonsterType.WARRIOR, 4, 1800, 1500);

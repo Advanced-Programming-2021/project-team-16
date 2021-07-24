@@ -72,7 +72,7 @@ public class Deck {
 
 
     public boolean isMainDeckValid() {
-        return this.mainCardNames.size() <= 60 && this.mainCardNames.size() >= 40;
+        return this.mainCardNames.size() <= 60 && this.mainCardNames.size() >= 6;
     }
 
     public boolean isSideDeckValid() {

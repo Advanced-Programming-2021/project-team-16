@@ -136,43 +136,57 @@ public class Show {
     }
 
     public static void showAllDecks() {
-        String validation;
-        boolean hasActiveDeck = false;
-        User user = MainMenuServer.getCurrentUser();
-        ArrayList<Deck> userDecks = user.getDecks();
-        System.out.println("Decks:");
-        System.out.println("Active deck:");
-        if (user.getActiveDeck() != null) {
-            hasActiveDeck = true;
-            Deck activeDeck = user.getActiveDeck();
-            if (activeDeck.isMainDeckValid() && activeDeck.isDeckValid()) validation = "valid";
-            else validation = "invalid";
-            System.out.println(activeDeck.getName() + ":  main deck " + activeDeck.getMainDeckCards().size()
-                    + ", side deck " + activeDeck.getSideDeckCards().size() + ", " + validation);
+        String result;
+        try {
+            Login.dataOut.writeUTF("deck show --all");
+
+            //  Login.dataOut.flush();
+//                msg = scn.nextLine();
+//                Login.dataOut.writeUTF(msg);
+//
+//                result = Login.dataIn.readUTF();
+
+        } catch (IOException x) {
+            x.printStackTrace();
+            result = "deck show error";
         }
-        System.out.println("Other decks:");
-        if (hasActiveDeck) {
-            if (userDecks != null) {
-                Deck.sort(userDecks);
-                for (Deck userDeck : userDecks) {
-                    if (userDeck == user.getActiveDeck()) continue;
-                    if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
-                    else validation = "invalid";
-                    System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
-                            ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
-                }
-            }
-        } else {
-            if (userDecks != null) {
-                Deck.sort(userDecks);
-                for (Deck userDeck : userDecks) {
-                    if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
-                    else validation = "invalid";
-                    System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
-                            ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
-                }
-            }
-        }
+//        String validation;
+//        boolean hasActiveDeck = false;
+//        User user = MainMenuServer.getCurrentUser();
+//        ArrayList<Deck> userDecks = user.getDecks();
+//        System.out.println("Decks:");
+//        System.out.println("Active deck:");
+//        if (user.getActiveDeck() != null) {
+//            hasActiveDeck = true;
+//            Deck activeDeck = user.getActiveDeck();
+//            if (activeDeck.isMainDeckValid() && activeDeck.isDeckValid()) validation = "valid";
+//            else validation = "invalid";
+//            System.out.println(activeDeck.getName() + ":  main deck " + activeDeck.getMainDeckCards().size()
+//                    + ", side deck " + activeDeck.getSideDeckCards().size() + ", " + validation);
+//        }
+//        System.out.println("Other decks:");
+//        if (hasActiveDeck) {
+//            if (userDecks != null) {
+//                Deck.sort(userDecks);
+//                for (Deck userDeck : userDecks) {
+//                    if (userDeck == user.getActiveDeck()) continue;
+//                    if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
+//                    else validation = "invalid";
+//                    System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
+//                            ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
+//                }
+//            }
+//        } else {
+//            if (userDecks != null) {
+//                Deck.sort(userDecks);
+//                for (Deck userDeck : userDecks) {
+//                    if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
+//                    else validation = "invalid";
+//                    System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
+//                            ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
+//                }
+//            }
+//        }
     }
 
     public static void showBoard() {

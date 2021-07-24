@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import model.Board;
 import model.Phase;
+import server.controller.DeckMenuServer;
 import server.controller.GameServer;
 import server.controller.MainMenuServer;
 import server.modell.Game;

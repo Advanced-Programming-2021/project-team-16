@@ -9,7 +9,7 @@ import server.modell.card.monster.Monster;
 
 public class TrapHole extends Trap {
     public TrapHole() {
-        super("TrapHole", "Trap", TrapType.NORMAL, "When your opponent Normal or Flip Summons 1 monster with 1000 or more ATK: Target that monster; destroy that target.", "Unlimited", 2000
+        super("TrapHole", "Trap", TrapType.NORMAL, "When your opponent Normal or Flip Summons 1 monster with 1000 or more ATK: Target that monster; destroy that target.", "Unlimited", 100
         );
     }
 

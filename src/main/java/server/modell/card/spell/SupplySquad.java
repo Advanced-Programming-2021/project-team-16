@@ -13,7 +13,7 @@ public class SupplySquad extends Spell {
     public SupplySquad() {
         super("SupplySquad", "Spell", SpellType.CONTINUES
                 , "Once per turn, if a monster(s) you control is " +
-                        "destroyed by battle or card effect: Draw 1 card.", "Unlimited", 4000);
+                        "destroyed by battle or card effect: Draw 1 card.", "Unlimited", 100);
     }
 
 
