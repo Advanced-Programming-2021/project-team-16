@@ -340,7 +340,7 @@ public class CommandProcessor {
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.ScoreboardCommands.EXIT.getRegex());
              command = scanner.nextLine().trim()) {
             if (command.equals(Enums.ScoreboardCommands.SHOW_SCOREBOARD.getRegex()))
-                Scoreboard.showScoreboard();
+                System.out.println(Scoreboard.showScoreboard());
             else if (command.equals(Enums.ScoreboardCommands.SHOW_CURRENT.getRegex()))
                 System.out.println(Scoreboard.menuName());
             else if (command.matches(Enums.ScoreboardCommands.ENTER_MENU.getRegex()))
