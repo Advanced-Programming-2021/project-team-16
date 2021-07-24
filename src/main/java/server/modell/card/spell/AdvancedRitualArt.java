@@ -1,12 +1,11 @@
 package server.modell.card.spell;
 
-import controller.GameMenu;
-import model.Board;
+import server.modell.Board;
 import server.controller.GameServer;
 import server.modell.Game;
 import server.modell.card.Card;
 import server.modell.card.monster.RitualMonster;
-import view.CommandProcessor;
+import client.view.CommandProcessor;
 
 import java.util.ArrayList;
 import java.util.HashMap;

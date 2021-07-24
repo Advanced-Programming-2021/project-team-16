@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane prefHeight="413.0" prefWidth="726.0" style="-fx-font: 14 arial;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.LoginMenu">
+<BorderPane prefHeight="413.0" prefWidth="726.0" style="-fx-font: 14 arial;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicview.LoginMenu">
    <left>
         <GridPane alignment="CENTER" hgap="40" prefHeight="411.0" prefWidth="723.0" vgap="10" BorderPane.alignment="CENTER">
 

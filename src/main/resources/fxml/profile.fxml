@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<GridPane alignment="CENTER" hgap="5" prefHeight="400.0" prefWidth="650.0" style="-fx-font: 13 arial;" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ProfileMenu">
+<GridPane alignment="CENTER" hgap="5" prefHeight="400.0" prefWidth="650.0" style="-fx-font: 13 arial;" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.graphicview.ProfileMenu">
     <Rectangle fx:id="avatar" height="90" width="70" GridPane.rowIndex="1" GridPane.rowSpan="3" />
     <Label fx:id="username" style="-fx-font: 16 arial;" textFill="WHITE" GridPane.rowIndex="4" />
     <Label fx:id="nickname" style="-fx-font: 16 arial;" textFill="WHITE" GridPane.rowIndex="5" />

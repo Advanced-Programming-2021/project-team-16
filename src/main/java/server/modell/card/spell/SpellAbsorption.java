@@ -1,6 +1,5 @@
 package server.modell.card.spell;
 
-import controller.GameMenu;
 import server.controller.GameServer;
 import server.modell.Player;
 

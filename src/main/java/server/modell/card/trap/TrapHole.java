@@ -1,7 +1,6 @@
 package server.modell.card.trap;
 
-import controller.GameMenu;
-import model.Board;
+import server.modell.Board;
 import server.controller.GameServer;
 import server.modell.Game;
 import server.modell.card.Card;

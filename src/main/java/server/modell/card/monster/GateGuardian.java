@@ -1,8 +1,7 @@
 package server.modell.card.monster;
 
 
-import controller.GameMenu;
-import model.Board;
+import server.modell.Board;
 import server.controller.GameServer;
 import server.modell.Game;
 

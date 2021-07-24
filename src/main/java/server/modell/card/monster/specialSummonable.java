@@ -1,6 +1,6 @@
 package server.modell.card.monster;
 
-import model.Board;
+import server.modell.Board;
 import server.modell.Game;
 
 public interface specialSummonable {

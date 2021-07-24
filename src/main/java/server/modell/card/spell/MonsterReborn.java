@@ -1,11 +1,10 @@
 package server.modell.card.spell;
 
-import controller.GameMenu;
-import model.Board;
+import server.modell.Board;
 import server.controller.GameServer;
 import server.modell.Game;
 import server.modell.card.monster.Monster;
-import view.CommandProcessor;
+import client.view.CommandProcessor;
 
 
 public class MonsterReborn extends Spell {

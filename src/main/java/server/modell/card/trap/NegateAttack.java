@@ -1,7 +1,6 @@
 package server.modell.card.trap;
 
 
-import controller.GameMenu;
 import server.controller.GameServer;
 
 public class NegateAttack extends Trap {

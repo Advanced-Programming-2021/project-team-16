@@ -1,8 +1,6 @@
 package server.modell;
 
-import controller.GameMenu;
-//import graphicview.GameView;
-import model.Board;
+//import client.controller.graphicview.GameView;
 import server.controller.GameServer;
 import server.modell.card.Card;
 

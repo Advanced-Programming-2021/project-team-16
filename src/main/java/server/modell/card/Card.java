@@ -1,31 +1,17 @@
 package server.modell.card;
 
-import controller.GameMenu;
-import graphicview.GraphicUtils;
-import javafx.event.EventHandler;
-import javafx.scene.control.Label;
-import javafx.scene.input.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
-import javafx.stage.Stage;
-import model.Board;
-import server.controller.GameServer;
-import server.modell.Game;
 import server.modell.card.monster.*;
 import server.modell.card.spell.*;
 import server.modell.card.spell.fieldspells.ClosedForest;
 import server.modell.card.spell.fieldspells.FieldSpell;
 import server.modell.card.trap.*;
-import server.modell.Player;
-import view.Show;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public abstract class Card extends Rectangle implements Comparable<Card> {
 

@@ -3,7 +3,6 @@ package server.modell;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import model.Deck;
 import server.modell.card.Card;
 
 import java.util.ArrayList;

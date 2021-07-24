@@ -1,8 +1,7 @@
 package server.modell.card.spell.fieldspells;
 
-import controller.GameMenu;
 import javafx.scene.layout.Background;
-import model.Board;
+import server.modell.Board;
 import server.controller.GameServer;
 import server.modell.Game;
 import server.modell.card.Card;

@@ -1,8 +1,8 @@
 package server.controller;
 
-import model.Deck;
+import server.modell.Deck;
 import server.modell.card.Card;
-import view.Show;
+import client.view.Show;
 
 import java.util.ArrayList;
 import java.util.Locale;

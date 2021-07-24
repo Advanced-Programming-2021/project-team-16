@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT" hgap="10" prefHeight="618.0" prefWidth="474.0" vgap="5" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="graphicview.ScoreboardMenu">
+<GridPane xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER_LEFT" hgap="10" prefHeight="618.0" prefWidth="474.0" vgap="5" xmlns="http://javafx.com/javafx/11.0.1" fx:controller="client.graphicview.ScoreboardMenu">
     <Label style="-fx-font: 15 arial;" text="#rate" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <font>
          <Font size="11.0" />

@@ -1,6 +1,6 @@
 package server.modell.card.spell;
 
-import model.Board;
+import server.modell.Board;
 import server.modell.card.UtilActions;
 
 public class Raigeki extends Spell {

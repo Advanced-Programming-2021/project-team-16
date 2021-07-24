@@ -1,6 +1,6 @@
 package server.controller;
 
-import server.MainServer;
+import server.view.MainServer;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

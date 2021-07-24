@@ -1,12 +1,11 @@
 package server.modell.card.monster;
 
-import controller.GameMenu;
-import model.Board;
+import server.modell.Board;
 import server.controller.GameServer;
 import server.modell.Game;
 import server.modell.card.Activatable;
 import server.modell.card.Card;
-import view.CommandProcessor;
+import client.view.CommandProcessor;
 
 
 public class HeraldOfCreation extends Monster implements Activatable {

@@ -1,8 +1,6 @@
 package server.modell;
 
 import javafx.scene.input.*;
-import model.Board;
-import model.Phase;
 import server.modell.card.Activatable;
 import server.modell.card.Card;
 import server.modell.card.monster.*;
@@ -11,8 +9,8 @@ import server.modell.card.spell.Spell;
 import server.modell.card.spell.SupplySquad;
 import server.modell.card.spell.fieldspells.FieldSpell;
 import server.modell.card.trap.*;
-import view.CommandProcessor;
-import view.Show;
+import client.view.CommandProcessor;
+import client.view.Show;
 
 import java.util.ArrayList;
 

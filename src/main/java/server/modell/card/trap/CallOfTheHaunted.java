@@ -1,13 +1,12 @@
 package server.modell.card.trap;
 
 
-import controller.GameMenu;
-import model.Board;
+import server.modell.Board;
 import server.controller.GameServer;
 import server.modell.Game;
 import server.modell.card.Activatable;
 import server.modell.card.monster.Monster;
-import view.CommandProcessor;
+import client.view.CommandProcessor;
 
 public class CallOfTheHaunted extends Trap implements Activatable {
     public CallOfTheHaunted() {

@@ -1,6 +1,6 @@
 package server.view;
 
-import model.Deck;
+import server.modell.Deck;
 import server.controller.MainMenuServer;
 import server.modell.User;
 import server.modell.card.Card;
