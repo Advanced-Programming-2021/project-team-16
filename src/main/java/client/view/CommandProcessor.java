@@ -177,11 +177,12 @@ public class CommandProcessor {
     }
 
     private static void profile() {
-        User user = MainMenuServer.getCurrentUser();
-        System.out.println("username: " + user.getUsername());
-        System.out.println("nick name: " + user.getNickname());
-        System.out.println("score: " + user.getScore());
-        System.out.println("money: " + user.getMoney());
+        System.out.println(Profile.showProfile());
+//        User user = MainMenuServer.getCurrentUser();
+//        System.out.println("username: " + user.getUsername());
+//        System.out.println("nick name: " + user.getNickname());
+//        System.out.println("score: " + user.getScore());
+//        System.out.println("money: " + user.getMoney());
         HashMap<String, String> data;
         for (String command = scanner.nextLine().trim(); !command.equals(Enums.ProfileCommands.EXIT.getRegex()); command = scanner.nextLine().trim()) {
             if (command.equals(Enums.ProfileCommands.SHOW_CURRENT.getRegex()))
