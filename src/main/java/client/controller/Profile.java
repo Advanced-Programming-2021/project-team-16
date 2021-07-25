@@ -5,33 +5,62 @@ import javafx.scene.paint.ImagePattern;
 import server.controller.MainMenuServer;
 import server.modell.User;
 
-public class Profile {
+import java.io.IOException;
 
+public class Profile {
+ public static String showProfile(){
+     String result;
+     try {
+         Login.dataOut.writeUTF("menu enter Profile");
+         Login.dataOut.flush();
+         result = Login.dataIn.readUTF();
+
+     } catch (IOException x) {
+         x.printStackTrace();
+         result = "show profile error";
+     }
+     return result;
+ }
     public static String changeUsername(String newUsername) {
-        if (newUsername.length() == 0) return "choose a username";
-        if (MainMenuServer.getCurrentUser().getUsername().equals(newUsername)) return "this is your current username";
-        if (User.getUserByUsername(newUsername) != null)
-            return "user with username " + newUsername + " already exists";
-        MainMenuServer.getCurrentUser().setUsername(newUsername);
-        return "username changed successfully!";
+        String result;
+        try {
+            Login.dataOut.writeUTF("profile change --username " + newUsername);
+            Login.dataOut.flush();
+            result = Login.dataIn.readUTF();
+
+        } catch (IOException x) {
+            x.printStackTrace();
+            result = "change username error";
+        }
+        return result;
     }
 
     public static String changeNickname(String newNickname) {
-        if (newNickname.length() == 0) return "choose a nickname";
-        if (MainMenuServer.getCurrentUser().getNickname().equals(newNickname)) return "this is your current nickname";
-        if (User.getUserByNickname(newNickname) != null)
-            return "user with nickname " + newNickname + " already exists";
-        MainMenuServer.getCurrentUser().setNickname(newNickname);
-        return "nickname changed successfully!";
+        String result;
+        try {
+            Login.dataOut.writeUTF("profile change --nickname " + newNickname);
+            Login.dataOut.flush();
+            result = Login.dataIn.readUTF();
+
+        } catch (IOException x) {
+            x.printStackTrace();
+            result = "change nickname error";
+        }
+        return result;
     }
 
     public static String changePassword(String currentPassword, String newPassword) {
-        User user = MainMenuServer.getCurrentUser();
-        if (!user.getPassword().equals(currentPassword)) return "current password is invalid";
-        if (newPassword.equals(currentPassword)) return "please enter a new password";
-        if (!User.getPasswordWeakness(newPassword).equals("strong")) return User.getPasswordWeakness(newPassword);
-        user.setPassword(newPassword);
-        return "password changed successfully!";
+        String result;
+        try {
+            Login.dataOut.writeUTF("profile change --password --current " + currentPassword + " --new " + newPassword);
+            Login.dataOut.flush();
+            result = Login.dataIn.readUTF();
+
+        } catch (IOException x) {
+            x.printStackTrace();
+            result = "change password error";
+        }
+        return result;
 
     }
 
