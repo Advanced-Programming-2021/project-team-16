@@ -80,59 +80,32 @@ public class Show {
         else Show.showCardArray(grave);
     }
 
-    public static void showMainDeck(String deckName) {
+    public static String showMainDeck(String deckName) {
+        String result;
+        try {
+            Login.dataOut.writeUTF("deck show --deck-name "+ deckName);
+            Login.dataOut.flush();
+            result = Login.dataIn.readUTF();
 
-        User user = MainMenuServer.getCurrentUser();
-        Deck userDeck = user.getDeckByName(deckName);
-        if (user.getDeckByName(deckName) != null) {
-            System.out.println("Deck: " + deckName);
-            System.out.println("Main deck:");
-            ArrayList<String> mainDeckCards = userDeck.getMainDeckCards();
-            ArrayList<Card> monsters = new ArrayList<>();
-            ArrayList<Card> spellAndTrap = new ArrayList<>();
-            for (String mainDeckCard : mainDeckCards) {
-
-                if (Card.getCardByName(mainDeckCard) instanceof Monster) monsters.add(Card.getCardByName(mainDeckCard));
-                else spellAndTrap.add(Card.getCardByName(mainDeckCard));
-            }
-            Card.sort(monsters);
-            System.out.println("Monsters:");
-            for (Card monster : monsters) {
-                System.out.println(monster.desToString());
-            }
-            System.out.println("Spell and Traps:");
-            for (Card card : spellAndTrap) {
-                System.out.println(card.desToString());
-            }
-        } else System.out.println("deck with name " + deckName + " does not exist");
-
+        } catch (IOException x) {
+            x.printStackTrace();
+            result = "show scoreboard error";
+        }
+        return result;
     }
 
-    public static void showSideDeck(String deckName) {
-        User user = MainMenuServer.getCurrentUser();
-        Deck userDeck = user.getDeckByName(deckName);
-        if (user.getDeckByName(deckName) != null) {
-            System.out.println("Deck: " + deckName);
-            System.out.println("Side deck:");
-            ArrayList<String> sideDeckCards = userDeck.getSideDeckCards();
-            ArrayList<Card> monsters = new ArrayList<>();
-            ArrayList<Card> spellAndTrap = new ArrayList<>();
-            for (String sideDeckCard : sideDeckCards) {
-                if (Card.getCardByName(sideDeckCard) instanceof Monster) monsters.add(Card.getCardByName(sideDeckCard));
-                else spellAndTrap.add(Card.getCardByName(sideDeckCard));
-            }
-            Card.sort(monsters);
-            Card.sort(spellAndTrap);
-            System.out.println("Monsters:");
-            for (Card monster : monsters) {
-                System.out.println(monster.desToString());
-            }
-            System.out.println("Spell and Traps:");
-            for (Card card : spellAndTrap) {
-                System.out.println(card.desToString());
-            }
-        } else System.out.println("deck with name " + deckName + " does not exist");
+    public static String showSideDeck(String deckName) {
+        String result;
+        try {
+            Login.dataOut.writeUTF("deck show --deck-name "+ deckName + " --side");
+            Login.dataOut.flush();
+            result = Login.dataIn.readUTF();
 
+        } catch (IOException x) {
+            x.printStackTrace();
+            result = "show scoreboard error";
+        }
+        return result;
     }
 
     public static void showAllDecks() {
@@ -140,53 +113,10 @@ public class Show {
         try {
             Login.dataOut.writeUTF("deck show --all");
 
-            //  Login.dataOut.flush();
-//                msg = scn.nextLine();
-//                Login.dataOut.writeUTF(msg);
-//
-//                result = Login.dataIn.readUTF();
-
         } catch (IOException x) {
             x.printStackTrace();
             result = "deck show error";
         }
-//        String validation;
-//        boolean hasActiveDeck = false;
-//        User user = MainMenuServer.getCurrentUser();
-//        ArrayList<Deck> userDecks = user.getDecks();
-//        System.out.println("Decks:");
-//        System.out.println("Active deck:");
-//        if (user.getActiveDeck() != null) {
-//            hasActiveDeck = true;
-//            Deck activeDeck = user.getActiveDeck();
-//            if (activeDeck.isMainDeckValid() && activeDeck.isDeckValid()) validation = "valid";
-//            else validation = "invalid";
-//            System.out.println(activeDeck.getName() + ":  main deck " + activeDeck.getMainDeckCards().size()
-//                    + ", side deck " + activeDeck.getSideDeckCards().size() + ", " + validation);
-//        }
-//        System.out.println("Other decks:");
-//        if (hasActiveDeck) {
-//            if (userDecks != null) {
-//                Deck.sort(userDecks);
-//                for (Deck userDeck : userDecks) {
-//                    if (userDeck == user.getActiveDeck()) continue;
-//                    if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
-//                    else validation = "invalid";
-//                    System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
-//                            ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
-//                }
-//            }
-//        } else {
-//            if (userDecks != null) {
-//                Deck.sort(userDecks);
-//                for (Deck userDeck : userDecks) {
-//                    if (userDeck.isMainDeckValid() && userDeck.isSideDeckValid()) validation = "valid";
-//                    else validation = "invalid";
-//                    System.out.println(userDeck.getName() + ": main deck " + userDeck.getMainDeckCards().size() +
-//                            ", side deck " + userDeck.getSideDeckCards().size() + ", " + validation);
-//                }
-//            }
-//        }
     }
 
     public static void showBoard() {
