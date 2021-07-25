@@ -60,7 +60,7 @@ public class MainServer {
                                 // i is used for naming only, and can be replaced
                                 // by any naming scheme
 
-                            } else if (received.startsWith("register") || received.startsWith("login") || received.startsWith("shop buy") || received.startsWith("scoreboard show") || received.startsWith("duel --new") || received.startsWith("deck create") || received.startsWith("deck add-card") || received.startsWith("deck set-activate") || received.startsWith("deck show --all")  ) {
+                            } else if (received.startsWith("register") || received.startsWith("login") || received.startsWith("shop buy") || received.startsWith("scoreboard show") || received.startsWith("duel --new") || received.startsWith("deck create") || received.startsWith("deck add-card") || received.startsWith("deck set-activate") || received.startsWith("deck show --all") || received.startsWith("menu enter Profile")|| received.startsWith("profile change --nickname") || received.startsWith("profile change --password") || received.startsWith("profile change --username")   ) {
                                 String result = process(received);
                                 if (result.equals("asgharrr")) break;
                                 dataOutputStream.writeUTF(result);
@@ -82,7 +82,6 @@ public class MainServer {
     }
 
     static String process(String command) {
-  //      Matcher matcher;
         HashMap<String, String> data;
         if (command.startsWith("register")) {
             String[] parts = command.split(" ");
@@ -117,6 +116,17 @@ public class MainServer {
             return DeckMenuServer.activate(parts[2]);
         }  else if (command.startsWith("deck show --all")) {
             return ShowServer.showAllDecks();
+        }  else if (command.startsWith("menu enter Profile")){
+            return ProfileServer.showProfile();
+        } else if (command.startsWith("profile change --nickname")){
+            String[] parts = command.split(" ");
+            return ProfileServer.changeNickname(parts[3]);
+        } else if (command.startsWith("profile change --password")){
+            String[] parts = command.split(" ");
+            return ProfileServer.changePassword(parts[4], parts[6]);
+        } else if (command.startsWith("profile change --username")) {
+            String[] parts = command.split(" ");
+            return ProfileServer.changeUsername(parts[3]);
         }
         return "";
     }
