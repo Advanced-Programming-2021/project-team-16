@@ -3,6 +3,7 @@ package server.controller;
 import server.modell.Deck;
 import server.modell.card.Card;
 import client.view.Show;
+import server.view.ShowServer;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -70,21 +71,21 @@ public class DeckMenuServer {
 
     }
 
-    public static String addCardToDeck(String cardName, String deckName, boolean isMain) {
+    public static String addCardToDeck(String cardName, String deckName, String isMainOrNot) {
         Card card = Card.getCardByName(cardName);
 
 
         if (!MainMenuServer.getCurrentUser().hasCard(cardName)) return "card with name " + cardName + " does not exist";
         if (MainMenuServer.getCurrentUser().getDeckByName(deckName) == null)
             return "deck with name " + deckName + " does not exist";
-        if (isMain) {
+        if (isMainOrNot.contains("Main")) {
             if (MainMenuServer.getCurrentUser().getDeckByName(deckName).MainIsFull()) return "main deck is full";
             if (MainMenuServer.getCurrentUser().getDeckByName(deckName).isLimited(card))
                 return "there are already three cards with name " + "\"" +cardName + "\"" + " in deck " + "\"" + deckName + "\"";
             assert card != null;
             MainMenuServer.getCurrentUser().getDeckByName(deckName).addCardToMainDeck(card);
             MainMenuServer.getCurrentUser().removeCard(card);
-        } else {
+        } else if (isMainOrNot.contains("Side")) {
             if (MainMenuServer.getCurrentUser().getDeckByName(deckName).SideIsFull()) return "side deck is full";
             if (MainMenuServer.getCurrentUser().getDeckByName(deckName).isLimited(card))
                 return "there are already three cards with name " + "\"" +cardName + "\"" + " in deck " + "\"" + deckName + "\"";
@@ -97,7 +98,7 @@ public class DeckMenuServer {
     }
 
 
-    public static String removeCardFromDeck(String cardName, String deckName, boolean isMain) {
+    public static String removeCardFromDeck(String cardName, String deckName, String isMainOrNot) {
         boolean flag = false;
         Card card = Card.getCardByName(cardName);
         Deck userDeck = MainMenuServer.getCurrentUser().getDeckByName(deckName);
@@ -106,7 +107,7 @@ public class DeckMenuServer {
         ArrayList<String> mainDeckCards = userDeck.getMainDeckCards();
         ArrayList<String> sideDeckCards = userDeck.getSideDeckCards();
 
-        if (isMain) {
+        if (isMainOrNot.startsWith("Main")) {
             for (String mainDeckCard : mainDeckCards) {
                 if (Card.getCardByName(mainDeckCard) == card) {
                     flag = true;
@@ -116,7 +117,7 @@ public class DeckMenuServer {
             if (!flag) return "card with name " + cardName + " does not exist in main deck";
             MainMenuServer.getCurrentUser().getDeckByName(deckName).removeCardFromMain(card);
             MainMenuServer.getCurrentUser().getCards().add(card);
-        } else {
+        } else  if (isMainOrNot.startsWith("Side")){
             for (String sideDeckCard : sideDeckCards) {
                 if (Card.getCardByName(sideDeckCard) == card) {
                     flag = true;
@@ -129,12 +130,13 @@ public class DeckMenuServer {
         }
         return "card removed form deck successfully";
     }
-        public static void showUsersCards() {
+        public static String showUsersCards() {
             ArrayList<Card> userCards = MainMenuServer.getCurrentUser().getCards();
             if (userCards != null) {
                 Card.sort(userCards);
-                Show.showCardArray(userCards);
+                ShowServer.showCardArray(userCards);
             }
+            return"done!";
         }
 
         public static String menuName () {
