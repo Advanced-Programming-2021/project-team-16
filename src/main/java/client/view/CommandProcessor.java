@@ -138,16 +138,16 @@ public class CommandProcessor {
                     System.out.println(DeckMenu.delete(matcher.group(1)));
             } else if ((getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_SIDE.getRegex())).find()) {
                 data = getCommandData(command);
-                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), false));
+                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), "Side"));
             } else if ((getCommandMatcher(command, Enums.DeckMenuCommands.ADD_CARD_TO_MAIN.getRegex())).find()) {
                 data = getCommandData(command);
-                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), true));
+                System.out.println(DeckMenu.addCardToDeck(data.get("card"), data.get("deck"), "Main"));
             } else if ((getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_SIDE.getRegex())).find()) {
                 data = getCommandData(command);
-                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), false));
+                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), "Side"));
             } else if ((getCommandMatcher(command, Enums.DeckMenuCommands.RM_CARD_FROM_MAIN.getRegex())).find()) {
                 data = getCommandData(command);
-                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), true));
+                System.out.println(DeckMenu.removeCardFromDeck(data.get("card"), data.get("deck"), "Main"));
             } else if (command.matches(Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex())) {
                 matcher = getCommandMatcher(command, Enums.DeckMenuCommands.SET_ACTIVE_DECK.getRegex());
                 if (matcher.find())
@@ -163,7 +163,7 @@ public class CommandProcessor {
                 if (matcher.find())
                     Show.showSideDeck(matcher.group(1).toLowerCase(Locale.ROOT));
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_DECK_CARDS.getRegex())) {
-                DeckMenu.showUsersCards();
+                System.out.println(DeckMenu.showUsersCards());
             } else if (command.equals(Enums.DeckMenuCommands.SHOW_CURRENT.getRegex())) {
                 System.out.println(DeckMenu.menuName());
             } else if (command.matches(Enums.DeckMenuCommands.ENTER_MENU.getRegex()))
