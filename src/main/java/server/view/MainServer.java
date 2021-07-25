@@ -1,5 +1,6 @@
 package server.view;
 
+import client.controller.TV;
 import server.controller.*;
 import server.modell.User;
 import server.view.ShowServer;
@@ -76,7 +77,8 @@ public class MainServer {
                                        received.startsWith("deck delete") ||
                                        received.startsWith("deck rm-card") ||
                                        received.startsWith("deck show --cards") ||
-                                       received.startsWith("deck show") ) {
+                                       received.startsWith("deck show") ||
+                                       received.startsWith("show TV") ) {
 
                                 String result = process(received);
                                 if (result.equals("asgharrr")) break;
@@ -163,6 +165,8 @@ public class MainServer {
             return ShowServer.showSideDeck(parts[3]);
         }else if (command.startsWith("deck show --cards")) {
                return DeckMenuServer.showUsersCards();
+        }else if (command.startsWith("show TV")) {
+            return TVServer.TV();
         }
         return "";
     }

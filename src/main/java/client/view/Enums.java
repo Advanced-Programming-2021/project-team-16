@@ -224,7 +224,23 @@ public class Enums {
 
     }
 
+    public enum TV {
+        TV("show TV"),
+        SHOW_CURRENT("menu show-current"),
+        ENTER_MENU("menu enter (.*)"),
+        EXIT("menu exit");
 
+        String regex;
+
+        public String getRegex() {
+            return regex;
+        }
+
+        TV(String regex) {
+            this.regex = regex;
+        }
+
+    }
     public static final String SCOREBOARD_HELP = """
             scoreboard show
             menu show-current

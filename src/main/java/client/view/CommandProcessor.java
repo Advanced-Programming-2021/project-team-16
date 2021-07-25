@@ -85,6 +85,7 @@ public class CommandProcessor {
                         case "Profile" -> profile();
                         case "Shop" -> shop();
                         case "ChatRoom" -> chatRoom();
+                        case "TV" ->TV();
                       //  case "ChatRoom2" -> chatRoom2();
                         case "Import/Export" -> importExportMenu();
                         default -> System.out.println("invalid command");
@@ -366,6 +367,23 @@ public class CommandProcessor {
         }
     }
 
+    public static void TV() {
+        for (String command = scanner.nextLine().trim(); !command.equals(Enums.TV.EXIT.getRegex());
+             command = scanner.nextLine().trim()) {
+            if (command.equals(Enums.TV.TV.getRegex())) {
+                System.out.println(TV.TV());
+//                command = scanner.nextLine().trim();
+//                String result = ChatRoom.showChatRoom(command);
+//                System.out.print(result + "\n");
+            }
+            else if (command.equals(Enums.TV.SHOW_CURRENT.getRegex()))
+                System.out.println(TV.menuName());///////////////////////////////////////////
+            else if (command.matches(Enums.TV.ENTER_MENU.getRegex()))
+                System.out.println("menu navigation is not possible");
+            else if (command.equals("help")) System.out.println(Enums.SCOREBOARD_HELP);
+            else System.out.println("invalid command");
+        }
+    }
 
 
 
