@@ -1,11 +1,13 @@
 package server.view;
 
+import client.controller.Login;
 import server.modell.Deck;
 import server.controller.MainMenuServer;
 import server.modell.User;
 import server.modell.card.Card;
 import server.modell.card.monster.Monster;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ShowServer {
@@ -15,6 +17,58 @@ public class ShowServer {
         for (Card card : cards) {
             System.out.println(card.getName() + ":" + card.getPrice());
         }
+    }
+    public static String showMainDeck(String deckName) {
+        User user = MainMenuServer.getCurrentUser();
+        Deck userDeck = user.getDeckByName(deckName);
+        if (user.getDeckByName(deckName) != null) {
+            System.out.println("Deck: " + deckName);
+            System.out.println("Main deck:");
+            ArrayList<String> mainDeckCards = userDeck.getMainDeckCards();
+            ArrayList<Card> monsters = new ArrayList<>();
+            ArrayList<Card> spellAndTrap = new ArrayList<>();
+            for (String mainDeckCard : mainDeckCards) {
+
+                if (Card.getCardByName(mainDeckCard) instanceof Monster) monsters.add(Card.getCardByName(mainDeckCard));
+                else spellAndTrap.add(Card.getCardByName(mainDeckCard));
+            }
+            Card.sort(monsters);
+            System.out.println("Monsters:");
+            for (Card monster : monsters) {
+                System.out.println(monster.desToString());
+            }
+            System.out.println("Spell and Traps:");
+            for (Card card : spellAndTrap) {
+                System.out.println(card.desToString());
+            }
+        } else System.out.println("deck with name " + deckName + " does not exist");
+           return "show main deck successful!";
+    }
+    public static String showSideDeck(String deckName) {
+        User user = MainMenuServer.getCurrentUser();
+        Deck userDeck = user.getDeckByName(deckName);
+        if (user.getDeckByName(deckName) != null) {
+            System.out.println("Deck: " + deckName);
+            System.out.println("Side deck:");
+            ArrayList<String> sideDeckCards = userDeck.getSideDeckCards();
+            ArrayList<Card> monsters = new ArrayList<>();
+            ArrayList<Card> spellAndTrap = new ArrayList<>();
+            for (String sideDeckCard : sideDeckCards) {
+                if (Card.getCardByName(sideDeckCard) instanceof Monster) monsters.add(Card.getCardByName(sideDeckCard));
+                else spellAndTrap.add(Card.getCardByName(sideDeckCard));
+            }
+            Card.sort(monsters);
+            Card.sort(spellAndTrap);
+            System.out.println("Monsters:");
+            for (Card monster : monsters) {
+                System.out.println(monster.desToString());
+            }
+            System.out.println("Spell and Traps:");
+            for (Card card : spellAndTrap) {
+                System.out.println(card.desToString());
+            }
+        } else System.out.println("deck with name " + deckName + " does not exist");
+        return "show side deck successful!";
     }
 
     public static void showCardArray(ArrayList<Card> cards) {
