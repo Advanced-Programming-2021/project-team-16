@@ -4,7 +4,7 @@ import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
-import view.CommandProcessor;
+import consoleView.CommandProcessor;
 
 public class MagicJammer extends Trap {
     public MagicJammer() {

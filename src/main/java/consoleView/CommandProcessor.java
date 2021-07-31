@@ -1,8 +1,8 @@
-package view;
+package consoleView;
 
 import controller.*;
-import graphicview.GraphicUtils;
-import graphicview.LoginMenu;
+import graphicView.GraphicUtils;
+import graphicView.LoginMenu;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

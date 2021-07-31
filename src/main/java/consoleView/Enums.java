@@ -1,4 +1,4 @@
-package view;
+package consoleView;
 
 public class Enums {
 

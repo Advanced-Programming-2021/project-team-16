@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 import controller.UpdateStatus;
 import javafx.application.Application;

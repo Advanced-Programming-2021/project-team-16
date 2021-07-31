@@ -6,10 +6,10 @@ module YuGiOh {
 
 
 
-    opens graphicview to javafx.fxml;
+    opens graphicView to javafx.fxml;
     opens model.person to com.google.gson;
     opens model to com.google.gson;
-    exports graphicview;
+    exports graphicView;
     exports model;
     exports model.person;
     exports model.card;
@@ -17,5 +17,5 @@ module YuGiOh {
     exports model.card.spell;
     exports model.card.spell.fieldspells;
     exports model.card.trap;
-    exports view;
+    exports consoleView;
 }

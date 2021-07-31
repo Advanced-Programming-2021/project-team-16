@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 import controller.MainMenu;
 import javafx.event.ActionEvent;

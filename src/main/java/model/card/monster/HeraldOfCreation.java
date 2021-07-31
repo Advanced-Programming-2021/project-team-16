@@ -5,7 +5,7 @@ import model.Board;
 import model.Game;
 import model.card.Activatable;
 import model.card.Card;
-import view.CommandProcessor;
+import consoleView.CommandProcessor;
 
 
 public class HeraldOfCreation extends Monster implements Activatable {

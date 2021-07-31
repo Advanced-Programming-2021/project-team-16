@@ -4,7 +4,7 @@ import controller.GameMenu;
 import model.Board;
 import model.Game;
 import model.card.Card;
-import view.CommandProcessor;
+import consoleView.CommandProcessor;
 
 import java.util.ArrayList;
 

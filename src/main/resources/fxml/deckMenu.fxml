@@ -1,30 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.DeckMenu">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.DeckMenu">
     <children>
-        <Button layoutX="210.0" layoutY="158.0" mnemonicParsing="false" onAction="#onAction" prefHeight="57.0" prefWidth="179.0" style="-fx-background-color: #ffffff; -fx-border-color: #78a7fd;" text="Show all decks">
+      <ImageView fitHeight="647.0" fitWidth="600.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../png/texture/c019f33dc1119198a927b829b1896753.jpg" />
+         </image>
+      </ImageView>
+        <Button layoutX="222.0" layoutY="152.0" mnemonicParsing="false" onAction="#onAction" prefHeight="48.0" prefWidth="179.0" style="-fx-background-color: #827b9e; -fx-border-color: #78a7fd;" text="Show all decks" textFill="#0a3359">
          <font>
-            <Font name="MT Extra" size="21.0" />
+            <Font name="Script MT Bold" size="24.0" />
          </font></Button>
-        <Button layoutX="212.0" layoutY="257.0" mnemonicParsing="false" onAction="#createOnAction" prefHeight="48.0" prefWidth="179.0" style="-fx-border-color: #78a7fd; -fx-background-color: #ffffff;" text="create new deck">
+        <Button layoutX="222.0" layoutY="259.0" mnemonicParsing="false" onAction="#createOnAction" prefHeight="48.0" prefWidth="179.0" style="-fx-border-color: #738594; -fx-background-color: #827b9e;" text="create new deck" textFill="#0a3359">
          <font>
-            <Font name="MT Extra" size="20.0" />
+            <Font name="Script MT Bold" size="24.0" />
          </font></Button>
-        <Button layoutX="503.0" layoutY="351.0" mnemonicParsing="false" onAction="#enterMainMenu" style="-fx-background-color: #78a7fd; -fx-border-color: #ffffff;" text="Back" textFill="WHITE">
+        <Button layoutX="222.0" layoutY="362.0" mnemonicParsing="false" onAction="#enterMainMenu" prefHeight="48.0" prefWidth="179.0" style="-fx-background-color: #0a3359; -fx-border-color: #0a3359;" text="Back" textFill="#827b9e">
          <font>
-            <Font name="MT Extra" size="15.0" />
+            <Font name="Script MT Bold" size="25.0" />
          </font></Button>
-      <ImageView fitHeight="59.0" fitWidth="315.0" layoutX="116.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="59.0" fitWidth="315.0" layoutX="64.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../png/texture/GUI_T_EventPageTitleLine.dds.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="57.0" fitWidth="158.0" layoutX="246.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="57.0" fitWidth="158.0" layoutX="163.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../png/texture/deckmanu.png" />
          </image>

@@ -6,7 +6,7 @@ import model.Game;
 import model.card.Activatable;
 import model.card.Card;
 import model.person.Player;
-import view.CommandProcessor;
+import consoleView.CommandProcessor;
 
 import java.util.ArrayList;
 

@@ -1,8 +1,8 @@
 package controller;
 
-import graphicview.GameView;
-import graphicview.GraphicUtils;
-import graphicview.LoginMenu;
+import graphicView.GameView;
+import graphicView.GraphicUtils;
+import graphicView.LoginMenu;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.geometry.Pos;

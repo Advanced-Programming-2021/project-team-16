@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 import controller.Profile;
 import javafx.fxml.FXMLLoader;

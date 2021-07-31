@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 import controller.GameMenu;
 import javafx.collections.FXCollections;
@@ -50,6 +50,6 @@ public class DuelMenu {
     }
 
     public void enterMainMenu() throws IOException {
-        graphicview.MainMenu.enterMenu();
+        graphicView.MainMenu.enterMenu();
     }
 }

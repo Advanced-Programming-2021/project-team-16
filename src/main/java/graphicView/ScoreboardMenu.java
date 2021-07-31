@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 import controller.MainMenu;
 import javafx.fxml.FXMLLoader;
@@ -57,6 +57,6 @@ public class ScoreboardMenu {
 
 
     public void enterMainMenu() throws IOException {
-        graphicview.MainMenu.enterMenu();
+        graphicView.MainMenu.enterMenu();
     }
 }

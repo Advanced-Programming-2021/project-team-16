@@ -1,7 +1,7 @@
 package model.card;
 
 import controller.GameMenu;
-import graphicview.GraphicUtils;
+import graphicView.GraphicUtils;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
@@ -22,7 +22,7 @@ import model.card.spell.fieldspells.ClosedForest;
 import model.card.spell.fieldspells.FieldSpell;
 import model.card.trap.*;
 import model.person.Player;
-import view.Show;
+import consoleView.Show;
 
 import java.util.ArrayList;
 import java.util.Collections;

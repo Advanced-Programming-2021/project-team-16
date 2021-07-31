@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER_LEFT" hgap="10" prefHeight="618.0" prefWidth="474.0" vgap="5" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.ScoreboardMenu">
+<GridPane alignment="CENTER_LEFT" hgap="10" prefHeight="618.0" prefWidth="474.0" vgap="5" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicView.ScoreboardMenu">
     <Label style="-fx-font: 15 arial;" text="rate" textFill="WHITE" GridPane.columnIndex="0" GridPane.rowIndex="0">
       <font>
          <Font name="Script MT Bold" size="11.0" />

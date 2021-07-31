@@ -3,7 +3,7 @@ package model.card.spell;
 import controller.GameMenu;
 import model.card.UtilActions;
 import model.person.Player;
-import view.CommandProcessor;
+import consoleView.CommandProcessor;
 
 public class SupplySquad extends Spell {
     Player owner;

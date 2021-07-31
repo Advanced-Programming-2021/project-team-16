@@ -1,7 +1,7 @@
 package model.person;
 
 import controller.GameMenu;
-import graphicview.GameView;
+import graphicView.GameView;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.scene.paint.Color;

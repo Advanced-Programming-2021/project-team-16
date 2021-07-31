@@ -5,7 +5,7 @@ import model.Board;
 import model.Game;
 import model.card.Card;
 import model.card.spell.fieldspells.FieldSpell;
-import view.CommandProcessor;
+import consoleView.CommandProcessor;
 
 import java.util.ArrayList;
 

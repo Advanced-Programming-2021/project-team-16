@@ -1,7 +1,7 @@
 package model;
 
 import controller.GameMenu;
-import graphicview.GameView;
+import graphicView.GameView;
 import model.card.Card;
 import model.card.monster.Monster;
 import model.card.spell.fieldspells.FieldSpell;

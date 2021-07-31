@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 import controller.GameMenu;
 import controller.MainMenu;
@@ -33,8 +33,8 @@ import model.card.Card;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
-import view.Enums;
-import view.Show;
+import consoleView.Enums;
+import consoleView.Show;
 
 import java.io.IOException;
 import java.util.regex.Matcher;

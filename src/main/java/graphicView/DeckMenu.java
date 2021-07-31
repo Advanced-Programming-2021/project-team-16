@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 import controller.MainMenu;
 import javafx.event.ActionEvent;
@@ -56,7 +56,7 @@ public class DeckMenu {
 
     }
     public void enterMainMenu() throws IOException {
-        graphicview.MainMenu.enterMenu();
+        graphicView.MainMenu.enterMenu();
     }
     public  void showAllDecks() {
         backButton.setOnMouseClicked(this::deckBack);
@@ -73,7 +73,7 @@ public class DeckMenu {
             hasActiveDeck = true;
             Deck activeDeck = user.getActiveDeck();
             ActiveDeck = new Button("  " + activeDeck.getName());
-            ActiveDeck.setStyle("-fx-background-color: #b9acac; ");
+            ActiveDeck.setStyle("-fx-background-color: #d72a7b; ");
             ActiveDeck.setOnAction(e -> {
                 try {
                      decksName[0] = ActiveDeck.getText();
@@ -91,10 +91,10 @@ public class DeckMenu {
             });
 
             ActiveDeck.setOnMouseEntered(me -> ActiveDeck.setStyle("-fx-text-fill: #37385d;"+
-                     "-fx-background-color:#b9acac;"));
+                     "-fx-background-color:#d72a7b;"));
 
             ActiveDeck.setOnMouseExited(me -> ActiveDeck.setStyle("-fx-text-fill: black;" +
-                    "-fx-background-color:#b9acac;"));
+                    "-fx-background-color:#d72a7b;"));
 
             decks.add(ActiveDeck,0,1);
             Main = new Label(String.valueOf(activeDeck.getMainDeckCards().size()));
@@ -117,7 +117,7 @@ public class DeckMenu {
                         continue;
                     }
                     OtherDecks = new Button("  " + userDecks.get(j).getName());
-                    OtherDecks.setStyle("-fx-background-color: #b9acac; ");
+                    OtherDecks.setStyle("-fx-background-color: #d72a7b; ");
                     Button finalOtherDecks = OtherDecks;
                     OtherDecks.setOnAction(e -> {
                         try {
@@ -133,9 +133,9 @@ public class DeckMenu {
                         }
                     });
                     OtherDecks.setOnMouseEntered(me -> finalOtherDecks.setStyle("-fx-text-fill: #37385d;"+
-                            "-fx-background-color:#b9acac;"));
+                            "-fx-background-color:#d72a7b;"));
                     OtherDecks.setOnMouseExited(me -> finalOtherDecks.setStyle("-fx-text-fill: black;" +
-                            "-fx-background-color:#b9acac;"));
+                            "-fx-background-color:#d72a7b;"));
                     Main = new Label(String.valueOf(userDecks.get(j).getMainDeckCards().size()));
                     Side = new Label(String.valueOf(userDecks.get(j).getSideDeckCards().size()));
                     decks.add(OtherDecks,0,i+3);

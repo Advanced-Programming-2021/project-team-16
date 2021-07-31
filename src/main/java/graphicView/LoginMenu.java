@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 
 import controller.Login;
@@ -15,7 +15,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import view.CommandProcessor;
+import consoleView.CommandProcessor;
 
 import java.io.IOException;
 
@@ -76,6 +76,6 @@ public class LoginMenu extends Application {
         loginError.setText(result);
 //        loginError.setTextFill(Color.DARKRED);
         loginError.setStyle("-fx-background-color: #d72a7b;");
-        if (result.contains("success")) graphicview.MainMenu.enterMenu();
+        if (result.contains("success")) graphicView.MainMenu.enterMenu();
     }
 }

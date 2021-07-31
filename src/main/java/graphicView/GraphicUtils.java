@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;

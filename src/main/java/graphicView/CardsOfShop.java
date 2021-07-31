@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 public class CardsOfShop {
     private String name;

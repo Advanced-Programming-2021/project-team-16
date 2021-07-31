@@ -2,7 +2,7 @@ package controller;
 
 import model.Deck;
 import model.card.Card;
-import view.Show;
+import consoleView.Show;
 
 import java.util.ArrayList;
 import java.util.Locale;

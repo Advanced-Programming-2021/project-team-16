@@ -1,6 +1,6 @@
 package model;
 
-import graphicview.GameView;
+import graphicView.GameView;
 import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
@@ -17,8 +17,8 @@ import model.card.trap.*;
 import model.person.AI;
 import model.person.Player;
 import model.person.User;
-import view.CommandProcessor;
-import view.Show;
+import consoleView.CommandProcessor;
+import consoleView.Show;
 
 import java.util.ArrayList;
 

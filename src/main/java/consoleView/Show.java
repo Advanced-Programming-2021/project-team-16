@@ -1,4 +1,4 @@
-package view;
+package consoleView;
 
 import controller.GameMenu;
 import controller.MainMenu;

@@ -1,7 +1,7 @@
 package model.card.spell.fieldspells;
 
 import controller.GameMenu;
-import graphicview.GraphicUtils;
+import graphicView.GraphicUtils;
 import javafx.scene.layout.Background;
 import model.Board;
 import model.Game;

@@ -1,7 +1,7 @@
 package controller;
 
 import model.person.User;
-import view.Show;
+import consoleView.Show;
 
 public class Scoreboard {
     public static void showScoreboard() {

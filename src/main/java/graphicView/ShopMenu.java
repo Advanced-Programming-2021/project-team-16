@@ -1,4 +1,4 @@
-package graphicview;
+package graphicView;
 
 import controller.MainMenu;
 import controller.Shop;
@@ -48,7 +48,7 @@ public class ShopMenu {
         try {
             FXMLLoader loader = new FXMLLoader(DeckMenu.class.getResource("/fxml/shop.fxml"));
             Parent root = loader.load();
-            ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/texture/GUI_T_Detail_ComboBase01.dds14.png"));
+            ((GridPane) root).setBackground(GraphicUtils.getBackground("/png/shop/cardList.jpg"));
             Stage stage = LoginMenu.getMainStage();
             LoginMenu.getMainStage().setScene(new Scene(root));
             stage.getScene().setOnKeyPressed(keyEvent -> {
@@ -212,7 +212,7 @@ public class ShopMenu {
     }
 
     public void enterMainMenu() throws IOException {
-        graphicview.MainMenu.enterMenu();
+        graphicView.MainMenu.enterMenu();
     }
 
     public void enterMenu1(MouseEvent mouseEvent) {

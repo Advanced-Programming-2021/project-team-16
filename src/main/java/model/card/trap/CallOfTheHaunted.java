@@ -6,7 +6,7 @@ import model.Board;
 import model.Game;
 import model.card.Activatable;
 import model.card.monster.Monster;
-import view.CommandProcessor;
+import consoleView.CommandProcessor;
 
 public class CallOfTheHaunted extends Trap implements Activatable {
     public CallOfTheHaunted() {

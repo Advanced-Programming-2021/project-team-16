@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 <GridPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="800.0" prefWidth="1100.0" style="-fx-font: 15 arial;"
-          xmlns="http://javafx.com/javafx/11.0.1" fx:controller="graphicview.GameView">
+          xmlns="http://javafx.com/javafx/11.0.1" fx:controller="graphicView.GameView">
 
     <VBox alignment="CENTER" minWidth="280" style="-fx-background-color: #1546a2;" GridPane.columnIndex="0"
           GridPane.rowIndex="0" GridPane.rowSpan="10">
