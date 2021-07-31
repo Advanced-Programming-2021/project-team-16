@@ -1,15 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="933.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="933.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ScrollPane hbarPolicy="NEVER" layoutX="207.0" layoutY="126.0" prefHeight="375.0" prefWidth="518.0" style="-fx-background-color: #ffffff;">
+      <ImageView fitHeight="554.0" fitWidth="933.0" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@../png/texture/5844a29a9ccb0bca826058066acbb10126f1c402.jpg" />
+         </image>
+      </ImageView>
+        <ScrollPane hbarPolicy="NEVER" layoutX="210.0" layoutY="226.0" opacity="0.81" prefHeight="306.0" prefWidth="512.0" style="-fx-background-color: #ffffff;">
             <content>
-                <GridPane fx:id="decks" prefHeight="522.0" prefWidth="501.0" style="-fx-background-color: #ffffff;">
+                <GridPane fx:id="decks" focusTraversable="true" prefHeight="522.0" prefWidth="501.0" style="-fx-background-color: #a3a7b7;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="210.0" minWidth="10.0" prefWidth="212.2" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="125.0" minWidth="10.0" prefWidth="150.2" />
@@ -42,12 +53,12 @@
                         <RowConstraints minHeight="10.0" prefHeight="45.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <Label fx:id="activeD" text="active deck:" textFill="#8ab7ff" visible="false">
+                        <Label fx:id="activeD" text="active deck:" textFill="#2e4659" visible="false">
                             <font>
                                 <Font name="System Bold" size="18.0" />
                             </font>
                         </Label>
-                        <Label fx:id="otherD" text="other decks:" textFill="#2875de" visible="false" GridPane.rowIndex="2">
+                        <Label fx:id="otherD" text="other decks:" textFill="#0a3359" visible="false" GridPane.rowIndex="2">
                             <font>
                                 <Font name="System Bold" size="17.0" />
                             </font>
@@ -56,17 +67,17 @@
                 </GridPane>
             </content>
         </ScrollPane>
-        <Label layoutX="391.0" layoutY="109.0" text="Main Cards" textFill="WHITE">
+        <Label layoutX="388.0" layoutY="203.0" prefHeight="22.0" prefWidth="78.0" style="-fx-background-color: #99afc1;" text="Main Cards" textFill="#0a3359">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="Script MT Bold" size="16.0" />
          </font></Label>
-        <Label layoutX="516.0" layoutY="109.0" text="Side Cards" textFill="WHITE">
+        <Label layoutX="498.0" layoutY="203.0" style="-fx-background-color: #99afc1;" text="Side Cards" textFill="#0a3359">
          <font>
-            <Font name="System Bold" size="15.0" />
+            <Font name="Script MT Bold" size="17.0" />
          </font></Label>
-        <Button fx:id="backButton" layoutX="853.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-color: #78a7fd; -fx-border-color: #ffffff;" text="Back" textFill="WHITE">
+        <Button fx:id="backButton" layoutX="829.0" layoutY="489.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="78.0" style="-fx-background-color: #0a3359; -fx-border-color: #ffffff;" text="Back" textFill="#b9acac">
          <font>
-            <Font name="MT Extra" size="15.0" />
+            <Font name="Script MT Bold" size="20.0" />
          </font></Button>
       <ImageView fitHeight="73.0" fitWidth="356.0" layoutX="273.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -36,7 +36,7 @@ public class ProfileMenu {
     }
 
     private void showProfileInformation() {
-        changeAvatarExplanation.setText("Put your picture in:\n resource/png/profile");
+       // changeAvatarExplanation.setText("Put your avatar");
         User user = controller.MainMenu.getCurrentUser();
         nickname.setText("nickname : " + user.getNickname());
         username.setText("username : " + user.getUsername());

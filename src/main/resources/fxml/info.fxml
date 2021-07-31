@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.EditDeck">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="graphicview.EditDeck">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="28.0" prefWidth="280.0" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -27,7 +34,7 @@
                 <RowConstraints maxHeight="170.0" minHeight="10.0" prefHeight="70.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <GridPane fx:id="mainBoard" prefHeight="452.0" prefWidth="609.0" style="-fx-background-color: #8e59f8;">
+                <GridPane fx:id="mainBoard" prefHeight="452.0" prefWidth="609.0" style="-fx-background-color: #185576;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -49,7 +56,7 @@
                         <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                 </GridPane>
-                <GridPane fx:id="sideBoard" prefHeight="182.0" prefWidth="606.0" style="-fx-background-color: #3744d5;" GridPane.rowIndex="1">
+                <GridPane fx:id="sideBoard" prefHeight="182.0" prefWidth="606.0" style="-fx-background-color: #103351;" GridPane.rowIndex="1">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -69,17 +76,21 @@
                 </GridPane>
             </children>
         </GridPane>
-        <VBox fx:id="vBox1" maxHeight="742.0" minHeight="640.0" prefHeight="648.0" prefWidth="273.0" style="-fx-background-color: #1546a2;" GridPane.rowIndex="1">
+        <VBox fx:id="vBox1" maxHeight="742.0" minHeight="640.0" prefHeight="648.0" prefWidth="273.0" style="-fx-background-color: #37385D;" GridPane.rowIndex="1">
             <children>
             <AnchorPane prefHeight="579.0" prefWidth="324.0">
                <children>
+                  <ImageView fitHeight="640.0" fitWidth="279.0" pickOnBounds="true" preserveRatio="true" />
                   <ImageView fitHeight="410.0" fitWidth="380.0" layoutX="-56.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../png/texture/EFF_DUEL_DRAW_CARD_TEX.png" />
                      </image>
                   </ImageView>
-                      <Rectangle fx:id="selectedCard" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="284.0" layoutX="39.0" layoutY="58.0" stroke="BLACK" strokeType="INSIDE" width="188.0" />
-                      <Label fx:id="selectedCardDescription" layoutX="7.0" layoutY="406.0" prefHeight="196.0" prefWidth="279.0" text="no card is selected yet." textFill="WHITE" wrapText="true" />
+                      <Rectangle fx:id="selectedCard" arcHeight="5.0" arcWidth="5.0" fill="#103351" height="284.0" layoutX="39.0" layoutY="58.0" stroke="BLACK" strokeType="INSIDE" width="188.0" />
+                      <Label fx:id="selectedCardDescription" layoutX="7.0" layoutY="406.0" prefHeight="196.0" prefWidth="279.0" text="no card is selected yet." textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Segoe Print" size="12.0" />
+                     </font></Label>
                </children>
             </AnchorPane>
                 <HBox prefHeight="134.0" prefWidth="280.0">
@@ -96,7 +107,10 @@
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#removeBtnOnAction" prefHeight="32.0" prefWidth="102.0" text="remove" visible="false" GridPane.rowIndex="1" />
+                                        <Button fx:id="removeBtn" mnemonicParsing="false" onAction="#removeBtnOnAction" prefHeight="32.0" prefWidth="102.0" style="-fx-background-color: #a3a7b7;" text="remove" textFill="#0a3359" visible="false" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="Script MT Bold" size="17.0" />
+                                 </font></Button>
                                     </children>
                                 </GridPane>
                             </children>
@@ -105,15 +119,20 @@
                 </HBox>
             </children>
         </VBox>
-        <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #2470f2;" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <VBox prefHeight="630.0" prefWidth="530.0" style="-fx-background-color: #232530;" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <children>
-                <HBox prefHeight="550.0" prefWidth="600.0">
+                <HBox prefHeight="470.0" prefWidth="584.0">
                     <children>
                         <VBox alignment="TOP_RIGHT" prefHeight="420.0" prefWidth="532.0">
                             <children>
                                 <AnchorPane prefHeight="472.0" prefWidth="528.0">
                                     <children>
-                                        <Rectangle fx:id="avatar" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="181.0" layoutX="170.0" layoutY="47.0" stroke="BLACK" strokeType="INSIDE" width="169.0" />
+                              <ImageView fitHeight="470.0" fitWidth="527.0" pickOnBounds="true" smooth="false">
+                                 <image>
+                                    <Image url="@../png/texture/ad3eb1c3e507d6407564b4e2ec12e883.jpg" />
+                                 </image>
+                              </ImageView>
+                                        <Rectangle fx:id="avatar" arcHeight="5.0" arcWidth="5.0" fill="#0a3359" height="181.0" layoutX="170.0" layoutY="47.0" stroke="BLACK" strokeType="INSIDE" width="169.0" />
                                         <Label fx:id="dName" alignment="CENTER" layoutX="178.0" layoutY="377.0" prefHeight="30.0" prefWidth="154.0" textAlignment="CENTER" textFill="#0c3474">
                                             <font>
                                                 <Font name="System Bold" size="20.0" />
@@ -158,7 +177,7 @@
                                 </AnchorPane>
                             </children>
                         </VBox>
-                        <VBox prefHeight="471.0" prefWidth="86.0" style="-fx-background-color: #8e59f8;" />
+                        <VBox prefHeight="471.0" prefWidth="86.0" style="-fx-background-color: #185576;" />
                     </children>
                 </HBox>
                 <HBox prefHeight="250.0" prefWidth="610.0">
@@ -167,18 +186,30 @@
                             <children>
                                 <AnchorPane prefHeight="200.0" prefWidth="200.0">
                                     <children>
-                                        <Button fx:id="setActiveBtn" layoutX="202.0" layoutY="112.0" mnemonicParsing="false" onAction="#setActiveBtnOnAction" prefHeight="38.0" prefWidth="103.0" text="set Active" />
-                                        <Button fx:id="addCardBtn" layoutX="68.0" layoutY="70.0" mnemonicParsing="false" onAction="#AddCardBtnOnAction" prefHeight="30.0" prefWidth="94.0" text="Add Card" />
-                                        <Button fx:id="deleteBtn" layoutX="357.0" layoutY="70.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" prefHeight="30.0" prefWidth="94.0" text="Delete" />
+                                        <Button fx:id="setActiveBtn" layoutX="199.0" layoutY="66.0" mnemonicParsing="false" onAction="#setActiveBtnOnAction" prefHeight="38.0" prefWidth="103.0" style="-fx-background-color: #a3a7b7;" text="set Active" textFill="#0a3359">
+                                 <font>
+                                    <Font name="Script MT Bold" size="17.0" />
+                                 </font></Button>
+                                        <Button fx:id="addCardBtn" layoutX="39.0" layoutY="14.0" mnemonicParsing="false" onAction="#AddCardBtnOnAction" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #a3a7b7;" text="Add Card" textFill="#0a3359">
+                                 <font>
+                                    <Font name="Script MT Bold" size="17.0" />
+                                 </font></Button>
+                                        <Button fx:id="deleteBtn" layoutX="397.0" layoutY="118.0" mnemonicParsing="false" onAction="#deleteBtnOnAction" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #a3a7b7;" text="Delete" textFill="#0a3359">
+                                 <font>
+                                    <Font name="Script MT Bold" size="17.0" />
+                                 </font></Button>
                                     </children>
                                 </AnchorPane>
                             </children>
                         </VBox>
-                        <VBox prefHeight="180.0" prefWidth="84.0" style="-fx-background-color: #3744d5;" />
+                        <VBox prefHeight="180.0" prefWidth="84.0" style="-fx-background-color: #103351;" />
                     </children>
                 </HBox>
             </children>
         </VBox>
-        <Button mnemonicParsing="false" onMouseClicked="#backOnAction" prefHeight="26.0" prefWidth="65.0" text="Back" />
+        <Button mnemonicParsing="false" onMouseClicked="#backOnAction" prefHeight="26.0" prefWidth="65.0" style="-fx-background-color: #a3a7b7;" text="Back" textFill="#0a3359">
+         <font>
+            <Font name="Script MT Bold" size="17.0" />
+         </font></Button>
     </children>
 </GridPane>
