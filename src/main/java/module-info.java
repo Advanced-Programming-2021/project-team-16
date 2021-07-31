@@ -6,16 +6,16 @@ module YuGiOh {
 
 
 
-    opens client.graphicview to javafx.fxml;
-//    opens model.person to com.google.gson;
-  //  opens model to com.google.gson;
-    exports client.graphicview;
- //   exports model;
-//    exports model.person;
-    exports server.modell.card;
-    exports server.modell.card.monster;
-    exports server.modell.card.spell;
-    exports server.modell.card.spell.fieldspells;
-    exports server.modell.card.trap;
-    exports client.view;
+    opens graphicview to javafx.fxml;
+    opens model.person to com.google.gson;
+    opens model to com.google.gson;
+    exports graphicview;
+    exports model;
+    exports model.person;
+    exports model.card;
+    exports model.card.monster;
+    exports model.card.spell;
+    exports model.card.spell.fieldspells;
+    exports model.card.trap;
+    exports view;
 }

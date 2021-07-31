@@ -1,6 +1,6 @@
+import model.person.User;
 import org.junit.jupiter.api.Assertions;
-import server.modell.User;
-import client.view.CommandProcessor;
+import view.CommandProcessor;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
