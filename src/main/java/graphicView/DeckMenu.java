@@ -73,7 +73,7 @@ public class DeckMenu {
             hasActiveDeck = true;
             Deck activeDeck = user.getActiveDeck();
             ActiveDeck = new Button("  " + activeDeck.getName());
-            ActiveDeck.setStyle("-fx-background-color: #d72a7b; ");
+            ActiveDeck.setStyle("-fx-background-color: #a40f57; ");
             ActiveDeck.setOnAction(e -> {
                 try {
                      decksName[0] = ActiveDeck.getText();
@@ -91,10 +91,10 @@ public class DeckMenu {
             });
 
             ActiveDeck.setOnMouseEntered(me -> ActiveDeck.setStyle("-fx-text-fill: #37385d;"+
-                     "-fx-background-color:#d72a7b;"));
+                     "-fx-background-color:#a40f57;"));
 
             ActiveDeck.setOnMouseExited(me -> ActiveDeck.setStyle("-fx-text-fill: black;" +
-                    "-fx-background-color:#d72a7b;"));
+                    "-fx-background-color:#a40f57;"));
 
             decks.add(ActiveDeck,0,1);
             Main = new Label(String.valueOf(activeDeck.getMainDeckCards().size()));
@@ -117,7 +117,7 @@ public class DeckMenu {
                         continue;
                     }
                     OtherDecks = new Button("  " + userDecks.get(j).getName());
-                    OtherDecks.setStyle("-fx-background-color: #d72a7b; ");
+                    OtherDecks.setStyle("-fx-background-color: #a40f57; ");
                     Button finalOtherDecks = OtherDecks;
                     OtherDecks.setOnAction(e -> {
                         try {
@@ -133,9 +133,9 @@ public class DeckMenu {
                         }
                     });
                     OtherDecks.setOnMouseEntered(me -> finalOtherDecks.setStyle("-fx-text-fill: #37385d;"+
-                            "-fx-background-color:#d72a7b;"));
+                            "-fx-background-color:#a40f57;"));
                     OtherDecks.setOnMouseExited(me -> finalOtherDecks.setStyle("-fx-text-fill: black;" +
-                            "-fx-background-color:#d72a7b;"));
+                            "-fx-background-color:#a40f57;"));
                     Main = new Label(String.valueOf(userDecks.get(j).getMainDeckCards().size()));
                     Side = new Label(String.valueOf(userDecks.get(j).getSideDeckCards().size()));
                     decks.add(OtherDecks,0,i+3);
